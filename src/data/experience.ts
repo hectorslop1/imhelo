@@ -4,12 +4,12 @@ export type Experience = {
   period: string
   description: string
   highlights?: string[]
-  tags: string[]
+  tags?: string[]
 }
 
 // ── Most recent first ──────────────────────────────────────────────────────────
-// To add a new role: insert a new object at the top of this array.
-// Set highlights to undefined or omit the field if not needed.
+// To add a new role: prepend a new object to this array.
+// A period containing "Present" marks the role as active (yellow accent, pulsing dot).
 export const experiences: Experience[] = [
   {
     company: 'U-wifi Inc.',
@@ -27,31 +27,19 @@ export const experiences: Experience[] = [
     tags: ['Mobile Dev', 'UI Implementation', 'Cross-Platform', 'Product'],
   },
   {
-    company: 'HELO / Freelance',
+    company: 'Freelance / HELO',
     role: 'Designer & Developer',
     period: '2020 — Present',
     description:
-      'Creating polished interfaces, visual systems, websites, and digital experiences for brands, products, and creative projects.',
-    highlights: [
-      'Web design and development',
-      'Visual systems',
-      'UI implementation',
-      'Branding and graphic design',
-    ],
-    tags: ['UI/UX', 'Frontend', 'Branding', 'Graphic Design'],
+      'Building digital products, brand systems, and interactive interfaces for clients across multiple industries.',
+    highlights: ['UI/UX', 'Frontend', 'Branding', 'Graphic Design'],
   },
   {
     company: 'Various Clients',
     role: 'Graphic Designer',
     period: '2018 — 2020',
     description:
-      'Created visual assets, campaign graphics, logos, and brand materials for digital and print use.',
-    highlights: [
-      'Graphic design',
-      'Social media visuals',
-      'Brand assets',
-      'Digital campaigns',
-    ],
-    tags: ['Print', 'Brand Identity', 'Social Media', 'Illustration'],
+      'Campaign visuals, social graphics, logos, and print assets for brands in the US and Mexico.',
+    highlights: ['Print', 'Brand Identity', 'Social Media', 'Illustration'],
   },
 ]

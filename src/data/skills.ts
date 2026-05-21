@@ -3,8 +3,8 @@ export type SkillGroup = {
   items: string[]
 }
 
-// ── To add skills: append to an existing group's items array,
-//    or add a new SkillGroup object. Order here = display order.
+// To add skills: append items to a group, or add a new SkillGroup object.
+// Display order follows array order.
 export const skills: SkillGroup[] = [
   {
     label: 'Development',
@@ -26,7 +26,7 @@ export const skills: SkillGroup[] = [
     items: ['GSAP', '@gsap/react', 'Motion', 'Lenis', 'Scroll Animation'],
   },
   {
-    label: 'Tools',
+    label: 'Tools & Platforms',
     items: ['Git', 'Vercel', 'VS Code', 'Notion', 'Claude Code'],
   },
 ]
