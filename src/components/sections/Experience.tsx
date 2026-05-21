@@ -27,7 +27,7 @@ function Period({ text, isPrimary }: { text: string; isPrimary: boolean }) {
 
 function SkillChip({ label }: { label: string }) {
   return (
-    <span className="inline-flex text-[10px] font-mono tracking-wide px-2.5 py-[5px] rounded-md border border-white/[0.07] text-[#3a3a34] cursor-default transition-colors duration-200 hover:border-white/[0.16] hover:text-[#5e5e58] hover:bg-white/[0.02]">
+    <span className="inline-flex text-[11px] font-mono tracking-wide px-2.5 py-[5px] rounded-md border border-white/[0.08] text-[#5a5a54] cursor-default transition-colors duration-200 hover:border-white/[0.18] hover:text-[#7a7a72] hover:bg-white/[0.02]">
       {label}
     </span>
   )
@@ -40,7 +40,7 @@ function Toolkit({ reduced }: { reduced: boolean }) {
     <div>
       <div className="flex items-center gap-2.5 mb-6">
         <span aria-hidden className="w-[3px] h-[3px] rounded-full bg-[#f2d832]/50 shrink-0" />
-        <p className="text-[9px] font-mono text-[#f2d832]/36 tracking-[0.28em] uppercase">
+        <p className="text-[11px] font-mono text-[#f2d832]/50 tracking-[0.18em] uppercase">
           Toolkit
         </p>
       </div>
@@ -54,7 +54,7 @@ function Toolkit({ reduced }: { reduced: boolean }) {
             viewport={{ once: true }}
             transition={{ duration: 0.45, ease: EASE, delay: 0.2 + i * 0.07 }}
           >
-            <p className="text-[9px] font-mono text-[#242422] tracking-[0.2em] uppercase mb-2.5">
+            <p className="text-[11px] font-mono text-[#4a4a44] tracking-[0.14em] uppercase mb-3">
               {group.label}
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -106,8 +106,8 @@ function DocumentEntry({ exp, isPrimary, reduced, index }: EntryProps) {
       {/* ── Date row ── */}
       <div className="flex items-center gap-3 mb-3">
         <p
-          className="font-mono uppercase tracking-[0.2em] text-[11px]"
-          style={{ color: isPrimary ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.22)' }}
+          className="font-mono uppercase tracking-[0.16em] text-[12px]"
+          style={{ color: isPrimary ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.34)' }}
         >
           <Period text={exp.period} isPrimary={isPrimary} />
         </p>
@@ -149,8 +149,8 @@ function DocumentEntry({ exp, isPrimary, reduced, index }: EntryProps) {
         <span
           className="font-mono tracking-wide shrink-0 text-right"
           style={{
-            fontSize: '11px',
-            color: isPrimary ? 'rgba(242,216,50,0.3)' : 'rgba(255,255,255,0.18)',
+            fontSize: '12px',
+            color: isPrimary ? 'rgba(242,216,50,0.45)' : 'rgba(255,255,255,0.3)',
           }}
         >
           {exp.company}
@@ -162,20 +162,20 @@ function DocumentEntry({ exp, isPrimary, reduced, index }: EntryProps) {
 
       {/* ── Description ── */}
       <p
-        className="text-[13px] leading-relaxed mb-5"
-        style={{ color: 'rgba(255,255,255,0.38)' }}
+        className="text-[14px] leading-relaxed mb-5"
+        style={{ color: 'rgba(255,255,255,0.5)' }}
       >
         {exp.description}
       </p>
 
       {/* ── Highlights — inline dot-separated ── */}
       {exp.highlights && exp.highlights.length > 0 && (
-        <p className="text-[10px] font-mono" style={{ color: 'rgba(255,255,255,0.2)', lineHeight: 1.8 }}>
+        <p className="text-[12px] font-mono" style={{ color: 'rgba(255,255,255,0.36)', lineHeight: 1.9 }}>
           {exp.highlights.map((h, i) => (
             <span key={h}>
               {h}
               {i < (exp.highlights?.length ?? 0) - 1 && (
-                <span style={{ color: 'rgba(255,255,255,0.1)' }}>{' · '}</span>
+                <span style={{ color: 'rgba(255,255,255,0.2)' }}>{' · '}</span>
               )}
             </span>
           ))}
@@ -205,7 +205,7 @@ function LeftPanel({ reduced }: { reduced: boolean }) {
         <span className="text-[#f2d832]">&amp; Skills.</span>
       </h2>
 
-      <p className="text-[13px] leading-relaxed mb-8 max-w-[300px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+      <p className="text-[14px] leading-relaxed mb-8 max-w-[300px]" style={{ color: 'rgba(255,255,255,0.42)' }}>
         A career built across design and development — from visual systems and brand identity
         to mobile interfaces and interactive frontend experiences.
       </p>
@@ -236,9 +236,9 @@ export default function Experience() {
 
         {/* Section header strip */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">05</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">05</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">
             Experience &amp; Skills
           </span>
         </div>
@@ -260,12 +260,12 @@ export default function Experience() {
             >
               <div className="flex items-center gap-2 shrink-0">
                 <span aria-hidden className="w-[5px] h-[5px] rounded-full bg-[#f2d832]/40 shrink-0" />
-                <span className="text-[9px] font-mono tracking-[0.28em] uppercase text-[#282826]">
+                <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-[#3e3e38]">
                   Career Path
                 </span>
               </div>
               <div className="flex-1 h-px bg-white/[0.04]" />
-              <span className="text-[9px] font-mono text-[#1c1c1a] tracking-[0.18em] shrink-0">
+              <span className="text-[11px] font-mono text-[#3a3a34] tracking-[0.14em] shrink-0">
                 2018 — Present
               </span>
             </motion.div>

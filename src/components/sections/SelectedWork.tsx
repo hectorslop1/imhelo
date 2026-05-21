@@ -190,9 +190,9 @@ export default function SelectedWork() {
 
         {/* Section header strip */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">03</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">03</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">Selected Work</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">Selected Work</span>
         </div>
 
         {/* Editorial headline */}
@@ -211,7 +211,7 @@ export default function SelectedWork() {
           </h2>
           <Link
             href="/work"
-            className="group inline-flex items-center gap-1.5 text-[12px] font-mono text-[#3a3a34] hover:text-white transition-colors duration-300 tracking-widest uppercase"
+            className="group inline-flex items-center gap-1.5 text-[12px] font-mono text-[#5a5a54] hover:text-white transition-colors duration-300 tracking-widest uppercase"
           >
             All work
             <span className="group-hover:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
@@ -239,8 +239,8 @@ export default function SelectedWork() {
                   style={{ transform: hovered === i ? 'translateX(10px)' : 'translateX(0)' }}
                 >
                   {/* Index */}
-                  <span className="text-[11px] font-mono tracking-widest shrink-0 w-7 transition-colors duration-300"
-                    style={{ color: hovered === i ? 'rgba(242,216,50,0.6)' : 'rgba(255,255,255,0.2)' }}>
+                  <span className="text-[12px] font-mono tracking-widest shrink-0 w-7 transition-colors duration-300"
+                    style={{ color: hovered === i ? 'rgba(242,216,50,0.7)' : 'rgba(255,255,255,0.32)' }}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
@@ -266,14 +266,14 @@ export default function SelectedWork() {
                   </div>
 
                   {/* Category — hidden on mobile */}
-                  <span className="hidden lg:block text-[11px] font-mono text-[#3a3a34] tracking-wide shrink-0 w-52 transition-colors duration-300"
-                    style={{ color: hovered === i ? '#4a4a44' : undefined }}>
+                  <span className="hidden lg:block text-[12px] font-mono tracking-wide shrink-0 w-52 transition-colors duration-300"
+                    style={{ color: hovered === i ? 'rgba(255,255,255,0.42)' : 'rgba(255,255,255,0.28)' }}>
                     {project.category}
                   </span>
 
                   {/* Year */}
-                  <span className="hidden md:block text-[11px] font-mono text-[#3a3a34] shrink-0 tracking-widest transition-colors duration-300"
-                    style={{ color: hovered === i ? '#4a4a44' : undefined }}>
+                  <span className="hidden md:block text-[12px] font-mono shrink-0 tracking-widest transition-colors duration-300"
+                    style={{ color: hovered === i ? 'rgba(255,255,255,0.42)' : 'rgba(255,255,255,0.28)' }}>
                     {project.year}
                   </span>
 
@@ -300,7 +300,7 @@ export default function SelectedWork() {
         <div className="pt-10 pb-28 flex justify-end">
           <Link
             href="/work"
-            className="group flex items-center gap-2 text-[11px] font-mono text-[#3a3a34] hover:text-white transition-colors duration-300 tracking-widest uppercase"
+            className="group flex items-center gap-2 text-[12px] font-mono text-[#5a5a54] hover:text-white transition-colors duration-300 tracking-widest uppercase"
           >
             View all projects
             <span className="group-hover:translate-x-0.5 transition-transform duration-200 inline-block">→</span>

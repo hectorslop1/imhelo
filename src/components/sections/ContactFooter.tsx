@@ -14,9 +14,9 @@ export default function ContactFooter() {
 
         {/* Section header */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">06</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">06</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">Contact</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">Contact</span>
         </div>
 
         {/* Main content */}
@@ -62,13 +62,13 @@ export default function ContactFooter() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[12px] font-mono text-[#4a4a44] hover:text-white transition-colors duration-300 tracking-wide"
+                    className="text-[12px] font-mono text-[#606058] hover:text-white transition-colors duration-300 tracking-wide"
                   >
                     {label}
                   </a>
                 ))}
               </div>
-              <p className="text-[11px] font-mono text-[#4a4a44] tracking-widest">
+              <p className="text-[12px] font-mono text-[#606058] tracking-widest">
                 San Diego, CA · 2026
               </p>
             </div>
@@ -76,7 +76,7 @@ export default function ContactFooter() {
         </div>
 
         {/* Very bottom strip */}
-        <div className="border-t border-white/[0.04] py-5 flex flex-col sm:flex-row justify-between gap-3 text-[10px] font-mono text-[#2a2a26] tracking-widest">
+        <div className="border-t border-white/[0.04] py-5 flex flex-col sm:flex-row justify-between gap-3 text-[11px] font-mono text-[#3a3a34] tracking-widest">
           <span>HELO — Designed &amp; Developed by Hector Lopez</span>
           <span>© 2026 All rights reserved</span>
         </div>

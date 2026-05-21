@@ -25,9 +25,9 @@ export default function Services() {
 
         {/* Section header */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">02</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">02</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">What I Do</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">What I Do</span>
         </div>
 
         {/* Pillar rows */}
@@ -63,7 +63,7 @@ export default function Services() {
               <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-xs">
                 {pillar.description}
               </p>
-              <p className="text-[11px] font-mono text-[#4a4a44] tracking-wide">
+              <p className="text-[12px] font-mono text-[#5a5a54] tracking-wide">
                 {pillar.tools}
               </p>
             </div>

@@ -45,7 +45,7 @@ export default function Marquee() {
               style={{
                 fontFamily: 'var(--font-syne)',
                 fontSize: 'clamp(26px, 3.6vw, 48px)',
-                color: 'rgba(255,255,255,0.1)',
+                color: 'rgba(255,255,255,0.15)',
               }}
             >
               {item}

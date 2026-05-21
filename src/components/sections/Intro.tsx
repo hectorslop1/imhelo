@@ -7,9 +7,9 @@ export default function Intro() {
 
         {/* Index + label row */}
         <div className="flex items-center gap-4 mb-16">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">01</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">01</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">About</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">About</span>
         </div>
 
         {/* Statement — wipe-up reveal */}
@@ -32,11 +32,11 @@ export default function Intro() {
 
         {/* Bottom row */}
         <div className="mt-16 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-          <p className="text-[13px] text-[#7a7a72] leading-relaxed max-w-sm">
+          <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm">
             Hector Lopez — designer and developer based in San Diego, CA.
             Building digital products with intention and craft.
           </p>
-          <p className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">
+          <p className="text-[12px] font-mono text-[#606058] tracking-[0.16em] uppercase">
             Development<span className="text-[#f2d832]">{' ✦ '}</span>Graphic Design
           </p>
         </div>

@@ -70,10 +70,10 @@ export default function Hero() {
               initial={reduced ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, ease: EASE, delay: 0.35 }}
-              className="mt-10 text-[10px] font-mono uppercase tracking-[0.28em]"
-              style={{ color: 'rgba(255,255,255,0.26)' }}
+              className="mt-10 text-[12px] font-mono uppercase tracking-[0.2em]"
+              style={{ color: 'rgba(255,255,255,0.38)' }}
             >
-              Design &amp; Development<span style={{ color: 'rgba(255,255,255,0.1)' }}>{' · '}</span>San Diego, CA<span style={{ color: 'rgba(255,255,255,0.1)' }}>{' · '}</span>2026
+              Design &amp; Development<span style={{ color: 'rgba(255,255,255,0.2)' }}>{' · '}</span>San Diego, CA<span style={{ color: 'rgba(255,255,255,0.2)' }}>{' · '}</span>2026
             </motion.p>
           </motion.div>
 

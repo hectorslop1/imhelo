@@ -368,7 +368,7 @@ function AnnotatedDevices({
           >
             <span
               className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap"
-              style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.22)' }}
+              style={{ fontSize: '9px', color: 'rgba(255,255,255,0.36)' }}
             >
               iPhone 15 Pro
             </span>
@@ -386,7 +386,7 @@ function AnnotatedDevices({
               <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.06)' }} />
               <span
                 className="font-mono tracking-[0.18em]"
-                style={{ fontSize: '7px', color: 'rgba(255,255,255,0.15)' }}
+                style={{ fontSize: '9px', color: 'rgba(255,255,255,0.26)' }}
               >
                 iOS 18
               </span>
@@ -405,7 +405,7 @@ function AnnotatedDevices({
           >
             <span
               className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap"
-              style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.22)' }}
+              style={{ fontSize: '9px', color: 'rgba(255,255,255,0.36)' }}
             >
               Apple Watch
             </span>
@@ -423,7 +423,7 @@ function AnnotatedDevices({
               <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
               <span
                 className="font-mono tracking-[0.18em]"
-                style={{ fontSize: '7px', color: 'rgba(255,255,255,0.15)' }}
+                style={{ fontSize: '9px', color: 'rgba(255,255,255,0.26)' }}
               >
                 watchOS 11
               </span>
@@ -443,8 +443,8 @@ function AnnotatedDevices({
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         />
         <span
-          className="font-mono tracking-[0.28em] uppercase shrink-0"
-          style={{ fontSize: '8px', color: '#3a3a34' }}
+          className="font-mono tracking-[0.16em] uppercase shrink-0"
+          style={{ fontSize: '10px', color: '#5a5a54' }}
         >
           {SHOWCASE_META.scene}
         </span>
@@ -466,7 +466,7 @@ function AnnotatedDevices({
             />
             <span
               className="font-mono tracking-[0.28em] uppercase transition-colors duration-300"
-              style={{ fontSize: '8px', color: '#2a2a28' }}
+              style={{ fontSize: '10px', color: '#4a4a44' }}
             >
               Expand
             </span>
@@ -518,7 +518,7 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
         onClick={onClose}
         aria-label="Close showcase"
         className="absolute top-6 right-6 lg:top-8 lg:right-8 font-mono tracking-[0.28em] uppercase transition-colors duration-200 focus:outline-none hover:text-white/40"
-        style={{ fontSize: '8px', color: 'rgba(255,255,255,0.2)', background: 'none', border: 'none', cursor: 'pointer' }}
+        style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', background: 'none', border: 'none', cursor: 'pointer' }}
       >
         Close ×
       </button>
@@ -543,8 +543,8 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
         <div className="w-full flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div>
             <p
-              className="font-mono text-[#4a4a44] tracking-[0.28em] uppercase mb-2"
-              style={{ fontSize: '9px' }}
+              className="font-mono text-[#606058] tracking-[0.16em] uppercase mb-2"
+              style={{ fontSize: '11px' }}
             >
               Selected Work
             </p>
@@ -564,14 +564,14 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
             ].map(({ label, value }) => (
               <div key={label} className="flex flex-col items-start gap-1">
                 <span
-                  className="font-mono text-[#4a4a44] tracking-[0.2em] uppercase"
-                  style={{ fontSize: '8px' }}
+                  className="font-mono text-[#5a5a54] tracking-[0.14em] uppercase"
+                  style={{ fontSize: '10px' }}
                 >
                   {label}
                 </span>
                 <span
                   className="font-mono"
-                  style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)' }}
+                  style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}
                 >
                   {value}
                 </span>
@@ -599,9 +599,9 @@ export default function DeviceShowcase() {
 
         {/* Section header strip */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">04</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest">04</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">Device Showcase</span>
+          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">Device Showcase</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 lg:gap-24 items-center pb-28">
@@ -623,8 +623,8 @@ export default function DeviceShowcase() {
             </h2>
 
             <p
-              className="text-[13px] leading-relaxed mb-10"
-              style={{ color: 'rgba(255,255,255,0.3)' }}
+              className="text-[14px] leading-relaxed mb-10"
+              style={{ color: 'rgba(255,255,255,0.42)' }}
             >
               Every project lives in an interface. This showcase puts the work
               inside real device frames — app screens and visual systems
@@ -645,14 +645,14 @@ export default function DeviceShowcase() {
                   )}
                   <div className="flex items-center justify-between py-3">
                     <span
-                      className="font-mono tracking-[0.2em] uppercase text-[#4a4a44]"
-                      style={{ fontSize: '9px' }}
+                      className="font-mono tracking-[0.14em] uppercase text-[#5a5a54]"
+                      style={{ fontSize: '11px' }}
                     >
                       {label}
                     </span>
                     <span
                       className="font-mono"
-                      style={{ fontSize: '11px', color: 'rgba(255,255,255,0.38)' }}
+                      style={{ fontSize: '13px', color: 'rgba(255,255,255,0.52)' }}
                     >
                       {value}
                     </span>
@@ -665,8 +665,8 @@ export default function DeviceShowcase() {
             {/* Scene indicator */}
             <div className="flex items-center gap-3">
               <span
-                className="font-mono tracking-[0.2em] uppercase text-[#4a4a44] mr-1"
-                style={{ fontSize: '9px' }}
+                className="font-mono tracking-[0.14em] uppercase text-[#5a5a54] mr-1"
+                style={{ fontSize: '11px' }}
               >
                 Scene
               </span>
@@ -683,8 +683,8 @@ export default function DeviceShowcase() {
                   <span
                     className="font-mono tracking-widest"
                     style={{
-                      fontSize: '8px',
-                      color: i === 0 ? 'rgba(242,216,50,0.45)' : 'rgba(255,255,255,0.12)',
+                      fontSize: '10px',
+                      color: i === 0 ? 'rgba(242,216,50,0.55)' : 'rgba(255,255,255,0.22)',
                     }}
                   >
                     {s}
