@@ -1,15 +1,58 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
 const SOCIAL_LINKS = [
-  { label: 'GitHub', href: 'https://github.com/hectorslop1' },
+  { label: 'GitHub',   href: 'https://github.com/hectorslop1' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/imhelo' },
   { label: 'Dribbble', href: 'https://dribbble.com/imhelo' },
 ]
 
+// ─── LocalTime ────────────────────────────────────────────────────────────────
+//
+// Displays the current local time in San Diego (America/Los_Angeles).
+// Updates every second via setInterval.
+//
+// Hydration-safe: `suppressHydrationWarning` tells React to skip the server/client
+// mismatch warning for this span, which is intentional — time is always
+// different between SSR and client render.
+//
+// Format: "San Diego, CA · 09:42 PM"
+// To change the timezone: update the `timeZone` option below.
+
+function LocalTime() {
+  const [time, setTime] = useState<string | null>(null)
+
+  useEffect(() => {
+    const tick = () => {
+      setTime(
+        new Date().toLocaleTimeString('en-US', {
+          timeZone: 'America/Los_Angeles',
+          hour:     '2-digit',
+          minute:   '2-digit',
+          hour12:   true,
+        })
+      )
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <span suppressHydrationWarning>
+      {time ? `San Diego, CA · ${time}` : 'San Diego, CA'}
+    </span>
+  )
+}
+
+// ─── ContactFooter ────────────────────────────────────────────────────────────
+
 export default function ContactFooter() {
   return (
-    <footer className="border-t border-white/[0.06]">
+    <footer className="border-t border-white/[0.06]" style={{ background: '#080808' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header */}
@@ -25,8 +68,8 @@ export default function ContactFooter() {
           <h2
             className="font-extrabold leading-[0.95] mb-12"
             style={{
-              fontSize: 'clamp(72px, 12vw, 160px)',
-              fontFamily: 'var(--font-syne)',
+              fontSize:      'clamp(72px, 12vw, 160px)',
+              fontFamily:    'var(--font-syne)',
               letterSpacing: '-0.03em',
             }}
           >
@@ -68,8 +111,9 @@ export default function ContactFooter() {
                   </a>
                 ))}
               </div>
+              {/* Live local time — updates every second, hydration-safe */}
               <p className="text-[12px] font-mono text-[#606058] tracking-widest">
-                San Diego, CA · 2026
+                <LocalTime />
               </p>
             </div>
           </div>

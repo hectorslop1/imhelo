@@ -19,6 +19,7 @@ export default function Marquee() {
     <section
       aria-hidden
       className="border-t border-white/[0.06] overflow-hidden select-none py-12"
+      style={{ background: '#080808' }}
     >
       <div className="relative">
 

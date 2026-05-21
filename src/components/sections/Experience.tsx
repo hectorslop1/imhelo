@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { experiences, type Experience } from '@/data/experience'
 import { skills } from '@/data/skills'
@@ -57,9 +58,21 @@ function Toolkit({ reduced }: { reduced: boolean }) {
             <p className="text-[11px] font-mono text-[#4a4a44] tracking-[0.14em] uppercase mb-3">
               {group.label}
             </p>
-            <div className="flex flex-wrap gap-1.5">
-              {group.items.map((item) => (
-                <SkillChip key={item} label={item} />
+            {/* Items separated by · dots so adjacent chips read as distinct tokens */}
+            <div className="flex flex-wrap items-baseline gap-y-1.5">
+              {group.items.map((item, idx) => (
+                <Fragment key={item}>
+                  <SkillChip label={item} />
+                  {idx < group.items.length - 1 && (
+                    <span
+                      aria-hidden
+                      className="font-mono text-[#3a3a34] select-none"
+                      style={{ fontSize: '10px', margin: '0 4px' }}
+                    >
+                      ·
+                    </span>
+                  )}
+                </Fragment>
               ))}
             </div>
             {i < skills.length - 1 && (

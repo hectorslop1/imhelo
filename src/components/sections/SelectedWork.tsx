@@ -160,6 +160,7 @@ export default function SelectedWork() {
   return (
     <section
       className="border-t border-white/[0.06]"
+      style={{ background: '#080808' }}
       onMouseMove={handleMouseMove}
     >
       {/* ── Floating thumbnail — fixed, follows cursor ── */}

@@ -3,6 +3,7 @@ import Hero from '@/components/sections/Hero'
 import Intro from '@/components/sections/Intro'
 import Services from '@/components/sections/Services'
 import SelectedWork from '@/components/sections/SelectedWork'
+import SectionBreak from '@/components/sections/SectionBreak'
 import DeviceShowcase from '@/components/sections/DeviceShowcase'
 import Experience from '@/components/sections/Experience'
 import Marquee from '@/components/sections/Marquee'
@@ -17,6 +18,7 @@ export default function Home() {
         <Intro />
         <Services />
         <SelectedWork />
+        <SectionBreak />
         <DeviceShowcase />
         <Experience />
         <Marquee />
