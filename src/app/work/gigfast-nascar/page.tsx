@@ -10,9 +10,11 @@ const EASE = [0.16, 1, 0.3, 1] as const
 
 // ─── Gallery ─────────────────────────────────────────────────────────────────
 // To reorder images: change the array order below.
-// aspect: used to set the container's aspect-ratio CSS property.
+// All images within the same row-group share the same aspect ratio
+// so the grid stays level — do not mix portrait and landscape in one row.
 
 const GALLERY_MAIN = [
+  // Row: two 4/3 landscape images
   {
     src: '/assetshelo/Nascar/ZaneSmith/2313CO1085.jpg',
     alt: 'Zane Smith at trackside, RTA rtatel.com prominently displayed on racing suit',
@@ -26,16 +28,18 @@ const GALLERY_MAIN = [
 ]
 
 const GALLERY_PRESENCE = [
+  // Row 1: two 4/3 landscape images
   {
     src: '/assetshelo/Nascar/ZaneSmith/TL_01178-2.jpg',
     alt: 'Zane Smith at trackside with gigFAST truck visible behind, golden hour editorial shot',
-    aspect: '4/5',
+    aspect: '4/3',
   },
   {
     src: '/assetshelo/Nascar/ZaneSmith/DSC06043.jpg',
     alt: "Branded event tent with gigFAST Internet and RTA logos, LET'S GO ZANE banner in background",
     aspect: '4/3',
   },
+  // Row 2: two 4/3 landscape images
   {
     src: '/assetshelo/Nascar/ZaneSmith/2215HH1758.jpg',
     alt: '#38 truck during a night pit stop, full crew in action at pit lane',
@@ -44,15 +48,16 @@ const GALLERY_PRESENCE = [
   {
     src: '/assetshelo/Nascar/ZaneSmith/IMG_7925.jpeg',
     alt: 'Team hauler panel showing RTA, Gigometer speed dial, and gigFAST Internet branding',
-    aspect: '16/9',
+    aspect: '4/3',
   },
 ]
 
 const GALLERY_GRID = [
+  // All 3/2 — consistent aspect across the full gallery grid
   {
     src: '/assetshelo/Nascar/ZaneSmith/2313CO1018.jpg',
     alt: 'Zane Smith back-facing portrait, racing suit with RTA and gigFAST logos, full stadium backdrop',
-    aspect: '3/4',
+    aspect: '3/2',
   },
   {
     src: '/assetshelo/Nascar/ZaneSmith/2313DG1291.jpg',
@@ -72,7 +77,7 @@ const GALLERY_GRID = [
   {
     src: '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',
     alt: 'Cockpit interior with Zane Smith in seat wearing helmet, roll cage visible',
-    aspect: '4/3',
+    aspect: '3/2',
   },
 ]
 
@@ -94,6 +99,33 @@ const LOGOS = [
     src: '/assetshelo/Nascar/Logos/rtatelcom.png',
     alt: 'RTATEL.COM web domain logo',
     label: 'RTATEL.COM',
+  },
+]
+
+// ─── Videos ──────────────────────────────────────────────────────────────────
+// preload="none" — browser downloads nothing until user presses play.
+// IMG_8994.mp4 (48 MB) is shown as a disabled placeholder — compress to
+// under 5 MB before enabling in production (set disabled: false).
+
+const VIDEOS = [
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/IMG_9039.mp4',
+    label: 'Race Clip 01',
+    size: '4 MB',
+    disabled: false,
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/IMG_9044.mp4',
+    label: 'Race Clip 02',
+    size: '24 MB',
+    disabled: false,
+  },
+  {
+    // 48 MB — too large to serve without compression. Shown as placeholder.
+    src: '/assetshelo/Nascar/ZaneSmith/IMG_8994.mp4',
+    label: 'Race Footage',
+    size: '48 MB',
+    disabled: true,
   },
 ]
 
@@ -134,7 +166,6 @@ export default function GigfastNascarPage() {
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="relative min-h-[100dvh] flex flex-col justify-end overflow-hidden">
 
-          {/* Background image */}
           <div className="absolute inset-0">
             <Image
               src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
@@ -142,6 +173,7 @@ export default function GigfastNascarPage() {
               fill
               priority
               quality={88}
+              sizes="100vw"
               className="object-cover object-center"
             />
             <div
@@ -153,7 +185,6 @@ export default function GigfastNascarPage() {
             />
           </div>
 
-          {/* Content */}
           <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 pb-20 pt-40">
 
             <motion.p
@@ -182,7 +213,6 @@ export default function GigfastNascarPage() {
               NASCAR
             </motion.h1>
 
-            {/* Meta strip */}
             <motion.div
               className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8"
               style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
@@ -212,7 +242,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            OVERVIEW
+            01 OVERVIEW
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -265,7 +295,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            BRAND SYSTEM
+            02 BRAND SYSTEM
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -320,6 +350,7 @@ export default function GigfastNascarPage() {
                       alt={logo.alt}
                       fill
                       quality={92}
+                      sizes="(max-width: 768px) 80vw, 30vw"
                       className="object-contain"
                     />
                   </div>
@@ -347,7 +378,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            TRUCK LIVERY
+            03 RACE APPLICATION
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -379,7 +410,7 @@ export default function GigfastNascarPage() {
               </motion.p>
             </div>
 
-            {/* Hero truck image */}
+            {/* Hero truck image — 16/9 */}
             <motion.div
               className="relative w-full overflow-hidden rounded-2xl mb-3"
               style={{ aspectRatio: '16/9' }}
@@ -393,11 +424,12 @@ export default function GigfastNascarPage() {
                 alt="#38 Ford F-150 NASCAR truck in motion at speed — gigFAST Internet and RTA rtatel.com livery clearly visible on the side"
                 fill
                 quality={86}
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 className="object-cover"
               />
             </motion.div>
 
-            {/* Two-up grid */}
+            {/* Two-up grid — both 4/3, so the row is level */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {GALLERY_MAIN.map((img, i) => (
                 <motion.div
@@ -409,7 +441,14 @@ export default function GigfastNascarPage() {
                   viewport={{ once: true, margin: '-20px' }}
                   transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
                 >
-                  <Image src={img.src} alt={img.alt} fill quality={85} className="object-cover" />
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </motion.div>
               ))}
             </div>
@@ -417,7 +456,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            GIGOMETER CONCEPT
+            04 THE GIGOMETER
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -452,10 +491,9 @@ export default function GigfastNascarPage() {
               </motion.p>
             </div>
 
-            {/* Truck bed + app screenshot */}
+            {/* Truck bed graphic + app screenshot */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-3 items-start">
 
-              {/* Truck bed gigometer graphic */}
               <motion.div
                 className="relative overflow-hidden rounded-2xl"
                 style={{ aspectRatio: '16/10' }}
@@ -469,6 +507,7 @@ export default function GigfastNascarPage() {
                   alt="Gigometer internet speed dial graphic on the #38 truck bed, photographed from above — shows Z. Smith name bar and speed ranges from 2G to 1000G"
                   fill
                   quality={86}
+                  sizes="(max-width: 768px) 100vw, 75vw"
                   className="object-cover object-top"
                 />
               </motion.div>
@@ -487,6 +526,7 @@ export default function GigfastNascarPage() {
                   alt="Gigometer.net speed test web application running in a mobile browser — branded internet speed dial UI with RTA and gigFAST logos, and the #38 NASCAR truck as a UI element"
                   fill
                   quality={92}
+                  sizes="220px"
                   className="object-cover object-top"
                 />
                 <div
@@ -503,7 +543,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            CAMPAIGN PRESENCE
+            05 CAMPAIGN PRESENCE
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -537,7 +577,7 @@ export default function GigfastNascarPage() {
               </motion.p>
             </div>
 
-            {/* 2×2 presence grid */}
+            {/* 2×2 presence grid — all 4/3 so each row stays level */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {GALLERY_PRESENCE.map((img, i) => (
                 <motion.div
@@ -547,9 +587,16 @@ export default function GigfastNascarPage() {
                   initial={reduced ? {} : { opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-20px' }}
-                  transition={{ duration: 0.72, ease: EASE, delay: i * 0.09 }}
+                  transition={{ duration: 0.72, ease: EASE, delay: (i % 2) * 0.09 }}
                 >
-                  <Image src={img.src} alt={img.alt} fill quality={85} className="object-cover" />
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </motion.div>
               ))}
             </div>
@@ -557,7 +604,7 @@ export default function GigfastNascarPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            GALLERY
+            06 GALLERY
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
@@ -575,6 +622,7 @@ export default function GigfastNascarPage() {
               Photography from NASCAR Craftsman Truck Series events.
             </motion.p>
 
+            {/* Gallery grid — all 3/2, consistent across all cells */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {GALLERY_GRID.map((img, i) => (
                 <motion.div
@@ -586,21 +634,104 @@ export default function GigfastNascarPage() {
                   viewport={{ once: true, margin: '-20px' }}
                   transition={{ duration: 0.65, ease: EASE, delay: i * 0.07 }}
                 >
-                  <Image src={img.src} alt={img.alt} fill quality={80} className="object-cover" />
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            07 RACE FOOTAGE
+            preload="none" — zero bytes fetched until user presses play.
+            IMG_8994.mp4 (48 MB) shown as a disabled placeholder until
+            it is compressed to under 5 MB.
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="07" label="Race Footage" reduced={reduced} />
+
+            <motion.p
+              className="mt-6 mb-14 font-mono text-[12px]"
+              style={{ color: 'rgba(255,255,255,0.26)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              Short clips from NASCAR events. Press play to watch.
+            </motion.p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {VIDEOS.map((video, i) => (
+                <motion.div
+                  key={video.src}
+                  className="overflow-hidden rounded-2xl"
+                  style={{
+                    background: 'rgba(255,255,255,0.025)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                  initial={reduced ? {} : { opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.65, ease: EASE, delay: i * 0.1 }}
+                >
+                  {video.disabled ? (
+                    /* Placeholder for 48 MB file — compress before enabling */
+                    <div
+                      className="flex flex-col items-center justify-center gap-3"
+                      style={{ aspectRatio: '16/9', background: 'rgba(255,255,255,0.02)' }}
+                    >
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="1.5">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                      <p className="font-mono text-[10px] tracking-[0.16em] uppercase" style={{ color: 'rgba(255,255,255,0.16)' }}>
+                        Pending compression
+                      </p>
+                    </div>
+                  ) : (
+                    <video
+                      src={video.src}
+                      controls
+                      preload="none"
+                      playsInline
+                      className="w-full block"
+                      style={{ aspectRatio: '16/9', background: '#050505' }}
+                    />
+                  )}
+
+                  <div className="px-5 py-4 flex items-center justify-between">
+                    <p className="font-mono text-[11px] tracking-wide" style={{ color: 'rgba(255,255,255,0.36)' }}>
+                      {video.label}
+                    </p>
+                    <p
+                      className="font-mono text-[10px]"
+                      style={{ color: video.disabled ? 'rgba(242,216,50,0.35)' : 'rgba(255,255,255,0.2)' }}
+                    >
+                      {video.size}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Video note */}
             <motion.p
-              className="mt-8 font-mono text-[11px]"
+              className="mt-5 font-mono text-[11px]"
               style={{ color: 'rgba(255,255,255,0.18)' }}
               initial={reduced ? {} : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
+              transition={{ duration: 0.55, ease: EASE, delay: 0.35 }}
             >
-              Race footage available — optimized video to be added after compression.
+              Race Footage (48 MB) must be compressed to under 5 MB before production deployment.
             </motion.p>
           </div>
         </section>
