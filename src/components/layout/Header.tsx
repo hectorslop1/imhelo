@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
@@ -10,55 +11,85 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ]
 
+const EASE = [0.16, 1, 0.3, 1] as const
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 48)
+    const handler = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+        'fixed top-0 left-0 right-0 z-50 transition-[padding,background,border-color,backdrop-filter] duration-700',
         scrolled
-          ? 'py-4 bg-[#0d0d0d]/80 backdrop-blur-md border-b border-white/[0.06]'
-          : 'py-7'
+          ? 'py-4 bg-[#080808]/94 backdrop-blur-2xl border-b border-white/[0.05]'
+          : 'py-6'
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="font-bold text-xl tracking-tighter text-white hover:text-[#f2d832] transition-colors duration-200"
-          style={{ fontFamily: 'var(--font-syne)' }}
-        >
-          HELO
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex items-center justify-between">
+
+        {/* ── Logo / Brand mark ── */}
+        <Link href="/" className="group flex items-baseline gap-[3px]" aria-label="HELO — Home">
+          <span
+            className="font-extrabold text-[17px] text-white group-hover:text-[#f2d832] transition-colors duration-300"
+            style={{ fontFamily: 'var(--font-syne)', letterSpacing: '-0.07em' }}
+          >
+            HELO
+          </span>
+          {/* Brand dot — yellow accent mark */}
+          <span className="w-[5px] h-[5px] rounded-full bg-[#f2d832] mb-[3px] shrink-0 opacity-90 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 origin-center" />
         </Link>
 
-        {/* Nav */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-          {NAV_LINKS.map(({ label, href }) => (
-            <Link
+        {/* ── Navigation ── */}
+        <nav className="hidden md:flex items-center gap-10" aria-label="Main navigation">
+          {NAV_LINKS.map(({ label, href }, i) => (
+            <motion.div
               key={href}
-              href={href}
-              className="text-sm text-[#888880] hover:text-white transition-colors duration-200"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.2 + i * 0.08 }}
             >
-              {label}
-            </Link>
+              <Link
+                href={href}
+                className="relative text-[13px] tracking-wide text-[#7a7a72] hover:text-white transition-colors duration-300 group py-1"
+              >
+                {label}
+                {/* Yellow underline — slides in from left on hover */}
+                <span className="absolute bottom-0 left-0 h-px w-0 bg-[#f2d832] group-hover:w-full transition-all duration-300 ease-out" />
+              </Link>
+            </motion.div>
           ))}
         </nav>
 
-        {/* CTA */}
-        <Link
-          href="mailto:hello@imhelo.com"
-          className="text-sm font-medium bg-[#f2d832] text-[#0d0d0d] px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-200"
+        {/* ── CTA — rectangular with white slide fill ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.45 }}
         >
-          Say HELO
-        </Link>
+          <Link
+            href="mailto:hello@imhelo.com"
+            className="group relative overflow-hidden inline-flex items-center text-[13px] font-bold text-[#080808] bg-[#f2d832] px-5 py-2.5"
+            style={{ borderRadius: '2px' }}
+          >
+            <span className="relative z-10 tracking-[-0.01em]">Say HELO</span>
+            {/* White slide fill on hover */}
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+            />
+          </Link>
+        </motion.div>
+
       </div>
-    </header>
+    </motion.header>
   )
 }

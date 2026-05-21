@@ -15,51 +15,31 @@ const ITEMS = [
   '✦',
 ]
 
-export default function Marquee() {
-  // Duplicate for seamless loop
-  const repeated = [...ITEMS, ...ITEMS]
+// Quadruple for long seamless loop without gap
+const track = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS]
 
+export default function Marquee() {
   return (
     <section
       aria-hidden
-      className="py-16 border-t border-white/[0.06] overflow-hidden select-none"
+      className="border-t border-white/[0.06] overflow-hidden select-none py-12"
     >
-      <div className="flex">
-        {/* First pass */}
-        <div className="flex shrink-0 items-center gap-10 pr-10 animate-marquee">
-          {repeated.map((item, i) => (
-            <span
-              key={i}
-              className={`whitespace-nowrap font-bold tracking-tighter ${
-                item === '✦'
-                  ? 'text-[#f2d832] text-2xl'
-                  : 'text-white/15 text-[clamp(24px,3.5vw,44px)]'
-              }`}
-              style={{ fontFamily: 'var(--font-syne)' }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-        {/* Duplicate for seamless join */}
-        <div
-          aria-hidden
-          className="flex shrink-0 items-center gap-10 pr-10 animate-marquee"
-        >
-          {repeated.map((item, i) => (
-            <span
-              key={i}
-              className={`whitespace-nowrap font-bold tracking-tighter ${
-                item === '✦'
-                  ? 'text-[#f2d832] text-2xl'
-                  : 'text-white/15 text-[clamp(24px,3.5vw,44px)]'
-              }`}
-              style={{ fontFamily: 'var(--font-syne)' }}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
+      <div className="flex animate-marquee">
+        {track.map((item, i) => (
+          <span
+            key={i}
+            className="whitespace-nowrap shrink-0 font-extrabold tracking-[-0.04em]"
+            style={{
+              fontFamily: 'var(--font-syne)',
+              fontSize: 'clamp(28px, 4vw, 52px)',
+              color: item === '✦' ? '#f2d832' : 'rgba(255,255,255,0.08)',
+              marginRight: item === '✦' ? '2.5rem' : '2rem',
+              marginLeft: item === '✦' ? '2.5rem' : '0',
+            }}
+          >
+            {item}
+          </span>
+        ))}
       </div>
     </section>
   )

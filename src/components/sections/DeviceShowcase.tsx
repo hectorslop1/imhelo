@@ -1,75 +1,105 @@
-import SectionLabel from '@/components/ui/SectionLabel'
-
-// ─────────────────────────────────────────────────────────────
-// DeviceShowcase — PLACEHOLDER
-// Advanced implementation: sticky scroll-driven showcase with
-// iPhone + Apple Watch SVG frames, scroll-progress scene changes,
-// and final zoom transition. Scheduled for Phase 2.
-// ─────────────────────────────────────────────────────────────
+// DeviceShowcase — Polished placeholder
+// Phase 2: sticky scroll-driven showcase with iPhone + Apple Watch frames
 
 export default function DeviceShowcase() {
   return (
-    <section className="py-32 px-6 lg:px-12 border-t border-white/[0.06] overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="border-t border-white/[0.06] overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+
+        {/* Section header */}
+        <div className="flex items-center gap-4 py-10">
+          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">04</span>
+          <span className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">Device Showcase</span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-24 items-center pb-28">
           {/* Left: copy */}
           <div>
-            <SectionLabel>Device Showcase</SectionLabel>
             <h2
-              className="font-bold tracking-tighter text-white mb-6"
+              className="font-extrabold tracking-[-0.04em] text-white mb-8 leading-[0.95]"
               style={{
-                fontSize: 'clamp(32px, 4vw, 56px)',
+                fontSize: 'clamp(40px, 5.5vw, 72px)',
                 fontFamily: 'var(--font-syne)',
               }}
             >
               Work in
               <br />
-              motion.
+              <span className="text-[#f2d832]">motion.</span>
             </h2>
-            <p className="text-sm text-[#888880] max-w-sm leading-relaxed mb-8">
+            <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-xs mb-10">
               A scroll-driven interactive showcase displaying app interfaces
-              across iPhone and Apple Watch frames. Watch the devices come alive
-              as you scroll through each scene.
+              across iPhone and Apple Watch — devices moving, screens changing,
+              scenes evolving as you scroll.
             </p>
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#f2d832]/60 border border-[#f2d832]/20 px-4 py-2 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f2d832]/40" />
-              Interactive showcase — coming in Phase 2
+            <div className="inline-flex items-center gap-3 text-[11px] font-mono text-[#f2d832]/50 border border-[#f2d832]/[0.15] px-4 py-2.5 rounded-full tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f2d832]/50 shrink-0" />
+              PHASE 2 — COMING SOON
             </div>
           </div>
 
           {/* Right: device silhouettes */}
-          <div className="relative flex items-center justify-center min-h-[520px]">
+          <div className="relative flex items-center justify-center min-h-[520px] lg:min-h-[600px]">
+
             {/* iPhone frame */}
-            <div className="relative w-[220px] h-[460px] rounded-[44px] border-2 border-white/[0.1] bg-white/[0.02] flex flex-col items-center justify-center shadow-[0_0_80px_rgba(242,216,50,0.04)]">
+            <div
+              className="relative w-[210px] h-[440px] rounded-[40px] flex flex-col items-center justify-start overflow-hidden"
+              style={{
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                border: '1.5px solid rgba(255,255,255,0.09)',
+                boxShadow: '0 0 60px rgba(242,216,50,0.05), inset 0 1px 0 rgba(255,255,255,0.08)',
+              }}
+            >
               {/* Dynamic island */}
-              <div className="absolute top-5 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full bg-black border border-white/[0.08]" />
-              {/* Screen area */}
-              <div className="w-[calc(100%-24px)] h-[calc(100%-80px)] rounded-[36px] bg-white/[0.02] flex items-center justify-center mt-6 border border-white/[0.04]">
-                <p className="text-[10px] text-[#888880]/30 font-mono text-center leading-relaxed">
-                  App interface
-                  <br />
-                  scene 01
-                </p>
+              <div className="mt-5 w-[88px] h-[28px] rounded-full bg-[#080808] border border-white/[0.06] shrink-0" />
+
+              {/* Screen */}
+              <div
+                className="flex-1 w-[calc(100%-16px)] mx-2 rounded-[28px] mt-2 mb-2 flex items-center justify-center"
+                style={{ background: 'rgba(255,255,255,0.015)' }}
+              >
+                <div className="text-center space-y-3">
+                  <div className="w-8 h-8 rounded-full bg-[#f2d832]/10 mx-auto flex items-center justify-center">
+                    <div className="w-3 h-3 rounded-full bg-[#f2d832]/40" />
+                  </div>
+                  <p className="text-[9px] font-mono text-white/20 tracking-widest uppercase">
+                    App Interface
+                  </p>
+                </div>
               </div>
+
               {/* Home indicator */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full bg-white/[0.1]" />
+              <div className="mb-3 w-24 h-1 rounded-full bg-white/[0.08]" />
             </div>
 
-            {/* Apple Watch frame */}
-            <div className="absolute right-8 top-1/2 translate-y-8 w-[100px] h-[116px] rounded-[24px] border border-white/[0.08] bg-white/[0.015] flex items-center justify-center">
-              {/* Crown */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-1.5 h-8 rounded-full bg-white/[0.06]" />
-              <p className="text-[8px] text-[#888880]/25 font-mono text-center leading-relaxed">
-                Watch
-                <br />
-                scene 01
-              </p>
+            {/* Apple Watch — offset to the right */}
+            <div
+              className="absolute right-4 lg:right-12 top-1/2 translate-y-6 w-[96px] h-[112px] rounded-[22px] flex items-center justify-center"
+              style={{
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)',
+                border: '1.5px solid rgba(255,255,255,0.07)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+              }}
+            >
+              {/* Digital crown */}
+              <div className="absolute -right-[6px] top-1/2 -translate-y-3 w-[5px] h-7 rounded-full bg-white/[0.06]" />
+              {/* Side button */}
+              <div className="absolute -right-[6px] top-1/2 translate-y-3 w-[5px] h-4 rounded-full bg-white/[0.04]" />
+              <div className="text-center">
+                <div className="w-5 h-5 rounded-full bg-[#f2d832]/10 mx-auto mb-1.5 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-[#f2d832]/30" />
+                </div>
+                <p className="text-[7px] font-mono text-white/15 tracking-widest">WATCH</p>
+              </div>
             </div>
 
-            {/* Ambient glow */}
+            {/* Ambient glow behind devices */}
             <div
               aria-hidden
-              className="absolute inset-0 bg-[#f2d832]/[0.015] blur-3xl rounded-full pointer-events-none"
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at 50% 50%, rgba(242,216,50,0.04) 0%, transparent 65%)',
+              }}
             />
           </div>
         </div>

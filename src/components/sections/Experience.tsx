@@ -1,76 +1,93 @@
 import { experiences } from '@/data/experience'
 import { skills } from '@/data/skills'
-import SectionLabel from '@/components/ui/SectionLabel'
 
 export default function Experience() {
   return (
-    <section className="py-32 px-6 lg:px-12 border-t border-white/[0.06]">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
-        {/* Experience */}
-        <div>
-          <SectionLabel>Experience</SectionLabel>
-          <div className="space-y-0">
-            {experiences.map((exp) => (
-              <div
-                key={exp.company}
-                className="border-t border-white/[0.06] py-8"
-              >
-                <div className="flex items-start justify-between mb-3 gap-4">
-                  <div>
-                    <h3
-                      className="font-semibold text-white"
-                      style={{ fontFamily: 'var(--font-syne)' }}
-                    >
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm text-[#888880]">{exp.company}</p>
-                  </div>
-                  <span className="text-xs text-[#888880]/50 font-mono shrink-0">
-                    {exp.period}
-                  </span>
-                </div>
-                <p className="text-sm text-[#888880] leading-relaxed mb-5">
-                  {exp.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-3 py-1 rounded-full border border-white/[0.08] text-[#888880]/70"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+    <section className="border-t border-white/[0.06]">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+
+        {/* Section header */}
+        <div className="flex items-center gap-4 py-10">
+          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">05</span>
+          <span className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">Experience &amp; Skills</span>
         </div>
 
-        {/* Skills */}
-        <div>
-          <SectionLabel>Skills</SectionLabel>
-          <div className="space-y-0">
-            {skills.map((group) => (
-              <div key={group.label} className="border-t border-white/[0.06] py-8">
-                <h3
-                  className="font-semibold text-white mb-5"
-                  style={{ fontFamily: 'var(--font-syne)' }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 pb-28">
+
+          {/* Experience column */}
+          <div>
+            <p className="text-[11px] font-mono text-[#f2d832]/60 tracking-widest uppercase mb-8">
+              Experience
+            </p>
+            <div>
+              {experiences.map((exp, i) => (
+                <div
+                  key={exp.company}
+                  className={`py-8 ${i < experiences.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
                 >
-                  {group.label}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-xs px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-[#888880] hover:text-white hover:border-white/20 transition-colors duration-200 cursor-default"
-                    >
-                      {item}
+                  <div className="flex items-start justify-between gap-6 mb-3">
+                    <div>
+                      <h3
+                        className="font-bold text-white tracking-[-0.02em] mb-0.5"
+                        style={{ fontFamily: 'var(--font-syne)', fontSize: '16px' }}
+                      >
+                        {exp.role}
+                      </h3>
+                      <p className="text-[13px] text-[#4a4a44] font-mono">{exp.company}</p>
+                    </div>
+                    <span className="text-[11px] text-[#4a4a44] font-mono shrink-0 tracking-wide pt-0.5">
+                      {exp.period}
                     </span>
-                  ))}
+                  </div>
+                  <p className="text-[13px] text-[#7a7a72] leading-relaxed mt-4 mb-5">
+                    {exp.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {exp.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] px-2.5 py-1 border border-white/[0.07] text-[#4a4a44] font-mono tracking-wide rounded"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Skills column */}
+          <div>
+            <p className="text-[11px] font-mono text-[#f2d832]/60 tracking-widest uppercase mb-8">
+              Skills
+            </p>
+            <div>
+              {skills.map((group, i) => (
+                <div
+                  key={group.label}
+                  className={`py-8 ${i < skills.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
+                >
+                  <h3
+                    className="font-bold text-white tracking-[-0.02em] mb-5"
+                    style={{ fontFamily: 'var(--font-syne)', fontSize: '16px' }}
+                  >
+                    {group.label}
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.items.map((item) => (
+                      <span
+                        key={item}
+                        className="text-[11px] px-2.5 py-1 border border-white/[0.07] text-[#7a7a72] font-mono tracking-wide rounded hover:text-white hover:border-white/[0.18] transition-colors duration-300 cursor-default"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
