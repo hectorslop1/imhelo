@@ -111,11 +111,35 @@ function GraphicVisual() {
   )
 }
 
+function ApparelVisual() {
+  return (
+    <div className="absolute inset-0 overflow-hidden" style={{ background: '#0d0b0a' }}>
+      {/* Horizontal scan lines */}
+      {[0.18, 0.36, 0.54, 0.72].map((y, i) => (
+        <div
+          key={i}
+          className="absolute left-0 right-0"
+          style={{ top: `${y * 100}%`, height: '1px', background: `rgba(255,255,255,${0.04 - i * 0.007})` }}
+        />
+      ))}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <p
+          className="font-mono text-[9px] tracking-[0.4em] uppercase"
+          style={{ color: 'rgba(242,216,50,0.14)' }}
+        >
+          Print
+        </p>
+      </div>
+    </div>
+  )
+}
+
 function getVisual(id: string) {
-  if (id === 'gigfast-nascar')          return <NascarVisual />
-  if (id === 'mobile-app-showcase')     return <MobileVisual />
-  if (id === 'interactive-elements')    return <InteractiveVisual />
-  if (id === 'graphic-design-collection') return <GraphicVisual />
+  if (id === 'gigfast-nascar')       return <NascarVisual />
+  if (id === 'mobile-app-showcase')  return <MobileVisual />
+  if (id === 'interactive-elements') return <InteractiveVisual />
+  if (id === 'graphic-design')       return <GraphicVisual />
+  if (id === 'apparel-graphics')     return <ApparelVisual />
   return <div className="absolute inset-0" style={{ background: '#111' }} />
 }
 
@@ -230,7 +254,7 @@ export default function SelectedWork() {
               transition={{ duration: 0.65, ease: EASE, delay: i * 0.08 }}
             >
               <Link
-                href={`/work`}
+                href={`/work/${project.id}`}
                 className="group block px-6 lg:px-16 border-t border-white/[0.06] cursor-pointer"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}

@@ -5,9 +5,10 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
 const SOCIAL_LINKS = [
-  { label: 'GitHub',   href: 'https://github.com/hectorslop1' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/imhelo' },
-  { label: 'Dribbble', href: 'https://dribbble.com/imhelo' },
+  { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/ofmynameishelo/' },
+  { label: 'Behance',   href: 'https://www.behance.net/hectorlopez85' },
+  { label: 'Dribbble',  href: 'https://dribbble.com/hectorslop' },
 ]
 
 // ─── LocalTime ────────────────────────────────────────────────────────────────

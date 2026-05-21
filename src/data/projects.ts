@@ -9,24 +9,50 @@ export type Project = {
   tags: string[]
 }
 
+// ── Project list — ordered by display priority ─────────────────────────────
+// id is used as the URL slug: /work/${id}
+// To add a project: append an entry here and create src/app/work/${id}/page.tsx
+
 export const projects: Project[] = [
   {
     id: 'gigfast-nascar',
     title: 'gigFAST NASCAR',
-    category: 'Graphic Design / Branding',
+    category: 'Graphic Design · Branding · Digital Product',
     description:
-      'A racing-focused visual identity and graphics system created for a NASCAR truck sponsorship.',
-    role: 'Visual Design, Branding, Graphic System',
-    year: '2024',
+      'Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship, applied across the #38 Ford F-150 truck, driver suit, event tent, team hauler, and the Gigometer digital experience.',
+    role: 'Visual Design · Logo Application · Brand Graphics · Digital Product Design',
+    year: '2023',
     featured: true,
-    tags: ['branding', 'graphic design', 'identity'],
+    tags: ['branding', 'graphic design', 'identity', 'digital product'],
+  },
+  {
+    id: 'graphic-design',
+    title: 'Graphic Design',
+    category: 'Visual Design · Illustration',
+    description:
+      'A curated archive of illustrations, typographic works, badge designs, and visual experiments.',
+    role: 'Illustration, Typography, Art Direction',
+    year: 'Ongoing',
+    featured: true,
+    tags: ['illustration', 'typography', 'visual design'],
+  },
+  {
+    id: 'apparel-graphics',
+    title: 'Apparel Graphics',
+    category: 'Graphic Design · Print',
+    description:
+      'Personal apparel graphic concepts for hoodies and t-shirts, exploring how visual identity can live beyond screens.',
+    role: 'Graphic Design, Art Direction',
+    year: 'Ongoing',
+    featured: true,
+    tags: ['graphic design', 'print', 'apparel'],
   },
   {
     id: 'mobile-app-showcase',
     title: 'Mobile App Showcase',
-    category: 'Development / UI',
+    category: 'Development · UI',
     description:
-      'A collection of app interfaces presented through an interactive device showcase.',
+      'App interface design and implementation presented through interactive device frames.',
     role: 'Frontend Development, UI Implementation, Motion',
     year: '2025',
     featured: true,
@@ -35,23 +61,12 @@ export const projects: Project[] = [
   {
     id: 'interactive-elements',
     title: 'Interactive Elements',
-    category: 'Frontend / Creative Coding',
+    category: 'Frontend · Creative Coding',
     description:
-      'Interactive web experiments built with modern frontend tools and motion-driven UI.',
+      'Interactive UI experiments built with motion, frontend tools, and polished microinteractions.',
     role: 'Frontend Development, Interaction Design',
     year: '2025',
     featured: true,
     tags: ['frontend', 'creative coding', 'interaction'],
-  },
-  {
-    id: 'graphic-design-collection',
-    title: 'Graphic Design Collection',
-    category: 'Visual Design',
-    description:
-      'A curated collection of visual assets, campaign graphics, logos, and brand pieces.',
-    role: 'Graphic Design, Art Direction, Visual Systems',
-    year: '2023–2025',
-    featured: false,
-    tags: ['graphic design', 'branding', 'art direction'],
   },
 ]

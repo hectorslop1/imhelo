@@ -3,13 +3,15 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 
+// Strong ease-out — starts fast, feels immediately responsive (Emil: never ease-in for UI)
 const EASE = [0.16, 1, 0.3, 1] as const
 
 // ─── Asset configuration ──────────────────────────────────────────────────────
 // To replace placeholders with real screenshots:
-//   1. Drop files at the paths below (e.g. /projects/app-showcase/screen-01.jpg)
-//   2. The <img> will load automatically; CSS placeholder disappears.
-//   3. Add one path per scene in iphone.screens (index matches SCENES order).
+//   1. Drop files at these paths inside /public (e.g. /public/projects/app-showcase/screen-01.jpg)
+//   2. The <img> loads automatically — CSS placeholder disappears.
+//   3. screen index matches SCENES order (screen-01 = scene 01, etc.)
+//   4. watch-01 is shared across all scenes.
 const DEVICE_ASSETS = {
   iphone: {
     screens: [
@@ -25,36 +27,16 @@ const DEVICE_ASSETS = {
 }
 
 // ─── Scene data ───────────────────────────────────────────────────────────────
-// To add or edit scenes: update this array.
-//   id    → label shown in selector (e.g. "01")
+// Edit here to add, remove, or rename scenes.
+//   id    → shown as "01" index label
 //   label → scene name
-//   desc  → one-line description shown in expanded selector
-//   watch → true highlights the Watch frame for this scene
+//   desc  → one-line description shown only when scene is active
+//   watch → true highlights the Watch ring for this scene
 const SCENES = [
-  {
-    id: '01',
-    label: 'Dashboard',
-    desc: 'Main app overview and project navigation.',
-    watch: false,
-  },
-  {
-    id: '02',
-    label: 'App Flow',
-    desc: 'User journey, screen transitions, and core actions.',
-    watch: false,
-  },
-  {
-    id: '03',
-    label: 'Watch Companion',
-    desc: 'Apple Watch glances and companion UI.',
-    watch: true,
-  },
-  {
-    id: '04',
-    label: 'Interface Details',
-    desc: 'Component library, UI patterns, and visual tokens.',
-    watch: false,
-  },
+  { id: '01', label: 'Dashboard',         desc: 'Main app overview and project navigation.',           watch: false },
+  { id: '02', label: 'App Flow',          desc: 'User journey, screen transitions, and core actions.', watch: false },
+  { id: '03', label: 'Watch Companion',   desc: 'Apple Watch glances and companion UI.',               watch: true  },
+  { id: '04', label: 'Interface Details', desc: 'Component library, UI patterns, and visual tokens.',  watch: false },
 ]
 
 // ─── Showcase metadata ────────────────────────────────────────────────────────
@@ -64,11 +46,11 @@ const SHOWCASE_META = {
   discipline:  'Development / UI',
   platform:    'iOS · watchOS',
   year:        '2026',
-  description:
-    'A focused interface showcase presenting app screens, companion views, and product-focused UI details inside realistic device frames.',
+  description: 'A focused interface showcase presenting app screens, companion views, and product-focused UI details inside realistic device frames.',
 }
 
 // ─── Graceful asset fallback ──────────────────────────────────────────────────
+// Tries to load <img src>, falls back to CSS placeholder silently on 404.
 function AssetOrFallback({
   src, alt, className, fallback,
 }: {
@@ -80,9 +62,9 @@ function AssetOrFallback({
   return <img src={src} alt={alt} className={className} loading="lazy" decoding="async" onError={() => setFailed(true)} />
 }
 
-// ─── iPhone screen placeholders (one per scene) ───────────────────────────────
-// When a real screenshot is present at DEVICE_ASSETS.iphone.screens[scene],
-// this component is never rendered.
+// ─── iPhone screen placeholder ────────────────────────────────────────────────
+// Rendered only when a real screenshot is absent.
+// To change the content shown per scene: edit the `screens` array below.
 function IPhoneScreen({ scene = 0 }: { scene?: number }) {
   const screens = [
     {
@@ -127,7 +109,6 @@ function IPhoneScreen({ scene = 0 }: { scene?: number }) {
 
   return (
     <div className="w-full h-full flex flex-col bg-[#0d0d0d] overflow-hidden select-none">
-      {/* Status bar */}
       <div className="flex items-center justify-between px-5 pt-[14px] pb-2 shrink-0">
         <span className="text-[9px] font-semibold text-white/70 tabular-nums">9:41</span>
         <div className="flex items-center gap-1">
@@ -139,7 +120,6 @@ function IPhoneScreen({ scene = 0 }: { scene?: number }) {
           </div>
         </div>
       </div>
-      {/* Header */}
       <div className="px-5 pt-2 pb-4 shrink-0">
         <div className="flex items-center gap-1.5 mb-1.5">
           <span className="text-[7.5px] font-mono text-[#f2d832]/60 tracking-widest uppercase">HELO</span>
@@ -150,7 +130,6 @@ function IPhoneScreen({ scene = 0 }: { scene?: number }) {
           {s.header}
         </p>
       </div>
-      {/* List */}
       <div className="flex-1 px-4 flex flex-col gap-[5px] overflow-hidden">
         {s.items.map((item) => (
           <div
@@ -179,7 +158,6 @@ function IPhoneScreen({ scene = 0 }: { scene?: number }) {
           </div>
         ))}
       </div>
-      {/* Home indicator */}
       <div className="flex justify-center py-3 shrink-0">
         <div className="w-20 h-[3px] rounded-full bg-white/12" />
       </div>
@@ -202,12 +180,12 @@ function WatchScreen({ active = false }: { active?: boolean }) {
             stroke={active ? '#f2d832' : 'rgba(242,216,50,0.45)'}
             strokeWidth="3" strokeLinecap="round"
             strokeDasharray="88" strokeDashoffset="22"
-            style={{ filter: `drop-shadow(0 0 3px rgba(242,216,50,${active ? 0.65 : 0.25}))` }}
+            style={{ filter: `drop-shadow(0 0 3px rgba(242,216,50,${active ? 0.65 : 0.2}))` }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-[7px] h-[7px] rounded-full"
-            style={{ background: active ? '#f2d832' : 'rgba(242,216,50,0.28)' }} />
+            style={{ background: active ? '#f2d832' : 'rgba(242,216,50,0.25)' }} />
         </div>
       </div>
       <p className="text-[6px] font-mono text-[#f2d832]/35 tracking-widest mt-2">75%</p>
@@ -232,11 +210,9 @@ function IPhoneFrame({ scale = 1, scene = 0 }: { scale?: number; scene?: number 
         'inset 0 1px 0 rgba(255,255,255,0.14)',
       ].join(', '),
     }}>
-      {/* Buttons */}
       <div style={{ position: 'absolute', left: -3.5, top: Math.round(96 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
       <div style={{ position: 'absolute', left: -3.5, top: Math.round(134 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
       <div style={{ position: 'absolute', right: -3.5, top: Math.round(114 * scale), width: 3.5, height: Math.round(44 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.09)' }} />
-      {/* Screen */}
       <div style={{ position: 'absolute', inset: Math.round(9 * scale), borderRadius: Math.round(40 * scale), overflow: 'hidden', background: '#0d0d0d' }}>
         <div style={{ position: 'absolute', top: Math.round(13 * scale), left: '50%', transform: 'translateX(-50%)', width: Math.round(96 * scale), height: Math.round(28 * scale), borderRadius: 20, background: '#080808', zIndex: 10 }} />
         <AssetOrFallback
@@ -246,7 +222,6 @@ function IPhoneFrame({ scale = 1, scene = 0 }: { scale?: number; scene?: number 
           fallback={<IPhoneScreen scene={scene} />}
         />
       </div>
-      {/* Gloss */}
       <div style={{ position: 'absolute', inset: 0, borderRadius: br, background: 'linear-gradient(142deg, rgba(255,255,255,0.06) 0%, transparent 38%)', pointerEvents: 'none' }} />
     </div>
   )
@@ -281,7 +256,7 @@ function WatchFrame({ scale = 1, active = false }: { scale?: number; active?: bo
   )
 }
 
-// ─── Annotated device stage (used in section + overlay) ───────────────────────
+// ─── Annotated device stage (section view) ────────────────────────────────────
 function AnnotatedDevices({
   onExpand,
   showExpand = true,
@@ -298,6 +273,7 @@ function AnnotatedDevices({
   return (
     <div className="relative">
       <div className="flex items-end justify-center gap-6 pt-12">
+
         {/* iPhone */}
         <div className="relative">
           <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center" style={{ bottom: '100%', paddingBottom: 10 }}>
@@ -345,20 +321,37 @@ function AnnotatedDevices({
         <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.04)' }} />
       </div>
 
-      {/* Expand trigger */}
+      {/* Expand trigger — scale on press (Emil: buttons must feel responsive) */}
       {showExpand && (
         <div className="mt-6 flex justify-center">
           <button
             onClick={onExpand}
-            className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
-            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
             aria-label="Expand device showcase"
+            className="group flex items-center gap-3 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
+            style={{
+              background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer',
+              // Precise property transition — not `all`
+              transition: 'transform 120ms ease-out',
+            }}
+            onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)' }}
+            onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
           >
-            <div className="h-px transition-all duration-300 group-hover:w-10" style={{ width: 24, background: 'rgba(255,255,255,0.08)' }} />
-            <span className="font-mono tracking-[0.28em] uppercase transition-colors duration-300 group-hover:text-white/40" style={{ fontSize: '10px', color: '#4a4a44' }}>
+            <div className="h-px transition-[width] duration-300 ease-out group-hover:w-10"
+              style={{ width: 24, background: 'rgba(255,255,255,0.08)' }} />
+            <span
+              className="font-mono tracking-[0.28em] uppercase"
+              style={{
+                fontSize: '10px', color: '#4a4a44',
+                transition: 'color 160ms ease-out',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLSpanElement).style.color = 'rgba(255,255,255,0.35)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLSpanElement).style.color = '#4a4a44' }}
+            >
               Expand
             </span>
-            <div className="h-px transition-all duration-300 group-hover:w-10" style={{ width: 24, background: 'rgba(255,255,255,0.08)' }} />
+            <div className="h-px transition-[width] duration-300 ease-out group-hover:w-10"
+              style={{ width: 24, background: 'rgba(255,255,255,0.08)' }} />
           </button>
         </div>
       )}
@@ -368,18 +361,28 @@ function AnnotatedDevices({
 
 // ─── Showcase overlay ─────────────────────────────────────────────────────────
 //
-// Cinematic full-screen product demo.
-// Left panel: title, metadata table, scene selector.
-// Right panel: iPhone + Watch at 1.18× scale, scene-driven.
-// Scene switching animates device content via AnimatePresence mode="wait".
-// Escape key and close button both dismiss.
-// Body scroll locked while open.
+// Premium full-screen product demo.
+// Applied principles:
+//   Emil Kowalski — motion reinforces meaning, asymmetric exit (faster), blur bridges crossfade,
+//                   scale(0.98) press feedback, explicit property transitions (not `all`)
+//   High-end design — content scales in from 0.98, stagger 40ms between items
+//   Impeccable — body scroll locked, Escape closes, focus trapped on close button
+//
+// Layout:
+//   Top bar (label + close)
+//   Two-column: left panel (title / meta / scene selector) | right (devices)
+//   Bottom strip (scene name)
+//
+// Mobile: devices on top, metadata below (order-1/2 classes)
 
 function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
   const [activeScene, setActiveScene] = useState(0)
   const closeRef = useRef<HTMLButtonElement>(null)
   const reduced = useReducedMotion() ?? false
+  const scene = SCENES[activeScene]
+  const SCALE = 1.18
 
+  // Escape key + body scroll lock
   useEffect(() => {
     closeRef.current?.focus()
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
@@ -391,64 +394,79 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
     }
   }, [onClose])
 
-  const scene = SCENES[activeScene]
-  const SCALE = 1.18
-
   return (
+    // ── Backdrop: fast opacity fade only ──
+    // Exit is 180ms — Emil: exit faster than enter
     <motion.div
       className="fixed inset-0 z-50 flex flex-col overflow-y-auto"
-      style={{ background: '#070707' }}
+      style={{ background: '#050505' }}
       initial={reduced ? {} : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={reduced ? {} : { opacity: 0 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{ duration: 0.22, ease: 'easeOut' }}
       role="dialog"
       aria-modal="true"
       aria-label="Device Showcase — expanded view"
     >
-      {/* ── Top bar ── */}
-      <div className="shrink-0 flex items-center justify-between px-6 lg:px-12 py-5 border-b border-white/[0.05]">
-        <motion.div
-          className="flex items-center gap-2.5"
-          initial={reduced ? {} : { opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
-        >
-          <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832]/40 shrink-0" aria-hidden />
-          <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#5a5a54]">
+
+      {/* ── Top bar ── slides down from above, appears first */}
+      <motion.div
+        className="shrink-0 flex items-center justify-between px-6 lg:px-12 py-5 border-b border-white/[0.05]"
+        initial={reduced ? {} : { opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.32, ease: EASE, delay: 0.06 }}
+      >
+        <div className="flex items-center gap-2.5">
+          <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832]/35 shrink-0" aria-hidden />
+          <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#4a4a44]">
             Device Showcase
           </span>
-        </motion.div>
+        </div>
 
-        <motion.button
+        {/* Close button — precise color transition, scale on press */}
+        <button
           ref={closeRef}
           onClick={onClose}
           aria-label="Close showcase"
-          className="font-mono tracking-[0.28em] uppercase transition-colors duration-200 hover:text-white/55 focus:outline-none focus-visible:text-white/55"
-          style={{ fontSize: '11px', color: 'rgba(255,255,255,0.26)', background: 'none', border: 'none', cursor: 'pointer' }}
-          initial={reduced ? {} : { opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
+          className="font-mono tracking-[0.28em] uppercase focus:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
+          style={{
+            fontSize: '11px',
+            color: 'rgba(255,255,255,0.24)',
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: '4px 0',
+            transition: 'color 160ms ease-out, transform 120ms ease-out',
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.55)' }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.24)' }}
+          onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)' }}
+          onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
         >
           Close ×
-        </motion.button>
-      </div>
+        </button>
+      </motion.div>
 
-      {/* ── Main content ── */}
-      <div className="flex-1 max-w-[1320px] w-full mx-auto px-6 lg:px-12 py-10 lg:py-14">
+      {/* ── Main content — scales in from 0.98, rises 14px ── */}
+      {/* High-end: content materializes, doesn't just appear */}
+      <motion.div
+        className="flex-1 max-w-[1320px] w-full mx-auto px-6 lg:px-12 py-10 lg:py-14"
+        initial={reduced ? {} : { opacity: 0, y: 14, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.45, ease: EASE, delay: 0.08 }}
+        style={{ transformOrigin: 'center top' }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-10 lg:gap-20 items-start">
 
-          {/* ── Left panel ── order-2 so devices show first on mobile */}
+          {/* ── Left panel — order-2 on mobile (devices appear first) ── */}
           <div className="order-2 lg:order-1">
 
-            {/* Title block */}
+            {/* Title block — stagger delay 0.16s total */}
             <motion.div
               className="mb-8"
-              initial={reduced ? {} : { opacity: 0, y: 16 }}
+              initial={reduced ? {} : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.18 }}
+              transition={{ duration: 0.4, ease: EASE, delay: 0.16 }}
             >
-              <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#606058] mb-3">
+              <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3" style={{ color: '#5a5a54' }}>
                 Selected Work
               </p>
               <h2
@@ -457,17 +475,17 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
               >
                 {SHOWCASE_META.title}
               </h2>
-              <p className="text-[14px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              <p className="text-[14px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.38)', maxWidth: '52ch' }}>
                 {SHOWCASE_META.description}
               </p>
             </motion.div>
 
-            {/* Metadata table */}
+            {/* Metadata table — stagger delay 0.22s total */}
             <motion.div
               className="mb-9"
-              initial={reduced ? {} : { opacity: 0, y: 12 }}
+              initial={reduced ? {} : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE, delay: 0.28 }}
+              transition={{ duration: 0.38, ease: EASE, delay: 0.22 }}
             >
               <div className="h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
               {[
@@ -477,10 +495,10 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
               ].map(({ label, value }) => (
                 <div key={label}>
                   <div className="flex items-center justify-between py-3">
-                    <span className="font-mono tracking-[0.14em] uppercase text-[#5a5a54]" style={{ fontSize: '11px' }}>
+                    <span className="font-mono tracking-[0.14em] uppercase" style={{ fontSize: '11px', color: '#5a5a54' }}>
                       {label}
                     </span>
-                    <span className="font-mono" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
+                    <span className="font-mono" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.48)' }}>
                       {value}
                     </span>
                   </div>
@@ -489,91 +507,133 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
               ))}
             </motion.div>
 
-            {/* Scene selector */}
-            <motion.div
-              initial={reduced ? {} : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE, delay: 0.38 }}
-            >
-              <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#606058] mb-3">
+            {/* Scene selector — items stagger individually 40ms apart */}
+            <div>
+              <motion.p
+                className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3"
+                style={{ color: '#5a5a54' }}
+                initial={reduced ? {} : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, ease: EASE, delay: 0.26 }}
+              >
                 Scenes
-              </p>
+              </motion.p>
               <div className="space-y-px">
                 {SCENES.map((s, i) => {
                   const isActive = i === activeScene
                   return (
-                    <button
+                    <motion.button
                       key={s.id}
                       onClick={() => setActiveScene(i)}
                       aria-pressed={isActive}
-                      className="w-full flex items-start gap-4 py-3 px-3 rounded-md transition-all duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/20 text-left"
+                      initial={reduced ? {} : { opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, ease: EASE, delay: 0.28 + i * 0.04 }}
+                      className="w-full flex items-start gap-4 py-3 px-3 rounded-md text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-white/20"
                       style={{
-                        background: isActive ? 'rgba(242,216,50,0.04)' : 'transparent',
-                        border: `1px solid ${isActive ? 'rgba(242,216,50,0.1)' : 'rgba(255,255,255,0)'}`,
+                        background: isActive ? 'rgba(255,255,255,0.025)' : 'transparent',
+                        border: `1px solid ${isActive ? 'rgba(255,255,255,0.07)' : 'transparent'}`,
                         cursor: 'pointer',
+                        // Precise transitions — Emil: never use `all`
+                        transition: 'background-color 160ms ease-out, border-color 160ms ease-out, transform 120ms ease-out',
                       }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(255,255,255,0.015)'
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'
+                      }}
+                      onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.98)' }}
+                      onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)' }}
                     >
                       {/* Index */}
                       <span
-                        className="font-mono shrink-0 tabular-nums pt-px"
-                        style={{ fontSize: '11px', color: isActive ? 'rgba(242,216,50,0.65)' : 'rgba(255,255,255,0.2)' }}
+                        className="font-mono shrink-0 tabular-nums pt-[2px]"
+                        style={{
+                          fontSize: '11px',
+                          color: isActive ? 'rgba(242,216,50,0.6)' : 'rgba(255,255,255,0.2)',
+                          transition: 'color 160ms ease-out',
+                        }}
                       >
                         {s.id}
                       </span>
 
-                      {/* Label + desc */}
+                      {/* Label + description */}
                       <div className="flex-1 min-w-0">
                         <p
-                          className="font-mono transition-colors duration-200"
-                          style={{ fontSize: '13px', color: isActive ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.38)' }}
+                          className="font-mono"
+                          style={{
+                            fontSize: '13px',
+                            color: isActive ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.35)',
+                            transition: 'color 160ms ease-out',
+                          }}
                         >
                           {s.label}
                         </p>
-                        {isActive && (
-                          <p className="font-mono mt-1 leading-snug" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.28)' }}>
+                        {/* CSS max-height transition — no layout shift, no JS animation overhead */}
+                        {/* Emil: CSS transitions are interruptible; use over keyframes for dynamic UI */}
+                        <div
+                          style={{
+                            maxHeight: isActive ? '32px' : '0px',
+                            overflow: 'hidden',
+                            opacity: isActive ? 1 : 0,
+                            transition: 'max-height 200ms ease-out, opacity 150ms ease-out',
+                          }}
+                        >
+                          <p className="font-mono mt-1 leading-snug" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.26)' }}>
                             {s.desc}
                           </p>
-                        )}
+                        </div>
                       </div>
 
-                      {/* Active dot */}
-                      {isActive && (
-                        <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832]/50 shrink-0 mt-1.5" aria-hidden />
-                      )}
-                    </button>
+                      {/* Active indicator */}
+                      <div
+                        style={{
+                          width: 4, height: 4, borderRadius: '50%',
+                          background: '#f2d832',
+                          opacity: isActive ? 0.45 : 0,
+                          flexShrink: 0,
+                          marginTop: 5,
+                          transition: 'opacity 200ms ease-out',
+                        }}
+                        aria-hidden
+                      />
+                    </motion.button>
                   )
                 })}
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          {/* ── Right panel: devices ── order-1 so devices show first on mobile */}
+          {/* ── Right panel: devices — order-1 on mobile, appears early ── */}
           <motion.div
             className="order-1 lg:order-2 flex justify-center lg:justify-end"
-            initial={reduced ? {} : { opacity: 0, y: 24 }}
+            initial={reduced ? {} : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.22 }}
+            transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
           >
-            {/* Overflow scroll on very small screens */}
+            {/* overflow-x-auto for narrow mobile viewports */}
             <div className="overflow-x-auto pb-4">
               <div className="flex items-end justify-center gap-8 pt-10 px-4">
 
-                {/* iPhone — animates screen content on scene change */}
+                {/* iPhone — screen changes on scene switch */}
                 <div className="relative shrink-0">
                   <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center" style={{ bottom: '100%', paddingBottom: 10 }}>
-                    <span className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)' }}>
+                    <span className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.28)' }}>
                       iPhone 15 Pro
                     </span>
-                    <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.07)' }} />
+                    <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.06)' }} />
                   </div>
 
+                  {/* AnimatePresence mode="wait" — old exits fully before new enters */}
+                  {/* Emil: blur bridges the crossfade, makes two states read as one transition */}
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`iphone-${activeScene}`}
-                      initial={reduced ? {} : { opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={reduced ? {} : { opacity: 0, y: -10 }}
-                      transition={{ duration: 0.38, ease: EASE }}
+                      initial={reduced ? {} : { opacity: 0, y: 8, filter: 'blur(4px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      exit={reduced ? {} : { opacity: 0, y: -8, filter: 'blur(4px)' }}
+                      transition={{ duration: 0.28, ease: EASE }}
                     >
                       <IPhoneFrame scale={SCALE} scene={activeScene} />
                     </motion.div>
@@ -581,29 +641,29 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
 
                   <div className="flex justify-center mt-4">
                     <div className="flex items-center gap-2">
-                      <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.05)' }} />
-                      <span className="font-mono tracking-[0.18em]" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.22)' }}>iOS 18</span>
-                      <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.05)' }} />
+                      <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.04)' }} />
+                      <span className="font-mono tracking-[0.18em]" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.2)' }}>iOS 18</span>
+                      <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.04)' }} />
                     </div>
                   </div>
                 </div>
 
-                {/* Apple Watch — highlights on scene 03 */}
+                {/* Apple Watch — highlights when scene.watch is true */}
                 <div className="relative shrink-0" style={{ marginBottom: Math.round(56 * SCALE) }}>
                   <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center" style={{ bottom: '100%', paddingBottom: 10 }}>
-                    <span className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)' }}>
+                    <span className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.28)' }}>
                       Apple Watch
                     </span>
-                    <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.07)' }} />
+                    <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.06)' }} />
                   </div>
 
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`watch-${activeScene}`}
-                      initial={reduced ? {} : { opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={reduced ? {} : { opacity: 0, y: -8 }}
-                      transition={{ duration: 0.38, ease: EASE, delay: 0.05 }}
+                      initial={reduced ? {} : { opacity: 0, y: 6, filter: 'blur(4px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      exit={reduced ? {} : { opacity: 0, y: -6, filter: 'blur(4px)' }}
+                      transition={{ duration: 0.28, ease: EASE, delay: 0.04 }}
                     >
                       <WatchFrame scale={SCALE} active={scene.watch} />
                     </motion.div>
@@ -611,9 +671,9 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
 
                   <div className="flex justify-center mt-4">
                     <div className="flex items-center gap-2">
-                      <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.05)' }} />
-                      <span className="font-mono tracking-[0.18em]" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.22)' }}>watchOS 11</span>
-                      <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.05)' }} />
+                      <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.04)' }} />
+                      <span className="font-mono tracking-[0.18em]" style={{ fontSize: '9px', color: 'rgba(255,255,255,0.2)' }}>watchOS 11</span>
+                      <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.04)' }} />
                     </div>
                   </div>
                 </div>
@@ -623,32 +683,32 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
           </motion.div>
 
         </div>
-      </div>
+      </motion.div>
 
-      {/* ── Bottom strip ── */}
+      {/* ── Bottom strip — appears last, anchors the overlay ── */}
       <motion.div
         className="shrink-0 border-t border-white/[0.04] px-6 lg:px-12 py-4 flex items-center justify-between"
         initial={reduced ? {} : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: EASE, delay: 0.48 }}
+        transition={{ duration: 0.3, ease: EASE, delay: 0.32 }}
       >
-        <p className="font-mono text-[11px] tracking-[0.16em] uppercase" style={{ color: '#333330' }}>
+        <p className="font-mono text-[11px] tracking-[0.16em] uppercase" style={{ color: '#2e2e2c' }}>
           HELO — Interface Showcase
         </p>
-        <p className="font-mono text-[11px] tracking-[0.14em]" style={{ color: '#333330' }}>
+        <p className="font-mono text-[11px] tracking-[0.14em]" style={{ color: '#2e2e2c' }}>
           {scene?.id} — {scene?.label}
         </p>
       </motion.div>
+
     </motion.div>
   )
 }
 
 // ─── Main section ─────────────────────────────────────────────────────────────
 //
-// Two-column: editorial copy + spec table (left) / annotated device stage (right).
-// EDIT content  → SHOWCASE_META constant above.
-// EDIT scenes   → SCENES array above.
-// EDIT assets   → DEVICE_ASSETS constant above.
+// EDIT content  → SHOWCASE_META constant (title, discipline, platform, year, description)
+// EDIT scenes   → SCENES array (id, label, desc, watch)
+// EDIT assets   → DEVICE_ASSETS constant (file paths)
 
 export default function DeviceShowcase() {
   const [overlayOpen, setOverlayOpen] = useState(false)
@@ -688,7 +748,6 @@ export default function DeviceShowcase() {
               rendered exactly where they belong.
             </p>
 
-            {/* Spec table */}
             <div className="mb-10">
               {[
                 { label: 'Project',    value: SHOWCASE_META.title      },
@@ -708,9 +767,7 @@ export default function DeviceShowcase() {
 
             {/* Scene pills */}
             <div className="flex flex-wrap items-center gap-3">
-              <span className="font-mono tracking-[0.14em] uppercase text-[#5a5a54] mr-1" style={{ fontSize: '11px' }}>
-                Scenes
-              </span>
+              <span className="font-mono tracking-[0.14em] uppercase text-[#5a5a54] mr-1" style={{ fontSize: '11px' }}>Scenes</span>
               {SCENES.map((s, i) => (
                 <div key={s.id} className="flex items-center gap-1.5">
                   <div className="rounded-full" style={{ width: i === 0 ? 18 : 5, height: 5, background: i === 0 ? '#f2d832' : 'rgba(255,255,255,0.08)' }} />
@@ -722,7 +779,7 @@ export default function DeviceShowcase() {
             </div>
           </motion.div>
 
-          {/* Right: annotated device stage — always shows scene 01 in section view */}
+          {/* Right: annotated device stage — static scene 01 in section view */}
           <motion.div
             className="flex items-center justify-center"
             initial={{ opacity: 0, y: 24 }}
@@ -736,7 +793,7 @@ export default function DeviceShowcase() {
         </div>
       </div>
 
-      {/* Overlay — AnimatePresence handles mount/unmount with exit animation */}
+      {/* AnimatePresence handles mount/unmount with exit animation */}
       <AnimatePresence>
         {overlayOpen && (
           <ShowcaseOverlay onClose={() => setOverlayOpen(false)} />

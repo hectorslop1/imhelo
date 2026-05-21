@@ -1,0 +1,656 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { motion, useReducedMotion } from 'motion/react'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+// To reorder images: change the array order below.
+// aspect: used to set the container's aspect-ratio CSS property.
+
+const GALLERY_MAIN = [
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2313CO1085.jpg',
+    alt: 'Zane Smith at trackside, RTA rtatel.com prominently displayed on racing suit',
+    aspect: '4/3',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2313DG2120.jpg',
+    alt: '#38 Ford F-150 truck at speed, 75 Years anniversary wall in background',
+    aspect: '4/3',
+  },
+]
+
+const GALLERY_PRESENCE = [
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/TL_01178-2.jpg',
+    alt: 'Zane Smith at trackside with gigFAST truck visible behind, golden hour editorial shot',
+    aspect: '4/5',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/DSC06043.jpg',
+    alt: "Branded event tent with gigFAST Internet and RTA logos, LET'S GO ZANE banner in background",
+    aspect: '4/3',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2215HH1758.jpg',
+    alt: '#38 truck during a night pit stop, full crew in action at pit lane',
+    aspect: '4/3',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/IMG_7925.jpeg',
+    alt: 'Team hauler panel showing RTA, Gigometer speed dial, and gigFAST Internet branding',
+    aspect: '16/9',
+  },
+]
+
+const GALLERY_GRID = [
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2313CO1018.jpg',
+    alt: 'Zane Smith back-facing portrait, racing suit with RTA and gigFAST logos, full stadium backdrop',
+    aspect: '3/4',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2313DG1291.jpg',
+    alt: '#38 Ford F-150 truck in motion, daytime, gigFAST and RTA logos clearly legible on side',
+    aspect: '3/2',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2328JN1808.jpg',
+    alt: '#38 truck at night, passing SPEEDWAY signage, cinematic low-angle shot',
+    aspect: '3/2',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2328JN1547.jpg',
+    alt: '#38 truck viewed from above at night race, dramatic overhead perspective',
+    aspect: '3/2',
+  },
+  {
+    src: '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',
+    alt: 'Cockpit interior with Zane Smith in seat wearing helmet, roll cage visible',
+    aspect: '4/3',
+  },
+]
+
+// ─── Logos ────────────────────────────────────────────────────────────────────
+// To add or remove logos: edit this array.
+
+const LOGOS = [
+  {
+    src: '/assetshelo/Nascar/Logos/gigFastInternet.png',
+    alt: 'gigFAST Internet · Voice · TV logo',
+    label: 'gigFAST Internet',
+  },
+  {
+    src: '/assetshelo/Nascar/Logos/RTALogo.png',
+    alt: 'RTA Rural Telecommunications of America logo',
+    label: 'RTA',
+  },
+  {
+    src: '/assetshelo/Nascar/Logos/rtatelcom.png',
+    alt: 'RTATEL.COM web domain logo',
+    label: 'RTATEL.COM',
+  },
+]
+
+// ─── Section label ────────────────────────────────────────────────────────────
+
+function SectionLabel({ index, label, reduced }: { index: string; label: string; reduced: boolean }) {
+  return (
+    <motion.div
+      className="flex items-center gap-3"
+      initial={reduced ? {} : { opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: EASE }}
+    >
+      <span className="font-mono text-[11px] tracking-[0.2em] uppercase" style={{ color: 'rgba(242,216,50,0.5)' }}>
+        {index}
+      </span>
+      <span className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+      <span className="font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.24)' }}>
+        {label}
+      </span>
+    </motion.div>
+  )
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default function GigfastNascarPage() {
+  const reduced = useReducedMotion() ?? false
+
+  return (
+    <>
+      <Header />
+      <main style={{ background: '#080808' }}>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            HERO
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="relative min-h-[100dvh] flex flex-col justify-end overflow-hidden">
+
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
+              alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
+              fill
+              priority
+              quality={88}
+              className="object-cover object-center"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to bottom, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.05) 35%, rgba(8,8,8,0.7) 72%, #080808 100%)',
+              }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 pb-20 pt-40">
+
+            <motion.p
+              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
+              style={{ color: 'rgba(242,216,50,0.65)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: EASE }}
+            >
+              Graphic Design · Branding · Digital Product
+            </motion.p>
+
+            <motion.h1
+              className="font-extrabold tracking-[-0.04em] text-white"
+              style={{
+                fontFamily: 'var(--font-syne)',
+                fontSize: 'clamp(58px, 9.5vw, 136px)',
+                lineHeight: 0.9,
+              }}
+              initial={reduced ? {} : { opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+            >
+              gigFAST
+              <br />
+              NASCAR
+            </motion.h1>
+
+            {/* Meta strip */}
+            <motion.div
+              className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8"
+              style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+              initial={reduced ? {} : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: EASE, delay: 0.28 }}
+            >
+              {[
+                { label: 'Year',   value: '2023' },
+                { label: 'Client', value: 'RTA / gigFAST Internet' },
+                { label: 'Role',   value: 'Visual Design · Logo Application · Brand Graphics · Digital Product Design' },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <p
+                    className="font-mono text-[10px] tracking-[0.2em] uppercase mb-1.5"
+                    style={{ color: 'rgba(255,255,255,0.28)' }}
+                  >
+                    {label}
+                  </p>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(255,255,255,0.68)', maxWidth: '340px' }}>
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            OVERVIEW
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="01" label="Overview" reduced={reduced} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14">
+
+              <motion.div
+                initial={reduced ? {} : { opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE }}
+              >
+                <h2
+                  className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
+                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                >
+                  A brand built for the track.
+                </h2>
+              </motion.div>
+
+              <motion.div
+                className="space-y-5"
+                initial={reduced ? {} : { opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE, delay: 0.1 }}
+              >
+                <p
+                  className="leading-relaxed"
+                  style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', color: 'rgba(255,255,255,0.7)', maxWidth: '640px' }}
+                >
+                  Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship.
+                  The gigFAST Internet and RTA brands were applied across the #38 Ford F-150 truck, driver
+                  racing suit, branded event tent, and team hauler graphics — creating a consistent visual
+                  presence across the entire race-day environment.
+                </p>
+                <p
+                  className="text-[14px] leading-relaxed"
+                  style={{ color: 'rgba(255,255,255,0.42)', maxWidth: '560px' }}
+                >
+                  The central creative concept — the Gigometer — turned an internet speed test into a
+                  racing-inspired visual system, connecting speed, connectivity, and motorsport across
+                  physical graphics and a branded digital interface.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            BRAND SYSTEM
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="02" label="Brand System" reduced={reduced} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-14">
+              <motion.h2
+                className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
+                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE }}
+              >
+                Identity built for speed.
+              </motion.h2>
+              <motion.p
+                className="text-[14px] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.44)', maxWidth: '520px' }}
+                initial={reduced ? {} : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              >
+                The gigFAST Internet and RTATEL.COM logos were designed as the visual foundation of the
+                sponsorship campaign — built in a bold Americana style to match the energy of motorsport
+                while staying legible at speed across truck liveries, signage, and apparel.
+              </motion.p>
+            </div>
+
+            {/* Logo tiles */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {LOGOS.map((logo, i) => (
+                <motion.div
+                  key={logo.label}
+                  className="relative rounded-2xl flex flex-col items-center justify-center overflow-hidden"
+                  style={{
+                    background: 'rgba(255,255,255,0.025)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    padding: '44px 32px 36px',
+                    minHeight: '140px',
+                  }}
+                  initial={reduced ? {} : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.65, ease: EASE, delay: i * 0.1 }}
+                >
+                  <div className="relative w-full" style={{ height: '56px' }}>
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      quality={92}
+                      className="object-contain"
+                    />
+                  </div>
+                  <p
+                    className="mt-5 font-mono text-[10px] tracking-[0.2em] uppercase"
+                    style={{ color: 'rgba(255,255,255,0.2)' }}
+                  >
+                    {logo.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.p
+              className="mt-5 font-mono text-[11px]"
+              style={{ color: 'rgba(255,255,255,0.22)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.32 }}
+            >
+              Logos designed as part of the campaign visual identity for RTA and gigFAST Internet.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            TRUCK LIVERY
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="03" label="Race Application" reduced={reduced} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
+              <motion.h2
+                className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
+                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE }}
+              >
+                Graphics at speed.
+              </motion.h2>
+              <motion.p
+                className="text-[14px] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.44)', maxWidth: '520px' }}
+                initial={reduced ? {} : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              >
+                The gigFAST and RTA visual identity was applied across three NASCAR truck versions
+                throughout the season, as well as Zane Smith&apos;s driver racing suit. The branding
+                remained legible and bold across every track condition and distance.
+              </motion.p>
+            </div>
+
+            {/* Hero truck image */}
+            <motion.div
+              className="relative w-full overflow-hidden rounded-2xl mb-3"
+              style={{ aspectRatio: '16/9' }}
+              initial={reduced ? {} : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.85, ease: EASE }}
+            >
+              <Image
+                src="/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg"
+                alt="#38 Ford F-150 NASCAR truck in motion at speed — gigFAST Internet and RTA rtatel.com livery clearly visible on the side"
+                fill
+                quality={86}
+                className="object-cover"
+              />
+            </motion.div>
+
+            {/* Two-up grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {GALLERY_MAIN.map((img, i) => (
+                <motion.div
+                  key={img.src}
+                  className="relative overflow-hidden rounded-xl"
+                  style={{ aspectRatio: img.aspect }}
+                  initial={reduced ? {} : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
+                >
+                  <Image src={img.src} alt={img.alt} fill quality={85} className="object-cover" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            GIGOMETER CONCEPT
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="04" label="The Gigometer" reduced={reduced} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
+              <motion.h2
+                className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
+                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE }}
+              >
+                Speed,
+                <br />
+                re-scaled.
+              </motion.h2>
+              <motion.p
+                className="text-[14px] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.44)', maxWidth: '520px' }}
+                initial={reduced ? {} : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              >
+                The Gigometer re-imagined a car speedometer as an internet speed dial — measuring
+                connectivity from 2G to 1000G instead of MPH. Applied across two truck versions, the
+                race-day hauler signage, and a live branded web app at gigometer.net, where fans could
+                test their own connection speed through the gigFAST brand experience.
+              </motion.p>
+            </div>
+
+            {/* Truck bed + app screenshot */}
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-3 items-start">
+
+              {/* Truck bed gigometer graphic */}
+              <motion.div
+                className="relative overflow-hidden rounded-2xl"
+                style={{ aspectRatio: '16/10' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.85, ease: EASE }}
+              >
+                <Image
+                  src="/assetshelo/Nascar/ZaneSmith/2328TP1318.jpg"
+                  alt="Gigometer internet speed dial graphic on the #38 truck bed, photographed from above — shows Z. Smith name bar and speed ranges from 2G to 1000G"
+                  fill
+                  quality={86}
+                  className="object-cover object-top"
+                />
+              </motion.div>
+
+              {/* App screenshot — iPhone proportions */}
+              <motion.div
+                className="relative overflow-hidden rounded-2xl self-stretch"
+                style={{ aspectRatio: '9/19', minHeight: '320px' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.85, ease: EASE, delay: 0.12 }}
+              >
+                <Image
+                  src="/assetshelo/Nascar/Logos/gigometer.png"
+                  alt="Gigometer.net speed test web application running in a mobile browser — branded internet speed dial UI with RTA and gigFAST logos, and the #38 NASCAR truck as a UI element"
+                  fill
+                  quality={92}
+                  className="object-cover object-top"
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-4"
+                  style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 100%)' }}
+                >
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    gigometer.net
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            CAMPAIGN PRESENCE
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="05" label="Campaign Presence" reduced={reduced} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
+              <motion.h2
+                className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
+                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                initial={reduced ? {} : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, ease: EASE }}
+              >
+                From suit
+                <br />
+                to signage.
+              </motion.h2>
+              <motion.p
+                className="text-[14px] leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.44)', maxWidth: '520px' }}
+                initial={reduced ? {} : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              >
+                The visual system extended beyond the truck into the full race-day environment —
+                driver suit, event tent, pit-lane signage, and the team hauler. Every surface
+                carried the same bold Americana palette and brand presence.
+              </motion.p>
+            </div>
+
+            {/* 2×2 presence grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {GALLERY_PRESENCE.map((img, i) => (
+                <motion.div
+                  key={img.src}
+                  className="relative overflow-hidden rounded-xl"
+                  style={{ aspectRatio: img.aspect }}
+                  initial={reduced ? {} : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.72, ease: EASE, delay: i * 0.09 }}
+                >
+                  <Image src={img.src} alt={img.alt} fill quality={85} className="object-cover" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            GALLERY
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+
+            <SectionLabel index="06" label="Gallery" reduced={reduced} />
+
+            <motion.p
+              className="mt-6 mb-14 font-mono text-[12px]"
+              style={{ color: 'rgba(255,255,255,0.26)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              Photography from NASCAR Craftsman Truck Series events.
+            </motion.p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {GALLERY_GRID.map((img, i) => (
+                <motion.div
+                  key={img.src}
+                  className="relative overflow-hidden rounded-xl"
+                  style={{ aspectRatio: img.aspect }}
+                  initial={reduced ? {} : { opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.65, ease: EASE, delay: i * 0.07 }}
+                >
+                  <Image src={img.src} alt={img.alt} fill quality={80} className="object-cover" />
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Video note */}
+            <motion.p
+              className="mt-8 font-mono text-[11px]"
+              style={{ color: 'rgba(255,255,255,0.18)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
+            >
+              Race footage available — optimized video to be added after compression.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            NEXT PROJECT
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-24 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+
+            <motion.div
+              initial={reduced ? {} : { opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE }}
+            >
+              <p
+                className="font-mono text-[10px] tracking-[0.22em] uppercase mb-4"
+                style={{ color: 'rgba(255,255,255,0.28)' }}
+              >
+                Next Project
+              </p>
+              <Link href="/work/graphic-design" className="group flex items-center gap-4">
+                <span
+                  className="font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[#f2d832]"
+                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
+                >
+                  Graphic Design
+                </span>
+                <span
+                  className="text-[22px] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                  style={{ color: 'rgba(255,255,255,0.28)' }}
+                >
+                  →
+                </span>
+              </Link>
+            </motion.div>
+
+            <Link
+              href="/work"
+              className="font-mono text-[11px] tracking-[0.18em] uppercase transition-colors duration-300"
+              style={{ color: 'rgba(255,255,255,0.3)' }}
+            >
+              All work →
+            </Link>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </>
+  )
+}
