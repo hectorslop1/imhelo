@@ -1,313 +1,454 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
+import { useState, useEffect, useRef, type ReactNode } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
+import { X } from 'lucide-react'
 
-// ─── iPhone UI Screen ────────────────────────────────────────────────────────
+// ─── Asset configuration ──────────────────────────────────────────────────────
+// Drop real files at these paths and the CSS fallbacks are replaced automatically.
+const DEVICE_ASSETS = {
+  iphone: {
+    frame: '/devices/iphone-frame.png',
+    screens: [
+      '/projects/app-showcase/screen-01.jpg',
+      '/projects/app-showcase/screen-02.jpg',
+    ],
+  },
+  watch: {
+    frame: '/devices/apple-watch-frame.png',
+    screens: ['/projects/app-showcase/watch-01.jpg'],
+  },
+} as const
 
+const SHOWCASE_META = {
+  title: 'Mobile App Showcase',
+  discipline: 'Development / UI',
+  platform: 'iOS · watchOS',
+  year: '2024',
+  scene: '01 — Dashboard',
+}
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+// ─── Graceful asset fallback ──────────────────────────────────────────────────
+function AssetOrFallback({
+  src,
+  alt,
+  className,
+  fallback,
+}: {
+  src: string
+  alt: string
+  className?: string
+  fallback: ReactNode
+}) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return <>{fallback}</>
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      decoding="async"
+      onError={() => setFailed(true)}
+    />
+  )
+}
+
+// ─── iPhone screen (CSS placeholder) ─────────────────────────────────────────
 function IPhoneScreen() {
+  const items = [
+    { name: 'gigFAST NASCAR', cat: 'Branding', active: true },
+    { name: 'App Showcase', cat: 'Development', active: false },
+    { name: 'Interactive UI', cat: 'Frontend', active: false },
+    { name: 'Design Collection', cat: 'Visual', active: false },
+  ]
+
   return (
     <div className="w-full h-full flex flex-col bg-[#0d0d0d] overflow-hidden select-none">
-
       {/* Status bar */}
-      <div className="flex items-center justify-between px-5 pt-3 pb-1 shrink-0">
-        <span className="text-[8px] font-semibold text-white/80 tabular-nums">9:41</span>
+      <div className="flex items-center justify-between px-5 pt-[14px] pb-2 shrink-0">
+        <span className="text-[9px] font-semibold text-white/70 tabular-nums">9:41</span>
         <div className="flex items-center gap-1">
-          {/* Signal dots */}
-          {[1, 0.7, 0.4].map((o, i) => (
-            <div key={i} className="w-[3px] rounded-full bg-white" style={{ height: `${6 + i * 2}px`, opacity: o }} />
+          {[5, 7, 9].map((h, i) => (
+            <div
+              key={i}
+              className="rounded-[2px] bg-white"
+              style={{ width: 3, height: h, opacity: [1, 0.65, 0.35][i] }}
+            />
           ))}
-          {/* Battery */}
-          <div className="ml-1 flex items-center gap-[2px]">
-            <div className="w-5 h-[9px] rounded-[2px] border border-white/40 relative overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 bg-white/70 rounded-[1px]" style={{ width: '72%' }} />
-            </div>
-            <div className="w-[2px] h-[5px] rounded-r-full bg-white/30" />
+          <div className="ml-1.5 w-5 h-[9px] rounded-[2px] border border-white/25 relative overflow-hidden">
+            <div className="absolute inset-y-0 left-0 bg-white/55 rounded-[1px]" style={{ width: '72%' }} />
           </div>
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 px-4 pb-4 flex flex-col gap-3 overflow-hidden">
-
-        {/* Greeting row */}
-        <div className="pt-2">
-          <p className="text-[8px] text-white/30 font-mono tracking-widest uppercase">Dashboard</p>
-          <p className="text-[13px] font-bold text-white tracking-tight mt-0.5" style={{ fontFamily: 'var(--font-syne)' }}>Good evening</p>
+      {/* App header */}
+      <div className="px-5 pt-2 pb-4 shrink-0">
+        <div className="flex items-center gap-1.5 mb-1.5">
+          <span className="text-[7.5px] font-mono text-[#f2d832]/60 tracking-widest uppercase">HELO</span>
+          <div className="w-[3px] h-[3px] rounded-full bg-[#f2d832]/40" />
+          <span className="text-[7.5px] font-mono text-white/15 tracking-widest uppercase">Projects</span>
         </div>
-
-        {/* Metric card */}
-        <div
-          className="rounded-[12px] p-3 shrink-0"
-          style={{ background: 'linear-gradient(135deg, rgba(242,216,50,0.12) 0%, rgba(242,216,50,0.04) 100%)', border: '1px solid rgba(242,216,50,0.15)' }}
+        <p
+          className="text-[19px] font-extrabold text-white tracking-tight leading-none"
+          style={{ fontFamily: 'var(--font-syne)' }}
         >
-          <p className="text-[7px] font-mono text-[#f2d832]/60 tracking-widest uppercase mb-1">Total Projects</p>
-          <p className="text-[22px] font-extrabold text-white tracking-tight leading-none" style={{ fontFamily: 'var(--font-syne)' }}>48</p>
-          <div className="flex items-center gap-1 mt-1.5">
-            <span className="text-[6px] text-[#f2d832]/70 font-mono">↑ 12% this quarter</span>
-          </div>
-          {/* Mini bar chart */}
-          <div className="flex items-end gap-[3px] mt-2.5 h-6">
-            {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95].map((h, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-t-[2px]"
-                style={{
-                  height: `${h}%`,
-                  background: i === 9
-                    ? 'rgba(242,216,50,0.8)'
-                    : `rgba(242,216,50,${0.15 + i * 0.02})`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
+          04 Works
+        </p>
+      </div>
 
-        {/* Two stat cards */}
-        <div className="grid grid-cols-2 gap-2 shrink-0">
-          {[
-            { label: 'Design', value: '24', sub: 'projects' },
-            { label: 'Dev', value: '24', sub: 'projects' },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="rounded-[10px] p-2.5"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
-            >
-              <p className="text-[6px] font-mono text-white/30 tracking-widest uppercase">{s.label}</p>
-              <p className="text-[16px] font-bold text-white leading-tight mt-0.5" style={{ fontFamily: 'var(--font-syne)' }}>{s.value}</p>
-              <p className="text-[6px] text-white/25 font-mono">{s.sub}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Recent list */}
-        <div className="flex-1 min-h-0">
-          <p className="text-[7px] font-mono text-white/20 tracking-widest uppercase mb-1.5">Recent</p>
-          <div className="flex flex-col gap-[5px]">
-            {[
-              { name: 'gigFAST NASCAR', type: 'Branding' },
-              { name: 'App Showcase', type: 'Development' },
-              { name: 'Interactive UI', type: 'Frontend' },
-            ].map((item) => (
+      {/* List */}
+      <div className="flex-1 px-4 flex flex-col gap-[5px] overflow-hidden">
+        {items.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center justify-between rounded-[10px] px-3 py-2.5 shrink-0"
+            style={{
+              background: item.active ? 'rgba(242,216,50,0.07)' : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${item.active ? 'rgba(242,216,50,0.14)' : 'rgba(255,255,255,0.05)'}`,
+            }}
+          >
+            <div className="flex items-center gap-2.5">
               <div
-                key={item.name}
-                className="flex items-center justify-between rounded-[8px] px-2.5 py-2"
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
+                className="w-[22px] h-[22px] rounded-[6px] flex items-center justify-center shrink-0"
+                style={{ background: item.active ? 'rgba(242,216,50,0.12)' : 'rgba(255,255,255,0.04)' }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="w-[18px] h-[18px] rounded-[4px] bg-[#f2d832]/10 flex items-center justify-center shrink-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#f2d832]/50" />
-                  </div>
-                  <span className="text-[7.5px] text-white/60 font-medium truncate max-w-[80px]">{item.name}</span>
-                </div>
-                <span className="text-[6px] font-mono text-white/20 tracking-widest">{item.type}</span>
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: item.active ? '#f2d832' : 'rgba(255,255,255,0.18)' }}
+                />
               </div>
-            ))}
+              <span
+                className="text-[9px] font-medium truncate"
+                style={{ color: item.active ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0.35)' }}
+              >
+                {item.name}
+              </span>
+            </div>
+            <span
+              className="text-[7px] font-mono"
+              style={{ color: item.active ? 'rgba(242,216,50,0.45)' : 'rgba(255,255,255,0.16)' }}
+            >
+              {item.cat}
+            </span>
           </div>
-        </div>
-
+        ))}
       </div>
 
       {/* Home indicator */}
-      <div className="flex justify-center pb-2 pt-1 shrink-0">
-        <div className="w-16 h-[3px] rounded-full bg-white/20" />
+      <div className="flex justify-center py-3 shrink-0">
+        <div className="w-20 h-[3px] rounded-full bg-white/12" />
       </div>
     </div>
   )
 }
 
-// ─── Apple Watch UI Screen ────────────────────────────────────────────────────
-
+// ─── Watch screen (CSS placeholder) ──────────────────────────────────────────
 function WatchScreen() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-[#0d0d0d] overflow-hidden select-none px-2">
-
-      {/* Time */}
+    <div className="w-full h-full flex flex-col items-center justify-center bg-[#0d0d0d] select-none">
+      <p className="text-[6.5px] font-mono text-white/20 tracking-widest uppercase mb-1">TUE</p>
       <p
-        className="text-[22px] font-extrabold text-white tracking-tight leading-none mb-0.5"
+        className="text-[22px] font-extrabold text-white tracking-tight leading-none mb-3"
         style={{ fontFamily: 'var(--font-syne)' }}
       >
         9:41
       </p>
-      <p className="text-[6px] font-mono text-white/30 tracking-widest uppercase mb-3">Tuesday</p>
-
-      {/* Progress ring */}
-      <div className="relative w-12 h-12 mb-2.5">
-        <svg viewBox="0 0 48 48" className="w-full h-full -rotate-90">
-          {/* Background ring */}
+      <div className="relative w-10 h-10">
+        <svg viewBox="0 0 40 40" className="w-full h-full -rotate-90">
+          <circle cx="20" cy="20" r="14" fill="none" stroke="rgba(242,216,50,0.1)" strokeWidth="3" />
           <circle
-            cx="24" cy="24" r="18"
-            fill="none"
-            stroke="rgba(242,216,50,0.1)"
-            strokeWidth="4"
-          />
-          {/* Progress arc */}
-          <circle
-            cx="24" cy="24" r="18"
-            fill="none"
-            stroke="#f2d832"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeDasharray="113.1"
-            strokeDashoffset="28.3"
-            style={{ filter: 'drop-shadow(0 0 4px rgba(242,216,50,0.5))' }}
+            cx="20" cy="20" r="14"
+            fill="none" stroke="#f2d832" strokeWidth="3" strokeLinecap="round"
+            strokeDasharray="88" strokeDashoffset="22"
+            style={{ filter: 'drop-shadow(0 0 3px rgba(242,216,50,0.45))' }}
           />
         </svg>
-        {/* Center icon */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-3 h-3 rounded-full bg-[#f2d832]/20 flex items-center justify-center">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#f2d832]/60" />
-          </div>
+          <div className="w-[7px] h-[7px] rounded-full bg-[#f2d832]/30" />
         </div>
       </div>
-
-      {/* Complication */}
-      <div className="flex items-center gap-2">
-        <div className="w-px h-4 bg-white/10" />
-        <div className="text-center">
-          <p className="text-[7px] font-mono text-[#f2d832]/50 tracking-widest">75%</p>
-          <p className="text-[5.5px] font-mono text-white/20 tracking-widest uppercase">Progress</p>
-        </div>
-        <div className="w-px h-4 bg-white/10" />
-      </div>
-
+      <p className="text-[6px] font-mono text-[#f2d832]/35 tracking-widest mt-2">75%</p>
     </div>
   )
 }
 
-// ─── iPhone Frame ─────────────────────────────────────────────────────────────
+// ─── iPhone frame ─────────────────────────────────────────────────────────────
+function IPhoneFrame({ scale = 1 }: { scale?: number }) {
+  const w = Math.round(220 * scale)
+  const h = Math.round(476 * scale)
+  const br = Math.round(48 * scale)
 
-function IPhoneFrame({ reduced }: { reduced: boolean }) {
   return (
-    <motion.div
-      className="relative shrink-0"
-      animate={reduced ? {} : { y: [0, -10, 0] }}
-      transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-      style={{ zIndex: 2 }}
+    <div
+      style={{
+        position: 'relative',
+        width: w,
+        height: h,
+        borderRadius: br,
+        background: 'linear-gradient(158deg, #2e2e2e 0%, #1c1c1c 42%, #101010 100%)',
+        boxShadow: [
+          '0 0 0 1.5px rgba(255,255,255,0.12)',
+          '0 0 0 3px rgba(0,0,0,0.88)',
+          '0 40px 90px rgba(0,0,0,0.78)',
+          '0 0 0 3px rgba(0,0,0,0.88)',
+          'inset 0 1px 0 rgba(255,255,255,0.14)',
+        ].join(', '),
+      }}
     >
-      {/* Outer shell */}
+      {/* Left volume buttons */}
+      <div style={{ position: 'absolute', left: -3.5, top: Math.round(96 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
+      <div style={{ position: 'absolute', left: -3.5, top: Math.round(134 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
+      {/* Right power button */}
+      <div style={{ position: 'absolute', right: -3.5, top: Math.round(114 * scale), width: 3.5, height: Math.round(44 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.09)' }} />
+
+      {/* Screen bezel */}
       <div
-        className="relative w-[220px] h-[476px] overflow-hidden"
         style={{
-          borderRadius: '48px',
-          background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 40%, #0f0f0f 100%)',
-          boxShadow: [
-            '0 0 0 1px rgba(255,255,255,0.12)',
-            '0 0 0 2px rgba(0,0,0,0.8)',
-            '0 40px 80px rgba(0,0,0,0.7)',
-            '0 0 60px rgba(242,216,50,0.06)',
-            'inset 0 1px 0 rgba(255,255,255,0.12)',
-          ].join(', '),
+          position: 'absolute',
+          inset: Math.round(9 * scale),
+          borderRadius: Math.round(40 * scale),
+          overflow: 'hidden',
+          background: '#0d0d0d',
         }}
       >
-        {/* Side buttons — left volume */}
-        <div className="absolute -left-[3px] top-[100px] w-[3px] h-8 rounded-l-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
-        <div className="absolute -left-[3px] top-[144px] w-[3px] h-8 rounded-l-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
-        {/* Side buttons — right power */}
-        <div className="absolute -right-[3px] top-[116px] w-[3px] h-12 rounded-r-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
-
-        {/* Inner screen bezel */}
+        {/* Dynamic island */}
         <div
-          className="absolute inset-[8px] overflow-hidden"
-          style={{ borderRadius: '40px' }}
-        >
-          {/* Dynamic island */}
-          <div
-            className="absolute top-[14px] left-1/2 -translate-x-1/2 z-10"
-            style={{ width: '100px', height: '30px', borderRadius: '20px', background: '#080808' }}
-          />
-          {/* Actual screen content */}
-          <div className="absolute inset-0">
-            <IPhoneScreen />
-          </div>
-        </div>
-
-        {/* Gloss overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
           style={{
-            borderRadius: '48px',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 45%)',
+            position: 'absolute',
+            top: Math.round(13 * scale),
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: Math.round(96 * scale),
+            height: Math.round(28 * scale),
+            borderRadius: 20,
+            background: '#080808',
+            zIndex: 10,
           }}
         />
+        <AssetOrFallback
+          src={DEVICE_ASSETS.iphone.screens[0]}
+          alt="App interface screen"
+          className="absolute inset-0 w-full h-full object-cover"
+          fallback={<IPhoneScreen />}
+        />
       </div>
-    </motion.div>
+
+      {/* Gloss sheen */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: br,
+          background: 'linear-gradient(142deg, rgba(255,255,255,0.06) 0%, transparent 38%)',
+          pointerEvents: 'none',
+        }}
+      />
+    </div>
   )
 }
 
-// ─── Apple Watch Frame ────────────────────────────────────────────────────────
+// ─── Apple Watch frame ────────────────────────────────────────────────────────
+function WatchFrame({ scale = 1 }: { scale?: number }) {
+  const w = Math.round(100 * scale)
+  const h = Math.round(116 * scale)
+  const br = Math.round(24 * scale)
+  const bandW = Math.round(64 * scale)
+  const bandH = Math.round(13 * scale)
 
-function WatchFrame({ reduced }: { reduced: boolean }) {
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      {/* Band top */}
+      <div
+        style={{
+          width: bandW, height: bandH,
+          margin: '0 auto 1px',
+          background: 'linear-gradient(to bottom, #202020, #171717)',
+          borderRadius: '3px 3px 0 0',
+          border: '1px solid rgba(255,255,255,0.07)',
+          borderBottom: 'none',
+        }}
+      />
+
+      {/* Body */}
+      <div
+        style={{
+          position: 'relative',
+          width: w, height: h,
+          borderRadius: br,
+          background: 'linear-gradient(150deg, #272727 0%, #191919 50%, #0f0f0f 100%)',
+          boxShadow: [
+            '0 0 0 1.5px rgba(255,255,255,0.11)',
+            '0 0 0 3px rgba(0,0,0,0.82)',
+            '0 18px 45px rgba(0,0,0,0.68)',
+            'inset 0 1px 0 rgba(255,255,255,0.1)',
+          ].join(', '),
+          overflow: 'hidden',
+        }}
+      >
+        {/* Digital crown */}
+        <div style={{ position: 'absolute', right: -4, top: '33%', width: 4, height: Math.round(26 * scale), borderRadius: 2.5, background: 'rgba(255,255,255,0.09)' }} />
+        {/* Side button */}
+        <div style={{ position: 'absolute', right: -4, top: '62%', width: 4, height: Math.round(16 * scale), borderRadius: 2.5, background: 'rgba(255,255,255,0.07)' }} />
+
+        {/* Screen */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: Math.round(5 * scale),
+            borderRadius: Math.round(20 * scale),
+            overflow: 'hidden',
+            background: '#0d0d0d',
+          }}
+        >
+          <AssetOrFallback
+            src={DEVICE_ASSETS.watch.screens[0]}
+            alt="Watch interface screen"
+            className="w-full h-full object-cover"
+            fallback={<WatchScreen />}
+          />
+        </div>
+
+        {/* Gloss */}
+        <div
+          style={{
+            position: 'absolute', inset: 0, borderRadius: br,
+            background: 'linear-gradient(140deg, rgba(255,255,255,0.07) 0%, transparent 48%)',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
+      {/* Band bottom */}
+      <div
+        style={{
+          width: bandW, height: bandH,
+          margin: '1px auto 0',
+          background: 'linear-gradient(to top, #202020, #171717)',
+          borderRadius: '0 0 3px 3px',
+          border: '1px solid rgba(255,255,255,0.07)',
+          borderTop: 'none',
+        }}
+      />
+    </div>
+  )
+}
+
+// ─── Device composition (shared between section + overlay) ────────────────────
+function DeviceComposition({ scale = 1 }: { scale?: number }) {
+  return (
+    <div className="flex items-end justify-center" style={{ gap: Math.round(24 * scale) }}>
+      <IPhoneFrame scale={scale} />
+      <div style={{ marginBottom: Math.round(56 * scale) }}>
+        <WatchFrame scale={scale} />
+      </div>
+    </div>
+  )
+}
+
+// ─── Showcase overlay ─────────────────────────────────────────────────────────
+function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    closeRef.current?.focus()
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handleKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', handleKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
   return (
     <motion.div
-      className="relative shrink-0"
-      animate={reduced ? {} : { y: [0, 8, 0] }}
-      transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
-      style={{ zIndex: 1 }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto"
+      style={{ background: 'rgba(8,8,8,0.97)', backdropFilter: 'blur(4px)' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Device Showcase"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div className="relative">
-        {/* Band top stub */}
+      {/* Close */}
+      <button
+        ref={closeRef}
+        onClick={onClose}
+        aria-label="Close showcase"
+        className="absolute top-6 right-6 lg:top-8 lg:right-8 flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-white/20 focus:outline-none"
+        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+      >
+        <X size={14} className="text-white/40 hover:text-white transition-colors" />
+      </button>
+
+      {/* Content */}
+      <motion.div
+        className="w-full max-w-[960px] px-6 lg:px-16 py-16 flex flex-col items-center"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 12 }}
+        transition={{ duration: 0.5, ease: EASE, delay: 0.05 }}
+      >
+        {/* Ambient glow */}
         <div
-          className="mx-auto mb-[1px]"
-          style={{ width: '64px', height: '14px', background: 'linear-gradient(to bottom, #1a1a1a, #141414)', borderRadius: '3px 3px 0 0', border: '1px solid rgba(255,255,255,0.06)', borderBottom: 'none' }}
+          aria-hidden
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse 60% 50% at 50% 44%, rgba(242,216,50,0.045) 0%, transparent 70%)',
+            zIndex: -1,
+          }}
         />
 
-        {/* Watch body */}
-        <div
-          className="relative w-[100px] h-[116px] overflow-hidden"
-          style={{
-            borderRadius: '24px',
-            background: 'linear-gradient(145deg, #222222 0%, #161616 50%, #0e0e0e 100%)',
-            boxShadow: [
-              '0 0 0 1px rgba(255,255,255,0.1)',
-              '0 0 0 2px rgba(0,0,0,0.6)',
-              '0 20px 50px rgba(0,0,0,0.6)',
-              'inset 0 1px 0 rgba(255,255,255,0.1)',
-            ].join(', '),
-          }}
-        >
-          {/* Digital crown */}
-          <div
-            className="absolute -right-[5px] top-1/2"
-            style={{ transform: 'translateY(-40%)', width: '5px', height: '28px', borderRadius: '3px', background: 'linear-gradient(to right, rgba(255,255,255,0.08), rgba(255,255,255,0.04))' }}
-          />
-          {/* Side button */}
-          <div
-            className="absolute -right-[5px]"
-            style={{ top: 'calc(50% + 18px)', width: '5px', height: '18px', borderRadius: '3px', background: 'rgba(255,255,255,0.05)' }}
-          />
-
-          {/* Screen */}
-          <div
-            className="absolute inset-[5px] overflow-hidden"
-            style={{ borderRadius: '20px' }}
-          >
-            <WatchScreen />
-          </div>
-
-          {/* Gloss */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ borderRadius: '24px', background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%)' }}
-          />
+        {/* Devices — scale up slightly in overlay */}
+        <div className="mb-14 sm:mb-16">
+          <DeviceComposition scale={1.08} />
         </div>
 
-        {/* Band bottom stub */}
-        <div
-          className="mx-auto mt-[1px]"
-          style={{ width: '64px', height: '14px', background: 'linear-gradient(to top, #1a1a1a, #141414)', borderRadius: '0 0 3px 3px', border: '1px solid rgba(255,255,255,0.06)', borderTop: 'none' }}
-        />
-      </div>
+        {/* Separator */}
+        <div className="w-full h-px mb-10" style={{ background: 'rgba(242,216,50,0.18)' }} />
+
+        {/* Project info */}
+        <div className="w-full flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div>
+            <p className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase mb-2">
+              Selected Work
+            </p>
+            <h3
+              className="font-extrabold text-white tracking-[-0.04em] leading-none"
+              style={{ fontSize: 'clamp(26px, 4vw, 48px)', fontFamily: 'var(--font-syne)' }}
+            >
+              {SHOWCASE_META.title}
+            </h3>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 shrink-0 sm:pb-1">
+            {[
+              { label: 'Discipline', value: SHOWCASE_META.discipline },
+              { label: 'Platform', value: SHOWCASE_META.platform },
+              { label: 'Year', value: SHOWCASE_META.year },
+            ].map(({ label, value }) => (
+              <div key={label} className="flex flex-col items-start">
+                <span className="text-[8px] font-mono text-[#4a4a44] tracking-widest uppercase mb-0.5">{label}</span>
+                <span className="text-[11px] font-mono text-white/40">{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </motion.div>
   )
 }
 
-// ─── Main Section ─────────────────────────────────────────────────────────────
-
-const EASE = [0.16, 1, 0.3, 1] as const
-
+// ─── Main section ─────────────────────────────────────────────────────────────
 export default function DeviceShowcase() {
-  const reduced = useReducedMotion() ?? false
+  const [overlayOpen, setOverlayOpen] = useState(false)
 
   return (
     <section className="border-t border-white/[0.06] overflow-hidden">
@@ -322,7 +463,7 @@ export default function DeviceShowcase() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 lg:gap-24 items-center pb-28">
 
-          {/* ── Left: copy ── */}
+          {/* Left: copy */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -339,9 +480,9 @@ export default function DeviceShowcase() {
             </h2>
 
             <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm mb-10">
-              Every project lives in an interface. This showcase puts
-              the work inside real device frames — app screens, dashboards,
-              and visual systems rendered where they belong.
+              Every project lives in an interface. This showcase puts the work
+              inside real device frames — app screens and visual systems
+              rendered exactly where they belong.
             </p>
 
             {/* Metadata table */}
@@ -350,17 +491,19 @@ export default function DeviceShowcase() {
               style={{ background: 'rgba(255,255,255,0.02)' }}
             >
               {[
-                { label: 'Project', value: 'Mobile App Showcase' },
-                { label: 'Discipline', value: 'Development / UI' },
-                { label: 'Scene', value: '01 — Dashboard' },
-                { label: 'Platform', value: 'iOS · watchOS' },
+                { label: 'Project', value: SHOWCASE_META.title },
+                { label: 'Discipline', value: SHOWCASE_META.discipline },
+                { label: 'Scene', value: SHOWCASE_META.scene },
+                { label: 'Platform', value: SHOWCASE_META.platform },
               ].map(({ label, value }, i, arr) => (
                 <div
                   key={label}
                   className={`flex items-center justify-between px-5 py-3 ${i < arr.length - 1 ? 'border-b border-white/[0.05]' : ''}`}
                 >
-                  <span className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase">{label}</span>
-                  <span className="text-[11px] font-mono text-white/50">{value}</span>
+                  <span className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase">
+                    {label}
+                  </span>
+                  <span className="text-[11px] font-mono text-white/45">{value}</span>
                 </div>
               ))}
             </div>
@@ -371,16 +514,16 @@ export default function DeviceShowcase() {
               {['01', '02', '03'].map((s, i) => (
                 <div key={s} className="flex items-center gap-1.5">
                   <div
-                    className="rounded-full transition-all duration-300"
+                    className="rounded-full"
                     style={{
-                      width: i === 0 ? '20px' : '6px',
-                      height: '6px',
+                      width: i === 0 ? 20 : 6,
+                      height: 6,
                       background: i === 0 ? '#f2d832' : 'rgba(255,255,255,0.1)',
                     }}
                   />
                   <span
                     className="text-[9px] font-mono tracking-widest"
-                    style={{ color: i === 0 ? 'rgba(242,216,50,0.6)' : 'rgba(255,255,255,0.15)' }}
+                    style={{ color: i === 0 ? 'rgba(242,216,50,0.5)' : 'rgba(255,255,255,0.14)' }}
                   >
                     {s}
                   </span>
@@ -389,79 +532,95 @@ export default function DeviceShowcase() {
             </div>
           </motion.div>
 
-          {/* ── Right: devices ── */}
+          {/* Right: devices */}
           <motion.div
-            className="relative flex items-center justify-center min-h-[540px]"
-            initial={{ opacity: 0, y: 32 }}
+            className="relative flex flex-col items-center justify-center min-h-[540px]"
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1.0, ease: EASE, delay: 0.15 }}
           >
-
             {/* Ambient glow */}
             <div
               aria-hidden
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 70% 60% at 45% 55%, rgba(242,216,50,0.06) 0%, transparent 65%)',
+                background:
+                  'radial-gradient(ellipse 70% 55% at 45% 52%, rgba(242,216,50,0.05) 0%, transparent 65%)',
               }}
             />
 
-            {/* Secondary soft glow ring */}
-            <div
-              aria-hidden
-              className="absolute pointer-events-none"
-              style={{
-                width: '320px',
-                height: '320px',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -55%)',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(242,216,50,0.03) 0%, transparent 70%)',
-                filter: 'blur(30px)',
-              }}
-            />
+            {/* Clickable device group */}
+            <button
+              onClick={() => setOverlayOpen(true)}
+              aria-label="Expand device showcase"
+              className="group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded-2xl"
+              style={{ background: 'none', border: 'none', padding: '0 0 32px' }}
+            >
+              {/* Devices with hover lift */}
+              <div className="flex items-end justify-center gap-6">
+                <motion.div
+                  whileHover={{ y: -7 }}
+                  transition={{ duration: 0.55, ease: EASE }}
+                >
+                  <IPhoneFrame />
+                </motion.div>
 
-            {/* Floor reflection */}
-            <div
-              aria-hidden
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
-              style={{
-                width: '260px',
-                height: '60px',
-                borderRadius: '50%',
-                background: 'radial-gradient(ellipse, rgba(242,216,50,0.04) 0%, transparent 70%)',
-                filter: 'blur(16px)',
-              }}
-            />
-
-            {/* Device composition */}
-            <div className="relative flex items-end gap-6 justify-center">
-              <IPhoneFrame reduced={reduced} />
-
-              {/* Apple Watch — elevated and offset */}
-              <div className="mb-16 relative">
-                <WatchFrame reduced={reduced} />
+                <motion.div
+                  className="mb-14"
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.55, ease: EASE, delay: 0.05 }}
+                >
+                  <WatchFrame />
+                </motion.div>
               </div>
-            </div>
+
+              {/* Floor reflection */}
+              <div
+                aria-hidden
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none"
+                style={{
+                  width: 240,
+                  height: 40,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(ellipse, rgba(242,216,50,0.05) 0%, transparent 70%)',
+                  filter: 'blur(10px)',
+                }}
+              />
+
+              {/* Expand hint — appears on hover */}
+              <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
+                <span className="text-[9px] font-mono text-[#4a4a44] tracking-widest uppercase">
+                  Expand
+                </span>
+                <div className="w-3 h-3 rounded-full border border-white/[0.12] flex items-center justify-center">
+                  <div className="w-[4px] h-[4px] rounded-full bg-white/20" />
+                </div>
+              </div>
+            </button>
 
             {/* Scene label */}
-            <div className="absolute bottom-4 left-4 flex items-center gap-2">
+            <div className="absolute bottom-4 left-0 flex items-center gap-2">
               <motion.span
                 className="w-1.5 h-1.5 rounded-full bg-[#f2d832] inline-block"
-                animate={reduced ? {} : { opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
               />
               <span className="text-[9px] font-mono text-[#4a4a44] tracking-widest uppercase">
                 Scene 01 — Dashboard
               </span>
             </div>
-
           </motion.div>
 
         </div>
       </div>
+
+      {/* Overlay */}
+      <AnimatePresence>
+        {overlayOpen && (
+          <ShowcaseOverlay onClose={() => setOverlayOpen(false)} />
+        )}
+      </AnimatePresence>
     </section>
   )
 }
