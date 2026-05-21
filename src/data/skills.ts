@@ -3,18 +3,12 @@ export type SkillGroup = {
   items: string[]
 }
 
+// ── To add skills: append to an existing group's items array,
+//    or add a new SkillGroup object. Order here = display order.
 export const skills: SkillGroup[] = [
   {
     label: 'Development',
-    items: [
-      'Next.js',
-      'React',
-      'TypeScript',
-      'Tailwind CSS',
-      'GSAP',
-      'Motion',
-      'Node.js',
-    ],
+    items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js'],
   },
   {
     label: 'Design',
@@ -28,7 +22,11 @@ export const skills: SkillGroup[] = [
     ],
   },
   {
-    label: 'Tools & Platforms',
+    label: 'Motion / Interaction',
+    items: ['GSAP', '@gsap/react', 'Motion', 'Lenis', 'Scroll Animation'],
+  },
+  {
+    label: 'Tools',
     items: ['Git', 'Vercel', 'VS Code', 'Notion', 'Claude Code'],
   },
 ]

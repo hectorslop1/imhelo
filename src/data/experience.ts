@@ -3,12 +3,14 @@ export type Experience = {
   role: string
   period: string
   description: string
-  highlights?: string[]   // optional bullet points — existing entries omit this field
+  highlights?: string[]
   tags: string[]
 }
 
+// ── Most recent first ──────────────────────────────────────────────────────────
+// To add a new role: insert a new object at the top of this array.
+// Set highlights to undefined or omit the field if not needed.
 export const experiences: Experience[] = [
-  // ── Most recent first ─────────────────────────────────────────────────────
   {
     company: 'U-wifi Inc.',
     role: 'Lead Mobile Developer',
@@ -25,11 +27,17 @@ export const experiences: Experience[] = [
     tags: ['Mobile Dev', 'UI Implementation', 'Cross-Platform', 'Product'],
   },
   {
-    company: 'Freelance / HELO',
+    company: 'HELO / Freelance',
     role: 'Designer & Developer',
     period: '2020 — Present',
     description:
-      'Building digital products, brand systems, and interactive interfaces for clients across multiple industries.',
+      'Creating polished interfaces, visual systems, websites, and digital experiences for brands, products, and creative projects.',
+    highlights: [
+      'Web design and development',
+      'Visual systems',
+      'UI implementation',
+      'Branding and graphic design',
+    ],
     tags: ['UI/UX', 'Frontend', 'Branding', 'Graphic Design'],
   },
   {
@@ -37,7 +45,13 @@ export const experiences: Experience[] = [
     role: 'Graphic Designer',
     period: '2018 — 2020',
     description:
-      'Campaign visuals, social graphics, logos, and print assets for brands in the US and Mexico.',
+      'Created visual assets, campaign graphics, logos, and brand materials for digital and print use.',
+    highlights: [
+      'Graphic design',
+      'Social media visuals',
+      'Brand assets',
+      'Digital campaigns',
+    ],
     tags: ['Print', 'Brand Identity', 'Social Media', 'Illustration'],
   },
 ]
