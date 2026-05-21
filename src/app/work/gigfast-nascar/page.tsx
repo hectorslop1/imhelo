@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { Lightbox, type MediaItem } from './MediaViewer'
+import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 

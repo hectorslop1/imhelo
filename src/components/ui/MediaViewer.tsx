@@ -11,7 +11,8 @@ export type MediaItem = {
   src: string
   alt: string
   label?: string
-  poster?: string // required when type === 'video'
+  poster?: string      // required when type === 'video'
+  aspectRatio?: string // image container ratio in the lightbox, e.g. '1/1', '3/4', defaults to '3/2'
 }
 
 type LightboxProps = {
@@ -57,8 +58,8 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
 
   return (
     /*
-     * Backdrop — clicks outside the stage close the viewer.
-     * Warm dark radial gradient so the stage "lifts" off the page.
+     * Backdrop — warm dark radial gradient so the stage visually lifts off
+     * the #080808 page background. Clicking outside the stage closes.
      */
     <motion.div
       className="fixed inset-0 z-[200] flex items-center justify-center px-3 py-4 sm:px-8 sm:py-10"
@@ -76,9 +77,8 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
       aria-label="Media viewer"
     >
       {/*
-       * Stage — the visible viewing surface.
-       * Slightly lighter than the page (#111 vs #080808), yellow-accented
-       * top border, and a layered shadow for depth.
+       * Stage — visible surface, slightly lighter than the page (#111 vs #080808).
+       * Yellow-accented top border + layered shadow for depth.
        */}
       <motion.div
         className="relative w-full max-w-[960px] flex flex-col overflow-hidden rounded-2xl"
@@ -96,12 +96,11 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
         onClick={e => e.stopPropagation()}
       >
 
-        {/* ── Top bar: label · prev/counter/next · close ── */}
+        {/* ── Top bar: label · prev / counter / next · close ── */}
         <div
           className="flex items-center justify-between gap-4 px-5 py-4"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
         >
-          {/* Label */}
           <p
             className="font-mono text-[12px] tracking-wide truncate"
             style={{ color: 'rgba(255,255,255,0.32)' }}
@@ -109,7 +108,6 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
             {item.label ?? ''}
           </p>
 
-          {/* Navigation + close */}
           <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={goPrev}
@@ -138,14 +136,12 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
               →
             </button>
 
-            {/* Thin vertical divider */}
             <span
               className="block mx-2"
               style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.08)' }}
               aria-hidden
             />
 
-            {/* Close */}
             <button
               onClick={onClose}
               className="flex items-center justify-center w-10 h-10 rounded-lg text-[20px] leading-none transition-colors duration-150 hover:text-white"
@@ -169,9 +165,13 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
               transition={{ duration: 0.2 }}
             >
               {item.type === 'image' ? (
+                /*
+                 * aspectRatio defaults to '3/2' (landscape, good for photos).
+                 * Pass '1/1' for square artwork, '3/4' for portrait pieces.
+                 */
                 <div
                   className="relative w-full"
-                  style={{ aspectRatio: '3/2', background: '#0a0a0a' }}
+                  style={{ aspectRatio: item.aspectRatio ?? '3/2', background: '#0a0a0a' }}
                 >
                   <Image
                     src={item.src}
@@ -185,7 +185,7 @@ export function Lightbox({ items, startIndex, onClose }: LightboxProps) {
               ) : (
                 /*
                  * key={item.src} remounts <video> when the source changes,
-                 * which stops playback and loads the new poster automatically.
+                 * resetting playback and loading the new poster.
                  */
                 <video
                   key={item.src}
