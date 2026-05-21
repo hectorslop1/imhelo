@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
@@ -11,223 +11,150 @@ import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
 const EASE = [0.16, 1, 0.3, 1] as const
 const BASE = '/assetshelo/GraphicDesign'
 
-// ─── Featured ─────────────────────────────────────────────────────────────────
+// ─── Hero cycling images ──────────────────────────────────────────────────────
+// Six images rotate in the animated cover. object-cover for cinematic fill.
+// To reorder or replace: update this array only.
 
-const FEATURED = {
-  src:   `${BASE}/Gba26qPbwAAEM7t.jpeg`,
-  alt:   'Day of the Dead — cinematic digital painting featuring an ornate sugar skull surrounded by marigold flowers, rich jewel tones, and intricate decorative details',
-  label: 'Day of the Dead',
-}
+const HERO_SRCS: string[] = [
+  `${BASE}/Gba26qPbwAAEM7t.jpeg`,
+  `${BASE}/GZGP05WbYAAfZ4V.jpeg`,
+  `${BASE}/GRv1j5sb0AAOT25.jpeg`,
+  `${BASE}/GRMHLmrbQAAVK9x.jpeg`,
+  `${BASE}/GWRnPcvbQAE2by8.jpeg`,
+  `${BASE}/F2phz5FaUAAH4fv.jpeg`,
+]
 
-// ─── Gallery data ─────────────────────────────────────────────────────────────
-// To reorder: change the array order.
-// wide: true → spans full row in the 2-col grid (aspect 2:1 container, object-contain).
-// wide: false → 1-col cell (aspect 1:1, object-contain).
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+// All 15 GraphicDesign images in one unified list.
+//
+// wide: true  → spans 2 of 3 columns on desktop (lg:col-span-2), aspect 2:1.
+//               On tablet the item renders as a regular 1:1 tile (no spanning).
+//
+// Grid auto-placement (3-col desktop) depends on order — wide items land at
+// cols 2–3 or cols 1–2 because of the surrounding single-col items.
+// Verified layout per row:
+//   Row 1  [0]          [1]          [2]
+//   Row 2  [3 WIDE ────────────────] [4]
+//   Row 3  [5]          [6 WIDE ───────────]
+//   Row 4  [7]          [8]          [9]
+//   Row 5  [10]         [11 WIDE ──────────]
+//   Row 6  [12]         [13]         [14]
+//
+// To add/reorder: keep the wide/regular cadence above, or move a wide item to
+// a different row by changing its position in the array.
 
 type GalleryItem = {
-  src: string
-  alt: string
-  label: string
-  wide?: boolean
+  src:            string
+  alt:            string
+  label:          string
+  wide?:          boolean
+  lightboxRatio?: string  // lightbox stage aspect-ratio; defaults '1/1'
 }
 
-const MAIN_GALLERY: GalleryItem[] = [
+const GALLERY: GalleryItem[] = [
+  // ── Row 1 — 3 regular ────────────────────────────────────────────
+  {
+    src:   `${BASE}/Gba26qPbwAAEM7t.jpeg`,
+    alt:   'Day of the Dead — cinematic digital painting, ornate sugar skull with marigold flowers and jewel tones',
+    label: 'Day of the Dead',
+  },
   {
     src:   `${BASE}/GZGP05WbYAAfZ4V.jpeg`,
-    alt:   'Pumpkin King — dramatic dark badge illustration with skull crown and ornate decorative linework',
-    label: 'Pumpkin King',
-    wide:  true,
+    alt:   'Pumpkin King — dark badge illustration with skull crown and ornate decorative linework',
+    label: 'Badge Design',
   },
   {
     src:   `${BASE}/GRv1j5sb0AAOT25.jpeg`,
     alt:   'Friday — vortex typography composition with spiral letterforms and dynamic motion',
-    label: 'Friday — Vortex',
+    label: 'Typography',
   },
+  // ── Row 2 — wide + regular ───────────────────────────────────────
   {
     src:   `${BASE}/GRMHLmrbQAAVK9x.jpeg`,
-    alt:   'Friday — retro typography design with bold vintage letterforms and classic treatment',
-    label: 'Friday — Retro',
+    alt:   'Friday — retro typography with bold vintage letterforms and classic treatment',
+    label: 'Typography',
+    wide:  true,
   },
   {
     src:   `${BASE}/GWRnPcvbQAE2by8.jpeg`,
-    alt:   'Victorian girl — detailed ink illustration with ornate decorative framing and intricate linework',
-    label: 'Victorian Girl',
+    alt:   'Victorian Girl — detailed ink illustration with ornate decorative framing and intricate linework',
+    label: 'Illustration',
   },
+  // ── Row 3 — regular + wide ───────────────────────────────────────
   {
     src:   `${BASE}/GYl9A_MasAQYtc2.jpeg`,
     alt:   'Princesses — vibrant character painting with rich colors and expressive figures',
-    label: 'Princesses',
+    label: 'Character Study',
   },
   {
     src:   `${BASE}/F2phz5FaUAAH4fv.jpeg`,
     alt:   'HELO neon wordmark — brand identity rendered in glowing neon light aesthetic on dark background',
-    label: 'HELO — Neon',
+    label: 'HELO Identity',
     wide:  true,
   },
+  // ── Row 4 — 3 regular ────────────────────────────────────────────
   {
     src:   `${BASE}/G4ogjTJbQAEo72k.jpeg`,
     alt:   'WAAARGH — expressive skull ink sketch with gestural brushwork and bold lettering',
-    label: 'WAAARGH',
+    label: 'Badge Design',
+  },
+  {
+    src:   `${BASE}/GTW8-oha8AAeKgl.jpeg`,
+    alt:   'Figure and character study illustration',
+    label: 'Character Study',
+    lightboxRatio: '3/4',
+  },
+  {
+    src:   `${BASE}/GUBStDcWEAAk9IA.jpeg`,
+    alt:   'Visual illustration exploration',
+    label: 'Illustration',
+  },
+  // ── Row 5 — regular + wide ───────────────────────────────────────
+  {
+    src:   `${BASE}/GUpyHAeboAALOvW.jpeg`,
+    alt:   'Visual experiment in composition and form',
+    label: 'Visual Experiment',
+  },
+  {
+    src:   `${BASE}/GVI8jw5aEAA3zyA.jpeg`,
+    alt:   'Graphic illustration exploration',
+    label: 'Illustration',
     wide:  true,
   },
-]
-
-// ─── Personal explorations ────────────────────────────────────────────────────
-// Personal creative practice. Not affiliated with or endorsed by IP owners.
-// aspectRatio matches original file proportions so the lightbox shows correctly:
-//   '3/4' for portrait files; '1/1' for square files.
-
-type PersonalItem = GalleryItem & { aspectRatio: string }
-
-const PERSONAL_GALLERY: PersonalItem[] = [
+  // ── Row 6 — 3 regular ────────────────────────────────────────────
   {
-    src:         `${BASE}/GTW8-oha8AAeKgl.jpeg`,
-    alt:         'Personal illustration — figure and character study',
-    label:       'Exploration I',
-    aspectRatio: '3/4',   // portrait 1474 × 2048
+    src:   `${BASE}/GWvPwwdacAAElRs.jpeg`,
+    alt:   'Visual experiment in form and texture',
+    label: 'Visual Experiment',
   },
   {
-    src:         `${BASE}/GUBStDcWEAAk9IA.jpeg`,
-    alt:         'Personal creative exploration',
-    label:       'Exploration II',
-    aspectRatio: '1/1',
+    src:   `${BASE}/GXiuqEoaIAA96EQ.jpeg`,
+    alt:   'Detailed character illustration study',
+    label: 'Character Study',
+    lightboxRatio: '3/4',
   },
   {
-    src:         `${BASE}/GUpyHAeboAALOvW.jpeg`,
-    alt:         'Personal visual experiment',
-    label:       'Exploration III',
-    aspectRatio: '1/1',
-  },
-  {
-    src:         `${BASE}/GVI8jw5aEAA3zyA.jpeg`,
-    alt:         'Personal creative exploration',
-    label:       'Exploration IV',
-    aspectRatio: '1/1',
-  },
-  {
-    src:         `${BASE}/GWvPwwdacAAElRs.jpeg`,
-    alt:         'Personal visual experiment',
-    label:       'Exploration V',
-    aspectRatio: '1/1',
-  },
-  {
-    src:         `${BASE}/GXiuqEoaIAA96EQ.jpeg`,
-    alt:         'Personal illustration — character study',
-    label:       'Exploration VI',
-    aspectRatio: '3/4',   // portrait 1875 × 2625
-  },
-  {
-    src:         `${BASE}/GMXy_CvaMAA8j3A.png`,
-    alt:         'Personal graphic exploration',
-    label:       'Exploration VII',
-    aspectRatio: '1/1',
+    src:   `${BASE}/GMXy_CvaMAA8j3A.png`,
+    alt:   'Graphic design exploration',
+    label: 'Visual Experiment',
   },
 ]
 
-// ─── Unified media list ───────────────────────────────────────────────────────
-// Order: featured → main gallery → personal explorations.
-// findIndex by src drives openAt() — do not add duplicates.
+// ─── Lightbox media list ──────────────────────────────────────────────────────
+const ALL_MEDIA: MediaItem[] = GALLERY.map(item => ({
+  type:        'image' as const,
+  src:          item.src,
+  alt:          item.alt,
+  label:        item.label,
+  aspectRatio:  item.lightboxRatio ?? '1/1',
+}))
 
-const ALL_MEDIA: MediaItem[] = [
-  {
-    type:        'image',
-    src:          FEATURED.src,
-    alt:          FEATURED.alt,
-    label:        FEATURED.label,
-    aspectRatio: '1/1',   // show the square source image uncropped
-  },
-  ...MAIN_GALLERY.map(item => ({
-    type:        'image' as const,
-    src:          item.src,
-    alt:          item.alt,
-    label:        item.label,
-    aspectRatio: '1/1',   // all main gallery pieces are square
-  })),
-  ...PERSONAL_GALLERY.map(item => ({
-    type:        'image' as const,
-    src:          item.src,
-    alt:          item.alt,
-    label:        item.label,
-    aspectRatio:  item.aspectRatio,
-  })),
-]
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-// ─── Local helpers ────────────────────────────────────────────────────────────
-
-function SectionLabel({ index, label, reduced }: { index: string; label: string; reduced: boolean }) {
-  return (
-    <motion.div
-      className="flex items-center gap-3"
-      initial={reduced ? {} : { opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: EASE }}
-    >
-      <span className="font-mono text-[11px] tracking-[0.2em] uppercase" style={{ color: 'rgba(242,216,50,0.5)' }}>
-        {index}
-      </span>
-      <span className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
-      <span className="font-mono text-[11px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.24)' }}>
-        {label}
-      </span>
-    </motion.div>
-  )
-}
-
-// Reusable gallery cell: image container + caption
-function GalleryCell({
-  item,
-  wide,
-  reduced,
-  onOpen,
-  delay = 0,
-}: {
-  item: GalleryItem
-  wide?: boolean
-  reduced: boolean
-  onOpen: () => void
-  delay?: number
-}) {
-  return (
-    <motion.div
-      initial={reduced ? {} : { opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.72, ease: EASE, delay }}
-    >
-      <div
-        className="relative overflow-hidden rounded-xl group"
-        style={{ aspectRatio: wide ? '2/1' : '1/1', background: '#0a0a0a' }}
-      >
-        <Image
-          src={item.src}
-          alt={item.alt}
-          fill
-          quality={item.src.includes('GZGP') ? 78 : 85}
-          sizes={
-            wide
-              ? '(max-width: 768px) 100vw, (max-width: 1400px) calc(100vw - 8rem), 1272px'
-              : '(max-width: 768px) 100vw, (max-width: 1400px) calc(50vw - 5rem), 636px'
-          }
-          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-        <ViewOverlay onClick={onOpen} label={`View: ${item.label}`} />
-      </div>
-      <p
-        className="mt-2.5 font-mono text-[11px] tracking-wide"
-        style={{ color: 'rgba(255,255,255,0.26)' }}
-      >
-        {item.label}
-      </p>
-    </motion.div>
-  )
-}
-
-// Invisible button + dark hover overlay — place inside any div with `group overflow-hidden`
-function ViewOverlay({ onClick, label }: { onClick: () => void; label: string }) {
+function HoverOverlay({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <>
-      <div className="absolute inset-0 z-[5] pointer-events-none bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+      <div className="absolute inset-0 z-[5] pointer-events-none bg-black/0 group-hover:bg-black/28 transition-colors duration-300 flex items-center justify-center">
         <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           View
         </span>
@@ -241,11 +168,79 @@ function ViewOverlay({ onClick, label }: { onClick: () => void; label: string })
   )
 }
 
+// One grid tile — handles both regular (1:1) and wide (2:1 desktop) items.
+// className on the motion.div carries the CSS Grid col-span.
+function GalleryTile({
+  item,
+  reduced,
+  onOpen,
+  delay = 0,
+}: {
+  item:     GalleryItem
+  reduced:  boolean
+  onOpen:   () => void
+  delay?:   number
+}) {
+  return (
+    <motion.div
+      className={item.wide ? 'lg:col-span-2' : ''}
+      initial={reduced ? {} : { opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 0.65, ease: EASE, delay }}
+    >
+      {/*
+       * aspect-square on all screens; lg:aspect-[2/1] overrides on desktop
+       * for wide items so they stay proportional in the 2-of-3 col span.
+       */}
+      <div
+        className={[
+          'relative overflow-hidden rounded-xl group',
+          item.wide ? 'aspect-square lg:aspect-[2/1]' : 'aspect-square',
+        ].join(' ')}
+        style={{ background: '#0a0a0a' }}
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          quality={85}
+          sizes={
+            item.wide
+              ? '(max-width: 1024px) 100vw, (max-width: 1400px) calc(66vw - 4rem), 848px'
+              : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1400px) calc(33vw - 3rem), 424px'
+          }
+          className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+        <HoverOverlay onClick={onOpen} label={`View: ${item.label}`} />
+      </div>
+
+      <p
+        className="mt-2 font-mono text-[10px] tracking-[0.14em] uppercase"
+        style={{ color: 'rgba(255,255,255,0.22)' }}
+      >
+        {item.label}
+      </p>
+    </motion.div>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function GraphicDesignPage() {
-  const reduced = useReducedMotion() ?? false
-  const [lightbox, setLightbox] = useState<number | null>(null)
+  const reduced    = useReducedMotion() ?? false
+  const [heroIndex, setHeroIndex] = useState(0)
+  const [lightbox,  setLightbox]  = useState<number | null>(null)
+
+  // Cycle hero images every 4 s. Cleanup on unmount or when reduced-motion changes.
+  useEffect(() => {
+    if (reduced) return
+    const id = setInterval(
+      () => setHeroIndex(i => (i + 1) % HERO_SRCS.length),
+      4000,
+    )
+    return () => clearInterval(id)
+  }, [reduced])
 
   const openAt = useCallback((src: string) => {
     const idx = ALL_MEDIA.findIndex(m => m.src === src)
@@ -258,17 +253,82 @@ export default function GraphicDesignPage() {
       <main style={{ background: '#080808' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO
+            HERO — animated cover: slow crossfade + Ken Burns scale
         ══════════════════════════════════════════════════════════════════════ */}
-        <section>
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 pt-40 pb-20">
+        <section
+          className="relative w-full overflow-hidden flex flex-col justify-end"
+          style={{ minHeight: 'clamp(600px, 90vh, 900px)' }}
+        >
+          {/* ── Image layer ── */}
+          <div className="absolute inset-0">
+            {reduced ? (
+              /* Static fallback on reduced-motion: first hero image, no cycling */
+              <Image
+                src={HERO_SRCS[0]}
+                alt="Graphic Design"
+                fill
+                priority
+                quality={88}
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : (
+              /*
+               * AnimatePresence initial={false} skips the mount animation for
+               * the first image (it just appears), then crossfades on each change.
+               * mode default ("sync") means exit + enter run simultaneously — true crossfade.
+               */
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={heroIndex}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1.09 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    opacity: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
+                    scale:   { duration: 8,   ease: 'linear' },
+                  }}
+                >
+                  <Image
+                    src={HERO_SRCS[heroIndex]}
+                    alt="Graphic Design"
+                    fill
+                    priority={heroIndex === 0}
+                    quality={88}
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
+
+          {/* ── Gradient overlays — text readability ── */}
+          <div
+            className="absolute inset-0 pointer-events-none z-[2]"
+            style={{
+              background:
+                'linear-gradient(to top, #080808 0%, #080808 5%, rgba(8,8,8,0.78) 26%, rgba(8,8,8,0.15) 58%, rgba(8,8,8,0.06) 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none z-[2]"
+            style={{
+              background:
+                'linear-gradient(to right, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.42) 42%, rgba(8,8,8,0) 72%)',
+            }}
+          />
+
+          {/* ── Text ── */}
+          <div className="relative z-[10] max-w-[1400px] mx-auto px-6 lg:px-16 pb-14 lg:pb-20 pt-36 w-full">
 
             <motion.p
               className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'rgba(242,216,50,0.65)' }}
+              style={{ color: 'rgba(242,216,50,0.72)' }}
               initial={reduced ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
             >
               Visual Design · Illustration
             </motion.p>
@@ -277,24 +337,36 @@ export default function GraphicDesignPage() {
               className="font-extrabold tracking-[-0.04em] text-white"
               style={{
                 fontFamily: 'var(--font-syne)',
-                fontSize: 'clamp(58px, 9.5vw, 136px)',
+                fontSize:   'clamp(56px, 9vw, 124px)',
                 lineHeight: 0.9,
               }}
-              initial={reduced ? {} : { opacity: 0, y: 28 }}
+              initial={reduced ? {} : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.12 }}
             >
               Graphic
               <br />
               Design
             </motion.h1>
 
+            <motion.p
+              className="mt-5 text-[13px] leading-relaxed"
+              style={{ color: 'rgba(255,255,255,0.42)', maxWidth: '460px' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.28 }}
+            >
+              A curated archive of illustrations, typographic works, badge designs,
+              and visual experiments — exploring character, composition, and
+              graphic storytelling beyond client work.
+            </motion.p>
+
             <motion.div
-              className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8"
+              className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-7 pt-7"
               style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-              initial={reduced ? {} : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: EASE, delay: 0.28 }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.38 }}
             >
               {[
                 { label: 'Year',       value: 'Ongoing' },
@@ -302,14 +374,14 @@ export default function GraphicDesignPage() {
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p
-                    className="font-mono text-[10px] tracking-[0.2em] uppercase mb-1.5"
+                    className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
                     style={{ color: 'rgba(255,255,255,0.28)' }}
                   >
                     {label}
                   </p>
                   <p
                     className="text-[13px] leading-snug"
-                    style={{ color: 'rgba(255,255,255,0.68)', maxWidth: '340px' }}
+                    style={{ color: 'rgba(255,255,255,0.56)' }}
                   >
                     {value}
                   </p>
@@ -317,206 +389,86 @@ export default function GraphicDesignPage() {
               ))}
             </motion.div>
           </div>
+
+          {/* ── Navigation dots — subtle progress indicator ── */}
+          {!reduced && (
+            <div className="absolute bottom-5 right-6 lg:right-16 z-[10] flex items-center gap-1.5">
+              {HERO_SRCS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setHeroIndex(i)}
+                  className="w-1.5 h-1.5 rounded-full transition-all duration-500 focus:outline-none"
+                  style={{
+                    background: i === heroIndex
+                      ? 'rgba(242,216,50,0.9)'
+                      : 'rgba(255,255,255,0.22)',
+                    transform: i === heroIndex ? 'scale(1.4)' : 'scale(1)',
+                  }}
+                  aria-label={`Image ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            FEATURED IMAGE — full-bleed cinematic reveal
-        ══════════════════════════════════════════════════════════════════════ */}
-        <motion.div
-          className="relative w-full overflow-hidden group"
-          style={{ aspectRatio: '4/3' }}
-          initial={reduced ? {} : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.1, ease: EASE, delay: 0.35 }}
-        >
-          <Image
-            src={FEATURED.src}
-            alt={FEATURED.alt}
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-          />
-
-          {/* Bottom gradient — smooth transition into next section */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(to bottom, transparent 55%, rgba(8,8,8,0.35) 75%, rgba(8,8,8,0.85) 92%, #080808 100%)',
-            }}
-          />
-
-          {/* Piece label — bottom left */}
-          <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-16 pb-8 pointer-events-none z-[6]">
-            <p
-              className="font-mono text-[11px] tracking-[0.2em] uppercase"
-              style={{ color: 'rgba(255,255,255,0.42)' }}
-            >
-              {FEATURED.label}
-            </p>
-          </div>
-
-          <ViewOverlay
-            onClick={() => openAt(FEATURED.src)}
-            label="View: Day of the Dead"
-          />
-        </motion.div>
-
-        {/* ══════════════════════════════════════════════════════════════════════
-            01 WORKS
+            GALLERY — one unified grid of all 15 GraphicDesign images
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-white/[0.06]">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-20 lg:py-32">
 
-            <SectionLabel index="01" label="Works" reduced={reduced} />
-
-            {/* Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
-              <motion.h2
-                className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
-                initial={reduced ? {} : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.75, ease: EASE }}
+            {/* Section marker */}
+            <motion.div
+              className="flex items-center justify-between mb-10 lg:mb-12"
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: EASE }}
+            >
+              <span
+                className="font-mono text-[11px] tracking-[0.2em] uppercase"
+                style={{ color: 'rgba(242,216,50,0.5)' }}
               >
-                Illustration
-                <br />
-                &amp; design.
-              </motion.h2>
-
-              <motion.p
-                className="text-[14px] leading-relaxed"
-                style={{ color: 'rgba(255,255,255,0.44)', maxWidth: '520px' }}
-                initial={reduced ? {} : { opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+                01 — Works
+              </span>
+              <span
+                className="font-mono text-[10px] tracking-[0.12em]"
+                style={{ color: 'rgba(255,255,255,0.18)' }}
               >
-                A curated archive of illustrations, typographic works, badge designs, and visual
-                experiments — exploring character, composition, color, and graphic storytelling
-                beyond client work.
-              </motion.p>
+                {GALLERY.length} pieces
+              </span>
+            </motion.div>
+
+            {/*
+             * Unified grid — desktop: 3 cols, tablet: 2 cols, mobile: 1 col.
+             * Wide items span 2 cols on desktop only (lg:col-span-2).
+             * Stagger delay = (index mod 3) × 60 ms — per-column wave effect.
+             * See GALLERY array comment for exact row layout.
+             */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {GALLERY.map((item, i) => (
+                <GalleryTile
+                  key={item.src}
+                  item={item}
+                  reduced={reduced}
+                  onOpen={() => openAt(item.src)}
+                  delay={(i % 3) * 0.06}
+                />
+              ))}
             </div>
 
-            {/* ── Editorial gallery — explicit rows for precise alignment ──────
-                Each row is its own element: no CSS auto-placement surprises.
-                Wide = 2:1 standalone row. Pairs = 2-col sub-grid, both 1:1.
-                space-y-3 gives consistent 12px gap between every row.
-            ─────────────────────────────────────────────────────────────────── */}
-            <div className="space-y-3">
-
-              {/* Row 1 — Pumpkin King (full-width) */}
-              <GalleryCell
-                item={MAIN_GALLERY[0]}
-                wide
-                reduced={reduced}
-                onOpen={() => openAt(MAIN_GALLERY[0].src)}
-              />
-
-              {/* Row 2 — Friday pair */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <GalleryCell
-                  item={MAIN_GALLERY[1]}
-                  reduced={reduced}
-                  onOpen={() => openAt(MAIN_GALLERY[1].src)}
-                />
-                <GalleryCell
-                  item={MAIN_GALLERY[2]}
-                  reduced={reduced}
-                  onOpen={() => openAt(MAIN_GALLERY[2].src)}
-                  delay={0.06}
-                />
-              </div>
-
-              {/* Row 3 — Victorian Girl + Princesses */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <GalleryCell
-                  item={MAIN_GALLERY[3]}
-                  reduced={reduced}
-                  onOpen={() => openAt(MAIN_GALLERY[3].src)}
-                />
-                <GalleryCell
-                  item={MAIN_GALLERY[4]}
-                  reduced={reduced}
-                  onOpen={() => openAt(MAIN_GALLERY[4].src)}
-                  delay={0.06}
-                />
-              </div>
-
-              {/* Row 4 — HELO Neon (full-width) */}
-              <GalleryCell
-                item={MAIN_GALLERY[5]}
-                wide
-                reduced={reduced}
-                onOpen={() => openAt(MAIN_GALLERY[5].src)}
-              />
-
-              {/* Row 5 — WAAARGH (full-width) */}
-              <GalleryCell
-                item={MAIN_GALLERY[6]}
-                wide
-                reduced={reduced}
-                onOpen={() => openAt(MAIN_GALLERY[6].src)}
-              />
-
-
-              {/* Row 6 — Exp I + Exp II */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <GalleryCell
-                  item={PERSONAL_GALLERY[0]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[0].src)}
-                />
-                <GalleryCell
-                  item={PERSONAL_GALLERY[1]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[1].src)}
-                  delay={0.06}
-                />
-              </div>
-
-              {/* Row 7 — Exp III + Exp IV */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <GalleryCell
-                  item={PERSONAL_GALLERY[2]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[2].src)}
-                />
-                <GalleryCell
-                  item={PERSONAL_GALLERY[3]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[3].src)}
-                  delay={0.06}
-                />
-              </div>
-
-              {/* Row 8 — Exp V + Exp VI */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <GalleryCell
-                  item={PERSONAL_GALLERY[4]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[4].src)}
-                />
-                <GalleryCell
-                  item={PERSONAL_GALLERY[5]}
-                  reduced={reduced}
-                  onOpen={() => openAt(PERSONAL_GALLERY[5].src)}
-                  delay={0.06}
-                />
-              </div>
-
-              {/* Row 9 — Exp VII (full-width close) */}
-              <GalleryCell
-                item={PERSONAL_GALLERY[6]}
-                wide
-                reduced={reduced}
-                onOpen={() => openAt(PERSONAL_GALLERY[6].src)}
-              />
-
-            </div>
+            {/* Disclaimer — very subtle, sits below the grid */}
+            <motion.p
+              className="mt-10 font-mono text-[10px] leading-relaxed"
+              style={{ color: 'rgba(255,255,255,0.14)', maxWidth: '440px' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              Personal creative explorations. Not affiliated with or endorsed
+              by the original IP owners.
+            </motion.p>
 
           </div>
         </section>
@@ -565,7 +517,7 @@ export default function GraphicDesignPage() {
           </div>
         </section>
 
-        {/* ── Media viewer ── */}
+        {/* ── Lightbox ── */}
         <AnimatePresence>
           {lightbox !== null && (
             <Lightbox
