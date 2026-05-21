@@ -3,10 +3,27 @@ export type Experience = {
   role: string
   period: string
   description: string
+  highlights?: string[]   // optional bullet points — existing entries omit this field
   tags: string[]
 }
 
 export const experiences: Experience[] = [
+  // ── Most recent first ─────────────────────────────────────────────────────
+  {
+    company: 'U-wifi Inc.',
+    role: 'Lead Mobile Developer',
+    period: 'Jan 2025 — Present',
+    description:
+      'Leading mobile development initiatives for app experiences, interface implementation, and product-focused features across mobile platforms.',
+    highlights: [
+      'Mobile app development',
+      'UI implementation',
+      'Product-focused features',
+      'Cross-platform collaboration',
+      'Performance and usability improvements',
+    ],
+    tags: ['Mobile Dev', 'UI Implementation', 'Cross-Platform', 'Product'],
+  },
   {
     company: 'Freelance / HELO',
     role: 'Designer & Developer',

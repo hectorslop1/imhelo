@@ -37,15 +37,21 @@ export default function Header() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex items-center justify-between">
 
         {/* ── Logo / Brand mark ── */}
-        <Link href="/" className="group flex items-baseline gap-[3px]" aria-label="HELO — Home">
+        <Link href="/" className="group flex items-center gap-[6px]" aria-label="HELO — Home">
           <span
-            className="font-extrabold text-[17px] text-white group-hover:text-[#f2d832] transition-colors duration-300"
-            style={{ fontFamily: 'var(--font-syne)', letterSpacing: '-0.07em' }}
+            className="font-normal leading-none text-white group-hover:text-[#f2d832] transition-colors duration-300"
+            style={{
+              fontFamily: 'var(--font-singapore-sling)',
+              fontSize: '17px',
+              letterSpacing: '0.1em',
+            }}
           >
             HELO
           </span>
-          {/* Brand dot — yellow accent mark */}
-          <span className="w-[5px] h-[5px] rounded-full bg-[#f2d832] mb-[3px] shrink-0 opacity-90 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 origin-center" />
+          {/* Brand dot — yellow accent, sits at cap-height center */}
+          <span
+            className="w-[4px] h-[4px] rounded-full bg-[#f2d832] shrink-0 -mb-[3px] opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 origin-center"
+          />
         </Link>
 
         {/* ── Navigation ── */}

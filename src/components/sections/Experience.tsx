@@ -40,9 +40,27 @@ export default function Experience() {
                       {exp.period}
                     </span>
                   </div>
-                  <p className="text-[13px] text-[#7a7a72] leading-relaxed mt-4 mb-5">
+                  <p className="text-[13px] text-[#7a7a72] leading-relaxed mt-4 mb-4">
                     {exp.description}
                   </p>
+
+                  {/* Highlights — only rendered when present on an entry */}
+                  {exp.highlights && exp.highlights.length > 0 && (
+                    <ul className="mb-5 space-y-1.5">
+                      {exp.highlights.map((h) => (
+                        <li key={h} className="flex items-center gap-2.5">
+                          <span
+                            className="w-[3px] h-[3px] rounded-full shrink-0"
+                            style={{ background: 'rgba(242,216,50,0.45)' }}
+                          />
+                          <span className="text-[11px] font-mono text-[#4a4a44] tracking-wide">
+                            {h}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                   <div className="flex flex-wrap gap-1.5">
                     {exp.tags.map((tag) => (
                       <span

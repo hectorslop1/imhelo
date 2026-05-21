@@ -23,14 +23,18 @@ export default function ContactFooter() {
         <div className="pb-16">
           {/* Big headline */}
           <h2
-            className="font-extrabold leading-[0.88] tracking-[-0.05em] mb-12"
+            className="font-extrabold leading-[0.95] mb-12"
             style={{
               fontSize: 'clamp(72px, 12vw, 160px)',
               fontFamily: 'var(--font-syne)',
+              letterSpacing: '-0.03em',
             }}
           >
             <span className="text-white">Say </span>
-            <span className="text-[#f2d832]">HELO</span>
+            <span
+              className="text-[#f2d832] font-normal"
+              style={{ fontFamily: 'var(--font-singapore-sling)', letterSpacing: '0.08em' }}
+            >HELO</span>
           </h2>
 
           {/* Bottom section */}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
+import localFont from "next/font/local";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import "./globals.css";
 
@@ -19,6 +20,16 @@ const syne = Syne({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+// Singapore Sling — custom display font used only for the HELO wordmark
+// and select brand moments. Not for body text or paragraphs.
+const singaporeSling = localFont({
+  src: "../../public/fonts/singapore_sling/singaporesling.ttf",
+  variable: "--font-singapore-sling",
+  display: "block",   // block render until loaded — prevents wordmark FOUT
+  preload: true,
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "HELO — Design & Development",
   description:
@@ -33,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${singaporeSling.variable} antialiased`}
     >
       <body className="bg-[#0d0d0d] text-[#f5efe6] min-h-screen overflow-x-hidden">
         <SmoothScroll>{children}</SmoothScroll>

@@ -59,17 +59,17 @@ export default function Hero() {
         <div className="flex-1 flex flex-col justify-center pb-8">
 
           {/* HELO — clip reveal from below */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden pb-[0.06em]">
             <motion.h1
               initial={{ y: '108%' }}
               animate={{ y: 0 }}
               transition={{ duration: 1.15, ease: EASE, delay: 0.05 }}
-              className="font-extrabold text-white select-none"
+              className="font-normal text-white select-none"
               style={{
+                fontFamily: 'var(--font-singapore-sling)',
                 fontSize: 'clamp(116px, 19vw, 280px)',
-                lineHeight: 0.83,
-                letterSpacing: '-0.06em',
-                fontFamily: 'var(--font-syne)',
+                lineHeight: 1,
+                letterSpacing: '0.06em',
               }}
             >
               HELO
