@@ -55,7 +55,7 @@ export default function Hero() {
                 className="font-normal text-white select-none"
                 style={{
                   fontFamily: 'var(--font-singapore-sling)',
-                  fontSize: 'clamp(140px, 28vw, 520px)',
+                  fontSize: 'clamp(140px, 30vw, 560px)',
                   lineHeight: 0.88,
                   letterSpacing: '0.04em',
                 }}
@@ -70,14 +70,10 @@ export default function Hero() {
               initial={reduced ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, ease: EASE, delay: 0.35 }}
-              className="mt-7 text-[10px] font-mono uppercase tracking-[0.28em]"
+              className="mt-10 text-[10px] font-mono uppercase tracking-[0.28em]"
               style={{ color: 'rgba(255,255,255,0.26)' }}
             >
-              Design &amp; Development
-              <span className="mx-3" style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
-              San Diego, CA
-              <span className="mx-3" style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
-              2026
+              Design &amp; Development<span style={{ color: 'rgba(255,255,255,0.1)' }}>{' · '}</span>San Diego, CA<span style={{ color: 'rgba(255,255,255,0.1)' }}>{' · '}</span>2026
             </motion.p>
           </motion.div>
 

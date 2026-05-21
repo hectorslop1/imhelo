@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 
@@ -11,7 +12,73 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ]
 
-const EASE = [0.16, 1, 0.3, 1] as const
+const EASE     = [0.16, 1, 0.3, 1] as const
+const NAV_EASE = 'cubic-bezier(0.16,1,0.3,1)'
+
+// ─── SplitNavLink ─────────────────────────────────────────────────────────────
+//
+// Each character of the label lives in its own <span>.
+// On hover, the visible layer slides up and a white clone slides in from below.
+// Stagger delay per character gives a subtle wave effect.
+//
+// Accessibility: `aria-label` on the <Link> holds the real text;
+// both character layers are `aria-hidden` so screen readers see only one copy.
+
+function SplitNavLink({ href, label }: { href: string; label: string }) {
+  const [hovered, setHovered] = useState(false)
+  const chars = label.split('')
+
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative inline-flex overflow-hidden py-1 text-[13px] tracking-wide"
+    >
+      {/* Yellow underline — grows on hover */}
+      <span
+        aria-hidden
+        className="absolute bottom-0 left-0 h-px bg-[#f2d832] transition-all duration-300 ease-out"
+        style={{ width: hovered ? '100%' : '0' }}
+      />
+
+      {/* Layer 1 — muted text, slides up on hover */}
+      <span aria-hidden className="flex">
+        {chars.map((char, i) => (
+          <span
+            key={i}
+            style={{
+              display:    'inline-block',
+              color:      'rgba(122,122,114,1)',
+              transform:  hovered ? 'translateY(-100%)' : 'translateY(0%)',
+              transition: `transform 380ms ${NAV_EASE} ${i * 20}ms`,
+            }}
+          >
+            {char === ' ' ? ' ' : char}
+          </span>
+        ))}
+      </span>
+
+      {/* Layer 2 — white clone, slides up from below */}
+      <span aria-hidden className="absolute inset-0 flex">
+        {chars.map((char, i) => (
+          <span
+            key={i}
+            style={{
+              display:    'inline-block',
+              color:      'rgba(255,255,255,1)',
+              transform:  hovered ? 'translateY(0%)' : 'translateY(100%)',
+              transition: `transform 380ms ${NAV_EASE} ${i * 20}ms`,
+            }}
+          >
+            {char === ' ' ? ' ' : char}
+          </span>
+        ))}
+      </span>
+    </Link>
+  )
+}
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 //
@@ -23,18 +90,27 @@ const EASE = [0.16, 1, 0.3, 1] as const
 // Only the wordmark fades in — the user always knows where they are.
 
 export default function Header() {
-  const [scrolled,     setScrolled]     = useState(false)
-  const [logoVisible,  setLogoVisible]  = useState(false)
+  const [scrolled,    setScrolled]    = useState(false)
+  const [logoFull,    setLogoFull]    = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handler = () => {
       const y = window.scrollY
       setScrolled(y > 60)
-      setLogoVisible(y > 120)
+      setLogoFull(y > 120)
     }
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  // On homepage: scroll to top smoothly instead of navigating
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/') {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   return (
     <motion.header
@@ -50,16 +126,24 @@ export default function Header() {
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex items-center justify-between">
 
-        {/* ── Wordmark — fades in once hero HELO has scrolled away ── */}
+        {/* ── Wordmark — always present; dims to 28% while hero is visible ── */}
+        {/*    Transitions to full opacity once the hero HELO scrolls away.   */}
+        {/*    On the homepage, clicking scrolls smoothly to the top.          */}
         <Link
           href="/"
-          aria-label="HELO — Home"
-          className="group flex items-center gap-[6px]"
+          aria-label="HELO — Go to homepage"
+          onClick={handleLogoClick}
+          className={cn(
+            'group flex items-center gap-[7px]',
+            // Elegant focus ring — visible but not garish
+            'rounded-[2px] outline-none',
+            'focus-visible:ring-1 focus-visible:ring-[#f2d832]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent',
+          )}
           style={{
-            opacity:    logoVisible ? 1 : 0,
-            transform:  logoVisible ? 'translateY(0)' : 'translateY(5px)',
-            transition: 'opacity 0.55s ease, transform 0.55s ease',
-            pointerEvents: logoVisible ? 'auto' : 'none',
+            // 28% at the top so it doesn't compete with the hero HELO
+            // Full opacity once the hero has scrolled away
+            opacity:    logoFull ? 1 : 0.28,
+            transition: 'opacity 0.5s ease',
           }}
         >
           <span
@@ -72,8 +156,8 @@ export default function Header() {
           >
             HELO
           </span>
-          {/* Brand dot */}
-          <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832] shrink-0 -mb-[3px] opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 origin-center" />
+          {/* Brand dot — steady, no scale jump */}
+          <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832] shrink-0 -mb-[3px] opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
         </Link>
 
         {/* ── Navigation — always visible ── */}
@@ -85,13 +169,7 @@ export default function Header() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: 0.2 + i * 0.08 }}
             >
-              <Link
-                href={href}
-                className="relative text-[13px] tracking-wide text-[#7a7a72] hover:text-white transition-colors duration-300 group py-1"
-              >
-                {label}
-                <span className="absolute bottom-0 left-0 h-px w-0 bg-[#f2d832] group-hover:w-full transition-all duration-300 ease-out" />
-              </Link>
+              <SplitNavLink href={href} label={label} />
             </motion.div>
           ))}
         </nav>

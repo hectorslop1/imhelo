@@ -63,6 +63,13 @@ hr {
   color: var(--bg);
 }
 
+/* ─── Custom cursor — hide native on desktop ─────── */
+@media (min-width: 1024px) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 /* ─── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 1px; }
 ::-webkit-scrollbar-track { background: var(--bg); }

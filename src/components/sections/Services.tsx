@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
+import ClipReveal from '@/components/ui/ClipReveal'
 
 const PILLARS = [
   {
@@ -23,7 +24,7 @@ export default function Services() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header */}
-        <div className="flex items-center gap-4 py-10">
+        <div className="flex items-center gap-4 py-12">
           <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">02</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
           <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest uppercase">What I Do</span>
@@ -44,16 +45,18 @@ export default function Services() {
               {pillar.index}
             </span>
 
-            {/* Title */}
-            <h3
-              className="font-extrabold tracking-[-0.04em] text-white group-hover:text-[#f2d832] transition-colors duration-300"
-              style={{
-                fontSize: 'clamp(32px, 3.5vw, 52px)',
-                fontFamily: 'var(--font-syne)',
-              }}
-            >
-              {pillar.title}
-            </h3>
+            {/* Title — wipe-up reveal */}
+            <ClipReveal delay={0.05 + i * 0.08}>
+              <h3
+                className="font-extrabold tracking-[-0.04em] text-white group-hover:text-[#f2d832] transition-colors duration-300"
+                style={{
+                  fontSize: 'clamp(32px, 3.5vw, 52px)',
+                  fontFamily: 'var(--font-syne)',
+                }}
+              >
+                {pillar.title}
+              </h3>
+            </ClipReveal>
 
             {/* Description + tools */}
             <div className="space-y-4">
