@@ -1,6 +1,5 @@
 'use client'
 
-import { Fragment } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { experiences, type Experience } from '@/data/experience'
 import { skills } from '@/data/skills'
@@ -21,16 +20,6 @@ function Period({ text, isPrimary }: { text: string; isPrimary: boolean }) {
         Present
       </span>
     </>
-  )
-}
-
-// ─── Skill chip ───────────────────────────────────────────────────────────────
-
-function SkillChip({ label }: { label: string }) {
-  return (
-    <span className="inline-flex text-[11px] font-mono tracking-wide px-2.5 py-[5px] rounded-md border border-white/[0.08] text-[#5a5a54] cursor-default transition-colors duration-200 hover:border-white/[0.18] hover:text-[#7a7a72] hover:bg-white/[0.02]">
-      {label}
-    </span>
   )
 }
 
@@ -58,23 +47,9 @@ function Toolkit({ reduced }: { reduced: boolean }) {
             <p className="text-[11px] font-mono text-[#4a4a44] tracking-[0.14em] uppercase mb-3">
               {group.label}
             </p>
-            {/* Items separated by · dots so adjacent chips read as distinct tokens */}
-            <div className="flex flex-wrap items-baseline gap-y-1.5">
-              {group.items.map((item, idx) => (
-                <Fragment key={item}>
-                  <SkillChip label={item} />
-                  {idx < group.items.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="font-mono text-[#3a3a34] select-none"
-                      style={{ fontSize: '10px', margin: '0 4px' }}
-                    >
-                      ·
-                    </span>
-                  )}
-                </Fragment>
-              ))}
-            </div>
+            <p className="text-[11px] font-mono text-[#5a5a54] leading-relaxed">
+              {group.items.join(' · ')}
+            </p>
             {i < skills.length - 1 && (
               <div className="mt-5 h-px bg-white/[0.04]" />
             )}
