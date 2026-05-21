@@ -113,18 +113,18 @@ const VIDEO_CARDS = [
   {
     src: '/assetshelo/Nascar/ZaneSmith/IMG_9039.mp4',
     label: 'Race Clip 01',
-    poster: '/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_9039.jpg',
   },
   {
     src: '/assetshelo/Nascar/ZaneSmith/IMG_9044.mp4',
     label: 'Race Clip 02',
-    poster: '/assetshelo/Nascar/ZaneSmith/2328JN1808.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_9044.jpg',
   },
   {
     // ~48 MB — consider compressing before production
     src: '/assetshelo/Nascar/ZaneSmith/IMG_8994.mp4',
     label: 'Race Footage',
-    poster: '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_8994.jpg',
   },
 ]
 
@@ -227,21 +227,21 @@ const ALL_MEDIA: MediaItem[] = [
     src: '/assetshelo/Nascar/ZaneSmith/IMG_9039.mp4',
     alt: 'Race Clip 01 — NASCAR Craftsman Truck Series event footage',
     label: 'Race Clip 01',
-    poster: '/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_9039.jpg',
   },
   {
     type: 'video',
     src: '/assetshelo/Nascar/ZaneSmith/IMG_9044.mp4',
     alt: 'Race Clip 02 — NASCAR Craftsman Truck Series event footage',
     label: 'Race Clip 02',
-    poster: '/assetshelo/Nascar/ZaneSmith/2328JN1808.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_9044.jpg',
   },
   {
     type: 'video',
     src: '/assetshelo/Nascar/ZaneSmith/IMG_8994.mp4',
     alt: 'Race Footage — NASCAR Craftsman Truck Series event footage',
     label: 'Race Footage',
-    poster: '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
+    poster: '/assetshelo/Nascar/ZaneSmith/thumb_IMG_8994.jpg',
   },
 ]
 
