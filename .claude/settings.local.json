@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls ~/.claude/plugins/ 2>&1)"
+      "Bash(ls ~/.claude/plugins/ 2>&1)",
+      "mcp__magic__21st_magic_component_inspiration"
     ]
   }
 }

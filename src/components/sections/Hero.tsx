@@ -1,192 +1,125 @@
 'use client'
 
-import Link from 'next/link'
-import { motion } from 'motion/react'
-import { ArrowUpRight } from 'lucide-react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
+// ─── Hero / MONUMENT ─────────────────────────────────────────────────────────
+//
+// HELO fills the viewport as a graphic object, not a headline.
+// Singapore Sling at viewport-spanning scale.
+//
+// On scroll: the wordmark fades and lifts — visually handing off
+// to the header logo that fades in simultaneously.
+//
+// No CTA buttons. The confidence is the CTA.
+
 export default function Hero() {
+  const reduced = useReducedMotion() ?? false
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  // Monument wordmark fades as user scrolls through the hero
+  const wordmarkOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0])
+  const wordmarkY       = useTransform(scrollYProgress, [0, 0.45], [0, -28])
+
+  // Scroll indicator disappears as soon as the user begins scrolling
+  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0])
+
   return (
     <section
-      className="relative min-h-screen overflow-hidden"
-      style={{
-        background: [
-          'radial-gradient(ellipse 90% 55% at 50% 110%, rgba(242,216,50,0.06) 0%, transparent 65%)',
-          'radial-gradient(ellipse 55% 45% at 8% 35%, rgba(255,255,255,0.025) 0%, transparent 55%)',
-          'radial-gradient(ellipse 40% 40% at 92% 10%, rgba(255,255,255,0.015) 0%, transparent 50%)',
-          '#080808',
-        ].join(', '),
-      }}
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col"
+      style={{ background: '#080808' }}
     >
-      {/* ── Subtle grid overlay for depth ── */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: [
-            'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px)',
-            'linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
-          ].join(', '),
-          backgroundSize: '80px 80px',
-          opacity: 0.012,
-        }}
-      />
+      {/* ── Monument wordmark block ── */}
+      <div className="flex-1 flex flex-col justify-center">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-16 w-full">
 
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-16 min-h-screen flex flex-col pt-24">
-
-        {/* ── Status bar ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.1 }}
-          className="flex items-center justify-between pt-8"
-        >
-          <span className="text-[11px] font-mono text-[#3a3a34] tracking-widest uppercase">
-            Portfolio — 2026
-          </span>
-          <span className="flex items-center gap-2 text-[11px] font-mono text-[#3a3a34]">
-            <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-[#f2d832] inline-block"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            Available for projects
-          </span>
-        </motion.div>
-
-        {/* ── Main content — fills remaining height ── */}
-        <div className="flex-1 flex flex-col justify-center pb-8">
-
-          {/* HELO — clip reveal from below */}
-          <div className="overflow-hidden pb-[0.06em]">
-            <motion.h1
-              initial={{ y: '108%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.15, ease: EASE, delay: 0.05 }}
-              className="font-normal text-white select-none"
-              style={{
-                fontFamily: 'var(--font-singapore-sling)',
-                fontSize: 'clamp(116px, 19vw, 280px)',
-                lineHeight: 1,
-                letterSpacing: '0.06em',
-              }}
-            >
-              HELO
-            </motion.h1>
-          </div>
-
-          {/* Divider — draws in from left */}
           <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
-            className="h-px bg-white/[0.08] my-8 lg:my-10"
-            style={{ transformOrigin: 'left center' }}
-          />
-
-          {/* Subtitle + CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.58 }}
-            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 lg:gap-16"
+            style={reduced ? {} : { opacity: wordmarkOpacity, y: wordmarkY }}
           >
-            {/* Left — tagline */}
-            <div className="space-y-1.5">
-              <p
-                className="font-semibold text-white/90 leading-[1.1]"
+            {/* HELO — the graphic object
+                Large vw-based font-size fills most of the viewport width.
+                Singapore Sling is loaded as a local font variable. */}
+            <div className="overflow-hidden" style={{ paddingBottom: '0.05em' }}>
+              <motion.h1
+                initial={reduced ? {} : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className="font-normal text-white select-none"
                 style={{
-                  fontSize: 'clamp(20px, 2.6vw, 36px)',
-                  fontFamily: 'var(--font-syne)',
-                  letterSpacing: '-0.03em',
+                  fontFamily: 'var(--font-singapore-sling)',
+                  fontSize: 'clamp(140px, 28vw, 520px)',
+                  lineHeight: 0.88,
+                  letterSpacing: '0.04em',
                 }}
+                aria-label="HELO — Hector Lopez, Design & Development"
               >
-                Design &amp; Development
-              </p>
-              <p
-                className="text-[#7a7a72] font-medium"
-                style={{ fontSize: 'clamp(16px, 1.7vw, 22px)', letterSpacing: '-0.01em' }}
-              >
-                crafted into digital experiences.
-              </p>
+                HELO
+              </motion.h1>
             </div>
 
-            {/* Right — CTAs */}
-            <div className="flex items-center gap-5 shrink-0">
-              {/* Secondary — text link with animated arrow */}
-              <Link
-                href="/work"
-                className="group flex items-center gap-1.5 text-[13px] font-medium text-[#7a7a72] hover:text-white transition-colors duration-300"
-              >
-                View Work
-                <ArrowUpRight
-                  size={13}
-                  strokeWidth={2}
-                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-                />
-              </Link>
-
-              {/* Primary — sharp rectangle, white slide fill */}
-              <Link
-                href="mailto:hello@imhelo.com"
-                className="group relative overflow-hidden inline-flex items-center text-[13px] font-bold text-[#080808] bg-[#f2d832] px-6 py-3"
-                style={{ borderRadius: '2px' }}
-              >
-                <span className="relative z-10 tracking-[-0.01em]">Say HELO</span>
-                <span
-                  aria-hidden
-                  className="absolute inset-0 bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
-                />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ── Scroll indicator + bottom strip ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="border-t border-white/[0.06] py-6 flex items-center justify-between gap-4"
-        >
-          {/* Left meta */}
-          <span className="text-[11px] font-mono text-[#3a3a34] tracking-widest uppercase hidden sm:block">
-            San Diego, CA
-          </span>
-
-          {/* Center — scroll indicator */}
-          <div className="flex flex-col items-center gap-2 mx-auto sm:mx-0">
-            <div
-              className="w-px h-9 relative overflow-hidden"
-              style={{ background: 'rgba(255,255,255,0.07)' }}
+            {/* Mono metadata — single restrained line below the wordmark */}
+            <motion.p
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.35 }}
+              className="mt-7 text-[10px] font-mono uppercase tracking-[0.28em]"
+              style={{ color: 'rgba(255,255,255,0.26)' }}
             >
-              <motion.div
-                className="absolute top-0 left-0 w-full h-4 rounded-full"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(242,216,50,0.7), transparent)',
-                }}
-                animate={{ y: ['-100%', '350%'] }}
-                transition={{
-                  duration: 1.6,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  repeatDelay: 0.9,
-                }}
-              />
-            </div>
-            <span className="text-[9px] font-mono text-[#3a3a34] tracking-[0.3em] uppercase">
-              Scroll
-            </span>
-          </div>
+              Design &amp; Development
+              <span className="mx-3" style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+              San Diego, CA
+              <span className="mx-3" style={{ color: 'rgba(255,255,255,0.1)' }}>·</span>
+              2026
+            </motion.p>
+          </motion.div>
 
-          {/* Right meta */}
-          <span className="text-[11px] font-mono text-[#3a3a34] tracking-widest uppercase text-right hidden sm:block">
-            hello@imhelo.com
-          </span>
-        </motion.div>
-
+        </div>
       </div>
+
+      {/* ── Scroll indicator — bottom centre ── */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5"
+        initial={reduced ? {} : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: EASE, delay: 0.7 }}
+        style={reduced ? {} : { opacity: indicatorOpacity }}
+        aria-hidden
+      >
+        {/* Animated drip line */}
+        <div
+          className="w-px relative overflow-hidden"
+          style={{ height: 44, background: 'rgba(255,255,255,0.08)' }}
+        >
+          <motion.div
+            className="absolute top-0 left-0 w-full"
+            style={{
+              height: '40%',
+              background: 'linear-gradient(to bottom, rgba(242,216,50,0.65), transparent)',
+            }}
+            animate={reduced ? {} : { y: ['-100%', '350%'] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              repeatDelay: 0.8,
+            }}
+          />
+        </div>
+        <span
+          className="text-[8px] font-mono tracking-[0.35em] uppercase"
+          style={{ color: 'rgba(255,255,255,0.18)' }}
+        >
+          Scroll
+        </span>
+      </motion.div>
     </section>
   )
 }

@@ -28,7 +28,7 @@ export const projects: Project[] = [
     description:
       'A collection of app interfaces presented through an interactive device showcase.',
     role: 'Frontend Development, UI Implementation, Motion',
-    year: '2024',
+    year: '2025',
     featured: true,
     tags: ['development', 'ui', 'motion'],
   },
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     description:
       'Interactive web experiments built with modern frontend tools and motion-driven UI.',
     role: 'Frontend Development, Interaction Design',
-    year: '2024',
+    year: '2025',
     featured: true,
     tags: ['frontend', 'creative coding', 'interaction'],
   },
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     description:
       'A curated collection of visual assets, campaign graphics, logos, and brand pieces.',
     role: 'Graphic Design, Art Direction, Visual Systems',
-    year: '2023',
+    year: '2023–2025',
     featured: false,
     tags: ['graphic design', 'branding', 'art direction'],
   },

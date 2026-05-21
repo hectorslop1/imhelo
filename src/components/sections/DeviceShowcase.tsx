@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { X } from 'lucide-react'
 
 // ─── Asset configuration ──────────────────────────────────────────────────────
 // Drop real files at these paths and the CSS fallbacks are replaced automatically.
@@ -24,7 +23,7 @@ const SHOWCASE_META = {
   title: 'Mobile App Showcase',
   discipline: 'Development / UI',
   platform: 'iOS · watchOS',
-  year: '2024',
+  year: '2025',
   scene: '01 — Dashboard',
 }
 
@@ -199,10 +198,10 @@ function IPhoneFrame({ scale = 1 }: { scale?: number }) {
         ].join(', '),
       }}
     >
-      {/* Left volume buttons */}
+      {/* Volume buttons */}
       <div style={{ position: 'absolute', left: -3.5, top: Math.round(96 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
       <div style={{ position: 'absolute', left: -3.5, top: Math.round(134 * scale), width: 3.5, height: Math.round(28 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.1)' }} />
-      {/* Right power button */}
+      {/* Power button */}
       <div style={{ position: 'absolute', right: -3.5, top: Math.round(114 * scale), width: 3.5, height: Math.round(44 * scale), borderRadius: 2, background: 'rgba(255,255,255,0.09)' }} />
 
       {/* Screen bezel */}
@@ -337,19 +336,155 @@ function WatchFrame({ scale = 1 }: { scale?: number }) {
   )
 }
 
-// ─── Device composition (shared between section + overlay) ────────────────────
-function DeviceComposition({ scale = 1 }: { scale?: number }) {
+// ─── Annotated device stage ───────────────────────────────────────────────────
+//
+// MONUMENT direction: technical/editorial presentation.
+// Dimension lines with labels above each device, platform labels below.
+// No hover lift. No ambient glow. No floor reflection.
+// Expand trigger is a minimal mono text button.
+
+function AnnotatedDevices({
+  onExpand,
+  showExpand = true,
+  scale = 1,
+}: {
+  onExpand: () => void
+  showExpand?: boolean
+  scale?: number
+}) {
   return (
-    <div className="flex items-end justify-center" style={{ gap: Math.round(24 * scale) }}>
-      <IPhoneFrame scale={scale} />
-      <div style={{ marginBottom: Math.round(56 * scale) }}>
-        <WatchFrame scale={scale} />
+    <div className="relative">
+
+      {/* Device row — bottoms aligned */}
+      <div className="flex items-end justify-center gap-6 pt-12">
+
+        {/* ── iPhone ── */}
+        <div className="relative">
+
+          {/* Top annotation: drop line + label */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+            style={{ bottom: '100%', paddingBottom: 10 }}
+          >
+            <span
+              className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap"
+              style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.22)' }}
+            >
+              iPhone 15 Pro
+            </span>
+            <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          </div>
+
+          <IPhoneFrame scale={scale} />
+
+          {/* Bottom annotation: platform + horizontal ticks */}
+          <div
+            className="absolute left-0 right-0 flex justify-center"
+            style={{ top: '100%', paddingTop: 14 }}
+          >
+            <div className="flex items-center gap-2">
+              <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.06)' }} />
+              <span
+                className="font-mono tracking-[0.18em]"
+                style={{ fontSize: '7px', color: 'rgba(255,255,255,0.15)' }}
+              >
+                iOS 18
+              </span>
+              <div className="h-px w-5" style={{ background: 'rgba(255,255,255,0.06)' }} />
+            </div>
+          </div>
+        </div>
+
+        {/* ── Apple Watch ── */}
+        <div className="relative" style={{ marginBottom: Math.round(56 * scale) }}>
+
+          {/* Top annotation */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+            style={{ bottom: '100%', paddingBottom: 10 }}
+          >
+            <span
+              className="font-mono tracking-[0.22em] uppercase mb-2 whitespace-nowrap"
+              style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.22)' }}
+            >
+              Apple Watch
+            </span>
+            <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          </div>
+
+          <WatchFrame scale={scale} />
+
+          {/* Bottom annotation */}
+          <div
+            className="absolute left-0 right-0 flex justify-center"
+            style={{ top: '100%', paddingTop: 14 }}
+          >
+            <div className="flex items-center gap-2">
+              <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
+              <span
+                className="font-mono tracking-[0.18em]"
+                style={{ fontSize: '7px', color: 'rgba(255,255,255,0.15)' }}
+              >
+                watchOS 11
+              </span>
+              <div className="h-px w-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      {/* Scene annotation — centered below devices */}
+      <div className="mt-16 flex items-center gap-3">
+        <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.04)' }} />
+        <motion.span
+          className="inline-block w-[5px] h-[5px] rounded-full bg-[#f2d832] shrink-0"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <span
+          className="font-mono tracking-[0.28em] uppercase shrink-0"
+          style={{ fontSize: '8px', color: '#3a3a34' }}
+        >
+          {SHOWCASE_META.scene}
+        </span>
+        <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.04)' }} />
+      </div>
+
+      {/* Expand trigger */}
+      {showExpand && (
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={onExpand}
+            className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+            aria-label="Expand device showcase"
+          >
+            <div
+              className="h-px transition-all duration-300 group-hover:w-10"
+              style={{ width: 24, background: 'rgba(255,255,255,0.08)' }}
+            />
+            <span
+              className="font-mono tracking-[0.28em] uppercase transition-colors duration-300"
+              style={{ fontSize: '8px', color: '#2a2a28' }}
+            >
+              Expand
+            </span>
+            <div
+              className="h-px transition-all duration-300 group-hover:w-10"
+              style={{ width: 24, background: 'rgba(255,255,255,0.08)' }}
+            />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
 
 // ─── Showcase overlay ─────────────────────────────────────────────────────────
+// Document-style full-screen expansion — no rounded modal, no ambient glow.
+// Close is a minimal mono text button.
+
 function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -377,15 +512,15 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
       aria-label="Device Showcase"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      {/* Close */}
+      {/* Close — mono text, top right */}
       <button
         ref={closeRef}
         onClick={onClose}
         aria-label="Close showcase"
-        className="absolute top-6 right-6 lg:top-8 lg:right-8 flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-white/20 focus:outline-none"
-        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+        className="absolute top-6 right-6 lg:top-8 lg:right-8 font-mono tracking-[0.28em] uppercase transition-colors duration-200 focus:outline-none hover:text-white/40"
+        style={{ fontSize: '8px', color: 'rgba(255,255,255,0.2)', background: 'none', border: 'none', cursor: 'pointer' }}
       >
-        <X size={14} className="text-white/40 hover:text-white transition-colors" />
+        Close ×
       </button>
 
       {/* Content */}
@@ -396,28 +531,21 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0, y: 12 }}
         transition={{ duration: 0.5, ease: EASE, delay: 0.05 }}
       >
-        {/* Ambient glow */}
-        <div
-          aria-hidden
-          className="fixed inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 60% 50% at 50% 44%, rgba(242,216,50,0.045) 0%, transparent 70%)',
-            zIndex: -1,
-          }}
-        />
-
-        {/* Devices — scale up slightly in overlay */}
-        <div className="mb-14 sm:mb-16">
-          <DeviceComposition scale={1.08} />
+        {/* Devices — no expand button inside overlay */}
+        <div className="mb-16">
+          <AnnotatedDevices onExpand={() => {}} showExpand={false} scale={1.08} />
         </div>
 
         {/* Separator */}
-        <div className="w-full h-px mb-10" style={{ background: 'rgba(242,216,50,0.18)' }} />
+        <div className="w-full h-px mb-10" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
         {/* Project info */}
         <div className="w-full flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div>
-            <p className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase mb-2">
+            <p
+              className="font-mono text-[#4a4a44] tracking-[0.28em] uppercase mb-2"
+              style={{ fontSize: '9px' }}
+            >
               Selected Work
             </p>
             <h3
@@ -428,15 +556,25 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 shrink-0 sm:pb-1">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 shrink-0 sm:pb-1">
             {[
               { label: 'Discipline', value: SHOWCASE_META.discipline },
-              { label: 'Platform', value: SHOWCASE_META.platform },
-              { label: 'Year', value: SHOWCASE_META.year },
+              { label: 'Platform',   value: SHOWCASE_META.platform },
+              { label: 'Year',       value: SHOWCASE_META.year },
             ].map(({ label, value }) => (
-              <div key={label} className="flex flex-col items-start">
-                <span className="text-[8px] font-mono text-[#4a4a44] tracking-widest uppercase mb-0.5">{label}</span>
-                <span className="text-[11px] font-mono text-white/40">{value}</span>
+              <div key={label} className="flex flex-col items-start gap-1">
+                <span
+                  className="font-mono text-[#4a4a44] tracking-[0.2em] uppercase"
+                  style={{ fontSize: '8px' }}
+                >
+                  {label}
+                </span>
+                <span
+                  className="font-mono"
+                  style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)' }}
+                >
+                  {value}
+                </span>
               </div>
             ))}
           </div>
@@ -447,6 +585,11 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
 }
 
 // ─── Main section ─────────────────────────────────────────────────────────────
+//
+// Two-column: editorial copy + flat spec table (left) / annotated device stage (right).
+// EDIT content → SHOWCASE_META constant above.
+// EDIT assets  → DEVICE_ASSETS constant above.
+
 export default function DeviceShowcase() {
   const [overlayOpen, setOverlayOpen] = useState(false)
 
@@ -454,7 +597,7 @@ export default function DeviceShowcase() {
     <section className="border-t border-white/[0.06] overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
-        {/* Section header */}
+        {/* Section header strip */}
         <div className="flex items-center gap-4 py-10">
           <span className="text-[11px] font-mono text-[#4a4a44] tracking-widest">04</span>
           <span className="flex-1 h-px bg-white/[0.06]" />
@@ -463,7 +606,7 @@ export default function DeviceShowcase() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 lg:gap-24 items-center pb-28">
 
-          {/* Left: copy */}
+          {/* ── Left: editorial copy + document-style spec table ── */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -476,54 +619,73 @@ export default function DeviceShowcase() {
             >
               Work in
               <br />
-              <span className="text-[#f2d832]">motion.</span>
+              <span className="text-[#f2d832]">Context.</span>
             </h2>
 
-            <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm mb-10">
+            <p
+              className="text-[13px] leading-relaxed mb-10"
+              style={{ color: 'rgba(255,255,255,0.3)' }}
+            >
               Every project lives in an interface. This showcase puts the work
               inside real device frames — app screens and visual systems
               rendered exactly where they belong.
             </p>
 
-            {/* Metadata table */}
-            <div
-              className="border border-white/[0.06] rounded-xl overflow-hidden mb-8"
-              style={{ background: 'rgba(255,255,255,0.02)' }}
-            >
+            {/* Spec table — document style, full-width 1px rules */}
+            <div className="mb-10">
               {[
-                { label: 'Project', value: SHOWCASE_META.title },
+                { label: 'Project',    value: SHOWCASE_META.title },
                 { label: 'Discipline', value: SHOWCASE_META.discipline },
-                { label: 'Scene', value: SHOWCASE_META.scene },
-                { label: 'Platform', value: SHOWCASE_META.platform },
-              ].map(({ label, value }, i, arr) => (
-                <div
-                  key={label}
-                  className={`flex items-center justify-between px-5 py-3 ${i < arr.length - 1 ? 'border-b border-white/[0.05]' : ''}`}
-                >
-                  <span className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase">
-                    {label}
-                  </span>
-                  <span className="text-[11px] font-mono text-white/45">{value}</span>
+                { label: 'Scene',      value: SHOWCASE_META.scene },
+                { label: 'Platform',   value: SHOWCASE_META.platform },
+              ].map(({ label, value }, i) => (
+                <div key={label}>
+                  {i === 0 && (
+                    <div className="h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+                  )}
+                  <div className="flex items-center justify-between py-3">
+                    <span
+                      className="font-mono tracking-[0.2em] uppercase text-[#4a4a44]"
+                      style={{ fontSize: '9px' }}
+                    >
+                      {label}
+                    </span>
+                    <span
+                      className="font-mono"
+                      style={{ fontSize: '11px', color: 'rgba(255,255,255,0.38)' }}
+                    >
+                      {value}
+                    </span>
+                  </div>
+                  <div className="h-px" style={{ background: 'rgba(255,255,255,0.04)' }} />
                 </div>
               ))}
             </div>
 
-            {/* Scene dots */}
+            {/* Scene indicator */}
             <div className="flex items-center gap-3">
-              <span className="text-[10px] font-mono text-[#4a4a44] tracking-widest uppercase mr-1">Scene</span>
+              <span
+                className="font-mono tracking-[0.2em] uppercase text-[#4a4a44] mr-1"
+                style={{ fontSize: '9px' }}
+              >
+                Scene
+              </span>
               {['01', '02', '03'].map((s, i) => (
                 <div key={s} className="flex items-center gap-1.5">
                   <div
                     className="rounded-full"
                     style={{
-                      width: i === 0 ? 20 : 6,
-                      height: 6,
-                      background: i === 0 ? '#f2d832' : 'rgba(255,255,255,0.1)',
+                      width: i === 0 ? 18 : 5,
+                      height: 5,
+                      background: i === 0 ? '#f2d832' : 'rgba(255,255,255,0.08)',
                     }}
                   />
                   <span
-                    className="text-[9px] font-mono tracking-widest"
-                    style={{ color: i === 0 ? 'rgba(242,216,50,0.5)' : 'rgba(255,255,255,0.14)' }}
+                    className="font-mono tracking-widest"
+                    style={{
+                      fontSize: '8px',
+                      color: i === 0 ? 'rgba(242,216,50,0.45)' : 'rgba(255,255,255,0.12)',
+                    }}
                   >
                     {s}
                   </span>
@@ -532,84 +694,15 @@ export default function DeviceShowcase() {
             </div>
           </motion.div>
 
-          {/* Right: devices */}
+          {/* ── Right: annotated device stage ── */}
           <motion.div
-            className="relative flex flex-col items-center justify-center min-h-[540px]"
+            className="flex items-center justify-center"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1.0, ease: EASE, delay: 0.15 }}
           >
-            {/* Ambient glow */}
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse 70% 55% at 45% 52%, rgba(242,216,50,0.05) 0%, transparent 65%)',
-              }}
-            />
-
-            {/* Clickable device group */}
-            <button
-              onClick={() => setOverlayOpen(true)}
-              aria-label="Expand device showcase"
-              className="group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded-2xl"
-              style={{ background: 'none', border: 'none', padding: '0 0 32px' }}
-            >
-              {/* Devices with hover lift */}
-              <div className="flex items-end justify-center gap-6">
-                <motion.div
-                  whileHover={{ y: -7 }}
-                  transition={{ duration: 0.55, ease: EASE }}
-                >
-                  <IPhoneFrame />
-                </motion.div>
-
-                <motion.div
-                  className="mb-14"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.55, ease: EASE, delay: 0.05 }}
-                >
-                  <WatchFrame />
-                </motion.div>
-              </div>
-
-              {/* Floor reflection */}
-              <div
-                aria-hidden
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none"
-                style={{
-                  width: 240,
-                  height: 40,
-                  borderRadius: '50%',
-                  background: 'radial-gradient(ellipse, rgba(242,216,50,0.05) 0%, transparent 70%)',
-                  filter: 'blur(10px)',
-                }}
-              />
-
-              {/* Expand hint — appears on hover */}
-              <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
-                <span className="text-[9px] font-mono text-[#4a4a44] tracking-widest uppercase">
-                  Expand
-                </span>
-                <div className="w-3 h-3 rounded-full border border-white/[0.12] flex items-center justify-center">
-                  <div className="w-[4px] h-[4px] rounded-full bg-white/20" />
-                </div>
-              </div>
-            </button>
-
-            {/* Scene label */}
-            <div className="absolute bottom-4 left-0 flex items-center gap-2">
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-[#f2d832] inline-block"
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <span className="text-[9px] font-mono text-[#4a4a44] tracking-widest uppercase">
-                Scene 01 — Dashboard
-              </span>
-            </div>
+            <AnnotatedDevices onExpand={() => setOverlayOpen(true)} />
           </motion.div>
 
         </div>
