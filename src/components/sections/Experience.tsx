@@ -35,7 +35,7 @@ function Toolkit({ reduced }: { reduced: boolean }) {
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {skills.map((group, i) => (
           <motion.div
             key={group.label}
@@ -51,7 +51,7 @@ function Toolkit({ reduced }: { reduced: boolean }) {
               {group.items.join(' · ')}
             </p>
             {i < skills.length - 1 && (
-              <div className="mt-5 h-px bg-white/[0.04]" />
+              <div className="mt-7 h-px bg-white/[0.04]" />
             )}
           </motion.div>
         ))}
@@ -89,7 +89,7 @@ function DocumentEntry({ exp, isPrimary, reduced, index }: EntryProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.7, ease: EASE, delay: index * 0.12 }}
-      className="pb-16"
+      className="pb-20"
     >
       {/* ── Date row ── */}
       <div className="flex items-center gap-3 mb-3">
@@ -185,7 +185,7 @@ function LeftPanel({ reduced }: { reduced: boolean }) {
       transition={{ duration: 0.8, ease: EASE }}
     >
       <h2
-        className="font-extrabold leading-[0.9] tracking-[-0.04em] text-white mb-5"
+        className="font-extrabold leading-[0.9] tracking-[-0.04em] text-white mb-8"
         style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(32px, 3.5vw, 52px)' }}
       >
         Experience
@@ -193,12 +193,12 @@ function LeftPanel({ reduced }: { reduced: boolean }) {
         <span className="text-[#f2d832]">&amp; Skills.</span>
       </h2>
 
-      <p className="text-[14px] leading-relaxed mb-8 max-w-[300px]" style={{ color: 'rgba(255,255,255,0.42)' }}>
+      <p className="text-[14px] leading-relaxed mb-10 max-w-[340px]" style={{ color: 'rgba(255,255,255,0.42)' }}>
         A career built across design and development — from visual systems and brand identity
         to mobile interfaces and interactive frontend experiences.
       </p>
 
-      <div className="h-px mb-8" style={{ background: 'rgba(255,255,255,0.05)' }} />
+      <div className="h-px mb-10" style={{ background: 'rgba(255,255,255,0.05)' }} />
 
       <Toolkit reduced={reduced} />
     </motion.div>
@@ -232,7 +232,7 @@ export default function Experience() {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-16 lg:gap-24 pb-32 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 lg:gap-28 pb-32 items-start">
 
           <LeftPanel reduced={reduced} />
 
@@ -254,7 +254,7 @@ export default function Experience() {
               </div>
               <div className="flex-1 h-px bg-white/[0.04]" />
               <span className="text-[11px] font-mono text-[#3a3a34] tracking-[0.14em] shrink-0">
-                2018 — Present
+                2017 — Present
               </span>
             </motion.div>
 

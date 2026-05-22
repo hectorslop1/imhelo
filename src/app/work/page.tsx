@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
@@ -106,6 +107,33 @@ export default function WorkPage() {
                   >
                     {project.year}
                   </span>
+
+                  {/* Cover thumbnail — always visible on md+, project-index feel */}
+                  <div
+                    className="hidden md:block shrink-0 relative overflow-hidden rounded-md transition-opacity duration-300"
+                    style={{
+                      width:   96,
+                      height:  60,
+                      background: '#0a0a0a',
+                      opacity: hovered === i ? 1 : 0.55,
+                    }}
+                  >
+                    {project.cover ? (
+                      <Image
+                        src={project.cover}
+                        alt={project.title}
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      /* Subtle placeholder for projects without a cover */
+                      <div
+                        className="w-full h-full"
+                        style={{ background: 'rgba(255,255,255,0.03)' }}
+                      />
+                    )}
+                  </div>
 
                   {/* Arrow */}
                   <span

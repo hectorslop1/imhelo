@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
+import Mascot from '@/components/ui/Mascot'
 
 const SOCIAL_LINKS = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
@@ -65,21 +66,28 @@ export default function ContactFooter() {
 
         {/* Main content */}
         <div className="pb-16">
-          {/* Big headline */}
-          <h2
-            className="font-extrabold leading-[0.95] mb-12"
-            style={{
-              fontSize:      'clamp(72px, 12vw, 160px)',
-              fontFamily:    'var(--font-syne)',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            <span className="text-white">Say </span>
-            <span
-              className="text-[#f2d832] font-normal"
-              style={{ fontFamily: 'var(--font-singapore-sling)', letterSpacing: '0.08em' }}
-            >HELO</span>
-          </h2>
+          {/* Big headline + mascot */}
+          <div className="flex items-end justify-between mb-12">
+            <h2
+              className="font-extrabold leading-[0.95]"
+              style={{
+                fontSize:      'clamp(72px, 12vw, 160px)',
+                fontFamily:    'var(--font-syne)',
+                letterSpacing: '-0.03em',
+              }}
+            >
+              <span className="text-white">Say </span>
+              <span
+                className="text-[#f2d832] font-normal"
+                style={{ fontFamily: 'var(--font-singapore-sling)', letterSpacing: '0.08em' }}
+              >HELO</span>
+            </h2>
+
+            {/* HELO brand character — subtle detail, hidden on mobile */}
+            <div className="hidden sm:block pb-5 opacity-90" aria-hidden>
+              <Mascot pose="idle" size={96} />
+            </div>
+          </div>
 
           {/* Bottom section */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end border-t border-white/[0.06] pt-10">

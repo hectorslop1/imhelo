@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(ls ~/.claude/plugins/ 2>&1)",
-      "mcp__magic__21st_magic_component_inspiration"
+      "mcp__magic__21st_magic_component_inspiration",
+      "Bash(node /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/.claude/skills/impeccable/scripts/load-context.mjs)"
     ]
   }
 }
