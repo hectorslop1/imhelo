@@ -1,13 +1,26 @@
-import { ArrowUpRight } from 'lucide-react'
-import ClipReveal from '@/components/ui/ClipReveal'
+'use client'
 
-const PILLARS = [
+import { motion, useReducedMotion } from 'motion/react'
+import { Code2, Palette, type LucideIcon } from 'lucide-react'
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+type Pillar = {
+  index: string
+  title: string
+  description: string
+  tools: string
+  Icon: LucideIcon
+}
+
+const PILLARS: Pillar[] = [
   {
     index: '01',
     title: 'Development',
     description:
       'Websites, app interfaces, interactive frontend experiences, and digital products built with care and precision.',
     tools: 'Next.js · React · TypeScript · GSAP · Motion',
+    Icon: Code2,
   },
   {
     index: '02',
@@ -15,67 +28,120 @@ const PILLARS = [
     description:
       'Brand systems, campaign visuals, social graphics, logos, and visual assets with strong creative direction.',
     tools: 'Figma · Illustrator · Branding · Typography',
+    Icon: Palette,
   },
 ]
 
-export default function Services() {
+// ─── Services / What I Do ───────────────────────────────────────────────────────
+//
+// azizkhaldi.com "What I do" card grid: bordered cards sitting side by side, each
+// with a filled accent circle holding a line-icon, a number, a bold title, a
+// hairline divider, and a description. Aziz has 4 cards (horizontal scroll); HELO
+// has two disciplines, so the two cards fill the row without a carousel.
+
+function PillarCard({ pillar, reduced, index }: { pillar: Pillar; reduced: boolean; index: number }) {
+  const { Icon } = pillar
   return (
-    <section className="border-t border-white/[0.06]">
+    <motion.div
+      className="group relative flex flex-col p-8 lg:p-12 transition-colors duration-500 hover:bg-black/[0.015]"
+      initial={reduced ? {} : { opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, ease: EASE, delay: index * 0.1 }}
+    >
+      {/* Top row — icon circle + number */}
+      <div className="flex items-start justify-between mb-12 lg:mb-16">
+        <span
+          className="flex items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-[1.06]"
+          style={{ width: 80, height: 80, background: 'var(--accent)' }}
+        >
+          <Icon size={30} strokeWidth={1.6} color="#16150f" />
+        </span>
+        <span
+          className="font-light tracking-tight"
+          style={{ fontSize: 24, fontFamily: 'var(--font-cabinet)', color: 'var(--ink-4)' }}
+        >
+          {pillar.index}
+        </span>
+      </div>
+
+      {/* Title */}
+      <h3
+        className="font-bold tracking-[-0.03em] leading-[1.05]"
+        style={{ fontSize: 'clamp(26px, 2.6vw, 36px)', fontFamily: 'var(--font-cabinet)', color: 'var(--ink)' }}
+      >
+        {pillar.title}
+      </h3>
+
+      {/* Divider */}
+      <div className="h-px w-full my-6 lg:my-7" style={{ background: 'var(--line)' }} />
+
+      {/* Description + tools */}
+      <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>
+        {pillar.description}
+      </p>
+      <p className="mt-5 text-[11px] font-mono tracking-wide" style={{ color: 'var(--ink-3)' }}>
+        {pillar.tools}
+      </p>
+    </motion.div>
+  )
+}
+
+export default function Services() {
+  const reduced = useReducedMotion() ?? false
+
+  return (
+    <section className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
-        {/* Section header */}
+        {/* Section header — draw-line animation */}
         <div className="flex items-center gap-4 py-12">
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest">02</span>
-          <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">What I Do</span>
+          <motion.span
+            className="text-[12px] font-mono text-[#686868] tracking-widest shrink-0"
+            initial={reduced ? {} : { opacity: 0, x: -6 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.5, ease: EASE }}
+          >
+            02
+          </motion.span>
+          <motion.span
+            className="flex-1 h-px origin-left"
+            style={{ background: 'var(--line)' }}
+            initial={reduced ? {} : { scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.08 }}
+          />
+          <motion.span
+            className="text-[12px] font-mono text-[#686868] tracking-widest uppercase shrink-0"
+            initial={reduced ? {} : { opacity: 0, x: 6 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
+          >
+            What I Do
+          </motion.span>
         </div>
 
-        {/* Pillar rows */}
-        {PILLARS.map((pillar, i) => (
+        {/* Card grid — bordered, adjacent cards (azizkhaldi.com "What I do") */}
+        <div className="pb-20 lg:pb-24">
           <div
-            key={pillar.index}
-            className={`group grid grid-cols-1 lg:grid-cols-[80px_1fr_1fr_40px] gap-6 lg:gap-12 items-start py-12 border-t border-white/[0.06] hover:bg-white/[0.015] transition-colors duration-500 -mx-6 lg:-mx-16 px-6 lg:px-16 ${
-              i === PILLARS.length - 1 ? 'border-b border-white/[0.06]' : ''
-            }`}
+            className="grid grid-cols-1 md:grid-cols-2 border-y"
+            style={{ borderColor: 'var(--line)' }}
           >
-            {/* Number */}
-            <span
-              className="text-[11px] font-mono text-[#4a4a44] pt-1 tracking-widest hidden lg:block"
-            >
-              {pillar.index}
-            </span>
-
-            {/* Title — wipe-up reveal */}
-            <ClipReveal delay={0.05 + i * 0.08}>
-              <h3
-                className="font-extrabold tracking-[-0.04em] text-white group-hover:text-[#f2d832] transition-colors duration-300"
-                style={{
-                  fontSize: 'clamp(32px, 3.5vw, 52px)',
-                  fontFamily: 'var(--font-syne)',
-                }}
+            {PILLARS.map((pillar, i) => (
+              <div
+                key={pillar.index}
+                className={i > 0 ? 'border-t md:border-t-0 md:border-l' : ''}
+                style={{ borderColor: 'var(--line)' }}
               >
-                {pillar.title}
-              </h3>
-            </ClipReveal>
-
-            {/* Description + tools */}
-            <div className="space-y-4">
-              <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-xs">
-                {pillar.description}
-              </p>
-              <p className="text-[12px] font-mono text-[#5a5a54] tracking-wide">
-                {pillar.tools}
-              </p>
-            </div>
-
-            {/* Arrow */}
-            <div className="hidden lg:flex items-start justify-end pt-2">
-              <div className="w-8 h-8 rounded-full border border-white/[0.1] flex items-center justify-center group-hover:bg-[#f2d832] group-hover:border-[#f2d832] transition-all duration-300">
-                <ArrowUpRight size={13} className="text-[#7a7a72] group-hover:text-[#080808] transition-colors duration-300" />
+                <PillarCard pillar={pillar} reduced={reduced} index={i} />
               </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
       </div>
     </section>
   )

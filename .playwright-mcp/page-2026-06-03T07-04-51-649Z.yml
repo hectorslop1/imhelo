@@ -1,0 +1,170 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Padres Con Poder Padres Con Poder" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Padres Con Poder" [ref=e5]
+        - generic [ref=e6]: Padres Con Poder
+      - navigation "Primary" [ref=e7]:
+        - link "Families" [ref=e8] [cursor=pointer]:
+          - /url: /families
+          - text: Families
+        - link "Businesses" [ref=e9] [cursor=pointer]:
+          - /url: /businesses
+          - text: Businesses
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /about
+          - text: About
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - button "en" [ref=e14]
+          - button "es" [ref=e15]
+        - link "Get Support" [ref=e16] [cursor=pointer]:
+          - /url: /get-support
+  - main [ref=e17]:
+    - generic [ref=e20]:
+      - paragraph [ref=e21]: About Padres Con Poder
+      - heading "Empowerment rooted in person-centered support." [level=1] [ref=e22]:
+        - text: Empowerment rooted in
+        - text: person-centered
+        - text: support.
+      - paragraph [ref=e23]: Padres Con Poder bridges family support and inclusive business strategy with the same commitment to empowerment, structure, and person-centered guidance.
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - img [ref=e30]
+          - paragraph [ref=e34]: Mission
+        - heading "What we are committed to." [level=2] [ref=e35]
+        - paragraph [ref=e36]: At Padres Con Poder, we are committed to empowering businesses across California to cultivate inclusive and neurodiverse-friendly workplaces. Through specialized coaching and training, we equip organizations to embrace diversity, equity, and inclusion, unlocking the potential of neurodiverse talent. Concurrently, we empower individuals with disabilities and their families to confidently navigate the Self-Determination Program.
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - img [ref=e40]
+          - paragraph [ref=e43]: Vision
+        - heading "What we are working toward." [level=2] [ref=e44]
+        - paragraph [ref=e45]: Our vision is to be the leading resource for businesses and individuals across all regional centers in California. We aspire to create a society where every individual, regardless of ability, can lead an empowered and independent life — with person-centered planning at the forefront of service delivery.
+    - generic [ref=e47]:
+      - img "Padres Con Poder members showing pride and positive energy" [ref=e48]
+      - generic [ref=e52]:
+        - paragraph [ref=e53]: Our People
+        - paragraph [ref=e54]: We believe every person deserves a plan, a guide, and the confidence to move forward.
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - paragraph [ref=e58]: Our Approach
+        - heading "A clear, supportive framework for complex decisions." [level=2] [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e62]:
+          - generic: "01"
+          - generic [ref=e63]:
+            - img [ref=e65]
+            - generic [ref=e68]: Step 01
+          - heading "Guide" [level=3] [ref=e69]
+          - paragraph [ref=e70]: We help families and individuals navigate the Self-Determination Program, build individualized service plans, and connect with the right resources.
+        - generic [ref=e72]:
+          - generic: "02"
+          - generic [ref=e73]:
+            - img [ref=e75]
+            - generic [ref=e77]: Step 02
+          - heading "Train" [level=3] [ref=e78]
+          - paragraph [ref=e79]: We provide education on self-determination principles, the Lanterman Act, budgeting and spending plans, and inclusive workplace practices.
+        - generic [ref=e81]:
+          - generic: "03"
+          - generic [ref=e82]:
+            - img [ref=e84]
+            - generic [ref=e89]: Step 03
+          - heading "Support" [level=3] [ref=e90]
+          - paragraph [ref=e91]: We stay alongside families with ongoing follow-up and advocacy, while coaching businesses as they implement inclusive strategies over time.
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - paragraph [ref=e95]: Why Choose Padres Con Poder
+        - heading "Trusted guidance that understands both sides." [level=2] [ref=e96]
+      - generic [ref=e97]:
+        - generic [ref=e99]:
+          - img [ref=e101]
+          - generic [ref=e104]:
+            - heading "Trusted Inland Regional Center Vendor" [level=3] [ref=e105]
+            - paragraph [ref=e106]: Padres Con Poder is an approved and trusted vendor for the Inland Regional Center, specializing in the Self-Determination Program. Families work with us knowing we are recognized, vetted, and accountable.
+        - generic [ref=e108]:
+          - img [ref=e110]
+          - generic [ref=e115]:
+            - heading "Dual Expertise Across Two Audiences" [level=3] [ref=e116]
+            - paragraph [ref=e117]: We are uniquely positioned to serve both families navigating disability services and businesses building inclusive environments — understanding both sides of the same system.
+        - generic [ref=e119]:
+          - img [ref=e121]
+          - generic [ref=e125]:
+            - heading "Personalized Side-by-Side Guidance" [level=3] [ref=e126]
+            - paragraph [ref=e127]: Our support is not transactional. Every engagement includes individualized planning, continuous follow-up, and practical help as plans turn into lived outcomes.
+        - generic [ref=e129]:
+          - img [ref=e131]
+          - generic [ref=e134]:
+            - heading "California-Focused Inclusive Vision" [level=3] [ref=e135]
+            - paragraph [ref=e136]: Our work is rooted in a statewide vision where inclusive workplaces, person-centered planning, and greater independence become the standard — not the exception.
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - img [ref=e142]
+          - paragraph [ref=e145]: Inland Regional Center
+        - heading "Approved and trusted IRC vendor." [level=2] [ref=e146]
+        - paragraph [ref=e147]: Padres Con Poder is a recognized and approved vendor for the Inland Regional Center (IRC), specializing in the Self-Determination Program. Families can work with us with the confidence of knowing we are fully vetted and accountable within the regional center system.
+      - list [ref=e149]:
+        - listitem [ref=e150]:
+          - img [ref=e151]
+          - text: Approved Self-Determination vendor
+        - listitem [ref=e154]:
+          - img [ref=e155]
+          - text: Specialization in SDP navigation
+        - listitem [ref=e158]:
+          - img [ref=e159]
+          - text: Individualized service planning
+        - listitem [ref=e162]:
+          - img [ref=e163]
+          - text: Regional center coordination
+        - listitem [ref=e166]:
+          - img [ref=e167]
+          - text: Accountability within the IRC system
+    - generic [ref=e172]:
+      - heading "Ready to connect with Padres Con Poder?" [level=2] [ref=e173]
+      - paragraph [ref=e174]: Whether you are a family or an organization, we are here to help you take the next step with clarity and confidence.
+      - link "Get Support" [ref=e176] [cursor=pointer]:
+        - /url: /get-support
+        - text: Get Support
+        - img
+  - contentinfo [ref=e177]:
+    - generic [ref=e178]:
+      - generic [ref=e179]:
+        - generic [ref=e180]:
+          - img "Padres Con Poder" [ref=e181]
+          - generic [ref=e182]:
+            - paragraph [ref=e183]: Padres Con Poder
+            - paragraph [ref=e184]: Empowering individuals with disabilities, supporting families through the Self-Determination Program, and helping businesses build inclusive workplaces across California.
+        - generic [ref=e185]:
+          - paragraph [ref=e186]: Navigate
+          - generic [ref=e187]:
+            - link "Families" [ref=e188] [cursor=pointer]:
+              - /url: /families
+            - link "Businesses" [ref=e189] [cursor=pointer]:
+              - /url: /businesses
+            - link "About" [ref=e190] [cursor=pointer]:
+              - /url: /about
+            - link "Get Support" [ref=e191] [cursor=pointer]:
+              - /url: /get-support
+        - generic [ref=e192]:
+          - paragraph [ref=e193]: Contact
+          - generic [ref=e194]:
+            - link "+1 951-737-0951" [ref=e195] [cursor=pointer]:
+              - /url: tel:+19517370951
+              - img [ref=e196]
+              - text: +1 951-737-0951
+            - link "info@ivestorres.org" [ref=e198] [cursor=pointer]:
+              - /url: mailto:info@ivestorres.org
+              - img [ref=e199]
+              - text: info@ivestorres.org
+            - generic [ref=e202]:
+              - link "Padres Con Poder on Facebook" [ref=e203] [cursor=pointer]:
+                - /url: https://www.facebook.com/capacitate365
+                - img [ref=e205]
+              - link "Padres Con Poder on Instagram" [ref=e207] [cursor=pointer]:
+                - /url: https://www.instagram.com/padres_con_poder
+                - img [ref=e209]
+      - generic [ref=e211]:
+        - paragraph [ref=e212]: © 2026 Padres Con Poder. All rights reserved.
+        - paragraph [ref=e213]: Trusted Inland Regional Center Vendor · California

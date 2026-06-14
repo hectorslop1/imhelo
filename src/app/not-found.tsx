@@ -27,7 +27,7 @@ export default function NotFound() {
       <h1
         className="font-extrabold tracking-[-0.04em] text-white mb-4 leading-tight"
         style={{
-          fontFamily: 'var(--font-syne)',
+          fontFamily: 'var(--font-cabinet)',
           fontSize:   'clamp(28px, 4vw, 56px)',
         }}
       >

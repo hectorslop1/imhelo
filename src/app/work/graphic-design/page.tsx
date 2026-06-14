@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
+import ImageReveal from '@/components/ui/ImageReveal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const BASE = '/assetshelo/GraphicDesign'
@@ -182,38 +183,30 @@ function GalleryTile({
   delay?:   number
 }) {
   return (
-    <motion.div
-      className={item.wide ? 'lg:col-span-2' : ''}
-      initial={reduced ? {} : { opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.65, ease: EASE, delay }}
-    >
-      {/*
-       * aspect-square on all screens; lg:aspect-[2/1] overrides on desktop
-       * for wide items so they stay proportional in the 2-of-3 col span.
-       */}
-      <div
+    <div className={item.wide ? 'lg:col-span-2' : ''}>
+      <ImageReveal
         className={[
-          'relative overflow-hidden rounded-xl group',
+          'rounded-xl',
           item.wide ? 'aspect-square lg:aspect-[2/1]' : 'aspect-square',
         ].join(' ')}
-        style={{ background: '#0a0a0a' }}
+        delay={delay}
       >
-        <Image
-          src={item.src}
-          alt={item.alt}
-          fill
-          quality={85}
-          sizes={
-            item.wide
-              ? '(max-width: 1024px) 100vw, (max-width: 1400px) calc(66vw - 4rem), 848px'
-              : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1400px) calc(33vw - 3rem), 424px'
-          }
-          className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
-        />
-        <HoverOverlay onClick={onOpen} label={`View: ${item.label}`} />
-      </div>
+        <div className="relative w-full h-full group" style={{ background: '#0a0a0a' }}>
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            quality={85}
+            sizes={
+              item.wide
+                ? '(max-width: 1024px) 100vw, (max-width: 1400px) calc(66vw - 4rem), 848px'
+                : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1400px) calc(33vw - 3rem), 424px'
+            }
+            className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+          <HoverOverlay onClick={onOpen} label={`View: ${item.label}`} />
+        </div>
+      </ImageReveal>
 
       <p
         className="mt-2 font-mono text-[10px] tracking-[0.14em] uppercase"
@@ -221,7 +214,7 @@ function GalleryTile({
       >
         {item.label}
       </p>
-    </motion.div>
+    </div>
   )
 }
 
@@ -250,14 +243,62 @@ export default function GraphicDesignPage() {
   return (
     <>
       <Header />
-      <main style={{ background: '#080808' }}>
+      <main style={{ background: '#1a1815' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO — animated cover: slow crossfade + Ken Burns scale
+            HERO — LIGHT header (coherent with the site) + animated cover banner
         ══════════════════════════════════════════════════════════════════════ */}
+        <section style={{ background: 'var(--surface)' }} className="pt-36 lg:pt-44 pb-14">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+            <motion.p
+              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
+              style={{ color: 'var(--accent-deep)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+            >
+              Visual Design · Illustration
+            </motion.p>
+            <motion.h1
+              className="font-extrabold tracking-[-0.04em]"
+              style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(54px, 9vw, 124px)', lineHeight: 0.9, color: 'var(--ink)' }}
+              initial={reduced ? {} : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.18 }}
+            >
+              Graphic
+              <br />
+              Design
+            </motion.h1>
+            <motion.p
+              className="mt-5 text-[14px] leading-relaxed"
+              style={{ color: 'var(--ink-2)', maxWidth: '460px' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.26 }}
+            >
+              A curated archive of illustrations, typographic works, badge designs,
+              and visual experiments — exploring character, composition, and
+              graphic storytelling beyond client work.
+            </motion.p>
+            <div className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7" style={{ borderTop: '1px solid var(--line)' }}>
+              {[
+                { label: 'Year',       value: 'Ongoing' },
+                { label: 'Discipline', value: 'Illustration · Typography · Visual Design' },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(22,21,15,0.42)' }}>{label}</p>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(22,21,15,0.7)' }}>{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Animated cover banner — Ken Burns crossfade leading into the dark gallery */}
         <section
-          className="relative w-full overflow-hidden flex flex-col justify-end"
-          style={{ minHeight: 'clamp(600px, 90vh, 900px)' }}
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: '16 / 9', maxHeight: '76vh' }}
         >
           {/* ── Image layer ── */}
           <div className="absolute inset-0">
@@ -309,86 +350,18 @@ export default function GraphicDesignPage() {
             className="absolute inset-0 pointer-events-none z-[2]"
             style={{
               background:
-                'linear-gradient(to top, #080808 0%, #080808 5%, rgba(8,8,8,0.78) 26%, rgba(8,8,8,0.15) 58%, rgba(8,8,8,0.06) 100%)',
+                'linear-gradient(to top, #1a1815 0%, rgba(26,24,21,0.7) 12%, rgba(26,24,21,0.12) 45%, transparent 78%)',
             }}
           />
           <div
             className="absolute inset-0 pointer-events-none z-[2]"
             style={{
               background:
-                'linear-gradient(to right, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.42) 42%, rgba(8,8,8,0) 72%)',
+                'linear-gradient(to bottom, rgba(26,24,21,0.14) 0%, transparent 28%)',
             }}
           />
 
-          {/* ── Text ── */}
-          <div className="relative z-[10] max-w-[1400px] mx-auto px-6 lg:px-16 pb-14 lg:pb-20 pt-36 w-full">
-
-            <motion.p
-              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'rgba(242,216,50,0.72)' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
-            >
-              Visual Design · Illustration
-            </motion.p>
-
-            <motion.h1
-              className="font-extrabold tracking-[-0.04em] text-white"
-              style={{
-                fontFamily: 'var(--font-syne)',
-                fontSize:   'clamp(56px, 9vw, 124px)',
-                lineHeight: 0.9,
-              }}
-              initial={reduced ? {} : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.12 }}
-            >
-              Graphic
-              <br />
-              Design
-            </motion.h1>
-
-            <motion.p
-              className="mt-5 text-[13px] leading-relaxed"
-              style={{ color: 'rgba(255,255,255,0.42)', maxWidth: '460px' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.28 }}
-            >
-              A curated archive of illustrations, typographic works, badge designs,
-              and visual experiments — exploring character, composition, and
-              graphic storytelling beyond client work.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-7 pt-7"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.38 }}
-            >
-              {[
-                { label: 'Year',       value: 'Ongoing' },
-                { label: 'Discipline', value: 'Illustration · Typography · Visual Design' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <p
-                    className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
-                    style={{ color: 'rgba(255,255,255,0.28)' }}
-                  >
-                    {label}
-                  </p>
-                  <p
-                    className="text-[13px] leading-snug"
-                    style={{ color: 'rgba(255,255,255,0.56)' }}
-                  >
-                    {value}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+          {/* Text now lives in the light header above — banner is image-only */}
 
           {/* ── Navigation dots — subtle progress indicator ── */}
           {!reduced && (
@@ -494,7 +467,7 @@ export default function GraphicDesignPage() {
               <Link href="/work/apparel-graphics" className="group flex items-center gap-4">
                 <span
                   className="font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[#f2d832]"
-                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
+                  style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
                 >
                   Apparel Graphics
                 </span>

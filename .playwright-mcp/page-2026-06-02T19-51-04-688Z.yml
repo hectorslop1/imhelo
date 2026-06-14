@@ -1,0 +1,131 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic: HELO
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "HELO — Go to homepage" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: HELO
+        - navigation "Main navigation" [ref=e8]:
+          - link "Work" [ref=e10]:
+            - /url: /work
+            - generic [ref=e11]:
+              - generic [ref=e12]: W
+              - generic [ref=e13]: o
+              - generic [ref=e14]: r
+              - generic [ref=e15]: k
+            - generic [ref=e16]:
+              - generic [ref=e17]: W
+              - generic [ref=e18]: o
+              - generic [ref=e19]: r
+              - generic [ref=e20]: k
+          - link "About" [ref=e22]:
+            - /url: /about
+            - generic [ref=e23]:
+              - generic [ref=e24]: A
+              - generic [ref=e25]: b
+              - generic [ref=e26]: o
+              - generic [ref=e27]: u
+              - generic [ref=e28]: t
+            - generic [ref=e29]:
+              - generic [ref=e30]: A
+              - generic [ref=e31]: b
+              - generic [ref=e32]: o
+              - generic [ref=e33]: u
+              - generic [ref=e34]: t
+          - link "Contact" [ref=e36]:
+            - /url: /contact
+            - generic [ref=e37]:
+              - generic [ref=e38]: C
+              - generic [ref=e39]: o
+              - generic [ref=e40]: "n"
+              - generic [ref=e41]: t
+              - generic [ref=e42]: a
+              - generic [ref=e43]: c
+              - generic [ref=e44]: t
+            - generic [ref=e45]:
+              - generic [ref=e46]: C
+              - generic [ref=e47]: o
+              - generic [ref=e48]: "n"
+              - generic [ref=e49]: t
+              - generic [ref=e50]: a
+              - generic [ref=e51]: c
+              - generic [ref=e52]: t
+        - link "Say HELO" [ref=e56]:
+          - /url: mailto:hello@imhelo.com
+          - generic [ref=e57]: Say HELO
+    - main [ref=e58]:
+      - generic [ref=e60]:
+        - paragraph [ref=e61]: Selected Work
+        - heading "Projects" [level=1] [ref=e62]
+      - generic [ref=e63]:
+        - link "01 gigFAST NASCAR Graphic Design · Branding · Digital Product 2023 gigFAST NASCAR →" [ref=e65]:
+          - /url: /work/gigfast-nascar
+          - generic [ref=e66]:
+            - generic [ref=e67]: "01"
+            - heading "gigFAST NASCAR" [level=2] [ref=e69]:
+              - generic [ref=e70]: gigFAST NASCAR
+            - generic [ref=e71]: Graphic Design · Branding · Digital Product
+            - generic [ref=e72]: "2023"
+            - img "gigFAST NASCAR" [ref=e74]
+            - generic [ref=e75]: →
+        - link "02 Graphic Design Visual Design · Illustration Ongoing Graphic Design →" [ref=e77]:
+          - /url: /work/graphic-design
+          - generic [ref=e78]:
+            - generic [ref=e79]: "02"
+            - heading "Graphic Design" [level=2] [ref=e81]:
+              - generic [ref=e82]: Graphic Design
+            - generic [ref=e83]: Visual Design · Illustration
+            - generic [ref=e84]: Ongoing
+            - img "Graphic Design" [ref=e86]
+            - generic [ref=e87]: →
+        - link "03 Apparel Graphics Graphic Design · Print Ongoing Apparel Graphics →" [ref=e89]:
+          - /url: /work/apparel-graphics
+          - generic [ref=e90]:
+            - generic [ref=e91]: "03"
+            - heading "Apparel Graphics" [level=2] [ref=e93]:
+              - generic [ref=e94]: Apparel Graphics
+            - generic [ref=e95]: Graphic Design · Print
+            - generic [ref=e96]: Ongoing
+            - img "Apparel Graphics" [ref=e98]
+            - generic [ref=e99]: →
+        - link "04 Mobile App Showcase Development · UI 2025 →" [ref=e101]:
+          - /url: /work/mobile-app-showcase
+          - generic [ref=e102]:
+            - generic [ref=e103]: "04"
+            - heading "Mobile App Showcase" [level=2] [ref=e105]:
+              - generic [ref=e106]: Mobile App Showcase
+            - generic [ref=e107]: Development · UI
+            - generic [ref=e108]: "2025"
+            - generic [ref=e111]: →
+        - link "05 Interactive Elements Frontend · Creative Coding 2025 →" [ref=e113]:
+          - /url: /work/interactive-elements
+          - generic [ref=e114]:
+            - generic [ref=e115]: "05"
+            - heading "Interactive Elements" [level=2] [ref=e117]:
+              - generic [ref=e118]: Interactive Elements
+            - generic [ref=e119]: Frontend · Creative Coding
+            - generic [ref=e120]: "2025"
+            - generic [ref=e123]: →
+    - contentinfo [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e129]: HELO
+          - generic [ref=e130]: ·
+          - generic [ref=e131]: © 2026 Hector Lopez. All rights reserved.
+          - generic [ref=e132]: ·
+          - link "hello@imhelo.com" [ref=e133]:
+            - /url: mailto:hello@imhelo.com
+        - generic [ref=e134]:
+          - link "LinkedIn" [ref=e135]:
+            - /url: https://www.linkedin.com/in/hector-lopez-6243a8305/
+          - link "Instagram" [ref=e136]:
+            - /url: https://www.instagram.com/ofmynameishelo/
+          - link "Behance" [ref=e137]:
+            - /url: https://www.behance.net/hectorlopez85
+          - link "Dribbble" [ref=e138]:
+            - /url: https://dribbble.com/hectorslop
+  - button "Open Next.js Dev Tools" [ref=e144] [cursor=pointer]:
+    - img [ref=e145]
+  - alert [ref=e148]

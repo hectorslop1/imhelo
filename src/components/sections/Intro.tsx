@@ -1,45 +1,159 @@
-import ClipReveal from '@/components/ui/ClipReveal'
+'use client'
+
+import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
+import ScrollWordReveal from '@/components/ui/ScrollWordReveal'
+import CountUp from '@/components/ui/CountUp'
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+// ─── Intro ────────────────────────────────────────────────────────────────────
+//
+// Background: #0d0c0a — a barely-perceptible warm shift from the pure #080808
+// of the Hero. The difference is felt more than seen: the eye registers a new
+// "room" without the brain labeling it a different section.
+//
+// A radial glow at the left-center (where the heading lives) adds depth without
+// being visible at first glance.
+//
+// Typography: Syne 700 (font-bold), not 800 (font-extrabold). At 80px, the
+// lighter weight is more refined — thick strokes at that scale become clunky.
 
 export default function Intro() {
+  const reduced = useReducedMotion() ?? false
+
   return (
-    <section className="border-t border-white/[0.06]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
+    <section
+      className="border-t border-white/[0.06] relative overflow-hidden"
+      style={{ background: '#1a1815' }}
+    >
+      {/* Subtle ambient warm glow — barely visible, creates sense of depth */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 55% at 25% 55%, rgba(242,216,50,0.028) 0%, transparent 70%)',
+        }}
+      />
 
-        {/* Index + label row */}
-        <div className="flex items-center gap-4 mb-16">
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest">01</span>
-          <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">About</span>
-        </div>
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 py-20 lg:py-28">
 
-        {/* Statement — wipe-up reveal */}
-        <ClipReveal duration={1.05}>
-          <h2
-            className="font-extrabold leading-[1.0] tracking-[-0.04em] text-white max-w-5xl"
-            style={{
-              fontSize: 'clamp(36px, 5.5vw, 80px)',
-              fontFamily: 'var(--font-syne)',
-            }}
+        {/* Index + label row — the horizontal rule draws left-to-right on enter */}
+        <motion.div
+          className="flex items-center gap-4 mb-10"
+          initial={reduced ? {} : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.4, ease: EASE }}
+        >
+          <motion.span
+            className="text-[12px] font-mono text-[#606058] tracking-widest shrink-0"
+            initial={reduced ? {} : { opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
           >
-            I blend visual design and frontend
-            development to create work that feels{' '}
-            <em className="not-italic text-[#7a7a72]">
-              sharp, useful,
-            </em>{' '}
-            <span className="text-[#f2d832]">and memorable.</span>
-          </h2>
-        </ClipReveal>
+            01
+          </motion.span>
+          {/* The line draws across — scaleX from 0→1, origin left */}
+          <motion.span
+            className="flex-1 h-px bg-white/[0.06] origin-left"
+            initial={reduced ? {} : { scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
+          />
+          <motion.span
+            className="text-[12px] font-mono text-[#606058] tracking-widest uppercase shrink-0"
+            initial={reduced ? {} : { opacity: 0, x: 8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
+          >
+            About
+          </motion.span>
+        </motion.div>
 
-        {/* Bottom row */}
-        <div className="mt-16 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-          <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm">
-            Hector Lopez — designer and developer based in San Diego, CA.
-            Building digital products with intention and craft.
-          </p>
-          <p className="text-[12px] font-mono text-[#606058] tracking-[0.16em] uppercase">
-            Development<span className="text-[#f2d832]">{' ✦ '}</span>Graphic Design
-          </p>
-        </div>
+        {/* Statement — word-by-word scroll illumination (azizkhaldi.com intro signature) */}
+        <ScrollWordReveal
+          as="h2"
+          className="font-bold leading-[1.12] tracking-[-0.04em] max-w-4xl"
+          style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontFamily: 'var(--font-cabinet)' }}
+          baseColor="var(--on-dark)"
+          segments={[
+            { text: 'I blend visual design and frontend development to create work that feels' },
+            { text: 'sharp, useful,', color: 'rgba(236,233,226,0.45)' },
+            { text: 'and memorable.', color: '#f2d832' },
+          ]}
+        />
+
+        {/* About Me CTA pill — centred (azizkhaldi.com intro signature) */}
+        <motion.div
+          className="mt-12 flex justify-center"
+          initial={reduced ? {} : { opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.15 }}
+        >
+          <Link
+            href="/about"
+            className="group inline-flex items-center gap-3 rounded-full pl-7 pr-2 py-2 bg-[#f2d832] text-[#16150f] transition-transform duration-300 hover:scale-[1.03]"
+          >
+            <span className="text-[14px] font-medium tracking-[-0.01em]">About Me</span>
+            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-[#16150f] text-[#f2d832] transition-transform duration-300 group-hover:rotate-45">
+              <ArrowUpRight size={16} />
+            </span>
+          </Link>
+        </motion.div>
+
+        {/* Bottom area — bio + stats, same visual language as Aziz's 4+/30+ */}
+        <motion.div
+          className="mt-16 pt-8 border-t border-white/[0.04]"
+          initial={reduced ? {} : { opacity: 0, y: 16, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.25 }}
+        >
+          {/* Bio + discipline tag */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
+            <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm">
+              Hector Lopez — designer and developer based in San Diego, CA.
+              Building digital products with intention and craft.
+            </p>
+            <p className="text-[12px] font-mono text-[#606058] tracking-[0.16em] uppercase">
+              Development<span className="text-[#f2d832]">{' ✦ '}</span>Graphic Design
+            </p>
+          </div>
+
+          {/* Stats row — figures count up when scrolled into view */}
+          <div className="flex gap-12 pt-8 border-t border-white/[0.04]">
+            {[
+              { num: 9,  suffix: '+', label: 'Years of experience' },
+              { num: 50, suffix: '+', label: 'Projects completed'  },
+              { num: 2,  suffix: '',  label: 'Core disciplines'    },
+            ].map(({ num, suffix, label }) => (
+              <div key={label}>
+                <CountUp
+                  value={num}
+                  suffix={suffix}
+                  className="font-extrabold leading-none block"
+                  style={{
+                    fontFamily:    'var(--font-cabinet)',
+                    fontSize:      'clamp(32px, 3.8vw, 52px)',
+                    letterSpacing: '-0.04em',
+                    color:         '#f2d832',
+                  }}
+                />
+                <p className="text-[11px] font-mono text-[#4a4a44] tracking-[0.14em] uppercase mt-2">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
       </div>
     </section>
   )

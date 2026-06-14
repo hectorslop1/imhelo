@@ -3,7 +3,25 @@
     "allow": [
       "Bash(ls ~/.claude/plugins/ 2>&1)",
       "mcp__magic__21st_magic_component_inspiration",
-      "Bash(node /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/.claude/skills/impeccable/scripts/load-context.mjs)"
+      "Bash(node /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/.claude/skills/impeccable/scripts/load-context.mjs)",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_navigate",
+      "Bash(node -e \"const p = require\\('/Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/node_modules/lenis/package.json'\\); console.log\\(p.version\\)\")",
+      "mcp__playwright__browser_hover",
+      "Bash(rm /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/aziz-*.png)",
+      "Read(//dev/**)",
+      "Bash(npm run *)",
+      "Bash(rm /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/audit-*.png)",
+      "Bash(rm /Users/hectoreduardosanchezlopez/Documents/Proyectos/imhelo/final-*.png && npm run build 2>&1 | tail -15)",
+      "Skill(impeccable)",
+      "Skill(impeccable:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "mcp__playwright__browser_console_messages",
+      "Bash(grep -E \"#[0-9a-fA-F]{3,8}\")"
     ]
   }
 }

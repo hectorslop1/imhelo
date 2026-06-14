@@ -1,0 +1,879 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.awwwards.com/sites/aziz-khaldi-portfolio
+    - img [ref=e4]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e12]: Work
+      - img
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - link "Logo" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - img "Logo" [ref=e16]
+          - generic [ref=e17]:
+            - navigation [ref=e18]:
+              - link "H o m e H o m e" [ref=e19] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e20]:
+                  - generic [ref=e21]:
+                    - generic [ref=e22]: H
+                    - generic [ref=e23]: o
+                    - generic [ref=e24]: m
+                    - generic [ref=e25]: e
+                  - generic [ref=e26]:
+                    - generic [ref=e27]: H
+                    - generic [ref=e28]: o
+                    - generic [ref=e29]: m
+                    - generic [ref=e30]: e
+              - link "A b o u t A b o u t" [ref=e31] [cursor=pointer]:
+                - /url: /about-me/
+                - generic [ref=e32]:
+                  - generic [ref=e33]:
+                    - generic [ref=e34]: A
+                    - generic [ref=e35]: b
+                    - generic [ref=e36]: o
+                    - generic [ref=e37]: u
+                    - generic [ref=e38]: t
+                  - generic [ref=e39]:
+                    - generic [ref=e40]: A
+                    - generic [ref=e41]: b
+                    - generic [ref=e42]: o
+                    - generic [ref=e43]: u
+                    - generic [ref=e44]: t
+              - link "W o r k s W o r k s" [ref=e45] [cursor=pointer]:
+                - /url: /works/
+                - generic [ref=e46]:
+                  - generic [ref=e47]:
+                    - generic [ref=e48]: W
+                    - generic [ref=e49]: o
+                    - generic [ref=e50]: r
+                    - generic [ref=e51]: k
+                    - generic [ref=e52]: s
+                  - generic [ref=e53]:
+                    - generic [ref=e54]: W
+                    - generic [ref=e55]: o
+                    - generic [ref=e56]: r
+                    - generic [ref=e57]: k
+                    - generic [ref=e58]: s
+            - button "C o n t a c t C o n t a c t" [ref=e59] [cursor=pointer]:
+              - generic [ref=e62]:
+                - generic [ref=e63]:
+                  - generic [ref=e64]: C
+                  - generic [ref=e65]: o
+                  - generic [ref=e66]: "n"
+                  - generic [ref=e67]: t
+                  - generic [ref=e68]: a
+                  - generic [ref=e69]: c
+                  - generic [ref=e70]: t
+                - generic [ref=e71]:
+                  - generic [ref=e72]: C
+                  - generic [ref=e73]: o
+                  - generic [ref=e74]: "n"
+                  - generic [ref=e75]: t
+                  - generic [ref=e76]: a
+                  - generic [ref=e77]: c
+                  - generic [ref=e78]: t
+              - generic [ref=e79]:
+                - img [ref=e80]
+                - img [ref=e82]
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - generic [ref=e87]: My
+            - generic [ref=e89]: Work
+          - generic [ref=e91]:
+            - generic [ref=e93]: Discover
+            - generic [ref=e95]: my
+            - generic [ref=e97]: latest
+            - generic [ref=e99]: projects
+            - generic [ref=e101]: where
+            - generic [ref=e103]: design,
+            - generic [ref=e105]: technology,
+            - generic [ref=e107]: and
+            - generic [ref=e109]: creativity
+            - generic [ref=e111]: come
+            - generic [ref=e113]: together
+            - generic [ref=e115]: to
+            - generic [ref=e117]: craft
+            - generic [ref=e119]: engaging
+            - generic [ref=e121]: digital
+            - generic [ref=e123]: experiences.
+            - generic [ref=e125]: Below
+            - generic [ref=e127]: is
+            - generic [ref=e129]: a
+            - generic [ref=e131]: collection
+            - generic [ref=e133]: of
+            - generic [ref=e135]: my
+            - generic [ref=e137]: favourites.
+        - generic [ref=e138]:
+          - button "Grid View" [ref=e139] [cursor=pointer]:
+            - img [ref=e140]
+          - button "Flowing View" [ref=e145] [cursor=pointer]:
+            - img [ref=e146]
+        - navigation [ref=e149]:
+          - generic [ref=e150]:
+            - link "VexLogic AI Assistant" [ref=e152] [cursor=pointer]:
+              - /url: /project/vexlogic-ai-assistant
+              - generic [ref=e153]: VexLogic AI Assistant
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                - generic:
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+                  - generic:
+                    - generic: VexLogic AI Assistant
+          - generic [ref=e154]:
+            - link "VexLogic Business Expander" [ref=e156] [cursor=pointer]:
+              - /url: /project/vexlogic-business-expander
+              - generic [ref=e157]: VexLogic Business Expander
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                - generic:
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+                  - generic:
+                    - generic: VexLogic Business Expander
+          - generic [ref=e158]:
+            - link "Techivation" [ref=e160] [cursor=pointer]:
+              - /url: /project/techivation
+              - generic [ref=e161]: Techivation
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                - generic:
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+                  - generic:
+                    - generic: Techivation
+          - generic [ref=e162]:
+            - link "Comra" [ref=e164] [cursor=pointer]:
+              - /url: /project/comra
+              - generic [ref=e165]: Comra
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                - generic:
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+                  - generic:
+                    - generic: Comra
+          - generic [ref=e166]:
+            - link "Comra Dashboard" [ref=e168] [cursor=pointer]:
+              - /url: /project/comra-dashboard
+              - generic [ref=e169]: Comra Dashboard
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                - generic:
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+                  - generic:
+                    - generic: Comra Dashboard
+          - generic [ref=e170]:
+            - link "SiraDatia CV Builder" [ref=e172] [cursor=pointer]:
+              - /url: /project/siradatia-cv-builder
+              - generic [ref=e173]: SiraDatia CV Builder
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                - generic:
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+                  - generic:
+                    - generic: SiraDatia CV Builder
+          - generic [ref=e174]:
+            - link "Reservado – Airbnb Clone" [ref=e176] [cursor=pointer]:
+              - /url: /project/reservado
+              - generic [ref=e177]: Reservado – Airbnb Clone
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                - generic:
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+                  - generic:
+                    - generic: Reservado – Airbnb Clone
+          - generic [ref=e178]:
+            - link "Superhost" [ref=e180] [cursor=pointer]:
+              - /url: /project/superhost
+              - generic [ref=e181]: Superhost
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                - generic:
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+                  - generic:
+                    - generic: Superhost
+          - generic [ref=e182]:
+            - link "Fintechracy" [ref=e184] [cursor=pointer]:
+              - /url: /project/fintechracy
+              - generic [ref=e185]: Fintechracy
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                - generic:
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+                  - generic:
+                    - generic: Fintechracy
+          - generic [ref=e186]:
+            - link "FTR-Client" [ref=e188] [cursor=pointer]:
+              - /url: /project/ftr-client
+              - generic [ref=e189]: FTR-Client
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                - generic:
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+                  - generic:
+                    - generic: FTR-Client
+          - generic [ref=e190]:
+            - link "VexLogic AI Assistant Website" [ref=e192] [cursor=pointer]:
+              - /url: /project/vexlogic-ai-assistant-website
+              - generic [ref=e193]: VexLogic AI Assistant Website
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                - generic:
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+                  - generic:
+                    - generic: VexLogic AI Assistant Website
+      - generic [ref=e197]:
+        - generic [ref=e198]:
+          - generic [ref=e200]:
+            - generic [ref=e201]:
+              - heading "LINKS" [level=1] [ref=e203]
+              - generic [ref=e204]:
+                - link "H o m e H o m e" [ref=e206] [cursor=pointer]:
+                  - /url: /
+                  - heading "H o m e H o m e" [level=1] [ref=e207]:
+                    - generic [ref=e208]:
+                      - generic [ref=e209]:
+                        - generic [ref=e210]: H
+                        - generic [ref=e211]: o
+                        - generic [ref=e212]: m
+                        - generic [ref=e213]: e
+                      - generic [ref=e214]:
+                        - generic [ref=e215]: H
+                        - generic [ref=e216]: o
+                        - generic [ref=e217]: m
+                        - generic [ref=e218]: e
+                - link "W o r k W o r k" [ref=e220] [cursor=pointer]:
+                  - /url: /works/
+                  - heading "W o r k W o r k" [level=1] [ref=e221]:
+                    - generic [ref=e222]:
+                      - generic [ref=e223]:
+                        - generic [ref=e224]: W
+                        - generic [ref=e225]: o
+                        - generic [ref=e226]: r
+                        - generic [ref=e227]: k
+                      - generic [ref=e228]:
+                        - generic [ref=e229]: W
+                        - generic [ref=e230]: o
+                        - generic [ref=e231]: r
+                        - generic [ref=e232]: k
+                - link "A b o u t A b o u t" [ref=e234] [cursor=pointer]:
+                  - /url: /about-me/
+                  - heading "A b o u t A b o u t" [level=1] [ref=e235]:
+                    - generic [ref=e236]:
+                      - generic [ref=e237]:
+                        - generic [ref=e238]: A
+                        - generic [ref=e239]: b
+                        - generic [ref=e240]: o
+                        - generic [ref=e241]: u
+                        - generic [ref=e242]: t
+                      - generic [ref=e243]:
+                        - generic [ref=e244]: A
+                        - generic [ref=e245]: b
+                        - generic [ref=e246]: o
+                        - generic [ref=e247]: u
+                        - generic [ref=e248]: t
+                - link "C o n t a c t C o n t a c t" [ref=e250] [cursor=pointer]:
+                  - /url: mailto:contact@azizkhaldi.com
+                  - heading "C o n t a c t C o n t a c t" [level=1] [ref=e251]:
+                    - generic [ref=e252]:
+                      - generic [ref=e253]:
+                        - generic [ref=e254]: C
+                        - generic [ref=e255]: o
+                        - generic [ref=e256]: "n"
+                        - generic [ref=e257]: t
+                        - generic [ref=e258]: a
+                        - generic [ref=e259]: c
+                        - generic [ref=e260]: t
+                      - generic [ref=e261]:
+                        - generic [ref=e262]: C
+                        - generic [ref=e263]: o
+                        - generic [ref=e264]: "n"
+                        - generic [ref=e265]: t
+                        - generic [ref=e266]: a
+                        - generic [ref=e267]: c
+                        - generic [ref=e268]: t
+            - generic [ref=e269]:
+              - heading "SOCIALS" [level=1] [ref=e271]
+              - generic [ref=e272]:
+                - link "E m a i l E m a i l" [ref=e274] [cursor=pointer]:
+                  - /url: mailto:contact@azizkhaldi.com
+                  - heading "E m a i l E m a i l" [level=1] [ref=e275]:
+                    - generic [ref=e276]:
+                      - generic [ref=e277]:
+                        - generic [ref=e278]: E
+                        - generic [ref=e279]: m
+                        - generic [ref=e280]: a
+                        - generic [ref=e281]: i
+                        - generic [ref=e282]: l
+                      - generic [ref=e283]:
+                        - generic [ref=e284]: E
+                        - generic [ref=e285]: m
+                        - generic [ref=e286]: a
+                        - generic [ref=e287]: i
+                        - generic [ref=e288]: l
+                - link "L i n k d i n L i n k d i n" [ref=e290] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/aziz-khaldi-b28207261/
+                  - heading "L i n k d i n L i n k d i n" [level=1] [ref=e291]:
+                    - generic [ref=e292]:
+                      - generic [ref=e293]:
+                        - generic [ref=e294]: L
+                        - generic [ref=e295]: i
+                        - generic [ref=e296]: "n"
+                        - generic [ref=e297]: k
+                        - generic [ref=e298]: d
+                        - generic [ref=e299]: i
+                        - generic [ref=e300]: "n"
+                      - generic [ref=e301]:
+                        - generic [ref=e302]: L
+                        - generic [ref=e303]: i
+                        - generic [ref=e304]: "n"
+                        - generic [ref=e305]: k
+                        - generic [ref=e306]: d
+                        - generic [ref=e307]: i
+                        - generic [ref=e308]: "n"
+                - link "W h a t s a p p W h a t s a p p" [ref=e310] [cursor=pointer]:
+                  - /url: https://wa.me/213779577865
+                  - heading "W h a t s a p p W h a t s a p p" [level=1] [ref=e311]:
+                    - generic [ref=e312]:
+                      - generic [ref=e313]:
+                        - generic [ref=e314]: W
+                        - generic [ref=e315]: h
+                        - generic [ref=e316]: a
+                        - generic [ref=e317]: t
+                        - generic [ref=e318]: s
+                        - generic [ref=e319]: a
+                        - generic [ref=e320]: p
+                        - generic [ref=e321]: p
+                      - generic [ref=e322]:
+                        - generic [ref=e323]: W
+                        - generic [ref=e324]: h
+                        - generic [ref=e325]: a
+                        - generic [ref=e326]: t
+                        - generic [ref=e327]: s
+                        - generic [ref=e328]: a
+                        - generic [ref=e329]: p
+                        - generic [ref=e330]: p
+                - link "G i t h u b G i t h u b" [ref=e332] [cursor=pointer]:
+                  - /url: https://github.com/AzizKhaldi01
+                  - heading "G i t h u b G i t h u b" [level=1] [ref=e333]:
+                    - generic [ref=e334]:
+                      - generic [ref=e335]:
+                        - generic [ref=e336]: G
+                        - generic [ref=e337]: i
+                        - generic [ref=e338]: t
+                        - generic [ref=e339]: h
+                        - generic [ref=e340]: u
+                        - generic [ref=e341]: b
+                      - generic [ref=e342]:
+                        - generic [ref=e343]: G
+                        - generic [ref=e344]: i
+                        - generic [ref=e345]: t
+                        - generic [ref=e346]: h
+                        - generic [ref=e347]: u
+                        - generic [ref=e348]: b
+            - generic [ref=e349]:
+              - heading "LOCAL TIME" [level=1] [ref=e351]
+              - paragraph [ref=e354]: 2:30 AM UTC+2
+            - generic [ref=e355]:
+              - heading "VERSION" [level=1] [ref=e357]
+              - paragraph [ref=e360]: 2026 © Edition
+          - generic [ref=e361]:
+            - button "+213779577865 +213779577865" [ref=e363] [cursor=pointer]:
+              - link "+213779577865" [ref=e365]:
+                - /url: https://wa.me/213779577865
+              - link "+213779577865" [ref=e368]:
+                - /url: https://wa.me/213779577865
+            - button "contact@azizkhaldi.com contact@azizkhaldi.com" [ref=e370] [cursor=pointer]:
+              - link "contact@azizkhaldi.com" [ref=e372]:
+                - /url: mailto:contact@azizkhaldi.com
+              - link "contact@azizkhaldi.com" [ref=e375]:
+                - /url: mailto:contact@azizkhaldi.com
+        - heading "A Z I Z" [level=1] [ref=e380]:
+          - generic [ref=e381]: A
+          - generic [ref=e382]: Z
+          - generic [ref=e383]: I
+          - generic [ref=e384]: Z
+    - button "Enable sound" [ref=e385] [cursor=pointer]:
+      - img [ref=e386]
+  - alert [ref=e387]

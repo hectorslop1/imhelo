@@ -126,7 +126,7 @@ function IPhoneScreen({ scene = 0 }: { scene?: number }) {
           <div className="w-[3px] h-[3px] rounded-full bg-[#f2d832]/40" />
           <span className="text-[7.5px] font-mono text-white/15 tracking-widest uppercase">{s.sub}</span>
         </div>
-        <p className="text-[19px] font-extrabold text-white tracking-tight leading-none" style={{ fontFamily: 'var(--font-syne)' }}>
+        <p className="text-[19px] font-extrabold text-white tracking-tight leading-none" style={{ fontFamily: 'var(--font-cabinet)' }}>
           {s.header}
         </p>
       </div>
@@ -171,7 +171,7 @@ function WatchScreen({ active = false }: { active?: boolean }) {
     <div className="w-full h-full flex flex-col items-center justify-center bg-[#0d0d0d] select-none">
       <p className="text-[6.5px] font-mono text-white/20 tracking-widest uppercase mb-1">TUE</p>
       <p className="text-[22px] font-extrabold text-white tracking-tight leading-none mb-3"
-        style={{ fontFamily: 'var(--font-syne)' }}>9:41</p>
+        style={{ fontFamily: 'var(--font-cabinet)' }}>9:41</p>
       <div className="relative w-10 h-10">
         <svg viewBox="0 0 40 40" className="w-full h-full -rotate-90">
           <circle cx="20" cy="20" r="14" fill="none" stroke="rgba(242,216,50,0.1)" strokeWidth="3" />
@@ -399,7 +399,7 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
     // Exit is 180ms — Emil: exit faster than enter
     <motion.div
       className="fixed inset-0 z-50 flex flex-col overflow-y-auto"
-      style={{ background: '#050505' }}
+      style={{ background: '#1a1815' }}
       initial={reduced ? {} : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={reduced ? {} : { opacity: 0 }}
@@ -471,7 +471,7 @@ function ShowcaseOverlay({ onClose }: { onClose: () => void }) {
               </p>
               <h2
                 className="font-extrabold text-white tracking-[-0.04em] leading-[0.94] mb-5"
-                style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', fontFamily: 'var(--font-syne)' }}
+                style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', fontFamily: 'var(--font-cabinet)' }}
               >
                 {SHOWCASE_META.title}
               </h2>
@@ -714,7 +714,7 @@ export default function DeviceShowcase() {
   const [overlayOpen, setOverlayOpen] = useState(false)
 
   return (
-    <section className="border-t border-white/[0.06] overflow-hidden" style={{ background: '#111111' }}>
+    <section className="border-t border-white/[0.06] overflow-hidden" style={{ background: '#1a1815' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header strip */}
@@ -735,7 +735,7 @@ export default function DeviceShowcase() {
           >
             <h2
               className="font-extrabold tracking-[-0.04em] text-white mb-6 leading-[0.92]"
-              style={{ fontSize: 'clamp(40px, 5.5vw, 72px)', fontFamily: 'var(--font-syne)' }}
+              style={{ fontSize: 'clamp(40px, 5.5vw, 72px)', fontFamily: 'var(--font-cabinet)' }}
             >
               Work in
               <br />

@@ -1,6 +1,7 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 
 // ─── SectionBreak ─────────────────────────────────────────────────────────────
 //
@@ -8,41 +9,95 @@ import { motion, useReducedMotion } from 'motion/react'
 // Feels like a typographic intermission — not a banner, not a section.
 //
 // Structure:
-//   Ghost HELO — massive, near-invisible, anchored bottom-left
+//   Ghost HELO — massive, near-invisible, parallax on scroll
+//   Diagonal stripe — HELO yellow at 3% opacity, moves opposite to scroll
 //   Yellow accent line — 28px, 1px, very subtle
-//   Lora italic statement — "Built with intent."  ← only serif moment on the page
+//   Lora italic statement — "Built with intent."
 //   Byline — two mono lines, right-aligned on desktop
 //
-// To change the phrase: edit the <p> content below.
-// To change the ghost opacity: adjust rgba(255,255,255,0.024)
-// Background is #0a0a09 — intentionally between hero #080808 and body #0d0d0d.
+// The ghost HELO scrolls at a different rate than the page content,
+// creating depth without needing any 3D. The diagonal stripe reinforces
+// the motion by moving in the opposite direction — editorial, not decorative.
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function SectionBreak() {
-  const reduced = useReducedMotion() ?? false
+  const reduced   = useReducedMotion() ?? false
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  })
+
+  // Ghost HELO slides downward as you scroll past (parallax — slower than page)
+  const ghostY     = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
+  // Diagonal stripe moves upward (opposite direction — creates tension)
+  const stripeY    = useTransform(scrollYProgress, [0, 1], ['12%', '-12%'])
+  const stripeX    = useTransform(scrollYProgress, [0, 1], ['-3%', '3%'])
+  // Second stripe moves faster
+  const stripe2Y   = useTransform(scrollYProgress, [0, 1], ['18%', '-18%'])
+  const stripe2X   = useTransform(scrollYProgress, [0, 1], ['-4%', '4%'])
 
   return (
     <section
+      ref={sectionRef}
       className="relative border-t border-white/[0.04] overflow-hidden"
-      style={{ background: '#0a0a09' }}
+      style={{ background: '#1a1815' }}
     >
-      {/* ── Ghost HELO watermark ── */}
-      {/* Bottom-left anchor. Ultra-faint — present for depth, invisible at a glance. */}
-      <div
+
+      {/* ── Ghost HELO watermark — parallax, slower than page scroll ── */}
+      <motion.div
         aria-hidden
         className="absolute bottom-0 left-0 pointer-events-none select-none"
         style={{
           fontFamily:    'var(--font-singapore-sling)',
           fontSize:      'clamp(100px, 20vw, 300px)',
-          color:         'rgba(255,255,255,0.024)',
+          color:         'rgba(255,255,255,0.028)',
           letterSpacing: '0.04em',
           lineHeight:    0.85,
-          transform:     'translateX(-0.025em)',
+          translateX:    '-0.025em',
+          y:             reduced ? 0 : ghostY,
         }}
       >
         HELO
-      </div>
+      </motion.div>
+
+      {/* ── Diagonal editorial stripe — moves opposite to scroll ── */}
+      {/* A thin HELO-yellow band crossing the section at ~20° — moves with parallax */}
+      {!reduced && (
+        <motion.div
+          aria-hidden
+          className="absolute pointer-events-none"
+          style={{
+            width:       '140%',
+            height:      1,
+            left:        '-20%',
+            top:         '42%',
+            background:  'rgba(242,216,50,0.06)',
+            transform:   'rotate(-8deg)',
+            y:           stripeY,
+            x:           stripeX,
+          }}
+        />
+      )}
+      {/* Second stripe — offset, even thinner, moves faster */}
+      {!reduced && (
+        <motion.div
+          aria-hidden
+          className="absolute pointer-events-none"
+          style={{
+            width:      '110%',
+            height:     1,
+            left:       '-5%',
+            top:        '55%',
+            background: 'rgba(242,216,50,0.03)',
+            transform:  'rotate(-8deg)',
+            y:          stripe2Y,
+            x:          stripe2X,
+          }}
+        />
+      )}
 
       {/* ── Editorial content ── */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 py-20 lg:py-28">
@@ -55,7 +110,7 @@ export default function SectionBreak() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.9, ease: EASE }}
           >
-            {/* Yellow accent line — 1px, 28px wide, very subtle */}
+            {/* Yellow accent line */}
             <div
               aria-hidden
               style={{
@@ -66,7 +121,7 @@ export default function SectionBreak() {
               }}
             />
 
-            {/* Lora italic phrase — only serif text on the entire page */}
+            {/* Lora italic — only serif text on the entire page */}
             <p
               style={{
                 fontFamily: 'var(--font-lora)',

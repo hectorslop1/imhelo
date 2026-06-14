@@ -62,7 +62,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </p>
             <h3
               className="font-bold tracking-[-0.03em] text-white group-hover:text-[#f2d832] transition-colors duration-300 leading-tight"
-              style={{ fontSize: 'clamp(18px, 2vw, 24px)', fontFamily: 'var(--font-syne)' }}
+              style={{ fontSize: 'clamp(18px, 2vw, 24px)', fontFamily: 'var(--font-cabinet)' }}
             >
               {project.title}
             </h3>

@@ -1,0 +1,47 @@
+[     680ms] Error: Minified React error #425; visit https://reactjs.org/docs/error-decoder.html?invariant=425 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at rh (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:40161)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:100620
+    at oD (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:106131)
+    at oO (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:99079)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98886
+    at oF (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98893)
+    at oS (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:93932)
+    at x (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1364)
+    at MessagePort.T (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1894)
+[     682ms] Error: Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at lg (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:46457)
+    at i (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:121052)
+    at oO (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:99019)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98886
+    at oF (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98893)
+    at oS (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:93932)
+    at x (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1364)
+    at MessagePort.T (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1894)
+[     682ms] Error: Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at lg (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:46457)
+    at i (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:121052)
+    at oO (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:99019)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98886
+    at oF (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98893)
+    at oS (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:93932)
+    at x (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1364)
+    at MessagePort.T (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1894)
+[     682ms] Error: Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at lg (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:46457)
+    at i (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:121052)
+    at oO (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:99019)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98886
+    at oF (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98893)
+    at oS (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:93932)
+    at x (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1364)
+    at MessagePort.T (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1894)
+[     682ms] Error: Minified React error #423; visit https://reactjs.org/docs/error-decoder.html?invariant=423 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at i (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:120721)
+    at oO (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:99019)
+    at https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98886
+    at oF (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:98893)
+    at ox (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:95645)
+    at oS (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:9:94200)
+    at x (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1364)
+    at MessagePort.T (https://azizkhaldi.com/_next/static/chunks/framework-ecc4130bc7a58a64.js:33:1894)
+[     869ms] [WARNING] updating from  119 to  120 @ https://azizkhaldi.com/_next/static/chunks/58a3678d-05679c921dc6d218.js:3138

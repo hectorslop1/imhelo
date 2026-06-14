@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Syne, Lora } from "next/font/google";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
+import SideBadge from "@/components/ui/SideBadge";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -56,8 +57,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${lora.variable} ${singaporeSling.variable} antialiased`}
     >
-      <body className="bg-[#0d0d0d] text-[#f5efe6] min-h-screen overflow-x-hidden">
+      <body className="bg-[#e9e7e1] text-[#16150f] min-h-screen overflow-x-hidden">
         <CustomCursor />
+        <SideBadge />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

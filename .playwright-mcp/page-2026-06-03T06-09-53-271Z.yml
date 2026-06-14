@@ -1,0 +1,112 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Padres Con Poder Padres Con Poder" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Padres Con Poder" [ref=e5]
+        - generic [ref=e6]: Padres Con Poder
+      - navigation "Primary" [ref=e7]:
+        - link "Families" [ref=e8] [cursor=pointer]:
+          - /url: /families
+        - link "Businesses" [ref=e9] [cursor=pointer]:
+          - /url: /businesses
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /about
+      - link "Get Support" [ref=e12] [cursor=pointer]:
+        - /url: /get-support
+  - main [ref=e13]:
+    - generic [ref=e16]:
+      - paragraph [ref=e17]: Get Support
+      - heading "Let's find the right path for you." [level=1] [ref=e18]
+      - paragraph [ref=e19]: Padres Con Poder works with families navigating disability services and organizations building inclusive workplaces. Tell us where you need support — we will take it from there.
+    - generic [ref=e22]:
+      - generic [ref=e24]:
+        - img [ref=e26]
+        - generic [ref=e28]:
+          - paragraph [ref=e29]: For Families
+          - heading "Navigating the Self-Determination Program" [level=2] [ref=e30]
+          - paragraph [ref=e31]: If you are an individual with a disability or a family member seeking guidance through the IRC Self-Determination Program — service planning, regional center coordination, budgeting, and advocacy — we are here to walk alongside you.
+        - link "Learn About Family Support" [ref=e32] [cursor=pointer]:
+          - /url: /families
+          - text: Learn About Family Support
+          - img
+      - generic [ref=e34]:
+        - img [ref=e36]
+        - generic [ref=e40]:
+          - paragraph [ref=e41]: For Businesses
+          - heading "Building an Inclusive Workplace" [level=2] [ref=e42]
+          - paragraph [ref=e43]: If you are an organization looking to create more inclusive hiring practices, train your team on neurodiversity, or develop a sustainable DEI strategy — we provide practical coaching and structured support.
+        - link "Learn About Business Services" [ref=e44] [cursor=pointer]:
+          - /url: /businesses
+          - text: Learn About Business Services
+          - img
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - paragraph [ref=e48]: Contact Directly
+        - heading "Prefer to reach out directly?" [level=2] [ref=e49]
+        - paragraph [ref=e50]: Our team is available by phone, email, and social media. We respond promptly and are happy to answer questions before any formal engagement.
+      - generic [ref=e51]:
+        - link "Phone +1 951-737-0951" [ref=e53] [cursor=pointer]:
+          - /url: tel:+19517370951
+          - img [ref=e55]
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: Phone
+            - paragraph [ref=e59]: +1 951-737-0951
+        - link "Email info@ivestorres.org" [ref=e61] [cursor=pointer]:
+          - /url: mailto:info@ivestorres.org
+          - img [ref=e63]
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: Email
+            - paragraph [ref=e68]: info@ivestorres.org
+        - link "Facebook facebook.com/capacitate365" [ref=e70] [cursor=pointer]:
+          - /url: https://www.facebook.com/capacitate365
+          - img [ref=e72]
+          - generic [ref=e74]:
+            - paragraph [ref=e75]: Facebook
+            - paragraph [ref=e76]: facebook.com/capacitate365
+        - link "Instagram @padres_con_poder" [ref=e78] [cursor=pointer]:
+          - /url: https://www.instagram.com/padres_con_poder
+          - img [ref=e80]
+          - generic [ref=e82]:
+            - paragraph [ref=e83]: Instagram
+            - paragraph [ref=e84]: "@padres_con_poder"
+  - contentinfo [ref=e85]:
+    - generic [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - img "Padres Con Poder" [ref=e89]
+          - generic [ref=e90]:
+            - paragraph [ref=e91]: Padres Con Poder
+            - paragraph [ref=e92]: Empowering individuals with disabilities, supporting families through the Self-Determination Program, and helping businesses build inclusive workplaces across California.
+        - generic [ref=e93]:
+          - paragraph [ref=e94]: Navigate
+          - generic [ref=e95]:
+            - link "Families" [ref=e96] [cursor=pointer]:
+              - /url: /families
+            - link "Businesses" [ref=e97] [cursor=pointer]:
+              - /url: /businesses
+            - link "About" [ref=e98] [cursor=pointer]:
+              - /url: /about
+            - link "Get Support" [ref=e99] [cursor=pointer]:
+              - /url: /get-support
+        - generic [ref=e100]:
+          - paragraph [ref=e101]: Contact
+          - generic [ref=e102]:
+            - link "+1 951-737-0951" [ref=e103] [cursor=pointer]:
+              - /url: tel:+19517370951
+              - img [ref=e104]
+              - text: +1 951-737-0951
+            - link "info@ivestorres.org" [ref=e106] [cursor=pointer]:
+              - /url: mailto:info@ivestorres.org
+              - img [ref=e107]
+              - text: info@ivestorres.org
+            - generic [ref=e110]:
+              - link "Padres Con Poder on Facebook" [ref=e111] [cursor=pointer]:
+                - /url: https://www.facebook.com/capacitate365
+                - img [ref=e112]
+              - link "Padres Con Poder on Instagram" [ref=e114] [cursor=pointer]:
+                - /url: https://www.instagram.com/padres_con_poder
+                - img [ref=e115]
+      - generic [ref=e117]:
+        - paragraph [ref=e118]: © 2026 Padres Con Poder. All rights reserved.
+        - paragraph [ref=e119]: Trusted Inland Regional Center Vendor · California

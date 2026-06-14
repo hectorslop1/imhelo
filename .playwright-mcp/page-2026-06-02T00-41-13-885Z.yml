@@ -1,0 +1,790 @@
+- generic [active] [ref=e1]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://www.awwwards.com/sites/aziz-khaldi-portfolio
+    - img [ref=e4]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e12]: Home
+      - img
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - link "Logo" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - img "Logo" [ref=e16]
+          - generic:
+            - button
+        - generic [ref=e84]:
+          - generic [ref=e89]:
+            - link [ref=e90] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/aziz-khaldi-b28207261/
+              - img [ref=e91]
+            - link [ref=e93] [cursor=pointer]:
+              - /url: https://wa.me/213779577865
+              - img [ref=e94]
+            - link [ref=e96] [cursor=pointer]:
+              - /url: https://github.com/AzizKhaldi01
+              - img [ref=e97]
+          - generic [ref=e100]:
+            - heading "Hi! i’m Aziz" [level=1] [ref=e102]
+            - heading "Full-stack Developer" [level=1] [ref=e104]
+            - heading "UI & UX Designer." [level=1] [ref=e106]
+          - heading "scroll down" [level=1] [ref=e108]
+          - generic [ref=e112]: Your browser does not support the video tag.
+        - generic [ref=e113]:
+          - generic [ref=e116]:
+            - generic [ref=e118]: I'm
+            - generic [ref=e120]: Aziz
+            - generic [ref=e122]: —
+            - generic [ref=e124]: a
+            - generic [ref=e126]: Full
+            - generic [ref=e128]: Stack
+            - generic [ref=e130]: Developer
+            - generic [ref=e132]: crafting
+            - generic [ref=e134]: fast,
+            - generic [ref=e136]: scalable,
+            - generic [ref=e138]: and
+            - generic [ref=e140]: immersive
+            - generic [ref=e142]: digital
+            - generic [ref=e144]: experiences
+            - generic [ref=e146]: that
+            - generic [ref=e148]: merge
+            - generic [ref=e150]: creativity
+            - generic [ref=e152]: with
+            - generic [ref=e154]: engineering
+            - generic [ref=e156]: precision.
+          - generic [ref=e157]:
+            - generic [ref=e159]: I
+            - generic [ref=e161]: specialize
+            - generic [ref=e163]: in
+            - generic [ref=e165]: developing
+            - generic [ref=e167]: SaaS
+            - generic [ref=e169]: platforms,
+            - generic [ref=e171]: AI-driven
+            - generic [ref=e173]: products,
+            - generic [ref=e175]: and
+            - generic [ref=e177]: interactive
+            - generic [ref=e179]: 3D
+            - generic [ref=e181]: web
+            - generic [ref=e183]: experiences
+            - generic [ref=e185]: using
+            - generic [ref=e187]: technologies
+            - generic [ref=e189]: like
+            - generic [ref=e191]: Next.js,
+            - generic [ref=e193]: Node.js,
+            - generic [ref=e195]: and
+            - generic [ref=e197]: Three.js.
+          - link "A b o u t M e A b o u t M e" [ref=e199] [cursor=pointer]:
+            - /url: /about-me/
+            - button "A b o u t M e A b o u t M e" [ref=e200]:
+              - generic [ref=e203]:
+                - generic [ref=e204]:
+                  - generic [ref=e205]: A
+                  - generic [ref=e206]: b
+                  - generic [ref=e207]: o
+                  - generic [ref=e208]: u
+                  - generic [ref=e209]: t
+                  - generic [ref=e211]: M
+                  - generic [ref=e212]: e
+                - generic [ref=e213]:
+                  - generic [ref=e214]: A
+                  - generic [ref=e215]: b
+                  - generic [ref=e216]: o
+                  - generic [ref=e217]: u
+                  - generic [ref=e218]: t
+                  - generic [ref=e220]: M
+                  - generic [ref=e221]: e
+          - generic [ref=e227]:
+            - generic [ref=e228]:
+              - img [ref=e229]
+              - generic [ref=e231]: Scroll to Explore
+            - generic [ref=e232]: My Short Story
+          - generic [ref=e234]:
+            - generic:
+              - img
+            - generic [ref=e235]:
+              - generic [ref=e239]:
+                - generic [ref=e240]:
+                  - img "green flower" [ref=e241]
+                  - text: FULL-STACK DEVELOPERUI & UX DESIGNER.
+                  - img [ref=e242]
+                - generic [ref=e247]:
+                  - img "green flower" [ref=e248]
+                  - text: FULL-STACK DEVELOPERUI & UX DESIGNER.
+                  - img [ref=e249]
+                  - img "green flower" [ref=e254]
+                - generic [ref=e255]:
+                  - text: FULL-STACK DEVELOPER UI & UX DESIGNER.
+                  - img "green flower" [ref=e256]
+              - img "Profile" [ref=e258]
+              - generic [ref=e260]:
+                - generic [ref=e261]:
+                  - generic [ref=e262]:
+                    - generic [ref=e264]: Driving
+                    - generic [ref=e266]: measurable
+                    - generic [ref=e268]: growth
+                    - generic [ref=e270]: and
+                    - generic [ref=e272]: engagement
+                    - generic [ref=e274]: through
+                    - generic [ref=e276]: thoughtful
+                    - generic [ref=e278]: design
+                    - generic [ref=e280]: and
+                    - generic [ref=e282]: engineering.
+                  - generic [ref=e284]:
+                    - generic [ref=e286]: Every
+                    - generic [ref=e288]: product
+                    - generic [ref=e290]: I
+                    - generic [ref=e292]: build
+                    - generic [ref=e294]: starts
+                    - generic [ref=e296]: with
+                    - generic [ref=e298]: understanding
+                    - generic [ref=e300]: user
+                    - generic [ref=e302]: goals
+                    - generic [ref=e304]: and
+                    - generic [ref=e306]: translating
+                    - generic [ref=e308]: them
+                    - generic [ref=e310]: into
+                    - generic [ref=e312]: intuitive,
+                    - generic [ref=e314]: high-performance
+                    - generic [ref=e316]: experiences.
+                    - generic [ref=e318]: From
+                    - generic [ref=e320]: concept
+                    - generic [ref=e322]: to
+                    - generic [ref=e324]: launch,
+                    - generic [ref=e326]: I
+                    - generic [ref=e328]: focus
+                    - generic [ref=e330]: "on"
+                    - generic [ref=e332]: meaningful
+                    - generic [ref=e334]: results—boosting
+                    - generic [ref=e336]: user
+                    - generic [ref=e338]: engagement,
+                    - generic [ref=e340]: retention,
+                    - generic [ref=e342]: and
+                    - generic [ref=e344]: overall
+                    - generic [ref=e346]: business
+                    - generic [ref=e348]: impact.
+                - generic [ref=e349]:
+                  - generic [ref=e350]:
+                    - paragraph [ref=e351]: YEARS OF EXPERIENCE
+                    - generic [ref=e352]: 4+
+                  - generic [ref=e353]:
+                    - paragraph [ref=e354]: PROJECTS COMPLETED
+                    - generic [ref=e355]: 30+
+            - generic [ref=e357]:
+              - generic [ref=e359]:
+                - generic [ref=e361]: Transforming
+                - generic [ref=e363]: ideas
+                - generic [ref=e365]: into
+                - generic [ref=e367]: exceptional
+                - generic [ref=e369]: digital
+                - generic [ref=e371]: experiences
+                - generic [ref=e373]: through
+                - generic [ref=e375]: expertise
+                - generic [ref=e377]: and
+                - generic [ref=e379]: innovation
+              - generic [ref=e383]:
+                - generic [ref=e386] [cursor=pointer]:
+                  - generic [ref=e388]:
+                    - generic [ref=e389]: "01"
+                    - img [ref=e391]
+                  - heading "Full Stack Development" [level=3] [ref=e394]
+                  - paragraph [ref=e396]: Building scalable and high-performance web applications using Next.js, React, Node.js, and TypeScript, with robust backend architectures, secure RESTful APIs, and clean code practices.
+                - generic [ref=e401] [cursor=pointer]:
+                  - generic [ref=e403]:
+                    - generic [ref=e404]: "02"
+                    - img [ref=e406]
+                  - heading "UI/UX Design & Frontend" [level=3] [ref=e410]
+                  - paragraph [ref=e412]: Designing modern, responsive interfaces with Figma, Tailwind CSS, and Framer Motion. Creating intuitive experiences with clean design systems and pixel-perfect implementations.
+                - generic [ref=e417] [cursor=pointer]:
+                  - generic [ref=e419]:
+                    - generic [ref=e420]: "03"
+                    - img [ref=e422]
+                  - heading "SaaS Platform Development" [level=3] [ref=e425]
+                  - paragraph [ref=e427]: Developing end-to-end SaaS solutions with subscription systems, Stripe billing, and multi-tenant management. Ensuring scalability and secure user management.
+                - generic [ref=e432] [cursor=pointer]:
+                  - generic [ref=e434]:
+                    - generic [ref=e435]: "04"
+                    - img [ref=e437]
+                  - heading "API & System Architecture" [level=3] [ref=e443]
+                  - paragraph [ref=e445]: Designing maintainable APIs with PostgreSQL, Prisma, and MongoDB. Focusing on performance optimization, security best practices, and reliable data flow.
+        - generic [ref=e448]:
+          - generic [ref=e449]:
+            - generic [ref=e450]:
+              - generic [ref=e452]: Discover
+              - generic [ref=e454]: my
+              - generic [ref=e456]: latest
+              - generic [ref=e458]: work
+              - generic [ref=e460]: and
+              - generic [ref=e462]: creative
+              - generic [ref=e464]: solutions
+              - generic [ref=e466]: that
+              - generic [ref=e468]: bring
+              - generic [ref=e470]: ideas
+              - generic [ref=e472]: to
+              - generic [ref=e474]: life
+            - generic [ref=e475]:
+              - generic [ref=e476]:
+                - generic [ref=e477]:
+                  - generic [ref=e1328]: VexLogic ai
+                  - generic [ref=e478]: AI Assistant
+                - link "VexLogic ai V e x L o g i c a i" [ref=e479] [cursor=pointer]:
+                  - /url: /project/vexlogic-ai-assistant
+                  - img "VexLogic ai" [ref=e480]
+                  - generic:
+                    - generic:
+                      - generic: V
+                      - generic: e
+                      - generic: x
+                      - generic: L
+                      - generic: o
+                      - generic: g
+                      - generic: i
+                      - generic: c
+                      - generic: a
+                      - generic: i
+              - generic [ref=e481]:
+                - generic [ref=e482]:
+                  - generic [ref=e1329]: VexLogic bussiness
+                  - generic [ref=e483]: Bussiness
+                - link "VexLogic bussiness V e x L o g i c b u s s i n e s s" [ref=e484] [cursor=pointer]:
+                  - /url: /project/vexlogic-business-expander
+                  - img "VexLogic bussiness" [ref=e485]
+                  - generic:
+                    - generic:
+                      - generic: V
+                      - generic: e
+                      - generic: x
+                      - generic: L
+                      - generic: o
+                      - generic: g
+                      - generic: i
+                      - generic: c
+                      - generic: b
+                      - generic: u
+                      - generic: s
+                      - generic: s
+                      - generic: i
+                      - generic: "n"
+                      - generic: e
+                      - generic: s
+                      - generic: s
+              - generic [ref=e486]:
+                - generic [ref=e487]:
+                  - generic [ref=e1330]: Comra
+                  - generic [ref=e488]: 3D Visualisation
+                - link "Comra C o m r a" [ref=e489] [cursor=pointer]:
+                  - /url: /project/comra
+                  - img "Comra" [ref=e490]
+                  - generic:
+                    - generic:
+                      - generic: C
+                      - generic: o
+                      - generic: m
+                      - generic: r
+                      - generic: a
+              - generic [ref=e491]:
+                - generic [ref=e492]:
+                  - generic [ref=e1331]: Superhost
+                  - generic [ref=e493]: Property Booking
+                - link "Superhost S u p e r h o s t" [ref=e494] [cursor=pointer]:
+                  - /url: /project/superhost
+                  - img "Superhost" [ref=e495]
+                  - generic:
+                    - generic:
+                      - generic: S
+                      - generic: u
+                      - generic: p
+                      - generic: e
+                      - generic: r
+                      - generic: h
+                      - generic: o
+                      - generic: s
+                      - generic: t
+          - link "p r o j e c t s p r o j e c t s" [ref=e497] [cursor=pointer]:
+            - /url: /works/
+            - button "p r o j e c t s p r o j e c t s" [ref=e498]:
+              - generic [ref=e501]:
+                - generic [ref=e502]:
+                  - generic [ref=e503]: p
+                  - generic [ref=e504]: r
+                  - generic [ref=e505]: o
+                  - generic [ref=e506]: j
+                  - generic [ref=e507]: e
+                  - generic [ref=e508]: c
+                  - generic [ref=e509]: t
+                  - generic [ref=e510]: s
+                - generic [ref=e511]:
+                  - generic [ref=e512]: p
+                  - generic [ref=e513]: r
+                  - generic [ref=e514]: o
+                  - generic [ref=e515]: j
+                  - generic [ref=e516]: e
+                  - generic [ref=e517]: c
+                  - generic [ref=e518]: t
+                  - generic [ref=e519]: s
+        - generic [ref=e527]:
+          - generic:
+            - img
+          - heading "Explore my journey and the technologies that define my craft." [level=3] [ref=e529]:
+            - generic [ref=e530]:
+              - generic [ref=e532]: Explore
+              - generic [ref=e534]: my
+              - generic [ref=e536]: journey
+              - generic [ref=e538]: and
+              - generic [ref=e540]: the
+              - generic [ref=e542]: technologies
+              - generic [ref=e544]: that
+              - generic [ref=e546]: define
+              - generic [ref=e548]: my
+              - generic [ref=e550]: craft.
+          - generic [ref=e553]:
+            - generic [ref=e556]:
+              - generic [ref=e559]: Techivation
+              - generic [ref=e560]:
+                - generic [ref=e562]: Full
+                - generic [ref=e564]: Stack
+                - generic [ref=e566]: Developer
+                - generic [ref=e568]: (Part-time)
+              - generic [ref=e569]:
+                - generic [ref=e571]: Building
+                - generic [ref=e573]: and
+                - generic [ref=e575]: maintaining
+                - generic [ref=e577]: Techivation’s
+                - generic [ref=e579]: full
+                - generic [ref=e581]: web
+                - generic [ref=e583]: and
+                - generic [ref=e585]: SaaS
+                - generic [ref=e587]: ecosystem
+                - generic [ref=e589]: powering
+                - generic [ref=e591]: audio
+                - generic [ref=e593]: plugin
+                - generic [ref=e595]: licensing
+                - generic [ref=e597]: and
+                - generic [ref=e599]: management.
+              - generic [ref=e600]:
+                - generic [ref=e602]: May
+                - generic [ref=e604]: "2025"
+                - generic [ref=e606]: –
+                - generic [ref=e608]: Present
+            - generic [ref=e611]:
+              - generic [ref=e614]: VexLogic
+              - generic [ref=e615]:
+                - generic [ref=e617]: Full
+                - generic [ref=e619]: Stack
+                - generic [ref=e621]: Engineer
+                - generic [ref=e623]: (Part-time)
+              - generic [ref=e624]:
+                - generic [ref=e626]: Developing
+                - generic [ref=e628]: an
+                - generic [ref=e630]: AI-powered
+                - generic [ref=e632]: SaaS
+                - generic [ref=e634]: platform
+                - generic [ref=e636]: with
+                - generic [ref=e638]: real-time
+                - generic [ref=e640]: collaboration,
+                - generic [ref=e642]: billing
+                - generic [ref=e644]: systems,
+                - generic [ref=e646]: and
+                - generic [ref=e648]: intelligent
+                - generic [ref=e650]: document
+                - generic [ref=e652]: management.
+              - generic [ref=e653]:
+                - generic [ref=e655]: Jun
+                - generic [ref=e657]: "2025"
+                - generic [ref=e659]: –
+                - generic [ref=e661]: Present
+            - generic [ref=e664]:
+              - generic [ref=e665]:
+                - generic [ref=e667]: Comra
+                - generic [ref=e669]: AI
+              - generic [ref=e670]:
+                - generic [ref=e672]: Full
+                - generic [ref=e674]: Stack
+                - generic [ref=e676]: Developer
+                - generic [ref=e678]: (Full-time)
+              - generic [ref=e679]:
+                - generic [ref=e681]: Building
+                - generic [ref=e683]: immersive
+                - generic [ref=e685]: 3D
+                - generic [ref=e687]: virtual
+                - generic [ref=e689]: tour
+                - generic [ref=e691]: systems
+                - generic [ref=e693]: using
+                - generic [ref=e695]: React
+                - generic [ref=e697]: Three
+                - generic [ref=e699]: Fiber,
+                - generic [ref=e701]: Prisma,
+                - generic [ref=e703]: and
+                - generic [ref=e705]: PostgreSQL
+                - generic [ref=e707]: for
+                - generic [ref=e709]: real
+                - generic [ref=e711]: estate
+                - generic [ref=e713]: and
+                - generic [ref=e715]: architecture.
+              - generic [ref=e716]:
+                - generic [ref=e718]: Nov
+                - generic [ref=e720]: "2024"
+                - generic [ref=e722]: –
+                - generic [ref=e724]: Present
+            - generic [ref=e727]:
+              - generic [ref=e728]:
+                - generic [ref=e730]: Digital
+                - generic [ref=e732]: Natives
+              - generic [ref=e733]:
+                - generic [ref=e735]: Frontend
+                - generic [ref=e737]: Developer
+                - generic [ref=e739]: (Full-time)
+              - generic [ref=e740]:
+                - generic [ref=e742]: Built
+                - generic [ref=e744]: scalable
+                - generic [ref=e746]: web
+                - generic [ref=e748]: apps
+                - generic [ref=e750]: and
+                - generic [ref=e752]: reusable
+                - generic [ref=e754]: UI
+                - generic [ref=e756]: systems
+                - generic [ref=e758]: using
+                - generic [ref=e760]: React,
+                - generic [ref=e762]: Next.js,
+                - generic [ref=e764]: and
+                - generic [ref=e766]: Tailwind
+                - generic [ref=e768]: CSS
+                - generic [ref=e770]: for
+                - generic [ref=e772]: enterprise
+                - generic [ref=e774]: clients.
+              - generic [ref=e775]:
+                - generic [ref=e777]: Feb
+                - generic [ref=e779]: "2024"
+                - generic [ref=e781]: –
+                - generic [ref=e783]: Oct
+                - generic [ref=e785]: "2024"
+            - generic [ref=e788]:
+              - generic [ref=e791]: Fintechracy
+              - generic [ref=e792]:
+                - generic [ref=e794]: Frontend
+                - generic [ref=e796]: Developer
+                - generic [ref=e798]: (Full-time)
+              - generic [ref=e799]:
+                - generic [ref=e801]: Developed
+                - generic [ref=e803]: a
+                - generic [ref=e805]: mobile-first
+                - generic [ref=e807]: PWA
+                - generic [ref=e809]: for
+                - generic [ref=e811]: financial
+                - generic [ref=e813]: management
+                - generic [ref=e815]: with
+                - generic [ref=e817]: offline
+                - generic [ref=e819]: storage,
+                - generic [ref=e821]: barcode
+                - generic [ref=e823]: scanning,
+                - generic [ref=e825]: and
+                - generic [ref=e827]: performance
+                - generic [ref=e829]: optimization.
+              - generic [ref=e830]:
+                - generic [ref=e832]: Nov
+                - generic [ref=e834]: "2023"
+                - generic [ref=e836]: –
+                - generic [ref=e838]: Mar
+                - generic [ref=e840]: "2024"
+            - generic [ref=e843]:
+              - generic [ref=e846]: Codintex
+              - generic [ref=e847]:
+                - generic [ref=e849]: Software
+                - generic [ref=e851]: Engineer
+                - generic [ref=e853]: (Internship)
+              - generic [ref=e854]:
+                - generic [ref=e856]: Worked
+                - generic [ref=e858]: "on"
+                - generic [ref=e860]: enterprise
+                - generic [ref=e862]: desktop
+                - generic [ref=e864]: apps
+                - generic [ref=e866]: using
+                - generic [ref=e868]: .NET
+                - generic [ref=e870]: and
+                - generic [ref=e872]: C#,
+                - generic [ref=e874]: gaining
+                - generic [ref=e876]: foundational
+                - generic [ref=e878]: experience
+                - generic [ref=e880]: in
+                - generic [ref=e882]: backend
+                - generic [ref=e884]: systems
+                - generic [ref=e886]: and
+                - generic [ref=e888]: security.
+              - generic [ref=e889]:
+                - generic [ref=e891]: Jul
+                - generic [ref=e893]: "2022"
+                - generic [ref=e895]: –
+                - generic [ref=e897]: Sep
+                - generic [ref=e899]: "2023"
+        - generic [ref=e900]:
+          - generic [ref=e902]:
+            - generic [ref=e903]:
+              - generic [ref=e904]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e906]
+              - generic [ref=e911]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e913]
+              - generic [ref=e918]:
+                - text: Custom Web Experiences
+                - img [ref=e920]
+              - generic [ref=e925]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e927]
+              - generic [ref=e932]:
+                - text: Tailored Web Development for You
+                - img [ref=e934]
+            - generic [ref=e939]:
+              - generic [ref=e940]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e942]
+              - generic [ref=e947]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e949]
+              - generic [ref=e954]:
+                - text: Custom Web Experiences
+                - img [ref=e956]
+              - generic [ref=e961]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e963]
+              - generic [ref=e968]:
+                - text: Tailored Web Development for You
+                - img [ref=e970]
+            - generic [ref=e975]:
+              - generic [ref=e976]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e978]
+              - generic [ref=e983]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e985]
+              - generic [ref=e990]:
+                - text: Custom Web Experiences
+                - img [ref=e992]
+              - generic [ref=e997]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e999]
+              - generic [ref=e1004]:
+                - text: Tailored Web Development for You
+                - img [ref=e1006]
+          - generic [ref=e1012]:
+            - generic [ref=e1013]:
+              - generic [ref=e1014]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e1016]
+              - generic [ref=e1021]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e1023]
+              - generic [ref=e1028]:
+                - text: Custom Web Experiences
+                - img [ref=e1030]
+              - generic [ref=e1035]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e1037]
+              - generic [ref=e1042]:
+                - text: Tailored Web Development for You
+                - img [ref=e1044]
+            - generic [ref=e1049]:
+              - generic [ref=e1050]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e1052]
+              - generic [ref=e1057]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e1059]
+              - generic [ref=e1064]:
+                - text: Custom Web Experiences
+                - img [ref=e1066]
+              - generic [ref=e1071]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e1073]
+              - generic [ref=e1078]:
+                - text: Tailored Web Development for You
+                - img [ref=e1080]
+            - generic [ref=e1085]:
+              - generic [ref=e1086]:
+                - text: Handcrafted Digital Solutions
+                - img [ref=e1088]
+              - generic [ref=e1093]:
+                - text: Driven by Passion, Built with Code
+                - img [ref=e1095]
+              - generic [ref=e1100]:
+                - text: Custom Web Experiences
+                - img [ref=e1102]
+              - generic [ref=e1107]:
+                - text: Innovative Self-Made Creations
+                - img [ref=e1109]
+              - generic [ref=e1114]:
+                - text: Tailored Web Development for You
+                - img [ref=e1116]
+        - generic [ref=e1124]:
+          - generic [ref=e1125]:
+            - generic [ref=e1127]:
+              - generic [ref=e1128]:
+                - heading "LINKS" [level=1] [ref=e1130]
+                - generic [ref=e1131]:
+                  - link "H o m e H o m e" [ref=e1133] [cursor=pointer]:
+                    - /url: /
+                    - heading "H o m e H o m e" [level=1] [ref=e1134]:
+                      - generic [ref=e1135]:
+                        - generic [ref=e1136]:
+                          - generic [ref=e1137]: H
+                          - generic [ref=e1138]: o
+                          - generic [ref=e1139]: m
+                          - generic [ref=e1140]: e
+                        - generic [ref=e1141]:
+                          - generic [ref=e1142]: H
+                          - generic [ref=e1143]: o
+                          - generic [ref=e1144]: m
+                          - generic [ref=e1145]: e
+                  - link "W o r k W o r k" [ref=e1147] [cursor=pointer]:
+                    - /url: /works/
+                    - heading "W o r k W o r k" [level=1] [ref=e1148]:
+                      - generic [ref=e1149]:
+                        - generic [ref=e1150]:
+                          - generic [ref=e1151]: W
+                          - generic [ref=e1152]: o
+                          - generic [ref=e1153]: r
+                          - generic [ref=e1154]: k
+                        - generic [ref=e1155]:
+                          - generic [ref=e1156]: W
+                          - generic [ref=e1157]: o
+                          - generic [ref=e1158]: r
+                          - generic [ref=e1159]: k
+                  - link "A b o u t A b o u t" [ref=e1161] [cursor=pointer]:
+                    - /url: /about-me/
+                    - heading "A b o u t A b o u t" [level=1] [ref=e1162]:
+                      - generic [ref=e1163]:
+                        - generic [ref=e1164]:
+                          - generic [ref=e1165]: A
+                          - generic [ref=e1166]: b
+                          - generic [ref=e1167]: o
+                          - generic [ref=e1168]: u
+                          - generic [ref=e1169]: t
+                        - generic [ref=e1170]:
+                          - generic [ref=e1171]: A
+                          - generic [ref=e1172]: b
+                          - generic [ref=e1173]: o
+                          - generic [ref=e1174]: u
+                          - generic [ref=e1175]: t
+                  - link "C o n t a c t C o n t a c t" [ref=e1177] [cursor=pointer]:
+                    - /url: mailto:contact@azizkhaldi.com
+                    - heading "C o n t a c t C o n t a c t" [level=1] [ref=e1178]:
+                      - generic [ref=e1179]:
+                        - generic [ref=e1180]:
+                          - generic [ref=e1181]: C
+                          - generic [ref=e1182]: o
+                          - generic [ref=e1183]: "n"
+                          - generic [ref=e1184]: t
+                          - generic [ref=e1185]: a
+                          - generic [ref=e1186]: c
+                          - generic [ref=e1187]: t
+                        - generic [ref=e1188]:
+                          - generic [ref=e1189]: C
+                          - generic [ref=e1190]: o
+                          - generic [ref=e1191]: "n"
+                          - generic [ref=e1192]: t
+                          - generic [ref=e1193]: a
+                          - generic [ref=e1194]: c
+                          - generic [ref=e1195]: t
+              - generic [ref=e1196]:
+                - heading "SOCIALS" [level=1] [ref=e1198]
+                - generic [ref=e1199]:
+                  - link "E m a i l E m a i l" [ref=e1201] [cursor=pointer]:
+                    - /url: mailto:contact@azizkhaldi.com
+                    - heading "E m a i l E m a i l" [level=1] [ref=e1202]:
+                      - generic [ref=e1203]:
+                        - generic [ref=e1204]:
+                          - generic [ref=e1205]: E
+                          - generic [ref=e1206]: m
+                          - generic [ref=e1207]: a
+                          - generic [ref=e1208]: i
+                          - generic [ref=e1209]: l
+                        - generic [ref=e1210]:
+                          - generic [ref=e1211]: E
+                          - generic [ref=e1212]: m
+                          - generic [ref=e1213]: a
+                          - generic [ref=e1214]: i
+                          - generic [ref=e1215]: l
+                  - link "L i n k d i n L i n k d i n" [ref=e1217] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/in/aziz-khaldi-b28207261/
+                    - heading "L i n k d i n L i n k d i n" [level=1] [ref=e1218]:
+                      - generic [ref=e1219]:
+                        - generic [ref=e1220]:
+                          - generic [ref=e1221]: L
+                          - generic [ref=e1222]: i
+                          - generic [ref=e1223]: "n"
+                          - generic [ref=e1224]: k
+                          - generic [ref=e1225]: d
+                          - generic [ref=e1226]: i
+                          - generic [ref=e1227]: "n"
+                        - generic [ref=e1228]:
+                          - generic [ref=e1229]: L
+                          - generic [ref=e1230]: i
+                          - generic [ref=e1231]: "n"
+                          - generic [ref=e1232]: k
+                          - generic [ref=e1233]: d
+                          - generic [ref=e1234]: i
+                          - generic [ref=e1235]: "n"
+                  - link "W h a t s a p p W h a t s a p p" [ref=e1237] [cursor=pointer]:
+                    - /url: https://wa.me/213779577865
+                    - heading "W h a t s a p p W h a t s a p p" [level=1] [ref=e1238]:
+                      - generic [ref=e1239]:
+                        - generic [ref=e1240]:
+                          - generic [ref=e1241]: W
+                          - generic [ref=e1242]: h
+                          - generic [ref=e1243]: a
+                          - generic [ref=e1244]: t
+                          - generic [ref=e1245]: s
+                          - generic [ref=e1246]: a
+                          - generic [ref=e1247]: p
+                          - generic [ref=e1248]: p
+                        - generic [ref=e1249]:
+                          - generic [ref=e1250]: W
+                          - generic [ref=e1251]: h
+                          - generic [ref=e1252]: a
+                          - generic [ref=e1253]: t
+                          - generic [ref=e1254]: s
+                          - generic [ref=e1255]: a
+                          - generic [ref=e1256]: p
+                          - generic [ref=e1257]: p
+                  - link "G i t h u b G i t h u b" [ref=e1259] [cursor=pointer]:
+                    - /url: https://github.com/AzizKhaldi01
+                    - heading "G i t h u b G i t h u b" [level=1] [ref=e1260]:
+                      - generic [ref=e1261]:
+                        - generic [ref=e1262]:
+                          - generic [ref=e1263]: G
+                          - generic [ref=e1264]: i
+                          - generic [ref=e1265]: t
+                          - generic [ref=e1266]: h
+                          - generic [ref=e1267]: u
+                          - generic [ref=e1268]: b
+                        - generic [ref=e1269]:
+                          - generic [ref=e1270]: G
+                          - generic [ref=e1271]: i
+                          - generic [ref=e1272]: t
+                          - generic [ref=e1273]: h
+                          - generic [ref=e1274]: u
+                          - generic [ref=e1275]: b
+              - generic [ref=e1276]:
+                - heading "LOCAL TIME" [level=1] [ref=e1278]
+                - paragraph [ref=e1281]: 1:40 AM UTC+2
+              - generic [ref=e1282]:
+                - heading "VERSION" [level=1] [ref=e1284]
+                - paragraph [ref=e1287]: 2026 © Edition
+            - generic [ref=e1288]:
+              - button "+213779577865 +213779577865" [ref=e1290] [cursor=pointer]:
+                - link "+213779577865" [ref=e1292]:
+                  - /url: https://wa.me/213779577865
+                - link "+213779577865" [ref=e1295]:
+                  - /url: https://wa.me/213779577865
+              - button "contact@azizkhaldi.com contact@azizkhaldi.com" [ref=e1297] [cursor=pointer]:
+                - link "contact@azizkhaldi.com" [ref=e1299]:
+                  - /url: mailto:contact@azizkhaldi.com
+                - link "contact@azizkhaldi.com" [ref=e1302]:
+                  - /url: mailto:contact@azizkhaldi.com
+          - heading "A Z I Z" [level=1] [ref=e1308]:
+            - generic [ref=e1309]: A
+            - generic [ref=e1310]: Z
+            - generic [ref=e1311]: I
+            - generic [ref=e1312]: Z
+    - button "Disable sound" [ref=e1313] [cursor=pointer]:
+      - img [ref=e1314]
+  - alert [ref=e1316]

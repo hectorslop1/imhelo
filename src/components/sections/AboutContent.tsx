@@ -2,11 +2,10 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
+import ClipReveal from '@/components/ui/ClipReveal'
+import ImageReveal from '@/components/ui/ImageReveal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-
-// ─── Social links ─────────────────────────────────────────────────────────────
-// To update: change href values here. Labels are used as display text + aria-label.
 
 const SOCIAL_LINKS = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
@@ -15,71 +14,100 @@ const SOCIAL_LINKS = [
   { label: 'Dribbble',  href: 'https://dribbble.com/hectorslop' },
 ]
 
-// ─── AboutContent (client) ────────────────────────────────────────────────────
-//
-// Editorial two-column layout: text left, photo right.
-// Photo: grayscale + slight contrast lift — intentional, not a headshot.
-// Profile image: /public/assetshelo/ProfilePicture/IMG_5081.JPG
-
 export default function AboutContent() {
   const reduced = useReducedMotion() ?? false
 
   return (
     <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
-      {/* Section label strip */}
+      {/* Section label strip — draw-line */}
       <div className="flex items-center gap-4 pt-40 pb-16">
-        <span className="text-[12px] font-mono text-[#606058] tracking-widest">01</span>
-        <span className="flex-1 h-px bg-white/[0.06]" />
-        <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">About</span>
+        <motion.span
+          className="text-[12px] font-mono text-[#686868] tracking-widest shrink-0"
+          initial={reduced ? {} : { opacity: 0, x: -6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
+        >
+          01
+        </motion.span>
+        <motion.span
+          className="flex-1 h-px bg-[var(--line)] origin-left"
+          initial={reduced ? {} : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
+        />
+        <motion.span
+          className="text-[12px] font-mono text-[#686868] tracking-widest uppercase shrink-0"
+          initial={reduced ? {} : { opacity: 0, x: 6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: EASE, delay: 0.32 }}
+        >
+          About
+        </motion.span>
       </div>
 
       {/* Two-column grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 lg:gap-28 items-start pb-32">
 
         {/* ── Left: text ── */}
-        <motion.div
-          initial={reduced ? {} : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE }}
-        >
-          {/* Name */}
-          <h1
-            className="font-extrabold tracking-[-0.05em] text-white leading-[0.9] mb-8"
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize:   'clamp(52px, 8vw, 112px)',
-            }}
-          >
-            Hector<br />Lopez
-          </h1>
+        <div>
+          {/* Name — ClipReveal premium text entrance */}
+          <ClipReveal dur={0.9}>
+            <h1
+              className="font-extrabold tracking-[-0.05em] leading-[0.9] mb-8"
+              style={{
+                fontFamily: 'var(--font-cabinet)',
+                fontSize:   'clamp(52px, 8vw, 112px)',
+                color:      'var(--ink)',
+              }}
+            >
+              Hector<br />Lopez
+            </h1>
+          </ClipReveal>
 
           {/* Role tag */}
-          <p
+          <motion.p
             className="font-mono text-[11px] tracking-[0.22em] uppercase mb-12"
-            style={{ color: 'rgba(242,216,50,0.6)' }}
+            style={{ color: 'var(--accent-deep)' }}
+            initial={reduced ? {} : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
           >
             Designer &amp; Developer · San Diego, CA
-          </p>
+          </motion.p>
 
           {/* Horizontal rule */}
-          <div className="w-full h-px mb-12" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          <motion.div
+            className="w-full h-px mb-12"
+            style={{ background: 'rgba(20,19,15,0.12)' }}
+            initial={reduced ? {} : { scaleX: 0, originX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.4 }}
+          />
 
           {/* Bio */}
-          <p
+          <motion.p
             className="text-[15px] leading-relaxed mb-14"
             style={{
-              color:          'rgba(255,255,255,0.52)',
-              letterSpacing:  '-0.01em',
-              maxWidth:       '480px',
+              color:         'var(--ink-2)',
+              letterSpacing: '-0.01em',
+              maxWidth:      '480px',
             }}
+            initial={reduced ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
           >
             I&apos;m Hector Lopez, a designer and developer creating visual systems,
             interfaces, and digital experiences with a focus on clarity, motion, and craft.
-          </p>
+          </motion.p>
 
           {/* Stats row */}
-          <div className="flex flex-wrap gap-8 mb-14">
+          <motion.div
+            className="flex flex-wrap gap-8 mb-14"
+            initial={reduced ? {} : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
+          >
             {[
               { label: 'Focus',    value: 'Development\nGraphic Design' },
               { label: 'Based in', value: 'San Diego, CA'               },
@@ -87,28 +115,33 @@ export default function AboutContent() {
             ].map(({ label, value }, i) => (
               <div key={label} className="flex items-start gap-8">
                 {i > 0 && (
-                  <div className="w-px self-stretch mt-1" style={{ background: 'rgba(255,255,255,0.06)' }} />
+                  <div className="w-px self-stretch mt-1" style={{ background: 'rgba(20,19,15,0.12)' }} />
                 )}
                 <div>
-                  <p className="text-[11px] font-mono text-[#3e3e38] tracking-[0.18em] uppercase mb-2">
+                  <p className="text-[11px] font-mono text-[#686868] tracking-[0.18em] uppercase mb-2">
                     {label}
                   </p>
-                  <p className="text-[13px] font-mono text-[#888880] whitespace-pre-line leading-relaxed">
+                  <p className="text-[13px] font-mono text-[var(--ink-2)] whitespace-pre-line leading-relaxed">
                     {value}
                   </p>
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Social links */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <span className="text-[11px] font-mono text-[#3e3e38] tracking-[0.18em] uppercase shrink-0">
+          <motion.div
+            className="flex flex-wrap items-center gap-x-6 gap-y-3"
+            initial={reduced ? {} : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.65 }}
+          >
+            <span className="text-[11px] font-mono text-[#686868] tracking-[0.18em] uppercase shrink-0">
               Connect
             </span>
             <div
               className="hidden sm:block flex-1 h-px"
-              style={{ background: 'rgba(255,255,255,0.06)', minWidth: 24 }}
+              style={{ background: 'rgba(20,19,15,0.12)', minWidth: 24 }}
             />
             {SOCIAL_LINKS.map(({ label, href }) => (
               <a
@@ -117,67 +150,66 @@ export default function AboutContent() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="text-[12px] font-mono text-[#606058] hover:text-white transition-colors duration-300 tracking-wide"
+                className="group relative text-[12px] font-mono text-[#686868] hover:text-[var(--ink)] transition-colors duration-300 tracking-wide overflow-hidden py-px"
               >
                 {label}
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-0 h-px bg-[#f2d832] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                />
               </a>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
-        {/* ── Right: profile photo ── */}
-        <motion.div
-          initial={reduced ? {} : { opacity: 0, y: 16, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.1, ease: EASE, delay: 0.18 }}
-          className="relative lg:sticky lg:top-28"
-        >
-          {/* Photo container — portrait ratio, editorial crop */}
-          <div
-            className="relative w-full overflow-hidden"
-            style={{ aspectRatio: '4 / 5', background: '#111' }}
+        {/* ── Right: profile photo — ImageReveal premium entrance ── */}
+        <div className="relative lg:sticky lg:top-28">
+          <ImageReveal
+            className="w-full"
+            delay={0.3}
           >
-            <Image
-              src="/assetshelo/ProfilePicture/IMG_5081.JPG"
-              alt="Hector Lopez — designer and developer based in San Diego"
-              fill
-              sizes="(max-width: 1024px) 90vw, 380px"
-              className="object-cover"
-              style={{
-                filter:         'grayscale(1) brightness(0.8) contrast(1.12)',
-                objectPosition: 'center top',
-              }}
-              priority
-            />
-
-            {/* Subtle yellow brand tint */}
             <div
-              className="absolute inset-0 pointer-events-none mix-blend-multiply"
-              style={{ background: 'rgba(242,216,50,0.03)' }}
-            />
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: '4 / 5', background: 'var(--surface-2)' }}
+            >
+              <Image
+                src="/assetshelo/ProfilePicture/IMG_5081.JPG"
+                alt="Hector Lopez — designer and developer based in San Diego"
+                fill
+                sizes="(max-width: 1024px) 90vw, 380px"
+                className="object-cover"
+                style={{
+                  filter:         'grayscale(1) brightness(0.96) contrast(1.08)',
+                  objectPosition: 'center top',
+                }}
+                priority
+              />
 
-            {/* Bottom gradient — blends into page background */}
-            <div
-              className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-              style={{ background: 'linear-gradient(to top, #080808, transparent)' }}
-            />
+              <div
+                className="absolute inset-0 pointer-events-none mix-blend-multiply"
+                style={{ background: 'rgba(242,216,50,0.04)' }}
+              />
 
-            {/* Top-left corner accent */}
-            <div
-              className="absolute top-0 left-0 w-10 h-px pointer-events-none"
-              style={{ background: 'rgba(242,216,50,0.4)' }}
-            />
-            <div
-              className="absolute top-0 left-0 w-px h-10 pointer-events-none"
-              style={{ background: 'rgba(242,216,50,0.4)' }}
-            />
-          </div>
+              <div
+                className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, var(--surface), transparent)' }}
+              />
 
-          {/* Caption */}
-          <p className="mt-3 text-[11px] font-mono text-[#3a3a34] tracking-widest">
+              <div
+                className="absolute top-0 left-0 w-10 h-px pointer-events-none"
+                style={{ background: 'rgba(242,216,50,0.7)' }}
+              />
+              <div
+                className="absolute top-0 left-0 w-px h-10 pointer-events-none"
+                style={{ background: 'rgba(242,216,50,0.7)' }}
+              />
+            </div>
+          </ImageReveal>
+
+          <p className="mt-3 text-[11px] font-mono text-[#686868] tracking-widest">
             HECTOR LOPEZ — SAN DIEGO, CA
           </p>
-        </motion.div>
+        </div>
 
       </div>
     </div>

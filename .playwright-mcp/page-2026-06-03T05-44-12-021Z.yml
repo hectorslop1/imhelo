@@ -1,0 +1,365 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Padres Con Poder logo Padres Con Poder Families and inclusive workplaces" [ref=e5] [cursor=pointer]:
+          - /url: "#"
+          - img "Padres Con Poder logo" [ref=e6]
+          - generic [ref=e7]:
+            - generic [ref=e8]: Padres Con Poder
+            - generic [ref=e9]: Families and inclusive workplaces
+        - navigation [ref=e10]:
+          - link "Mission" [ref=e11] [cursor=pointer]:
+            - /url: "#mission"
+          - link "How We Help" [ref=e12] [cursor=pointer]:
+            - /url: "#how-we-help"
+          - link "Families" [ref=e13] [cursor=pointer]:
+            - /url: "#families"
+          - link "Businesses" [ref=e14] [cursor=pointer]:
+            - /url: "#businesses"
+          - link "Why Choose Us" [ref=e15] [cursor=pointer]:
+            - /url: "#why-choose-us"
+          - link "Contact" [ref=e16] [cursor=pointer]:
+            - /url: "#contact"
+        - link "Contact Padres Con Poder" [ref=e18] [cursor=pointer]:
+          - /url: "#contact"
+    - main [ref=e19]:
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e24]: Trusted guidance for families and businesses
+          - generic [ref=e25]:
+            - heading "Transforming Businesses, Empowering Individuals." [level=1] [ref=e27]:
+              - text: Transforming Businesses,
+              - text: Empowering Individuals.
+            - paragraph [ref=e29]: Together Towards Success.
+            - paragraph [ref=e31]: Padres Con Poder supports individuals with disabilities and their families as they navigate the Self-Determination Program, while helping businesses create inclusive, neurodiverse-friendly workplaces across California.
+          - generic [ref=e33]:
+            - link "Family Support" [ref=e34] [cursor=pointer]:
+              - /url: "#families"
+              - text: Family Support
+              - img
+            - link "Business Consulting" [ref=e35] [cursor=pointer]:
+              - /url: "#businesses"
+              - text: Business Consulting
+              - img
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - img [ref=e39]
+              - generic [ref=e42]: Trusted IRC Vendor
+            - generic [ref=e43]:
+              - img [ref=e44]
+              - generic [ref=e47]: Support for the Self-Determination Program
+            - generic [ref=e48]:
+              - img [ref=e49]
+              - generic [ref=e52]: Neurodiversity Consulting for Businesses
+        - generic [ref=e53]:
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - generic [ref=e60]:
+                  - img [ref=e61]
+                  - text: Structured support
+                - paragraph [ref=e64]: Support for families. Strategy for inclusive businesses.
+              - img [ref=e66]
+            - generic [ref=e75]:
+              - generic [ref=e77]:
+                - heading "For Families" [level=3] [ref=e78]
+                - paragraph [ref=e79]: Guidance through individualized service plans, regional center coordination, and ongoing support.
+              - generic [ref=e81]:
+                - heading "For Businesses" [level=3] [ref=e82]
+                - paragraph [ref=e83]: Coaching, training, and strategy for inclusive workplaces that help neurodiverse talent thrive.
+            - generic [ref=e84]:
+              - paragraph [ref=e85]: Training Focus
+              - paragraph [ref=e86]: Self-Determination law, the Lanterman Act, budgeting and spending plans, and inclusive practices.
+              - generic [ref=e87]:
+                - generic [ref=e88]: Official support areas
+                - img [ref=e89]
+          - generic [ref=e91]:
+            - img [ref=e93]
+            - generic [ref=e94]:
+              - paragraph [ref=e95]: Padres Con Poder
+              - paragraph [ref=e96]: Empowering individuals with disabilities and helping businesses achieve inclusive excellence.
+          - generic [ref=e97]: Side-by-side support for service planning, advocacy, and inclusive workplace development.
+      - generic [ref=e100]:
+        - generic [ref=e101]:
+          - generic [ref=e102]: Mission
+          - heading "Empowerment rooted in person-centered support and inclusive excellence." [level=2] [ref=e103]
+          - paragraph [ref=e104]: Padres Con Poder bridges family support and inclusive business strategy with the same commitment to empowerment, structure, and person-centered guidance.
+          - generic [ref=e106]:
+            - img [ref=e108]
+            - generic [ref=e110]:
+              - heading "Trusted Vendor Relationship" [level=3] [ref=e111]
+              - paragraph [ref=e112]: Padres Con Poder is a trusted vendor for the Inland Regional Center (IRC) specializing in the Self-Determination Program (SDP).
+        - generic [ref=e113]:
+          - generic [ref=e115]:
+            - generic [ref=e117]:
+              - img [ref=e119]
+              - generic [ref=e123]:
+                - heading "Mission" [level=3] [ref=e124]
+                - paragraph [ref=e125]: Official organization mission statement
+            - paragraph [ref=e127]: At Padres Con Poder, we are committed to empowering businesses across California to cultivate inclusive and neurodiverse-friendly workplaces. Through specialized coaching and training, we equip organizations to embrace diversity, equity, and inclusion, unlocking the potential of neurodiverse talent. Concurrently, we empower individuals with disabilities and their families to confidently navigate the Self-Determination Program (SDP).
+          - generic [ref=e129]:
+            - generic [ref=e131]:
+              - img [ref=e133]
+              - generic [ref=e137]:
+                - heading "Vision" [level=3] [ref=e138]
+                - paragraph [ref=e139]: Official organization vision statement
+            - paragraph [ref=e141]: Our vision is to be the leading resource for businesses and individuals across all regional centers in California. We aspire to create a society where every individual, regardless of ability, can lead an empowered and independent life, with person-centered planning at the forefront of service delivery.
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - generic [ref=e146]: How We Help
+          - heading "A clear, supportive approach for complex decisions and inclusive growth." [level=2] [ref=e147]
+          - paragraph [ref=e148]: Padres Con Poder combines guidance, training, and ongoing support so families and businesses can move forward with more confidence.
+        - generic [ref=e151]:
+          - generic [ref=e153]:
+            - img [ref=e156]
+            - generic [ref=e160]:
+              - generic [ref=e162]:
+                - generic [ref=e163]: Step 01
+                - heading "Guide" [level=3] [ref=e164]
+              - paragraph [ref=e166]: We help families and individuals navigate the Self-Determination Program, build individualized service plans, and connect with the right resources.
+          - generic [ref=e168]:
+            - img [ref=e171]
+            - generic [ref=e174]:
+              - generic [ref=e176]:
+                - generic [ref=e177]: Step 02
+                - heading "Train" [level=3] [ref=e178]
+              - paragraph [ref=e180]: We provide education on self-determination principles, the Lanterman Act, budgeting and spending plans, and inclusive workplace practices.
+          - generic [ref=e182]:
+            - img [ref=e185]
+            - generic [ref=e188]:
+              - generic [ref=e190]:
+                - generic [ref=e191]: Step 03
+                - heading "Support" [level=3] [ref=e192]
+              - paragraph [ref=e194]: We stay alongside families with ongoing follow-up and advocacy, while coaching businesses as they implement inclusive strategies.
+      - generic [ref=e197]:
+        - generic [ref=e199]:
+          - generic [ref=e200]: Services for Families
+          - generic [ref=e201]:
+            - heading "Guidance for the Self-Determination Program and greater independence." [level=2] [ref=e202]
+            - paragraph [ref=e203]: Padres Con Poder helps individuals with disabilities and their families take control of services, navigate the Self-Determination Program, and move toward personal goals with more clarity.
+          - generic [ref=e204]:
+            - img [ref=e206]
+            - heading "What this support can include" [level=3] [ref=e210]
+            - generic [ref=e211]:
+              - generic [ref=e212]:
+                - img [ref=e214]
+                - paragraph [ref=e216]: One-on-one consultations and service planning based on each client’s needs.
+              - generic [ref=e217]:
+                - img [ref=e219]
+                - paragraph [ref=e223]: Training and practical support for self-advocacy, program requirements, and budgeting.
+              - generic [ref=e224]:
+                - img [ref=e226]
+                - paragraph [ref=e230]: Ongoing coordination with the IRC, providers, and family support systems.
+        - generic [ref=e231]:
+          - generic [ref=e233]:
+            - generic [ref=e234]:
+              - heading "Navigating the Self-Determination Program" [level=3] [ref=e235]
+              - paragraph [ref=e236]: We guide clients through the complexities of the IRC Self-Determination Program and help shape individualized service plans.
+            - list [ref=e238]:
+              - listitem [ref=e239]:
+                - img [ref=e240]
+                - generic [ref=e243]: Resource coordination and provider connections
+              - listitem [ref=e244]:
+                - img [ref=e245]
+                - generic [ref=e248]: Regional center communication and paperwork support
+              - listitem [ref=e249]:
+                - img [ref=e250]
+                - generic [ref=e253]: Service planning grounded in personal goals
+          - generic [ref=e255]:
+            - generic [ref=e256]:
+              - heading "Empowerment Through Knowledge" [level=3] [ref=e257]
+              - paragraph [ref=e258]: We equip families with the tools and training needed to take control of service plans and make informed decisions.
+            - list [ref=e260]:
+              - listitem [ref=e261]:
+                - img [ref=e262]
+                - generic [ref=e265]: Training in self-determination principles
+              - listitem [ref=e266]:
+                - img [ref=e267]
+                - generic [ref=e270]: Guidance on the Lanterman Act
+              - listitem [ref=e271]:
+                - img [ref=e272]
+                - generic [ref=e275]: Budgeting and spending plan support
+          - generic [ref=e277]:
+            - generic [ref=e278]:
+              - heading "Ongoing Support" [level=3] [ref=e279]
+              - paragraph [ref=e280]: Our team works side-by-side with families as services are implemented and goals continue to evolve.
+            - list [ref=e282]:
+              - listitem [ref=e283]:
+                - img [ref=e284]
+                - generic [ref=e287]: Follow-up support and self-advocacy guidance
+              - listitem [ref=e288]:
+                - img [ref=e289]
+                - generic [ref=e292]: Appointments, submissions, and coordination help
+              - listitem [ref=e293]:
+                - img [ref=e294]
+                - generic [ref=e297]: Continuous support as services move forward
+      - generic [ref=e300]:
+        - generic [ref=e302]:
+          - generic [ref=e303]: Services for Businesses
+          - generic [ref=e304]:
+            - heading "Coaching and strategy for neurodiverse-friendly workplaces." [level=2] [ref=e305]
+            - paragraph [ref=e306]: Padres Con Poder works with companies that want to create inclusive environments, strengthen workplace practices, and support neurodiverse employees with intention.
+          - generic [ref=e307]:
+            - img [ref=e309]
+            - heading "What this support can include" [level=3] [ref=e313]
+            - generic [ref=e314]:
+              - generic [ref=e315]:
+                - img [ref=e317]
+                - paragraph [ref=e319]: Customized consulting sessions focused on workplace dynamics and inclusive practices.
+              - generic [ref=e320]:
+                - img [ref=e322]
+                - paragraph [ref=e326]: Training for leadership and staff on communication, support, and team culture.
+              - generic [ref=e327]:
+                - img [ref=e329]
+                - paragraph [ref=e333]: Practical strategies that align diversity, equity, and inclusion with employee well-being.
+        - generic [ref=e334]:
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - heading "Customized Business Coaching" [level=3] [ref=e338]
+              - paragraph [ref=e339]: We work with companies to build inclusive hiring, onboarding, and employee development programs that support neurodiverse employees.
+            - list [ref=e341]:
+              - listitem [ref=e342]:
+                - img [ref=e343]
+                - generic [ref=e346]: Inclusive hiring and onboarding guidance
+              - listitem [ref=e347]:
+                - img [ref=e348]
+                - generic [ref=e351]: Coaching tailored to each organization
+              - listitem [ref=e352]:
+                - img [ref=e353]
+                - generic [ref=e356]: Support for employee development programs
+          - generic [ref=e358]:
+            - generic [ref=e359]:
+              - heading "Inclusive Workplace Training" [level=3] [ref=e360]
+              - paragraph [ref=e361]: We offer training for leadership and staff on creating environments where neurodiverse employees can thrive.
+            - list [ref=e363]:
+              - listitem [ref=e364]:
+                - img [ref=e365]
+                - generic [ref=e368]: Leadership and staff education
+              - listitem [ref=e369]:
+                - img [ref=e370]
+                - generic [ref=e373]: Workshops tailored to company needs
+              - listitem [ref=e374]:
+                - img [ref=e375]
+                - generic [ref=e378]: Supportive environment and communication practices
+          - generic [ref=e380]:
+            - generic [ref=e381]:
+              - heading "Diversity & Inclusion Strategy" [level=3] [ref=e382]
+              - paragraph [ref=e383]: Our experts help businesses develop and implement strategies that promote equity and inclusion while enhancing employee well-being.
+            - list [ref=e385]:
+              - listitem [ref=e386]:
+                - img [ref=e387]
+                - generic [ref=e390]: Diversity, equity, and inclusion planning
+              - listitem [ref=e391]:
+                - img [ref=e392]
+                - generic [ref=e395]: Workplace accommodation guidance
+              - listitem [ref=e396]:
+                - img [ref=e397]
+                - generic [ref=e400]: Strategy integration that supports business growth
+      - generic [ref=e403]:
+        - generic [ref=e404]:
+          - generic [ref=e405]: Why Choose Padres Con Poder
+          - heading "Trusted guidance that understands both family support and organizational change." [level=2] [ref=e406]
+          - paragraph [ref=e407]: Padres Con Poder brings together practical knowledge of the Self-Determination Program, hands-on support for families, and inclusive consulting for businesses serving neurodiverse communities.
+        - generic [ref=e408]:
+          - generic [ref=e410]:
+            - img [ref=e412]
+            - generic [ref=e417]:
+              - generic [ref=e418]:
+                - heading "Trusted Inland Regional Center Vendor" [level=3] [ref=e419]
+                - paragraph [ref=e420]: Padres Con Poder is an approved and trusted vendor for the Inland Regional Center with a focus on the Self-Determination Program.
+              - img [ref=e422]
+          - generic [ref=e427]:
+            - img [ref=e429]
+            - generic [ref=e434]:
+              - generic [ref=e435]:
+                - heading "Dual Expertise Across Two Audiences" [level=3] [ref=e436]
+                - paragraph [ref=e437]: The organization supports individuals and families while also coaching businesses that want to create inclusive environments.
+              - img [ref=e439]
+          - generic [ref=e444]:
+            - img [ref=e446]
+            - generic [ref=e450]:
+              - generic [ref=e451]:
+                - heading "Personalized Side-by-Side Guidance" [level=3] [ref=e452]
+                - paragraph [ref=e453]: Support is grounded in one-on-one guidance, continuous follow-up, and practical help as plans turn into action.
+              - img [ref=e455]
+          - generic [ref=e460]:
+            - img [ref=e462]
+            - generic [ref=e466]:
+              - generic [ref=e467]:
+                - heading "California-Focused Inclusive Vision" [level=3] [ref=e468]
+                - paragraph [ref=e469]: The work is rooted in a statewide vision for inclusive workplaces, person-centered planning, and greater independence.
+              - img [ref=e471]
+      - generic [ref=e477]:
+        - generic [ref=e478]:
+          - generic [ref=e479]: Contact
+          - heading "Start the conversation with the right support path." [level=2] [ref=e480]
+          - paragraph [ref=e481]: Padres Con Poder supports families seeking Self-Determination guidance and businesses building inclusive workplace practices.
+          - generic [ref=e482]:
+            - generic [ref=e483]:
+              - generic [ref=e484]:
+                - heading "Families seeking SDP support" [level=3] [ref=e485]
+                - paragraph [ref=e486]: Reach out for guidance with service planning, resource coordination, and ongoing support.
+              - generic [ref=e487]:
+                - 'button "TODO: Add family intake destination" [disabled]'
+            - generic [ref=e488]:
+              - generic [ref=e489]:
+                - heading "Businesses seeking consulting" [level=3] [ref=e490]
+                - paragraph [ref=e491]: Reach out for coaching, inclusive workplace training, and strategy support.
+              - generic [ref=e492]:
+                - 'button "TODO: Add business inquiry destination" [disabled]'
+        - generic [ref=e493]:
+          - generic [ref=e496]:
+            - img [ref=e498]
+            - generic [ref=e500]:
+              - heading "Phone" [level=3] [ref=e501]
+              - paragraph [ref=e502]: "TODO: Add approved phone number"
+          - generic [ref=e505]:
+            - img [ref=e507]
+            - generic [ref=e510]:
+              - heading "Email" [level=3] [ref=e511]
+              - paragraph [ref=e512]: "TODO: Add approved email address"
+          - generic [ref=e515]:
+            - img [ref=e517]
+            - generic [ref=e524]:
+              - heading "Website" [level=3] [ref=e525]
+              - paragraph [ref=e526]: "TODO: Add final website URL"
+          - generic [ref=e529]:
+            - img [ref=e531]
+            - generic [ref=e538]:
+              - heading "Social" [level=3] [ref=e539]
+              - paragraph [ref=e540]: "TODO: Confirm URLs for @IvesTorresFoundation and @PadresConPoder"
+    - contentinfo [ref=e541]:
+      - generic [ref=e542]:
+        - generic [ref=e543]:
+          - generic [ref=e544]:
+            - img "Padres Con Poder logo" [ref=e545]
+            - generic [ref=e546]:
+              - paragraph [ref=e547]: Padres Con Poder
+              - paragraph [ref=e548]: Empowering individuals with disabilities, supporting families through the Self-Determination Program, and helping businesses build inclusive workplaces.
+          - generic [ref=e549]:
+            - generic [ref=e550]:
+              - paragraph [ref=e551]: Navigate
+              - generic [ref=e552]:
+                - link "Mission" [ref=e553] [cursor=pointer]:
+                  - /url: "#mission"
+                - link "How We Help" [ref=e554] [cursor=pointer]:
+                  - /url: "#how-we-help"
+                - link "Families" [ref=e555] [cursor=pointer]:
+                  - /url: "#families"
+                - link "Businesses" [ref=e556] [cursor=pointer]:
+                  - /url: "#businesses"
+                - link "Why Choose Us" [ref=e557] [cursor=pointer]:
+                  - /url: "#why-choose-us"
+                - link "Contact" [ref=e558] [cursor=pointer]:
+                  - /url: "#contact"
+            - generic [ref=e559]:
+              - paragraph [ref=e560]: Contact Status
+              - generic [ref=e561]:
+                - paragraph [ref=e562]: "TODO: Add approved phone number"
+                - paragraph [ref=e563]: "TODO: Add approved email address"
+                - paragraph [ref=e564]: "TODO: Confirm social URLs for @IvesTorresFoundation and @PadresConPoder"
+        - generic [ref=e565]:
+          - paragraph [ref=e566]: © 2026 Padres Con Poder. All rights reserved.
+          - paragraph [ref=e567]: Website content sourced from the approved Padres Con Poder materials.
+  - alert [ref=e568]

@@ -17,7 +17,7 @@ export default function WorkPage() {
   return (
     <>
       <Header />
-      <main style={{ background: '#080808', minHeight: '100dvh' }}>
+      <main style={{ background: 'var(--surface)', minHeight: '100dvh' }}>
 
         {/* ── Header strip ── */}
         <div className="max-w-[1400px] mx-auto px-6 lg:px-16 pt-40 pb-0">
@@ -28,16 +28,17 @@ export default function WorkPage() {
           >
             <p
               className="font-mono text-[11px] tracking-[0.22em] uppercase mb-6"
-              style={{ color: 'rgba(242,216,50,0.6)' }}
+              style={{ color: 'var(--accent-deep)' }}
             >
               Selected Work
             </p>
             <h1
-              className="font-extrabold tracking-[-0.05em] text-white"
+              className="font-extrabold tracking-[-0.05em]"
               style={{
-                fontFamily: 'var(--font-syne)',
+                fontFamily: 'var(--font-cabinet)',
                 fontSize: 'clamp(48px, 7vw, 100px)',
                 lineHeight: 0.92,
+                color: 'var(--ink)',
               }}
             >
               Projects
@@ -56,7 +57,7 @@ export default function WorkPage() {
             >
               <Link
                 href={`/work/${project.id}`}
-                className="group block border-t border-white/[0.06]"
+                className="group block border-t border-[var(--line)]"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
               >
@@ -67,7 +68,7 @@ export default function WorkPage() {
                   {/* Index */}
                   <span
                     className="font-mono text-[12px] tracking-widest shrink-0 w-7 transition-colors duration-300"
-                    style={{ color: hovered === i ? 'rgba(242,216,50,0.7)' : 'rgba(255,255,255,0.28)' }}
+                    style={{ color: hovered === i ? 'var(--accent-deep)' : 'rgba(22,21,15,0.32)' }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -78,14 +79,14 @@ export default function WorkPage() {
                       className="font-extrabold tracking-[-0.04em] leading-tight transition-colors duration-300"
                       style={{
                         fontSize: 'clamp(20px, 2.6vw, 36px)',
-                        fontFamily: 'var(--font-syne)',
-                        color: hovered === i ? '#ffffff' : 'rgba(255,255,255,0.78)',
+                        fontFamily: 'var(--font-cabinet)',
+                        color: hovered === i ? 'var(--ink)' : 'rgba(22,21,15,0.6)',
                       }}
                     >
                       <span className="relative">
                         {project.title}
                         <span
-                          className="absolute left-0 -bottom-0.5 h-px bg-white transition-all duration-400 ease-out"
+                          className="absolute left-0 -bottom-0.5 h-px bg-[#16150f] transition-all duration-400 ease-out"
                           style={{ width: hovered === i ? '100%' : '0%' }}
                         />
                       </span>
@@ -95,7 +96,7 @@ export default function WorkPage() {
                   {/* Category */}
                   <span
                     className="hidden lg:block font-mono text-[12px] tracking-wide shrink-0 w-60 transition-colors duration-300"
-                    style={{ color: hovered === i ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.24)' }}
+                    style={{ color: hovered === i ? 'rgba(22,21,15,0.55)' : 'rgba(22,21,15,0.4)' }}
                   >
                     {project.category}
                   </span>
@@ -103,7 +104,7 @@ export default function WorkPage() {
                   {/* Year */}
                   <span
                     className="hidden md:block font-mono text-[12px] tracking-widest shrink-0 transition-colors duration-300"
-                    style={{ color: hovered === i ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.24)' }}
+                    style={{ color: hovered === i ? 'rgba(22,21,15,0.55)' : 'rgba(22,21,15,0.4)' }}
                   >
                     {project.year}
                   </span>
@@ -114,8 +115,8 @@ export default function WorkPage() {
                     style={{
                       width:   96,
                       height:  60,
-                      background: '#0a0a0a',
-                      opacity: hovered === i ? 1 : 0.55,
+                      background: 'var(--surface-2)',
+                      opacity: hovered === i ? 1 : 0.7,
                     }}
                   >
                     {project.cover ? (
@@ -127,10 +128,9 @@ export default function WorkPage() {
                         className="object-cover"
                       />
                     ) : (
-                      /* Subtle placeholder for projects without a cover */
                       <div
                         className="w-full h-full"
-                        style={{ background: 'rgba(255,255,255,0.03)' }}
+                        style={{ background: 'rgba(22,21,15,0.05)' }}
                       />
                     )}
                   </div>
@@ -139,7 +139,7 @@ export default function WorkPage() {
                   <span
                     className="shrink-0 text-[18px] transition-all duration-300"
                     style={{
-                      color: hovered === i ? '#f2d832' : 'rgba(255,255,255,0.18)',
+                      color: hovered === i ? 'var(--accent-deep)' : 'rgba(22,21,15,0.32)',
                       transform: hovered === i ? 'translate(2px, -2px)' : 'translate(0,0)',
                     }}
                   >
@@ -151,7 +151,7 @@ export default function WorkPage() {
           ))}
 
           {/* Closing rule */}
-          <div className="border-t border-white/[0.06]" />
+          <div className="border-t border-[var(--line)]" />
         </div>
 
         {/* ── Bottom spacing ── */}

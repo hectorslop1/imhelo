@@ -1,0 +1,362 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic: HELO
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "HELO — Go to homepage" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: HELO
+        - navigation "Main navigation" [ref=e8]:
+          - link "Work" [ref=e10]:
+            - /url: /work
+            - generic [ref=e11]:
+              - generic [ref=e12]: W
+              - generic [ref=e13]: o
+              - generic [ref=e14]: r
+              - generic [ref=e15]: k
+            - generic [ref=e16]:
+              - generic [ref=e17]: W
+              - generic [ref=e18]: o
+              - generic [ref=e19]: r
+              - generic [ref=e20]: k
+          - link "About" [ref=e22]:
+            - /url: /about
+            - generic [ref=e23]:
+              - generic [ref=e24]: A
+              - generic [ref=e25]: b
+              - generic [ref=e26]: o
+              - generic [ref=e27]: u
+              - generic [ref=e28]: t
+            - generic [ref=e29]:
+              - generic [ref=e30]: A
+              - generic [ref=e31]: b
+              - generic [ref=e32]: o
+              - generic [ref=e33]: u
+              - generic [ref=e34]: t
+          - link "Contact" [ref=e36]:
+            - /url: /contact
+            - generic [ref=e37]:
+              - generic [ref=e38]: C
+              - generic [ref=e39]: o
+              - generic [ref=e40]: "n"
+              - generic [ref=e41]: t
+              - generic [ref=e42]: a
+              - generic [ref=e43]: c
+              - generic [ref=e44]: t
+            - generic [ref=e45]:
+              - generic [ref=e46]: C
+              - generic [ref=e47]: o
+              - generic [ref=e48]: "n"
+              - generic [ref=e49]: t
+              - generic [ref=e50]: a
+              - generic [ref=e51]: c
+              - generic [ref=e52]: t
+        - link "Say HELO" [ref=e54]:
+          - /url: mailto:hello@imhelo.com
+          - generic [ref=e55]: Say HELO
+    - main [ref=e56]:
+      - generic [ref=e57]:
+        - generic [ref=e60]:
+          - heading "HELO — Hector Lopez, Design & Development" [level=1] [ref=e62]: HELO
+          - paragraph [ref=e63]: Design & Development · San Diego, CA · 2026
+        - generic [ref=e67]: Scroll
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - generic [ref=e71]: "01"
+          - generic [ref=e73]: About
+        - heading "I blend visual design and frontend development to create work that feels sharp, useful, and memorable." [level=2] [ref=e76]:
+          - text: I blend visual design and frontend development to create work that feels
+          - emphasis [ref=e77]: sharp, useful,
+          - text: and memorable.
+        - generic [ref=e78]:
+          - paragraph [ref=e79]: Hector Lopez — designer and developer based in San Diego, CA. Building digital products with intention and craft.
+          - paragraph [ref=e80]: Development ✦ Graphic Design
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - generic [ref=e84]: "02"
+          - generic [ref=e86]: What I Do
+        - generic [ref=e87]:
+          - generic [ref=e88]: "01"
+          - heading "Development" [level=3] [ref=e91]
+          - generic [ref=e92]:
+            - paragraph [ref=e93]: Websites, app interfaces, interactive frontend experiences, and digital products built with care and precision.
+            - paragraph [ref=e94]: Next.js · React · TypeScript · GSAP · Motion
+          - img [ref=e97]
+        - generic [ref=e100]:
+          - generic [ref=e101]: "02"
+          - heading "Graphic Design" [level=3] [ref=e104]
+          - generic [ref=e105]:
+            - paragraph [ref=e106]: Brand systems, campaign visuals, social graphics, logos, and visual assets with strong creative direction.
+            - paragraph [ref=e107]: Figma · Illustrator · Branding · Typography
+          - img [ref=e110]
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - generic [ref=e116]: "03"
+          - generic [ref=e118]: Selected Work
+        - generic [ref=e119]:
+          - generic [ref=e120]:
+            - generic [ref=e121]:
+              - heading "Projects" [level=2] [ref=e122]
+              - link "All work →" [ref=e123]:
+                - /url: /work
+                - text: All work
+                - generic [ref=e124]: →
+            - generic [ref=e125]:
+              - link "01 gigFAST NASCAR Graphic Design · Branding · Digital Product 2023 →" [ref=e127]:
+                - /url: /work/gigfast-nascar
+                - generic [ref=e128]:
+                  - generic [ref=e129]: "01"
+                  - heading "gigFAST NASCAR" [level=3] [ref=e131]:
+                    - generic [ref=e132]: gigFAST NASCAR
+                  - generic [ref=e133]: Graphic Design · Branding · Digital Product
+                  - generic [ref=e134]: "2023"
+                  - generic [ref=e135]: →
+              - link "02 Graphic Design Visual Design · Illustration Ongoing →" [ref=e137]:
+                - /url: /work/graphic-design
+                - generic [ref=e138]:
+                  - generic [ref=e139]: "02"
+                  - heading "Graphic Design" [level=3] [ref=e141]:
+                    - generic [ref=e142]: Graphic Design
+                  - generic [ref=e143]: Visual Design · Illustration
+                  - generic [ref=e144]: Ongoing
+                  - generic [ref=e145]: →
+              - link "03 Apparel Graphics Graphic Design · Print Ongoing →" [ref=e147]:
+                - /url: /work/apparel-graphics
+                - generic [ref=e148]:
+                  - generic [ref=e149]: "03"
+                  - heading "Apparel Graphics" [level=3] [ref=e151]:
+                    - generic [ref=e152]: Apparel Graphics
+                  - generic [ref=e153]: Graphic Design · Print
+                  - generic [ref=e154]: Ongoing
+                  - generic [ref=e155]: →
+              - link "04 Mobile App Showcase Development · UI 2025 →" [ref=e157]:
+                - /url: /work/mobile-app-showcase
+                - generic [ref=e158]:
+                  - generic [ref=e159]: "04"
+                  - heading "Mobile App Showcase" [level=3] [ref=e161]:
+                    - generic [ref=e162]: Mobile App Showcase
+                  - generic [ref=e163]: Development · UI
+                  - generic [ref=e164]: "2025"
+                  - generic [ref=e165]: →
+              - link "05 Interactive Elements Frontend · Creative Coding 2025 →" [ref=e167]:
+                - /url: /work/interactive-elements
+                - generic [ref=e168]:
+                  - generic [ref=e169]: "05"
+                  - heading "Interactive Elements" [level=3] [ref=e171]:
+                    - generic [ref=e172]: Interactive Elements
+                  - generic [ref=e173]: Frontend · Creative Coding
+                  - generic [ref=e174]: "2025"
+                  - generic [ref=e175]: →
+            - link "View all projects →" [ref=e178]:
+              - /url: /work
+              - text: View all projects
+              - generic [ref=e179]: →
+          - generic [ref=e181]:
+            - img "gigFAST NASCAR" [ref=e486]
+            - generic [ref=e487]:
+              - generic [ref=e488]: Hover a project
+              - generic [ref=e489]: ✦
+            - generic [ref=e490]:
+              - paragraph [ref=e491]: Graphic Design · Branding · Digital Product
+              - paragraph [ref=e492]: gigFAST NASCAR
+      - generic [ref=e186]:
+        - generic: HELO
+        - generic [ref=e188]:
+          - paragraph [ref=e191]: Built with intent.
+          - generic [ref=e192]:
+            - paragraph [ref=e193]: Designed by HELO
+            - paragraph [ref=e194]: Developed by HELO
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - generic [ref=e198]: "04"
+          - generic [ref=e200]: Device Showcase
+        - generic [ref=e201]:
+          - generic [ref=e202]:
+            - heading "Work in Context." [level=2] [ref=e203]:
+              - text: Work in
+              - text: Context.
+            - paragraph [ref=e204]: Every project lives in an interface. This showcase puts the work inside real device frames — app screens and visual systems rendered exactly where they belong.
+            - generic [ref=e205]:
+              - generic [ref=e208]:
+                - generic [ref=e209]: Project
+                - generic [ref=e210]: Mobile App Showcase
+              - generic [ref=e213]:
+                - generic [ref=e214]: Discipline
+                - generic [ref=e215]: Development / UI
+              - generic [ref=e218]:
+                - generic [ref=e219]: Platform
+                - generic [ref=e220]: iOS · watchOS
+            - generic [ref=e222]:
+              - generic [ref=e223]: Scenes
+              - generic [ref=e226]: "01"
+              - generic [ref=e229]: "02"
+              - generic [ref=e232]: "03"
+              - generic [ref=e235]: "04"
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - generic [ref=e239]:
+                - generic [ref=e241]: iPhone 15 Pro
+                - generic [ref=e431]:
+                  - generic [ref=e433]: 9:41
+                  - generic [ref=e440]:
+                    - generic [ref=e441]:
+                      - generic [ref=e442]: HELO
+                      - generic [ref=e444]: Projects
+                    - paragraph [ref=e445]: 04 Works
+                  - generic [ref=e446]:
+                    - generic [ref=e447]:
+                      - generic [ref=e451]: gigFAST NASCAR
+                      - generic [ref=e452]: Branding
+                    - generic [ref=e453]:
+                      - generic [ref=e457]: App Showcase
+                      - generic [ref=e458]: Development
+                    - generic [ref=e459]:
+                      - generic [ref=e463]: Interactive UI
+                      - generic [ref=e464]: Frontend
+                    - generic [ref=e465]:
+                      - generic [ref=e469]: Design Collection
+                      - generic [ref=e470]: Visual
+                - generic [ref=e253]: iOS 18
+              - generic [ref=e255]:
+                - generic [ref=e257]: Apple Watch
+                - generic [ref=e473]:
+                  - paragraph [ref=e474]: TUE
+                  - paragraph [ref=e475]: 9:41
+                  - img [ref=e477]
+                  - paragraph [ref=e482]: 75%
+                - generic [ref=e270]: watchOS 11
+            - generic [ref=e275]: 01 — Dashboard
+            - button "Expand device showcase" [ref=e278]:
+              - generic [ref=e280]: Expand
+      - generic [ref=e283]:
+        - generic [ref=e284]:
+          - generic [ref=e285]: "05"
+          - generic [ref=e287]: Experience & Skills
+        - generic [ref=e288]:
+          - generic [ref=e289]:
+            - heading "Experience & Skills." [level=2] [ref=e290]:
+              - text: Experience
+              - text: "& Skills."
+            - paragraph [ref=e291]: A career built across design and development — from visual systems and brand identity to mobile interfaces and interactive frontend experiences.
+            - generic [ref=e293]:
+              - paragraph [ref=e296]: Toolkit
+              - generic [ref=e297]:
+                - generic [ref=e298]:
+                  - paragraph [ref=e299]: Development
+                  - paragraph [ref=e300]: Next.js · React · TypeScript · Tailwind CSS · Node.js
+                - generic [ref=e302]:
+                  - paragraph [ref=e303]: Design
+                  - paragraph [ref=e304]: Figma · Adobe Illustrator · Adobe Photoshop · After Effects · Brand Identity · Typography
+                - generic [ref=e306]:
+                  - paragraph [ref=e307]: Motion / Interaction
+                  - paragraph [ref=e308]: GSAP · @gsap/react · Motion · Lenis · Scroll Animation
+                - generic [ref=e310]:
+                  - paragraph [ref=e311]: Tools & Platforms
+                  - paragraph [ref=e312]: Git · Vercel · VS Code · Notion · Claude Code
+          - generic [ref=e313]:
+            - generic [ref=e314]:
+              - generic [ref=e317]: Career Path
+              - generic [ref=e319]: 2017 — Present
+            - article [ref=e320]:
+              - generic [ref=e321]:
+                - paragraph [ref=e322]: Jan 2026 — Present
+                - generic "Current role" [ref=e323]
+              - generic [ref=e325]:
+                - heading "Lead Mobile Developer" [level=3] [ref=e326]
+                - generic [ref=e327]: U-wifi Inc.
+              - paragraph [ref=e329]: Leading mobile development for U-wifi app experiences, focusing on interface implementation, product features, usability, and performance across mobile platforms.
+              - paragraph [ref=e330]:
+                - generic [ref=e331]: Mobile app development ·
+                - generic [ref=e332]: UI implementation ·
+                - generic [ref=e333]: Product-focused features ·
+                - generic [ref=e334]: Cross-platform collaboration ·
+                - text: Performance and usability improvements
+            - article [ref=e335]:
+              - paragraph [ref=e337]: 2020 — 2026
+              - generic [ref=e339]:
+                - heading "UI/UX Designer · Cross-platform Developer · Graphic Designer" [level=3] [ref=e340]
+                - generic [ref=e341]: CBLUNA
+              - paragraph [ref=e343]: Designed user-friendly interfaces, built web and native mobile applications using low-code tools, and created visual assets for client-facing digital and social media experiences.
+              - paragraph [ref=e344]:
+                - generic [ref=e345]: UI/UX design ·
+                - generic [ref=e346]: Cross-platform app development ·
+                - generic [ref=e347]: Low-code development ·
+                - generic [ref=e348]: Databases and APIs ·
+                - generic [ref=e349]: Graphic design ·
+                - text: Social media visuals
+            - article [ref=e350]:
+              - paragraph [ref=e352]: 2017 — 2019
+              - generic [ref=e354]:
+                - heading "Lead of Medical Records Team" [level=3] [ref=e355]
+                - generic [ref=e356]: Project One Inc.
+              - paragraph [ref=e358]: Led medical records operations by organizing tasks, creating patient profiles, assigning doctors and medical studies, and ensuring accuracy in critical patient information.
+              - paragraph [ref=e359]:
+                - generic [ref=e360]: Team leadership ·
+                - generic [ref=e361]: Medical records organization ·
+                - generic [ref=e362]: Patient profile management ·
+                - generic [ref=e363]: Task coordination ·
+                - text: Data accuracy
+      - generic [ref=e366]:
+        - generic [ref=e367]: Designed by HELO ✦
+        - generic [ref=e368]: Developed by HELO ✦
+        - generic [ref=e369]: Visual Systems ✦
+        - generic [ref=e370]: App Interfaces ✦
+        - generic [ref=e371]: Digital Experiences ✦
+        - generic [ref=e372]: Graphic Design ✦
+        - generic [ref=e373]: Frontend Development ✦
+        - generic [ref=e374]: Designed by HELO ✦
+        - generic [ref=e375]: Developed by HELO ✦
+        - generic [ref=e376]: Visual Systems ✦
+        - generic [ref=e377]: App Interfaces ✦
+        - generic [ref=e378]: Digital Experiences ✦
+        - generic [ref=e379]: Graphic Design ✦
+        - generic [ref=e380]: Frontend Development ✦
+        - generic [ref=e381]: Designed by HELO ✦
+        - generic [ref=e382]: Developed by HELO ✦
+        - generic [ref=e383]: Visual Systems ✦
+        - generic [ref=e384]: App Interfaces ✦
+        - generic [ref=e385]: Digital Experiences ✦
+        - generic [ref=e386]: Graphic Design ✦
+        - generic [ref=e387]: Frontend Development ✦
+        - generic [ref=e388]: Designed by HELO ✦
+        - generic [ref=e389]: Developed by HELO ✦
+        - generic [ref=e390]: Visual Systems ✦
+        - generic [ref=e391]: App Interfaces ✦
+        - generic [ref=e392]: Digital Experiences ✦
+        - generic [ref=e393]: Graphic Design ✦
+        - generic [ref=e394]: Frontend Development ✦
+      - generic [ref=e396]:
+        - generic [ref=e397]:
+          - generic [ref=e398]: "06"
+          - generic [ref=e400]: Contact
+        - generic [ref=e401]:
+          - generic [ref=e402]:
+            - heading "Say HELO" [level=2] [ref=e403]
+            - generic [ref=e404]:
+              - generic:
+                - img
+          - generic [ref=e405]:
+            - generic [ref=e406]:
+              - paragraph [ref=e407]: Let's build something polished, useful, and memorable.
+              - link "hello@imhelo.com" [ref=e408]:
+                - /url: mailto:hello@imhelo.com
+                - text: hello@imhelo.com
+                - img [ref=e409]
+            - generic [ref=e412]:
+              - generic [ref=e413]:
+                - link "LinkedIn" [ref=e414]:
+                  - /url: https://www.linkedin.com/in/hector-lopez-6243a8305/
+                - link "Instagram" [ref=e415]:
+                  - /url: https://www.instagram.com/ofmynameishelo/
+                - link "Behance" [ref=e416]:
+                  - /url: https://www.behance.net/hectorlopez85
+                - link "Dribbble" [ref=e417]:
+                  - /url: https://dribbble.com/hectorslop
+              - paragraph [ref=e418]: San Diego, CA · 06:20 PM
+        - generic [ref=e419]:
+          - generic [ref=e420]: HELO — Designed & Developed by Hector Lopez
+          - generic [ref=e421]: © 2026 All rights reserved
+  - button "Open Next.js Dev Tools" [ref=e427] [cursor=pointer]:
+    - img [ref=e428]
+  - alert [ref=e483]

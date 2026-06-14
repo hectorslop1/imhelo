@@ -1,275 +1,191 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform, useInView } from 'motion/react'
+import SplitReveal from '@/components/ui/SplitReveal'
 import { experiences, type Experience } from '@/data/experience'
-import { skills } from '@/data/skills'
 
 const EASE = [0.16, 1, 0.3, 1] as const
+const BG = '#1a1815'
 
-// ─── Period renderer ──────────────────────────────────────────────────────────
-// Renders "Present" in yellow. Signature accent — used only here and nowhere else
-// on the page simultaneously.
-
-function Period({ text, isPrimary }: { text: string; isPrimary: boolean }) {
+// ─── Period renderer — "Present" picks up the accent ───────────────────────────
+function Period({ text }: { text: string }) {
   const idx = text.indexOf('Present')
   if (idx === -1) return <>{text}</>
   return (
     <>
       {text.slice(0, idx)}
-      <span style={{ color: isPrimary ? 'rgba(242,216,50,0.75)' : 'rgba(242,216,50,0.38)' }}>
-        Present
-      </span>
+      <span style={{ color: 'var(--accent)' }}>Present</span>
     </>
   )
 }
 
-// ─── Toolkit panel ───────────────────────────────────────────────────────────
+// ─── Centered scroll-progress rail (azizkhaldi.com .timeline-progress) ──────────
+// A faint full-height track centred on the column, overlaid by an accent bar whose
+// height scrubs with scroll — the line "draws" downward as you move through the
+// timeline. Hidden below md, where the layout collapses to a single left column.
+function TimelineRail({
+  trackRef,
+  reduced,
+}: {
+  trackRef: React.RefObject<HTMLDivElement | null>
+  reduced: boolean
+}) {
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start center', 'end center'] })
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1])
 
-function Toolkit({ reduced }: { reduced: boolean }) {
   return (
-    <div>
-      <div className="flex items-center gap-2.5 mb-6">
-        <span aria-hidden className="w-[3px] h-[3px] rounded-full bg-[#f2d832]/50 shrink-0" />
-        <p className="text-[11px] font-mono text-[#f2d832]/50 tracking-[0.18em] uppercase">
-          Toolkit
-        </p>
-      </div>
-
-      <div className="space-y-8">
-        {skills.map((group, i) => (
-          <motion.div
-            key={group.label}
-            initial={reduced ? {} : { opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: EASE, delay: 0.2 + i * 0.07 }}
-          >
-            <p className="text-[11px] font-mono text-[#4a4a44] tracking-[0.14em] uppercase mb-3">
-              {group.label}
-            </p>
-            <p className="text-[11px] font-mono text-[#5a5a54] leading-relaxed">
-              {group.items.join(' · ')}
-            </p>
-            {i < skills.length - 1 && (
-              <div className="mt-7 h-px bg-white/[0.04]" />
-            )}
-          </motion.div>
-        ))}
-      </div>
+    <div
+      aria-hidden
+      className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 h-full"
+      style={{ width: 2, background: 'rgba(236,233,226,0.10)' }}
+    >
+      {reduced ? (
+        <div style={{ position: 'absolute', inset: 0, background: 'var(--accent)' }} />
+      ) : (
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            transformOrigin: 'top',
+            scaleY,
+            background: 'var(--accent)',
+          }}
+        />
+      )}
     </div>
   )
 }
 
-// ─── Document-style timeline entry ────────────────────────────────────────────
-//
-// Structure (typographic document — no card borders):
-//
-//   DATE  ●               ← mono, "Present" in yellow, ● only for primary role
-//   ──────────────────    ← full-width 1px rule
-//   ROLE            CO.   ← Syne bold left, company mono right
-//   ──────────────────    ← second rule
-//
-//   Description text
-//
-//   highlight · highlight · highlight
-//
-// To edit: src/data/experience.ts
+// ─── One timeline entry — alternating side, brightens when crossing centre ──────
+type EntryProps = { exp: Experience; index: number; reduced: boolean }
 
-type EntryProps = {
-  exp: Experience
-  isPrimary: boolean   // true only for index 0 (most recent / U-wifi)
-  reduced: boolean
-  index: number
-}
+function ExperienceEntry({ exp, index, reduced }: EntryProps) {
+  const itemRef = useRef<HTMLDivElement>(null)
+  // "Active" only while the entry sits inside a band around the viewport centre,
+  // so the rail node lights up and the copy brightens as it reaches the middle.
+  const active = useInView(itemRef, { margin: '-40% 0px -40% 0px' })
+  const isLeft = index % 2 === 0 // even → left column (text hugs rail from the right)
 
-function DocumentEntry({ exp, isPrimary, reduced, index }: EntryProps) {
   return (
-    <motion.article
-      initial={reduced ? {} : { opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.7, ease: EASE, delay: index * 0.12 }}
-      className="pb-20"
+    <div
+      ref={itemRef}
+      className="relative flex items-center w-full mb-[16vh] md:mb-[50vh] last:mb-0"
     >
-      {/* ── Date row ── */}
-      <div className="flex items-center gap-3 mb-3">
-        <p
-          className="font-mono uppercase tracking-[0.16em] text-[12px]"
-          style={{ color: isPrimary ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.34)' }}
-        >
-          <Period text={exp.period} isPrimary={isPrimary} />
-        </p>
-
-        {/* Yellow dot — only for the primary / current role */}
-        {isPrimary && (
-          <motion.span
-            aria-label="Current role"
-            className="inline-block w-[5px] h-[5px] rounded-full bg-[#f2d832] shrink-0"
-            style={{ boxShadow: '0 0 8px rgba(242,216,50,0.7)' }}
-            animate={reduced ? {} : { opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        )}
-      </div>
-
-      {/* ── Top rule ── */}
-      <div
-        className="w-full mb-3"
+      {/* Node dot sitting on the centred rail */}
+      <span
+        aria-hidden
+        className="absolute left-1/2 -translate-x-1/2 z-20 hidden md:block rounded-full"
         style={{
-          height: '1px',
-          background: isPrimary
-            ? 'linear-gradient(to right, rgba(242,216,50,0.4) 0%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.04) 100%)'
-            : 'rgba(255,255,255,0.07)',
+          width: 13,
+          height: 13,
+          background: BG,
+          border: `1px solid ${active ? 'var(--accent)' : 'rgba(236,233,226,0.45)'}`,
+          boxShadow: active ? '0 0 12px rgba(242,216,50,0.6)' : 'none',
+          transition: 'border-color 0.5s ease, box-shadow 0.5s ease',
         }}
       />
 
-      {/* ── Role + Company on one line ── */}
-      <div className="flex items-baseline justify-between gap-4 mb-3">
-        <h3
-          className="font-bold tracking-[-0.025em] leading-tight text-white"
+      {/* Content column — alternates left / right of the rail on md+ */}
+      <motion.div
+        className={[
+          'w-full md:w-[45%]',
+          isLeft ? 'md:text-right' : 'md:ml-auto md:text-left',
+        ].join(' ')}
+        initial={reduced ? false : { opacity: 0.34 }}
+        animate={reduced ? { opacity: 1 } : { opacity: active ? 1 : 0.34 }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        {/* Company — giant, word-rise reveal */}
+        <SplitReveal
+          text={exp.company}
+          as="h3"
+          by="word"
+          className="block font-bold tracking-[-0.03em] leading-[0.98]"
           style={{
-            fontFamily: 'var(--font-syne)',
-            fontSize: isPrimary ? 'clamp(17px, 1.6vw, 24px)' : 'clamp(15px, 1.3vw, 19px)',
+            fontFamily: 'var(--font-cabinet)',
+            fontSize: 'clamp(40px, 6.4vw, 72px)',
+            color: 'var(--on-dark)',
+          }}
+          stagger={0.04}
+          duration={0.7}
+        />
+
+        {/* Role */}
+        <p
+          className="mt-4 md:mt-5 font-medium leading-[1.15]"
+          style={{
+            fontFamily: 'var(--font-cabinet)',
+            fontSize: 'clamp(18px, 2.4vw, 30px)',
+            color: 'var(--on-dark-2)',
           }}
         >
           {exp.role}
-        </h3>
-        <span
-          className="font-mono tracking-wide shrink-0 text-right"
+        </p>
+
+        {/* Description — capped line length, pinned toward the rail */}
+        <p
+          className={['mt-4 md:mt-5 leading-relaxed', isLeft ? 'md:ml-auto' : ''].join(' ')}
           style={{
-            fontSize: '12px',
-            color: isPrimary ? 'rgba(242,216,50,0.45)' : 'rgba(255,255,255,0.3)',
+            fontSize: 'clamp(14px, 1.4vw, 18px)',
+            color: 'var(--on-dark-2)',
+            maxWidth: '36ch',
           }}
         >
-          {exp.company}
-        </span>
-      </div>
-
-      {/* ── Bottom rule ── */}
-      <div className="w-full mb-6" style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }} />
-
-      {/* ── Description ── */}
-      <p
-        className="text-[14px] leading-relaxed mb-5"
-        style={{ color: 'rgba(255,255,255,0.5)' }}
-      >
-        {exp.description}
-      </p>
-
-      {/* ── Highlights — inline dot-separated ── */}
-      {exp.highlights && exp.highlights.length > 0 && (
-        <p className="text-[12px] font-mono" style={{ color: 'rgba(255,255,255,0.36)', lineHeight: 1.9 }}>
-          {exp.highlights.map((h, i) => (
-            <span key={h}>
-              {h}
-              {i < (exp.highlights?.length ?? 0) - 1 && (
-                <span style={{ color: 'rgba(255,255,255,0.2)' }}>{' · '}</span>
-              )}
-            </span>
-          ))}
+          {exp.description}
         </p>
-      )}
-    </motion.article>
+
+        {/* Date */}
+        <p
+          className="mt-5 md:mt-6 font-light tracking-wide"
+          style={{
+            fontFamily: 'var(--font-cabinet)',
+            fontSize: 'clamp(13px, 1.1vw, 16px)',
+            color: 'var(--on-dark-2)',
+          }}
+        >
+          <Period text={exp.period} />
+        </p>
+      </motion.div>
+    </div>
   )
 }
 
-// ─── Left panel ───────────────────────────────────────────────────────────────
-
-function LeftPanel({ reduced }: { reduced: boolean }) {
-  return (
-    <motion.div
-      className="lg:sticky lg:top-28 lg:self-start"
-      initial={reduced ? {} : { opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.8, ease: EASE }}
-    >
-      <h2
-        className="font-extrabold leading-[0.9] tracking-[-0.04em] text-white mb-8"
-        style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(32px, 3.5vw, 52px)' }}
-      >
-        Experience
-        <br />
-        <span className="text-[#f2d832]">&amp; Skills.</span>
-      </h2>
-
-      <p className="text-[14px] leading-relaxed mb-10 max-w-[340px]" style={{ color: 'rgba(255,255,255,0.42)' }}>
-        A career built across design and development — from visual systems and brand identity
-        to mobile interfaces and interactive frontend experiences.
-      </p>
-
-      <div className="h-px mb-10" style={{ background: 'rgba(255,255,255,0.05)' }} />
-
-      <Toolkit reduced={reduced} />
-    </motion.div>
-  )
-}
-
-// ─── Section ─────────────────────────────────────────────────────────────────
-//
-// Two-column on desktop: sticky left panel (heading + toolkit) + document timeline right.
-//
-// EDIT TIMELINE ENTRIES → src/data/experience.ts
-//   Array is ordered most-recent-first.
-//   index 0 → isPrimary (Lead Mobile Developer, U-wifi Inc.)
-//
-// EDIT SKILL GROUPS → src/data/skills.ts
-
+// ─── Section ────────────────────────────────────────────────────────────────────
 export default function Experience() {
   const reduced = useReducedMotion() ?? false
+  const trackRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="border-t border-white/[0.06]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
-
-        {/* Section header strip */}
-        <div className="flex items-center gap-4 py-12">
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest">05</span>
-          <span className="flex-1 h-px bg-white/[0.06]" />
-          <span className="text-[12px] font-mono text-[#606058] tracking-widest uppercase">
-            Experience &amp; Skills
-          </span>
+    <section className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: BG }}>
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
+        {/* Intro heading — centred, word-rise reveal (Aziz experience intro) */}
+        <div className="text-center pt-28 md:pt-44 pb-24 md:pb-40 max-w-3xl mx-auto">
+          <SplitReveal
+            text="Explore my journey and the craft that shapes how I design and build."
+            as="h2"
+            by="word"
+            className="block font-medium tracking-[-0.02em]"
+            style={{
+              fontFamily: 'var(--font-cabinet)',
+              fontSize: 'clamp(24px, 3.4vw, 40px)',
+              lineHeight: 1.25,
+              color: 'var(--on-dark)',
+            }}
+            stagger={0.04}
+            duration={0.7}
+          />
         </div>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 lg:gap-28 pb-32 items-start">
-
-          <LeftPanel reduced={reduced} />
-
-          {/* Document timeline */}
-          <div>
-            {/* Career path annotation */}
-            <motion.div
-              className="flex items-center gap-3 mb-14"
-              initial={reduced ? {} : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: EASE }}
-            >
-              <div className="flex items-center gap-2 shrink-0">
-                <span aria-hidden className="w-[5px] h-[5px] rounded-full bg-[#f2d832]/40 shrink-0" />
-                <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-[#3e3e38]">
-                  Career Path
-                </span>
-              </div>
-              <div className="flex-1 h-px bg-white/[0.04]" />
-              <span className="text-[11px] font-mono text-[#3a3a34] tracking-[0.14em] shrink-0">
-                2017 — Present
-              </span>
-            </motion.div>
-
-            {/* Entries — index 0 is the primary (most recent) role */}
-            {experiences.map((exp, i) => (
-              <DocumentEntry
-                key={`${exp.company}-${i}`}
-                exp={exp}
-                index={i}
-                isPrimary={i === 0}
-                reduced={reduced}
-              />
-            ))}
-          </div>
-
+        {/* Timeline — centred rail, alternating entries */}
+        <div ref={trackRef} className="relative pb-28 md:pb-44">
+          <TimelineRail trackRef={trackRef} reduced={reduced} />
+          {experiences.map((exp, i) => (
+            <ExperienceEntry key={`${exp.company}-${i}`} exp={exp} index={i} reduced={reduced} />
+          ))}
         </div>
       </div>
     </section>

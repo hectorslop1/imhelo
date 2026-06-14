@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
+import ImageReveal from '@/components/ui/ImageReveal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const BASE = '/assetshelo/ApparelDesign'
@@ -151,14 +152,62 @@ export default function ApparelGraphicsPage() {
   return (
     <>
       <Header />
-      <main style={{ background: '#080808' }}>
+      <main style={{ background: '#1a1815' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO — static full-bleed cover
+            HERO — LIGHT header (coherent with the site) + cover banner
         ══════════════════════════════════════════════════════════════════════ */}
+        <section style={{ background: 'var(--surface)' }} className="pt-36 lg:pt-44 pb-14">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+            <motion.p
+              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
+              style={{ color: 'var(--accent-deep)' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+            >
+              Graphic Design · Print
+            </motion.p>
+            <motion.h1
+              className="font-extrabold tracking-[-0.04em]"
+              style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(52px, 8.5vw, 118px)', lineHeight: 0.9, color: 'var(--ink)' }}
+              initial={reduced ? {} : { opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.18 }}
+            >
+              Apparel
+              <br />
+              Graphics
+            </motion.h1>
+            <motion.p
+              className="mt-5 text-[14px] leading-relaxed"
+              style={{ color: 'var(--ink-2)', maxWidth: '440px' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.26 }}
+            >
+              Personal apparel graphic concepts for hoodies and t-shirts —
+              exploring how visual identity, illustration, and pop
+              culture-inspired graphics can live beyond screens.
+            </motion.p>
+            <div className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7" style={{ borderTop: '1px solid var(--line)' }}>
+              {[
+                { label: 'Year', value: 'Ongoing' },
+                { label: 'Role', value: 'Graphic Design · Art Direction · Apparel Mockups' },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(22,21,15,0.42)' }}>{label}</p>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(22,21,15,0.7)', maxWidth: '380px' }}>{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Cover banner — Ken Burns crossfade leading into the dark gallery */}
         <section
-          className="relative w-full overflow-hidden flex flex-col justify-end"
-          style={{ minHeight: 'clamp(560px, 85vh, 860px)' }}
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: '16 / 9', maxHeight: '74vh' }}
         >
           {/* ── Image layer — slow crossfade + Ken Burns ── */}
           <div className="absolute inset-0">
@@ -204,86 +253,18 @@ export default function ApparelGraphicsPage() {
             className="absolute inset-0 pointer-events-none z-[2]"
             style={{
               background:
-                'linear-gradient(to top, #080808 0%, #080808 5%, rgba(8,8,8,0.74) 26%, rgba(8,8,8,0.1) 58%, rgba(8,8,8,0.04) 100%)',
+                'linear-gradient(to top, #1a1815 0%, rgba(26,24,21,0.7) 12%, rgba(26,24,21,0.12) 45%, transparent 78%)',
             }}
           />
           <div
             className="absolute inset-0 pointer-events-none z-[2]"
             style={{
               background:
-                'linear-gradient(to right, rgba(8,8,8,0.8) 0%, rgba(8,8,8,0.4) 42%, rgba(8,8,8,0) 70%)',
+                'linear-gradient(to bottom, rgba(26,24,21,0.14) 0%, transparent 28%)',
             }}
           />
 
-          {/* Text — sits above gradients */}
-          <div className="relative z-[10] max-w-[1400px] mx-auto px-6 lg:px-16 pb-14 lg:pb-20 pt-36 w-full">
-
-            <motion.p
-              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'rgba(242,216,50,0.72)' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
-            >
-              Graphic Design · Print
-            </motion.p>
-
-            <motion.h1
-              className="font-extrabold tracking-[-0.04em] text-white"
-              style={{
-                fontFamily: 'var(--font-syne)',
-                fontSize:   'clamp(52px, 8.5vw, 118px)',
-                lineHeight: 0.9,
-              }}
-              initial={reduced ? {} : { opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.12 }}
-            >
-              Apparel
-              <br />
-              Graphics
-            </motion.h1>
-
-            <motion.p
-              className="mt-5 text-[13px] leading-relaxed"
-              style={{ color: 'rgba(255,255,255,0.4)', maxWidth: '440px' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.28 }}
-            >
-              Personal apparel graphic concepts for hoodies and t-shirts —
-              exploring how visual identity, illustration, and pop
-              culture-inspired graphics can live beyond screens.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-7 pt-7"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.38 }}
-            >
-              {[
-                { label: 'Year', value: 'Ongoing' },
-                { label: 'Role', value: 'Graphic Design · Art Direction · Apparel Mockups' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <p
-                    className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
-                    style={{ color: 'rgba(255,255,255,0.28)' }}
-                  >
-                    {label}
-                  </p>
-                  <p
-                    className="text-[13px] leading-snug"
-                    style={{ color: 'rgba(255,255,255,0.56)', maxWidth: '380px' }}
-                  >
-                    {value}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+          {/* Text now lives in the light header above — banner is image-only */}
 
           {/* ── Navigation dots ── */}
           {!reduced && (
@@ -342,30 +323,26 @@ export default function ApparelGraphicsPage() {
              */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {GALLERY.map((item, i) => (
-                <motion.div
-                  key={item.src}
-                  initial={reduced ? {} : { opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-20px' }}
-                  transition={{ duration: 0.65, ease: EASE, delay: (i % 2) * 0.08 }}
-                >
-                  <div
-                    className="relative overflow-hidden rounded-xl group aspect-[3/2]"
-                    style={{ background: '#0a0a0a' }}
+                <div key={item.src}>
+                  <ImageReveal
+                    className="rounded-xl aspect-[3/2]"
+                    delay={(i % 2) * 0.08}
                   >
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      quality={85}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1400px) 50vw, 700px"
-                      className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                    <HoverOverlay
-                      onClick={() => openAt(item.src)}
-                      label={`View: ${item.label}`}
-                    />
-                  </div>
+                    <div className="relative w-full h-full group" style={{ background: '#0a0a0a' }}>
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        fill
+                        quality={85}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1400px) 50vw, 700px"
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <HoverOverlay
+                        onClick={() => openAt(item.src)}
+                        label={`View: ${item.label}`}
+                      />
+                    </div>
+                  </ImageReveal>
 
                   <p
                     className="mt-2 font-mono text-[10px] tracking-[0.14em] uppercase"
@@ -373,7 +350,7 @@ export default function ApparelGraphicsPage() {
                   >
                     {item.label}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -414,7 +391,7 @@ export default function ApparelGraphicsPage() {
               <Link href="/work/mobile-app-showcase" className="group flex items-center gap-4">
                 <span
                   className="font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[#f2d832]"
-                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
+                  style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
                 >
                   Mobile App Showcase
                 </span>

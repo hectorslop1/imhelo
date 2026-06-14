@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import Mascot from '@/components/ui/Mascot'
+import SplitReveal from '@/components/ui/SplitReveal'
+import MagneticLink from '@/components/ui/MagneticLink'
 
 const SOCIAL_LINKS = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
@@ -54,7 +56,7 @@ function LocalTime() {
 
 export default function ContactFooter() {
   return (
-    <footer className="border-t border-white/[0.06]" style={{ background: '#080808' }}>
+    <footer className="border-t border-white/[0.06]" style={{ background: '#1a1815' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header */}
@@ -66,46 +68,53 @@ export default function ContactFooter() {
 
         {/* Main content */}
         <div className="pb-16">
-          {/* Big headline + mascot */}
-          <div className="flex items-end justify-between mb-12">
+          {/* CTA headline + mascot inline */}
+          <div className="mb-12 flex items-end gap-6 flex-wrap">
             <h2
               className="font-extrabold leading-[0.95]"
               style={{
-                fontSize:      'clamp(72px, 12vw, 160px)',
-                fontFamily:    'var(--font-syne)',
+                fontSize:      'clamp(52px, 9vw, 120px)',
+                fontFamily:    'var(--font-cabinet)',
                 letterSpacing: '-0.03em',
               }}
             >
-              <span className="text-white">Say </span>
-              <span
-                className="text-[#f2d832] font-normal"
-                style={{ fontFamily: 'var(--font-singapore-sling)', letterSpacing: '0.08em' }}
-              >HELO</span>
+              <SplitReveal text="Say" as="span" by="char" style={{ color: 'var(--on-dark)' }} stagger={0.03} duration={0.6} />
+              <span style={{ display: 'inline-block', width: '0.3em' }} />
+              <SplitReveal
+                text="HELO"
+                as="span"
+                by="char"
+                className="font-normal"
+                style={{ color: '#f2d832', fontFamily: 'var(--font-singapore-sling)', letterSpacing: '0.08em' }}
+                delay={0.16}
+                stagger={0.045}
+                duration={0.6}
+              />
             </h2>
-
-            {/* HELO brand character — subtle detail, hidden on mobile */}
-            <div className="hidden sm:block pb-5 opacity-90" aria-hidden>
-              <Mascot pose="idle" size={96} />
+            {/* Mascot — sits beside the headline, leans toward the cursor */}
+            <div className="hidden sm:block mb-2 shrink-0">
+              <Mascot pose="idle" size={72} interactive />
             </div>
           </div>
 
-          {/* Bottom section */}
+          {/* Info row */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end border-t border-white/[0.06] pt-10">
             {/* Left */}
             <div className="space-y-8">
               <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm">
                 Let&apos;s build something polished, useful, and memorable.
               </p>
-              <Link
+              <MagneticLink
                 href="mailto:hello@imhelo.com"
+                strength={0.45}
                 className="group inline-flex items-center gap-2.5 text-[14px] font-medium text-white border-b border-white/20 pb-1 hover:border-[#f2d832] hover:text-[#f2d832] transition-all duration-300"
               >
                 hello@imhelo.com
                 <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-              </Link>
+              </MagneticLink>
             </div>
 
-            {/* Right: meta */}
+            {/* Right: social + live time */}
             <div className="space-y-6 lg:text-right">
               <div className="flex lg:justify-end gap-6">
                 {SOCIAL_LINKS.map(({ label, href }) => (
@@ -114,13 +123,17 @@ export default function ContactFooter() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[12px] font-mono text-[#606058] hover:text-white transition-colors duration-300 tracking-wide"
+                    className="group relative inline-block text-[12px] font-mono text-[#606058] hover:text-white transition-colors duration-300 tracking-wide overflow-hidden py-px"
                   >
                     {label}
+                    {/* Underline — grows from left on hover */}
+                    <span
+                      aria-hidden
+                      className="absolute bottom-0 left-0 h-px bg-[#f2d832] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                    />
                   </a>
                 ))}
               </div>
-              {/* Live local time — updates every second, hydration-safe */}
               <p className="text-[12px] font-mono text-[#606058] tracking-widest">
                 <LocalTime />
               </p>
@@ -128,12 +141,14 @@ export default function ContactFooter() {
           </div>
         </div>
 
-        {/* Very bottom strip */}
+        {/* Copyright strip */}
         <div className="border-t border-white/[0.04] py-5 flex flex-col sm:flex-row justify-between gap-3 text-[11px] font-mono text-[#3a3a34] tracking-widest">
           <span>HELO — Designed &amp; Developed by Hector Lopez</span>
           <span>© 2026 All rights reserved</span>
         </div>
+
       </div>
+
     </footer>
   )
 }

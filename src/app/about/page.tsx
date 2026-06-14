@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main style={{ background: '#080808', minHeight: '100dvh' }}>
+      <main style={{ background: 'var(--surface)', minHeight: '100dvh' }}>
         <AboutContent />
       </main>
       <Footer />

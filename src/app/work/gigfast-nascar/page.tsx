@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
+import ImageReveal from '@/components/ui/ImageReveal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -302,37 +303,17 @@ export default function GigfastNascarPage() {
   return (
     <>
       <Header />
-      <main style={{ background: '#080808' }}>
+      <main style={{ background: '#1a1815' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO
+            HERO — LIGHT header (coherent with the site), photo banner below
         ══════════════════════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[100dvh] flex flex-col justify-end overflow-hidden">
-
-          <div className="absolute inset-0">
-            <Image
-              src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
-              alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
-              fill
-              priority
-              quality={88}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(to bottom, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.05) 35%, rgba(8,8,8,0.7) 72%, #080808 100%)',
-              }}
-            />
-          </div>
-
-          <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-16 pb-20 pt-40">
+        <section style={{ background: 'var(--surface)' }} className="pt-36 lg:pt-44 pb-14">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
             <motion.p
               className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'rgba(242,216,50,0.65)' }}
+              style={{ color: 'var(--accent-deep)' }}
               initial={reduced ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, ease: EASE }}
@@ -341,11 +322,12 @@ export default function GigfastNascarPage() {
             </motion.p>
 
             <motion.h1
-              className="font-extrabold tracking-[-0.04em] text-white"
+              className="font-extrabold tracking-[-0.04em]"
               style={{
-                fontFamily: 'var(--font-syne)',
-                fontSize: 'clamp(58px, 9.5vw, 136px)',
+                fontFamily: 'var(--font-cabinet)',
+                fontSize: 'clamp(54px, 9vw, 124px)',
                 lineHeight: 0.9,
+                color: 'var(--ink)',
               }}
               initial={reduced ? {} : { opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
@@ -358,7 +340,7 @@ export default function GigfastNascarPage() {
 
             <motion.div
               className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+              style={{ borderTop: '1px solid var(--line)' }}
               initial={reduced ? {} : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease: EASE, delay: 0.28 }}
@@ -371,11 +353,11 @@ export default function GigfastNascarPage() {
                 <div key={label}>
                   <p
                     className="font-mono text-[10px] tracking-[0.2em] uppercase mb-1.5"
-                    style={{ color: 'rgba(255,255,255,0.28)' }}
+                    style={{ color: 'rgba(22,21,15,0.42)' }}
                   >
                     {label}
                   </p>
-                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(255,255,255,0.68)', maxWidth: '340px' }}>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(22,21,15,0.72)', maxWidth: '340px' }}>
                     {value}
                   </p>
                 </div>
@@ -383,6 +365,26 @@ export default function GigfastNascarPage() {
             </motion.div>
           </div>
         </section>
+
+        {/* Photo banner — dramatic full-bleed image leading into the dark case study */}
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16 / 9', maxHeight: '84vh' }}>
+          <Image
+            src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
+            alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
+            fill
+            priority
+            quality={88}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(26,24,21,0.10) 0%, transparent 30%, rgba(26,24,21,0.55) 82%, #1a1815 100%)',
+            }}
+          />
+        </div>
 
         {/* ══════════════════════════════════════════════════════════════════════
             01 OVERVIEW
@@ -402,7 +404,7 @@ export default function GigfastNascarPage() {
               >
                 <h2
                   className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                  style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 >
                   A brand built for the track.
                 </h2>
@@ -448,7 +450,7 @@ export default function GigfastNascarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-14">
               <motion.h2
                 className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 initial={reduced ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -531,7 +533,7 @@ export default function GigfastNascarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
                 className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 initial={reduced ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -554,53 +556,47 @@ export default function GigfastNascarPage() {
             </div>
 
             {/* Hero truck image — 16/9, clickable */}
-            <motion.div
-              className="relative w-full overflow-hidden rounded-2xl mb-3 group"
-              style={{ aspectRatio: '16/9' }}
-              initial={reduced ? {} : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.85, ease: EASE }}
-            >
-              <Image
-                src="/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg"
-                alt="#38 Ford F-150 NASCAR truck in motion at speed — gigFAST Internet and RTA rtatel.com livery clearly visible on the side"
-                fill
-                quality={86}
-                sizes="(max-width: 1400px) 100vw, 1400px"
-                className="object-cover"
-              />
-              <ViewOverlay
-                onClick={() => openAt('/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg')}
-                label="View: #38 Ford F-150 at speed"
-              />
-            </motion.div>
+            <ImageReveal className="rounded-2xl mb-3" style={{ aspectRatio: '16/9' }}>
+              <div className="relative w-full h-full group">
+                <Image
+                  src="/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg"
+                  alt="#38 Ford F-150 NASCAR truck in motion at speed — gigFAST Internet and RTA rtatel.com livery clearly visible on the side"
+                  fill
+                  quality={86}
+                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  className="object-cover"
+                />
+                <ViewOverlay
+                  onClick={() => openAt('/assetshelo/Nascar/ZaneSmith/2328TP1264.jpg')}
+                  label="View: #38 Ford F-150 at speed"
+                />
+              </div>
+            </ImageReveal>
 
             {/* Two-up grid — both 4/3, so the row is level */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {GALLERY_MAIN.map((img, i) => (
-                <motion.div
+                <ImageReveal
                   key={img.src}
-                  className="relative overflow-hidden rounded-xl group"
+                  className="rounded-xl"
                   style={{ aspectRatio: img.aspect }}
-                  initial={reduced ? {} : { opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-20px' }}
-                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
+                  delay={i * 0.1}
                 >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    quality={85}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <ViewOverlay
-                    onClick={() => openAt(img.src)}
-                    label={`View: ${img.alt.slice(0, 60)}`}
-                  />
-                </motion.div>
+                  <div className="relative w-full h-full group">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      quality={85}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                    <ViewOverlay
+                      onClick={() => openAt(img.src)}
+                      label={`View: ${img.alt.slice(0, 60)}`}
+                    />
+                  </div>
+                </ImageReveal>
               ))}
             </div>
           </div>
@@ -617,7 +613,7 @@ export default function GigfastNascarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
                 className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 initial={reduced ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -645,58 +641,52 @@ export default function GigfastNascarPage() {
             {/* Truck bed graphic + app screenshot — both clickable */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-3 items-start">
 
-              <motion.div
-                className="relative overflow-hidden rounded-2xl group"
-                style={{ aspectRatio: '16/10' }}
-                initial={reduced ? {} : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.85, ease: EASE }}
-              >
-                <Image
-                  src="/assetshelo/Nascar/ZaneSmith/2328TP1318.jpg"
-                  alt="Gigometer internet speed dial graphic on the #38 truck bed, photographed from above — shows Z. Smith name bar and speed ranges from 2G to 1000G"
-                  fill
-                  quality={86}
-                  sizes="(max-width: 768px) 100vw, 75vw"
-                  className="object-cover object-top"
-                />
-                <ViewOverlay
-                  onClick={() => openAt('/assetshelo/Nascar/ZaneSmith/2328TP1318.jpg')}
-                  label="View: Gigometer truck bed graphic"
-                />
-              </motion.div>
+              <ImageReveal className="rounded-2xl" style={{ aspectRatio: '16/10' }}>
+                <div className="relative w-full h-full group">
+                  <Image
+                    src="/assetshelo/Nascar/ZaneSmith/2328TP1318.jpg"
+                    alt="Gigometer internet speed dial graphic on the #38 truck bed, photographed from above — shows Z. Smith name bar and speed ranges from 2G to 1000G"
+                    fill
+                    quality={86}
+                    sizes="(max-width: 768px) 100vw, 75vw"
+                    className="object-cover object-top"
+                  />
+                  <ViewOverlay
+                    onClick={() => openAt('/assetshelo/Nascar/ZaneSmith/2328TP1318.jpg')}
+                    label="View: Gigometer truck bed graphic"
+                  />
+                </div>
+              </ImageReveal>
 
               {/* App screenshot — iPhone proportions */}
-              <motion.div
-                className="relative overflow-hidden rounded-2xl self-stretch group"
+              <ImageReveal
+                className="rounded-2xl self-stretch"
                 style={{ aspectRatio: '9/19', minHeight: '320px' }}
-                initial={reduced ? {} : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.85, ease: EASE, delay: 0.12 }}
+                delay={0.12}
               >
-                <Image
-                  src="/assetshelo/Nascar/Logos/gigometer.png"
-                  alt="Gigometer.net speed test web application running in a mobile browser — branded internet speed dial UI with RTA and gigFAST logos, and the #38 NASCAR truck as a UI element"
-                  fill
-                  quality={92}
-                  sizes="220px"
-                  className="object-cover object-top"
-                />
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-4 z-[3]"
-                  style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 100%)' }}
-                >
-                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    gigometer.net
-                  </p>
+                <div className="relative w-full h-full group">
+                  <Image
+                    src="/assetshelo/Nascar/Logos/gigometer.png"
+                    alt="Gigometer.net speed test web application running in a mobile browser — branded internet speed dial UI with RTA and gigFAST logos, and the #38 NASCAR truck as a UI element"
+                    fill
+                    quality={92}
+                    sizes="220px"
+                    className="object-cover object-top"
+                  />
+                  <div
+                    className="absolute bottom-0 left-0 right-0 p-4 z-[3]"
+                    style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 100%)' }}
+                  >
+                    <p className="font-mono text-[10px] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      gigometer.net
+                    </p>
+                  </div>
+                  <ViewOverlay
+                    onClick={() => openAt('/assetshelo/Nascar/Logos/gigometer.png')}
+                    label="View: gigometer.net web app"
+                  />
                 </div>
-                <ViewOverlay
-                  onClick={() => openAt('/assetshelo/Nascar/Logos/gigometer.png')}
-                  label="View: gigometer.net web app"
-                />
-              </motion.div>
+              </ImageReveal>
             </div>
           </div>
         </section>
@@ -712,7 +702,7 @@ export default function GigfastNascarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
                 className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
-                style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(28px, 3vw, 44px)' }}
+                style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 initial={reduced ? {} : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -921,7 +911,7 @@ export default function GigfastNascarPage() {
               <Link href="/work/graphic-design" className="group flex items-center gap-4">
                 <span
                   className="font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[#f2d832]"
-                  style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
+                  style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
                 >
                   Graphic Design
                 </span>

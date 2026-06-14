@@ -1,0 +1,112 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic: HELO
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "HELO — Go to homepage" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: HELO
+        - navigation "Main navigation" [ref=e8]:
+          - link "Work" [ref=e10]:
+            - /url: /work
+            - generic [ref=e11]:
+              - generic [ref=e12]: W
+              - generic [ref=e13]: o
+              - generic [ref=e14]: r
+              - generic [ref=e15]: k
+            - generic [ref=e16]:
+              - generic [ref=e17]: W
+              - generic [ref=e18]: o
+              - generic [ref=e19]: r
+              - generic [ref=e20]: k
+          - link "About" [ref=e22]:
+            - /url: /about
+            - generic [ref=e23]:
+              - generic [ref=e24]: A
+              - generic [ref=e25]: b
+              - generic [ref=e26]: o
+              - generic [ref=e27]: u
+              - generic [ref=e28]: t
+            - generic [ref=e29]:
+              - generic [ref=e30]: A
+              - generic [ref=e31]: b
+              - generic [ref=e32]: o
+              - generic [ref=e33]: u
+              - generic [ref=e34]: t
+          - link "Contact" [ref=e36]:
+            - /url: /contact
+            - generic [ref=e37]:
+              - generic [ref=e38]: C
+              - generic [ref=e39]: o
+              - generic [ref=e40]: "n"
+              - generic [ref=e41]: t
+              - generic [ref=e42]: a
+              - generic [ref=e43]: c
+              - generic [ref=e44]: t
+            - generic [ref=e45]:
+              - generic [ref=e46]: C
+              - generic [ref=e47]: o
+              - generic [ref=e48]: "n"
+              - generic [ref=e49]: t
+              - generic [ref=e50]: a
+              - generic [ref=e51]: c
+              - generic [ref=e52]: t
+        - link "Say HELO" [ref=e54]:
+          - /url: mailto:hello@imhelo.com
+          - generic [ref=e55]: Say HELO
+    - main [ref=e56]:
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - generic [ref=e59]: "01"
+          - generic [ref=e61]: About
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - heading "Hector Lopez" [level=1] [ref=e64]:
+              - text: Hector
+              - text: Lopez
+            - paragraph [ref=e65]: Designer & Developer · San Diego, CA
+            - paragraph [ref=e67]: I'm Hector Lopez, a designer and developer creating visual systems, interfaces, and digital experiences with a focus on clarity, motion, and craft.
+            - generic [ref=e68]:
+              - generic [ref=e70]:
+                - paragraph [ref=e71]: Focus
+                - paragraph [ref=e72]: Development Graphic Design
+              - generic [ref=e75]:
+                - paragraph [ref=e76]: Based in
+                - paragraph [ref=e77]: San Diego, CA
+              - generic [ref=e80]:
+                - paragraph [ref=e81]: Since
+                - paragraph [ref=e82]: "2017"
+            - generic [ref=e83]:
+              - generic [ref=e84]: Connect
+              - link "LinkedIn" [ref=e86]:
+                - /url: https://www.linkedin.com/in/hector-lopez-6243a8305/
+              - link "Instagram" [ref=e87]:
+                - /url: https://www.instagram.com/ofmynameishelo/
+              - link "Behance" [ref=e88]:
+                - /url: https://www.behance.net/hectorlopez85
+              - link "Dribbble" [ref=e89]:
+                - /url: https://dribbble.com/hectorslop
+          - generic [ref=e90]:
+            - img "Hector Lopez — designer and developer based in San Diego" [ref=e92]
+            - paragraph [ref=e93]: HECTOR LOPEZ — SAN DIEGO, CA
+    - contentinfo [ref=e94]:
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - generic [ref=e97]: HELO
+          - generic [ref=e98]: ·
+          - generic [ref=e99]: © 2026 Hector Lopez. All rights reserved.
+          - generic [ref=e100]: ·
+          - link "hello@imhelo.com" [ref=e101]:
+            - /url: mailto:hello@imhelo.com
+        - generic [ref=e102]:
+          - link "LinkedIn" [ref=e103]:
+            - /url: https://www.linkedin.com/in/hector-lopez-6243a8305/
+          - link "Instagram" [ref=e104]:
+            - /url: https://www.instagram.com/ofmynameishelo/
+          - link "Behance" [ref=e105]:
+            - /url: https://www.behance.net/hectorlopez85
+          - link "Dribbble" [ref=e106]:
+            - /url: https://dribbble.com/hectorslop
+  - button "Open Next.js Dev Tools" [ref=e112] [cursor=pointer]:
+    - img [ref=e113]

@@ -1,0 +1,257 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic: HELO
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "HELO — Go to homepage" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: HELO
+        - navigation "Main navigation" [ref=e8]:
+          - link "Work" [ref=e10]:
+            - /url: /work
+            - generic [ref=e11]:
+              - generic [ref=e12]: W
+              - generic [ref=e13]: o
+              - generic [ref=e14]: r
+              - generic [ref=e15]: k
+            - generic [ref=e16]:
+              - generic [ref=e17]: W
+              - generic [ref=e18]: o
+              - generic [ref=e19]: r
+              - generic [ref=e20]: k
+          - link "About" [ref=e22]:
+            - /url: /about
+            - generic [ref=e23]:
+              - generic [ref=e24]: A
+              - generic [ref=e25]: b
+              - generic [ref=e26]: o
+              - generic [ref=e27]: u
+              - generic [ref=e28]: t
+            - generic [ref=e29]:
+              - generic [ref=e30]: A
+              - generic [ref=e31]: b
+              - generic [ref=e32]: o
+              - generic [ref=e33]: u
+              - generic [ref=e34]: t
+          - link "Contact" [ref=e36]:
+            - /url: /contact
+            - generic [ref=e37]:
+              - generic [ref=e38]: C
+              - generic [ref=e39]: o
+              - generic [ref=e40]: "n"
+              - generic [ref=e41]: t
+              - generic [ref=e42]: a
+              - generic [ref=e43]: c
+              - generic [ref=e44]: t
+            - generic [ref=e45]:
+              - generic [ref=e46]: C
+              - generic [ref=e47]: o
+              - generic [ref=e48]: "n"
+              - generic [ref=e49]: t
+              - generic [ref=e50]: a
+              - generic [ref=e51]: c
+              - generic [ref=e52]: t
+        - link "Say HELO" [ref=e56]:
+          - /url: mailto:hello@imhelo.com
+          - generic [ref=e57]: Say HELO
+    - main [ref=e58]:
+      - generic [ref=e59]:
+        - img "Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit" [ref=e61]
+        - generic [ref=e63]:
+          - paragraph [ref=e64]: Graphic Design · Branding · Digital Product
+          - heading "gigFAST NASCAR" [level=1] [ref=e65]:
+            - text: gigFAST
+            - text: NASCAR
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - paragraph [ref=e68]: Year
+              - paragraph [ref=e69]: "2023"
+            - generic [ref=e70]:
+              - paragraph [ref=e71]: Client
+              - paragraph [ref=e72]: RTA / gigFAST Internet
+            - generic [ref=e73]:
+              - paragraph [ref=e74]: Role
+              - paragraph [ref=e75]: Visual Design · Logo Application · Brand Graphics · Digital Product Design
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - generic [ref=e79]: "01"
+          - generic [ref=e81]: Overview
+        - generic [ref=e82]:
+          - heading "A brand built for the track." [level=2] [ref=e84]
+          - generic [ref=e85]:
+            - paragraph [ref=e86]: "Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship. The gigFAST Internet and RTA brands were applied across the #38 Ford F-150 truck, driver racing suit, branded event tent, and team hauler graphics — creating a consistent visual presence across the entire race-day environment."
+            - paragraph [ref=e87]: The central creative concept — the Gigometer — turned an internet speed test into a racing-inspired visual system, connecting speed, connectivity, and motorsport across physical graphics and a branded digital interface.
+      - generic [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]: "02"
+          - generic [ref=e93]: Brand System
+        - generic [ref=e94]:
+          - heading "Identity built for speed." [level=2] [ref=e95]
+          - paragraph [ref=e96]: The gigFAST Internet and RTATEL.COM logos were designed as the visual foundation of the sponsorship campaign — built in a bold Americana style to match the energy of motorsport while staying legible at speed across truck liveries, signage, and apparel.
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - img "gigFAST Internet · Voice · TV logo" [ref=e100]
+            - paragraph [ref=e101]: gigFAST Internet
+          - generic [ref=e102]:
+            - img "RTA Rural Telecommunications of America logo" [ref=e104]
+            - paragraph [ref=e105]: RTA
+          - generic [ref=e106]:
+            - img "RTATEL.COM web domain logo" [ref=e108]
+            - paragraph [ref=e109]: RTATEL.COM
+        - paragraph [ref=e110]: Logos designed as part of the campaign visual identity for RTA and gigFAST Internet.
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e114]: "03"
+          - generic [ref=e116]: Race Application
+        - generic [ref=e117]:
+          - heading "Graphics at speed." [level=2] [ref=e118]
+          - paragraph [ref=e119]: The gigFAST and RTA visual identity was applied across three NASCAR truck versions throughout the season, as well as Zane Smith's driver racing suit. The branding remained legible and bold across every track condition and distance.
+        - generic [ref=e123]:
+          - img "#38 Ford F-150 NASCAR truck in motion at speed — gigFAST Internet and RTA rtatel.com livery clearly visible on the side" [ref=e124]
+          - generic:
+            - generic: View
+          - 'button "View: #38 Ford F-150 at speed" [ref=e125]'
+        - generic [ref=e126]:
+          - generic [ref=e130]:
+            - img "Zane Smith at trackside, RTA rtatel.com prominently displayed on racing suit" [ref=e131]
+            - generic:
+              - generic: View
+            - 'button "View: Zane Smith at trackside, RTA rtatel.com prominently displaye" [ref=e132]'
+          - generic [ref=e136]:
+            - img "#38 Ford F-150 truck at speed, 75 Years anniversary wall in background" [ref=e137]
+            - generic:
+              - generic: View
+            - 'button "View: #38 Ford F-150 truck at speed, 75 Years anniversary wall in" [ref=e138]'
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - generic [ref=e142]: "04"
+          - generic [ref=e144]: The Gigometer
+        - generic [ref=e145]:
+          - heading "Speed, re-scaled." [level=2] [ref=e146]:
+            - text: Speed,
+            - text: re-scaled.
+          - paragraph [ref=e147]: The Gigometer re-imagined a car speedometer as an internet speed dial — measuring connectivity from 2G to 1000G instead of MPH. Applied across two truck versions, the race-day hauler signage, and a live branded web app at gigometer.net, where fans could test their own connection speed through the gigFAST brand experience.
+        - generic [ref=e148]:
+          - generic [ref=e152]:
+            - 'img "Gigometer internet speed dial graphic on the #38 truck bed, photographed from above — shows Z. Smith name bar and speed ranges from 2G to 1000G" [ref=e153]'
+            - generic:
+              - generic: View
+            - 'button "View: Gigometer truck bed graphic" [ref=e154]'
+          - generic [ref=e158]:
+            - 'img "Gigometer.net speed test web application running in a mobile browser — branded internet speed dial UI with RTA and gigFAST logos, and the #38 NASCAR truck as a UI element" [ref=e159]'
+            - paragraph [ref=e161]: gigometer.net
+            - generic:
+              - generic: View
+            - 'button "View: gigometer.net web app" [ref=e162]'
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - generic [ref=e166]: "05"
+          - generic [ref=e168]: Campaign Presence
+        - generic [ref=e169]:
+          - heading "From suit to signage." [level=2] [ref=e170]:
+            - text: From suit
+            - text: to signage.
+          - paragraph [ref=e171]: The visual system extended beyond the truck into the full race-day environment — driver suit, event tent, pit-lane signage, and the team hauler. Every surface carried the same bold Americana palette and brand presence.
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - img "Zane Smith at trackside with gigFAST truck visible behind, golden hour editorial shot" [ref=e174]
+            - generic:
+              - generic: View
+            - 'button "View: Zane Smith at trackside with gigFAST truck visible behind, g" [ref=e175]'
+          - generic [ref=e176]:
+            - img "Branded event tent with gigFAST Internet and RTA logos, LET'S GO ZANE banner in background" [ref=e177]
+            - generic:
+              - generic: View
+            - 'button "View: Branded event tent with gigFAST Internet and RTA logos, LET''" [ref=e178]'
+          - generic [ref=e179]:
+            - img "#38 truck during a night pit stop, full crew in action at pit lane" [ref=e180]
+            - generic:
+              - generic: View
+            - 'button "View: #38 truck during a night pit stop, full crew in action at pi" [ref=e181]'
+          - generic [ref=e182]:
+            - img "Team hauler panel showing RTA, Gigometer speed dial, and gigFAST Internet branding" [ref=e183]
+            - generic:
+              - generic: View
+            - 'button "View: Team hauler panel showing RTA, Gigometer speed dial, and gig" [ref=e184]'
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]: "06"
+          - generic [ref=e190]: Gallery
+        - paragraph [ref=e191]: Photography from NASCAR Craftsman Truck Series events.
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - img "Zane Smith back-facing portrait, racing suit with RTA and gigFAST logos, full stadium backdrop" [ref=e194]
+            - generic:
+              - generic: View
+            - 'button "View: Zane Smith back-facing portrait, racing suit with RTA and gi" [ref=e195]'
+          - generic [ref=e196]:
+            - img "#38 Ford F-150 truck in motion, daytime, gigFAST and RTA logos clearly legible on side" [ref=e197]
+            - generic:
+              - generic: View
+            - 'button "View: #38 Ford F-150 truck in motion, daytime, gigFAST and RTA log" [ref=e198]'
+          - generic [ref=e199]:
+            - img "#38 truck at night, passing SPEEDWAY signage, cinematic low-angle shot" [ref=e200]
+            - generic:
+              - generic: View
+            - 'button "View: #38 truck at night, passing SPEEDWAY signage, cinematic low-" [ref=e201]'
+          - generic [ref=e202]:
+            - img "#38 truck viewed from above at night race, dramatic overhead perspective" [ref=e203]
+            - generic:
+              - generic: View
+            - 'button "View: #38 truck viewed from above at night race, dramatic overhead" [ref=e204]'
+          - generic [ref=e205]:
+            - img "Cockpit interior with Zane Smith in seat wearing helmet, roll cage visible" [ref=e206]
+            - generic:
+              - generic: View
+            - 'button "View: Cockpit interior with Zane Smith in seat wearing helmet, rol" [ref=e207]'
+      - generic [ref=e209]:
+        - generic [ref=e210]:
+          - generic [ref=e211]: "07"
+          - generic [ref=e213]: Race Footage
+        - paragraph [ref=e214]: Short clips from NASCAR events.
+        - generic [ref=e215]:
+          - 'button "Watch: Race Clip 01" [ref=e216]':
+            - generic [ref=e217]:
+              - img "Race Clip 01" [ref=e218]
+              - img [ref=e221]
+            - paragraph [ref=e224]: Race Clip 01
+          - 'button "Watch: Race Clip 02" [ref=e225]':
+            - generic [ref=e226]:
+              - img "Race Clip 02" [ref=e227]
+              - img [ref=e230]
+            - paragraph [ref=e233]: Race Clip 02
+          - 'button "Watch: Race Footage" [ref=e234]':
+            - generic [ref=e235]:
+              - img "Race Footage" [ref=e236]
+              - img [ref=e239]
+            - paragraph [ref=e242]: Race Footage
+      - generic [ref=e244]:
+        - generic [ref=e245]:
+          - paragraph [ref=e246]: Next Project
+          - link "Graphic Design →" [ref=e247]:
+            - /url: /work/graphic-design
+            - generic [ref=e248]: Graphic Design
+            - generic [ref=e249]: →
+        - link "All work →" [ref=e250]:
+          - /url: /work
+    - contentinfo [ref=e251]:
+      - generic [ref=e252]:
+        - generic [ref=e253]:
+          - generic [ref=e254]: HELO
+          - generic [ref=e255]: ·
+          - generic [ref=e256]: © 2026 Hector Lopez. All rights reserved.
+          - generic [ref=e257]: ·
+          - link "hello@imhelo.com" [ref=e258]:
+            - /url: mailto:hello@imhelo.com
+        - generic [ref=e259]:
+          - link "LinkedIn" [ref=e260]:
+            - /url: https://www.linkedin.com/in/hector-lopez-6243a8305/
+          - link "Instagram" [ref=e261]:
+            - /url: https://www.instagram.com/ofmynameishelo/
+          - link "Behance" [ref=e262]:
+            - /url: https://www.behance.net/hectorlopez85
+          - link "Dribbble" [ref=e263]:
+            - /url: https://dribbble.com/hectorslop
+  - button "Open Next.js Dev Tools" [ref=e269] [cursor=pointer]:
+    - img [ref=e270]

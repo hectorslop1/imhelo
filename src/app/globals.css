@@ -1,29 +1,65 @@
+/* Cabinet Grotesk — the exact typeface used on azizkhaldi.com (Fontshare, free) */
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap');
 @import "tailwindcss";
 
-/* ─── Design Tokens ─────────────────────────────── */
+/* ─── HELO Design Tokens ──────────────────────────────────────────────────────
+ *
+ * LIGHT-DOMINANT system (azizkhaldi.com rhythm, HELO identity).
+ * Warm light base for browsable content; deep warm-black "bands" punctuate the
+ * scroll (Intro, SectionBreak, Marquee, Footer) for cinematic light↔dark cadence.
+ *
+ * --surface  → primary LIGHT (hero, services, selected work, experience)
+ * --dark     → deep warm-black (intro, marquee, footer)
+ * --ink      → near-black warm text on light surfaces
+ * --on-dark  → near-white warm text on dark bands
+ * ───────────────────────────────────────────────────────────────────────────*/
 :root {
-  --bg: #080808;
-  --bg-2: #111111;
-  --fg: #f0ece3;
-  --muted: #7a7a72;
-  --muted-2: #4a4a44;
-  --accent: #f2d832;
-  --accent-dim: rgba(242, 216, 50, 0.12);
-  --border: rgba(255, 255, 255, 0.06);
-  --border-2: rgba(255, 255, 255, 0.1);
+  /* ── Two-level background system ────────────────────────────────────────────
+   * Surface #e9e7e1 — browsable content: Hero, Services, Work, Experience
+   * Deep    #131210 — immersive moments: Intro, Break, Showcase, Marquee, Footer
+   * Rule: content you navigate = light surface / moments you feel = deep band
+   * ───────────────────────────────────────────────────────────────────────── */
+
+  /* Surface — warm light field, the dominant tone of the site */
+  --surface:      #e9e7e1;   /* browsable content sections                      */
+  --surface-2:    #f3f1ec;   /* cards, elevated panels (slightly lifted)        */
+  --ink:          #16150f;   /* warm near-black — headings / primary text       */
+  --ink-2:        #4a4843;   /* warm gray — body copy                           */
+  --ink-3:        #74716a;   /* muted gray — mono labels                        */
+  --ink-4:        #a09c92;   /* faint gray — hairline labels                    */
+  --line:         rgba(20, 19, 15, 0.14);
+  --line-2:       rgba(20, 19, 15, 0.07);
+
+  /* Deep — immersive, impactful dark bands */
+  --dark:         #1a1815;   /* intro, sectionbreak, showcase, footer (warm)    */
+  --dark-2:       #1c1a17;   /* elevated panels on dark bands                   */
+  --on-dark:      #ece9e2;   /* warm near-white — text on deep bands            */
+  --on-dark-2:    rgba(236, 233, 226, 0.58);
+  --on-dark-3:    rgba(236, 233, 226, 0.38);
+  --on-dark-4:    rgba(236, 233, 226, 0.20);
+  --line-dark:    rgba(236, 233, 226, 0.12);
+  --line-dark-2:  rgba(236, 233, 226, 0.05);
+
+  /* Accent — HELO yellow (kept warm, identity over Aziz's lime) */
+  --accent:       #f2d832;   /* fills, underlines, blocks, highlights           */
+  --accent-deep:  #a8821a;   /* deepened amber — accent TEXT readable on light  */
+  --accent-dim:   rgba(242, 216, 50, 0.16);
+
+  /* Type — Cabinet Grotesk everywhere (azizkhaldi.com), Singapore Sling = logo */
+  --font-cabinet: 'Cabinet Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--fg);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-syne);
+  --color-background: var(--surface);
+  --color-foreground: var(--ink);
+  --color-muted:      var(--ink-3);
+  --color-accent:     var(--accent);
+  --font-sans:        var(--font-cabinet);
+  --font-mono:        var(--font-geist-mono);
+  --font-heading:     var(--font-cabinet);
 }
 
-/* ─── Base ───────────────────────────────────────── */
+/* ─── Base ───────────────────────────────────────────────────────────────────*/
 *,
 *::before,
 *::after {
@@ -31,56 +67,57 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: auto;
+  background: var(--surface);
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  background: var(--surface);
+  color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* ─── Heading defaults ───────────────────────────── */
+/* ─── Heading defaults ───────────────────────────────────────────────────────*/
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-syne), var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-cabinet);
   letter-spacing: -0.03em;
   line-height: 1;
 }
 
-/* ─── Horizontal rule ────────────────────────────── */
+/* ─── Horizontal rule ────────────────────────────────────────────────────────*/
 hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line);
 }
 
-/* ─── Selection ──────────────────────────────────── */
+/* ─── Selection ──────────────────────────────────────────────────────────────*/
 ::selection {
   background: var(--accent);
-  color: var(--bg);
+  color: #16150f;
 }
 
-/* ─── Custom cursor — hide native on desktop ─────── */
+/* ─── Custom cursor — hide native on desktop ─────────────────────────────────*/
 @media (min-width: 1024px) {
   *, *::before, *::after {
     cursor: none !important;
   }
 }
 
-/* ─── Scrollbar ──────────────────────────────────── */
-::-webkit-scrollbar { width: 1px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #1e1e1e; }
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────*/
+::-webkit-scrollbar       { width: 1px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: rgba(20, 19, 15, 0.18); }
 
-/* ─── Section dividers ───────────────────────────── */
+/* ─── Section dividers ───────────────────────────────────────────────────────*/
 .section-border {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--line);
 }
 
-/* ─── Marquee ────────────────────────────────────── */
+/* ─── Marquee keyframe (shared by Marquee section + hover row marquees) ──────*/
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -95,7 +132,48 @@ hr {
   .animate-marquee { animation: none; }
 }
 
-/* ─── Hover underline slide ──────────────────────── */
+/* ─── Page transition (CSS — robust, cannot stall like a JS rAF) ──────────────*/
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1815;
+  pointer-events: none;
+  animation: page-loader-out 0.62s 0.06s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.page-loader__mark {
+  font-family: var(--font-singapore-sling);
+  font-size: clamp(36px, 6vw, 72px);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: var(--accent);
+  user-select: none;
+  animation: page-mark-out 0.42s ease-in forwards;
+}
+.page-enter {
+  animation: page-enter 0.62s 0.26s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@keyframes page-loader-out {
+  to { opacity: 0; transform: translateY(-16px); visibility: hidden; }
+}
+@keyframes page-mark-out {
+  to { opacity: 0; transform: scale(0.88); }
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader { display: none; }
+  .page-enter  { animation: none; }
+}
+
+/* ─── Hover underline slide ──────────────────────────────────────────────────*/
 .link-underline {
   position: relative;
   display: inline-block;

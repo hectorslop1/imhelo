@@ -5,9 +5,13 @@ import { useReducedMotion } from 'motion/react'
 
 // ─── Custom Cursor ─────────────────────────────────────────────────────────────
 //
-// Desktop-only (~32px ring + 3px yellow dot).
+// Desktop-only (30px ring + 3px yellow dot).
 // Position is driven by a rAF lerp loop — direct DOM mutation, no React state,
 // so 60fps with zero re-renders.
+//
+// The ring uses mix-blend-mode:difference with a white border, so it inverts
+// against whatever is behind it — always visible on both the light surface and
+// the dark bands. No JS background detection needed.
 //
 // Grow state is triggered via event delegation (mouseover/mouseout on document)
 // so newly added interactive elements are covered automatically.
@@ -16,9 +20,9 @@ import { useReducedMotion } from 'motion/react'
 // globals.css hides the native cursor on lg+ screens.
 
 const LERP = (a: number, b: number, t: number) => a + (b - a) * t
-const RING_SIZE = 32
-const DOT_SIZE  = 3
-const LERP_FACTOR = 0.115
+const RING_SIZE   = 30       // slightly smaller — feels more precise
+const DOT_SIZE    = 3
+const LERP_FACTOR = 0.10    // 0.10 = smooth but responsive (0.115 was slightly over-smooth)
 
 export default function CustomCursor() {
   const reduced = useReducedMotion()
@@ -48,16 +52,16 @@ export default function CustomCursor() {
     }
 
     // ── Grow / shrink via event delegation ────────────────────────────────────
+    // Border stays white; mix-blend-mode:difference (set in JSX) keeps it
+    // visible on any background, so no color mutation is needed here.
     const onMouseOver = (e: MouseEvent) => {
       if ((e.target as Element | null)?.closest('a, button, [data-cursor="grow"]')) {
         targetScaleRef.current = 1.55
-        ring.style.borderColor = 'rgba(242,216,50,0.55)'
       }
     }
     const onMouseOut = (e: MouseEvent) => {
       if ((e.target as Element | null)?.closest('a, button, [data-cursor="grow"]')) {
         targetScaleRef.current = 1
-        ring.style.borderColor = 'rgba(245,239,230,0.32)'
       }
     }
 
@@ -97,18 +101,19 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ring — lerp-smoothed, grows on interactive elements */}
+      {/* Outer ring — lerp-smoothed, grows on interactive elements.
+          mix-blend-difference inverts the white border against any background. */}
       <div
         ref={ringRef}
         aria-hidden
         className="pointer-events-none fixed top-0 left-0 z-[9999] hidden lg:block"
         style={{
-          width:       `${RING_SIZE}px`,
-          height:      `${RING_SIZE}px`,
+          width:        `${RING_SIZE}px`,
+          height:       `${RING_SIZE}px`,
           borderRadius: '50%',
-          border:      '1px solid rgba(245,239,230,0.32)',
-          transition:  'border-color 0.4s ease',
-          willChange:  'transform',
+          border:       '1px solid rgba(255,255,255,0.8)',
+          mixBlendMode: 'difference',
+          willChange:   'transform',
         }}
       />
       {/* Center dot — snaps to exact mouse position */}

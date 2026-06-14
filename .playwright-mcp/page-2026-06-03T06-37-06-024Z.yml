@@ -1,0 +1,188 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Padres Con Poder Padres Con Poder" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Padres Con Poder" [ref=e5]
+        - generic [ref=e6]: Padres Con Poder
+      - navigation "Primary" [ref=e7]:
+        - link "Familias" [ref=e224] [cursor=pointer]:
+          - /url: /families
+          - text: Familias
+        - link "Empresas" [ref=e225] [cursor=pointer]:
+          - /url: /businesses
+          - text: Empresas
+        - link "Nosotros" [ref=e226] [cursor=pointer]:
+          - /url: /about
+          - text: Nosotros
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - button "en" [ref=e13]
+          - button "es" [active] [ref=e14]
+        - link "Obtener Apoyo" [ref=e227] [cursor=pointer]:
+          - /url: /get-support
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - img [ref=e21]
+          - generic [ref=e24]: Proveedor Aprobado del Centro Regional del Interior · California
+        - heading "Orientación para familias y empresas." [level=1] [ref=e228]:
+          - text: Orientación
+          - text: para familias
+          - text: y empresas.
+        - paragraph [ref=e26]: Padres Con Poder brinda apoyo centrado en la persona para individuos con discapacidades que navegan el Programa de Autodeterminación, mientras ayuda a las empresas de California a construir lugares de trabajo inclusivos y amigables con la neurodiversidad.
+        - generic [ref=e27]:
+          - link "Para Familias" [ref=e229] [cursor=pointer]:
+            - /url: /families
+            - text: Para Familias
+            - img
+          - link "Para Empresas" [ref=e230] [cursor=pointer]:
+            - /url: /businesses
+      - generic [ref=e30]:
+        - img "Padres Con Poder community members at an outdoor gathering" [ref=e32]
+        - generic [ref=e34]:
+          - img [ref=e36]
+          - generic [ref=e39]:
+            - paragraph [ref=e40]: Proveedor Aprobado por IRC
+            - paragraph [ref=e41]: Programa de Autodeterminación
+    - paragraph [ref=e45]:
+      - generic [ref=e46]: Nuestra misión
+      - text: es empoderar a las personas con discapacidades y sus familias para navegar el Programa de Autodeterminación con confianza, mientras equipamos a las empresas de California para construir lugares de trabajo donde el talento neurodiverso sea incluido, apoyado y tenga la oportunidad de prosperar.
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - paragraph [ref=e50]: A Quiénes Servimos
+        - heading "Una organización. Dos caminos claros de apoyo." [level=2] [ref=e231]
+      - generic [ref=e52]:
+        - link "Youth and young adults with disabilities supported by Padres Con Poder Para Familias Navega el Programa de Autodeterminación con confianza. Guiamos a las personas con discapacidades y sus familias en cada paso del Programa de Autodeterminación del IRC, desde la planificación de servicios y coordinación con el centro regional hasta la defensa continua y el empoderamiento. Explorar Apoyo Familiar" [ref=e232] [cursor=pointer]:
+          - /url: /families
+          - img "Youth and young adults with disabilities supported by Padres Con Poder" [ref=e56]
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: Para Familias
+              - heading "Navega el Programa de Autodeterminación con confianza." [level=3] [ref=e233]
+              - paragraph [ref=e62]: Guiamos a las personas con discapacidades y sus familias en cada paso del Programa de Autodeterminación del IRC, desde la planificación de servicios y coordinación con el centro regional hasta la defensa continua y el empoderamiento.
+            - generic [ref=e63]:
+              - text: Explorar Apoyo Familiar
+              - img [ref=e64]
+        - link "Padres Con Poder team members collaborating Para Empresas Construye lugares de trabajo inclusivos donde todos prosperan. Nos asociamos con organizaciones en todo California para desarrollar prácticas de contratación amigables con la neurodiversidad, programas de capacitación inclusivos y estrategias de DEI que generen un cambio real y medible en la cultura laboral. Explorar Servicios Empresariales" [ref=e234] [cursor=pointer]:
+          - /url: /businesses
+          - img "Padres Con Poder team members collaborating" [ref=e69]
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - generic [ref=e73]: Para Empresas
+              - heading "Construye lugares de trabajo inclusivos donde todos prosperan." [level=3] [ref=e235]
+              - paragraph [ref=e75]: Nos asociamos con organizaciones en todo California para desarrollar prácticas de contratación amigables con la neurodiversidad, programas de capacitación inclusivos y estrategias de DEI que generen un cambio real y medible en la cultura laboral.
+            - generic [ref=e76]:
+              - text: Explorar Servicios Empresariales
+              - img [ref=e77]
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - paragraph [ref=e82]: Por Qué las Familias y Organizaciones Confían en Nosotros
+        - heading "Apoyo estructurado basado en experiencia real." [level=2] [ref=e236]
+      - generic [ref=e84]:
+        - generic [ref=e238]:
+          - img [ref=e240]
+          - generic [ref=e244]:
+            - paragraph [ref=e245]: Proveedor Confiable del IRC
+            - paragraph [ref=e246]: Proveedor aprobado y confiable del Centro Regional del Interior, especializado en el Programa de Autodeterminación.
+        - generic [ref=e248]:
+          - img [ref=e250]
+          - generic [ref=e255]:
+            - paragraph [ref=e256]: Experiencia con Dos Audiencias
+            - paragraph [ref=e257]: Posicionados de forma única para servir tanto a individuos y familias como a organizaciones de manera simultánea.
+        - generic [ref=e259]:
+          - img [ref=e261]
+          - generic [ref=e266]:
+            - paragraph [ref=e267]: Enfoque Centrado en la Persona
+            - paragraph [ref=e268]: Cada servicio se basa en planificación individualizada, seguimiento continuo y apoyo lado a lado.
+        - generic [ref=e270]:
+          - img [ref=e272]
+          - generic [ref=e275]:
+            - paragraph [ref=e276]: Visión para todo California
+            - paragraph [ref=e277]: Trabajando hacia un modelo estatal donde los lugares de trabajo inclusivos y la planificación centrada en la persona sean el estándar.
+    - generic [ref=e127]:
+      - img "Padres Con Poder community advocacy walk" [ref=e128]
+      - generic [ref=e132]:
+        - paragraph [ref=e133]: Nuestro Compromiso
+        - blockquote [ref=e134]: “En Padres Con Poder, estamos comprometidos a empoderar a las empresas en todo California para cultivar lugares de trabajo inclusivos y amigables con la neurodiversidad, mientras empoderamos simultáneamente a las personas con discapacidades y sus familias para navegar con confianza el Programa de Autodeterminación.”
+        - paragraph [ref=e135]: Padres Con Poder · Declaración Oficial de Misión
+    - generic [ref=e138]:
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - paragraph [ref=e141]: Obtener Apoyo
+          - heading "¿Listo para dar el siguiente paso?" [level=2] [ref=e278]
+          - paragraph [ref=e143]: Ya sea que seas una familia navegando el Programa de Autodeterminación o una empresa construyendo un lugar de trabajo más inclusivo, estamos aquí para acompañarte.
+        - link "Iniciar la Conversación" [ref=e279] [cursor=pointer]:
+          - /url: /get-support
+          - text: Iniciar la Conversación
+          - img
+      - generic [ref=e145]:
+        - link "Teléfono +1 951-737-0951" [ref=e280] [cursor=pointer]:
+          - /url: tel:+19517370951
+          - img [ref=e149]
+          - generic [ref=e151]:
+            - paragraph [ref=e152]: Teléfono
+            - paragraph [ref=e153]: +1 951-737-0951
+        - link "Correo Electrónico info@ivestorres.org" [ref=e281] [cursor=pointer]:
+          - /url: mailto:info@ivestorres.org
+          - img [ref=e157]
+          - generic [ref=e160]:
+            - paragraph [ref=e161]: Correo Electrónico
+            - paragraph [ref=e162]: info@ivestorres.org
+        - generic [ref=e164]:
+          - link "Facebook capacitate365" [ref=e165] [cursor=pointer]:
+            - /url: https://www.facebook.com/capacitate365
+            - img [ref=e167]
+            - generic [ref=e169]:
+              - paragraph [ref=e170]: Facebook
+              - paragraph [ref=e171]: capacitate365
+          - link "Instagram @padres_con_poder" [ref=e172] [cursor=pointer]:
+            - /url: https://www.instagram.com/padres_con_poder
+            - img [ref=e174]
+            - generic [ref=e176]:
+              - paragraph [ref=e177]: Instagram
+              - paragraph [ref=e178]: "@padres_con_poder"
+  - contentinfo [ref=e179]:
+    - generic [ref=e180]:
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - img "Padres Con Poder" [ref=e183]
+          - generic [ref=e184]:
+            - paragraph [ref=e185]: Padres Con Poder
+            - paragraph [ref=e186]: Empoderando a individuos con discapacidades, apoyando familias a través del Programa de Autodeterminación y ayudando a empresas a construir lugares de trabajo inclusivos en todo California.
+        - generic [ref=e187]:
+          - paragraph [ref=e188]: Navegar
+          - generic [ref=e189]:
+            - link "Familias" [ref=e282] [cursor=pointer]:
+              - /url: /families
+            - link "Empresas" [ref=e283] [cursor=pointer]:
+              - /url: /businesses
+            - link "Nosotros" [ref=e284] [cursor=pointer]:
+              - /url: /about
+            - link "Obtener Apoyo" [ref=e285] [cursor=pointer]:
+              - /url: /get-support
+        - generic [ref=e194]:
+          - paragraph [ref=e195]: Contacto
+          - generic [ref=e196]:
+            - link "+1 951-737-0951" [ref=e197] [cursor=pointer]:
+              - /url: tel:+19517370951
+              - img [ref=e198]
+              - text: +1 951-737-0951
+            - link "info@ivestorres.org" [ref=e200] [cursor=pointer]:
+              - /url: mailto:info@ivestorres.org
+              - img [ref=e201]
+              - text: info@ivestorres.org
+            - generic [ref=e204]:
+              - link "Padres Con Poder on Facebook" [ref=e205] [cursor=pointer]:
+                - /url: https://www.facebook.com/capacitate365
+                - img [ref=e206]
+              - link "Padres Con Poder on Instagram" [ref=e208] [cursor=pointer]:
+                - /url: https://www.instagram.com/padres_con_poder
+                - img [ref=e209]
+      - generic [ref=e211]:
+        - paragraph [ref=e212]: © 2026 Padres Con Poder. Todos los derechos reservados.
+        - paragraph [ref=e213]: Proveedor Confiable del Centro Regional del Interior · California
+  - button "Open Next.js Dev Tools" [ref=e219] [cursor=pointer]:
+    - img [ref=e220]
+  - alert [ref=e223]
