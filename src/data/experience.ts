@@ -13,19 +13,19 @@ export type Experience = {
 // Array order = display order: index 0 is the primary / current role.
 export const experiences: Experience[] = [
   {
-    company: 'U-wifi Inc.',
-    role: 'Lead Mobile Developer',
-    period: 'Jan 2026 — Present',
+    company: 'Padres Con Poder Foundation.',
+    role: 'Web Developer',
+    period: 'Jun 2026 — Present',
     description:
-      'Leading mobile development for U-wifi app experiences, focusing on interface implementation, product features, usability, and performance across mobile platforms.',
+      'Leading web development for Padres Con Poder Foundation, focusing on interface implementation, usability, and responsive performance.',
     highlights: [
-      'Mobile app development',
+      'Web app development',
       'UI implementation',
       'Product-focused features',
       'Cross-platform collaboration',
       'Performance and usability improvements',
     ],
-    tags: ['Mobile Dev', 'UI Implementation', 'Cross-Platform', 'Product'],
+    tags: ['Web Dev', 'UI Implementation', 'Cross-Platform', 'Product'],
   },
   {
     company: 'CBLUNA',

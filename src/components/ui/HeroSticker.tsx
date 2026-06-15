@@ -25,12 +25,15 @@ import StickerPeel from '@/components/ui/StickerPeel'
 //   attached → peeling → falling → out → returning → attached
 //
 //   • attached  — flat sticker resting in the layout slot. Fixed clone hidden.
-//   • peeling   — scroll scrubs a short, snappy peel (reversible: scroll back up → attached).
-//   • falling   — once past the detach threshold it COMMITS to an autonomous physics fall
-//                 (gravity ease-in, ~850ms). Not tied to further scroll — finishes on its own.
+//   • peeling   — scroll scrubs a slow, deliberate peel from the TOP edge down; reversible
+//                 (scroll back up → attached) right up until it is FULLY lifted.
+//   • falling   — the instant the peel COMPLETES it commits: it hangs there a beat, fully
+//                 lifted and sagging under its own weight, THEN drops in an autonomous gravity
+//                 fall. Frozen in place (no longer scroll-tracked) so the whole beat is seen.
 //   • out       — fully past the bottom, hidden. Stays gone no matter how far you scroll.
-//   • returning — on scrolling back into the Hero it DROPS FROM ABOVE (one-shot spring with
-//                 drift + perspective), lands flat on its exact slot. Never sticks up from below.
+//   • returning — on scrolling back into the Hero it RISES BACK IN FROM BELOW (where it fell),
+//                 still curled, then presses on from the BOTTOM edge up to the top (peel → 0):
+//                 bottom adheres first, the top flap lays down last — the peel-off in reverse.
 //
 // The flying sticker lives in a FIXED overlay portaled to <body>, so it crosses the whole
 // viewport free of any hero overflow / transform / stacking trap. The resting sticker and the
@@ -42,10 +45,10 @@ const ASPECT = 1122 / 1402
 
 // Scroll thresholds — fraction of one viewport scrolled from the Hero top.
 const PEEL_START = 0.02 // begin lifting once scrolling down past here
-const PEEL_END = 0.15 // peel fully lifted by here (short & snappy)
-const FALL_TRIGGER = 0.18 // past here → detach + autonomous fall
+const PEEL_END = 0.32 // peel scrubs to FULLY lifted by here (slow, hand-peeled) → then commits
 const RESET_AT = 0.01 // back above here while peeling → snap to rest
-const RETURN_AT = 0.12 // scrolling back UP into the hero past here → drop from above
+const RETURN_AT = 0.12 // scrolling back UP into the hero past here → rise back in from below
+const RETURN_PEEL = 0.92 // returns strongly curled — adheres bottom→top (peel → 0) on landing
 
 type Phase = 'attached' | 'peeling' | 'falling' | 'out' | 'returning'
 
@@ -123,35 +126,48 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
     peel.set(smooth(clamp01(p / PEEL_END)))
   }
 
-  // Autonomous physics fall — committed one-shot, independent of further scroll.
+  // Autonomous detach — fires the instant the peel COMPLETES. Hangs fully lifted a beat,
+  // sagging under its own weight, then drops. Frozen in place (not scroll-tracked) so the
+  // whole "fully peeled → lets go → falls" beat plays out on screen.
   const startFall = () => {
     stopFlight()
     measureSlot() // freeze an accurate base before going fixed-independent
     setPhase('falling')
-    peel.set(1) // ensure it's torn off even on a fast scroll jump
+    peel.set(1) // ensure the peel reads fully complete even on a fast scroll jump
     opacity.set(1)
     const H = window.innerHeight
     const distance = H * 1.2 + height
+    // 1) Hang: fully peeled, drooping under its own weight — the "barely holding on" beat.
     flight.current = [
-      animate(offY, distance, { duration: 0.85, ease: [0.4, 0, 1, 1] }), // gravity ease-in
-      animate(offX, 28, { duration: 0.85, ease: [0.33, 0, 0.67, 1] }),
-      animate(rotZ, 17, { duration: 0.85, ease: [0.33, 0, 0.67, 1] }),
-      animate(rotX, -7, { duration: 0.5, ease: 'easeOut' }),
-      animate(rotY, 5, { duration: 0.5, ease: 'easeOut' }),
-      animate(scale, 0.9, { duration: 0.85, ease: [0.4, 0, 1, 1] }),
+      animate(offY, 18, { duration: 0.5, ease: [0.34, 0, 0.5, 1] }),
+      animate(rotZ, 5, { duration: 0.5, ease: 'easeOut' }),
     ]
     flight.current[0].finished
       .then(() => {
         if (phaseRef.current !== 'falling') return
-        opacity.set(0)
-        setPhase('out')
-        // If the user raced back to the top during the fall, drop it straight back in.
-        if (window.scrollY / window.innerHeight < RETURN_AT) startReturn()
+        // 2) Let go — autonomous gravity fall, finishes on its own regardless of scroll.
+        flight.current = [
+          animate(offY, distance, { duration: 0.95, ease: [0.4, 0, 1, 1] }), // gravity ease-in
+          animate(offX, 28, { duration: 0.95, ease: [0.33, 0, 0.67, 1] }),
+          animate(rotZ, 17, { duration: 0.95, ease: [0.33, 0, 0.67, 1] }),
+          animate(rotX, -7, { duration: 0.55, ease: 'easeOut' }),
+          animate(rotY, 5, { duration: 0.55, ease: 'easeOut' }),
+          animate(scale, 0.9, { duration: 0.95, ease: [0.4, 0, 1, 1] }),
+        ]
+        flight.current[0].finished
+          .then(() => {
+            if (phaseRef.current !== 'falling') return
+            opacity.set(0)
+            setPhase('out')
+            // If the user raced back to the top during the fall, bring it straight back in.
+            if (window.scrollY / window.innerHeight < RETURN_AT) startReturn()
+          })
+          .catch(() => {})
       })
       .catch(() => {})
   }
 
-  // Drop from above — the premium return (NOT a reverse of the fall).
+  // Rise back in from BELOW (where it fell), still curled, then press it on bottom→top.
   const startReturn = () => {
     stopFlight()
     setPhase('returning')
@@ -159,21 +175,20 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
     const H = window.innerHeight
     // jump() = set value AND zero out velocity, so the spring below doesn't inherit
     // leftover velocity from the fall (which would fling it far past the start point).
-    peel.jump(0) // land flat — never "already folded"
-    peelD.jump(0)
+    peel.jump(RETURN_PEEL) // arrives strongly curled — lays down (sticks) after it rises in
+    peelD.jump(RETURN_PEEL)
     scale.jump(1)
     opacity.set(1)
-    offY.jump(-(H * 0.4 + height))
-    offX.jump(-22)
-    rotZ.jump(-8)
-    rotX.jump(9)
-    rotY.jump(6)
+    offY.jump(H * 0.6 + height) // start below the fold — it returns the way it left
+    offX.jump(20)
+    rotZ.jump(7)
+    rotX.jump(-6)
+    rotY.jump(-5)
     flight.current = [
-      // Near-critically damped → soft landing, no exaggerated bounce, settles promptly.
-      animate(offY, 0, { type: 'spring', stiffness: 110, damping: 20, mass: 1 }),
+      // Near-critically damped → soft arrival, no exaggerated bounce, settles promptly.
+      animate(offY, 0, { type: 'spring', stiffness: 120, damping: 22, mass: 1 }),
       animate(offX, 0, { duration: 0.9, ease: [0.22, 1, 0.36, 1] }),
       animate(rotZ, 0, { duration: 0.85, ease: [0.22, 1, 0.36, 1] }),
-      animate(rotX, 0, { duration: 0.85, ease: [0.22, 1, 0.36, 1] }),
       animate(rotY, 0, { duration: 0.85, ease: [0.22, 1, 0.36, 1] }),
     ]
     flight.current[0].finished
@@ -181,14 +196,24 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
         if (phaseRef.current !== 'returning') return
         offX.set(0)
         offY.set(0)
-        rotX.set(0)
-        rotY.set(0)
         rotZ.set(0)
+        rotY.set(0)
         scale.set(1)
-        setPhase('attached') // resting sticker shows (pixel-identical)
-        opacity.set(0) // hide clone same frame → invisible swap
-        // If the user scrolled back down during the drop, hand straight off to the fall.
-        if (window.scrollY / window.innerHeight >= FALL_TRIGGER) startFall()
+        // In place, still curled & tilted — now press it on from the BOTTOM edge up to the
+        // top (peel → 0, tilt → 0 together): bottom adheres first, the top flap lays down
+        // last. The peel-off lift played in reverse — it should feel like a real sticker.
+        const stick = animate(peel, 0, { duration: 0.6, ease: [0.22, 1, 0.36, 1] })
+        const stickTilt = animate(rotX, 0, { duration: 0.6, ease: [0.22, 1, 0.36, 1] })
+        flight.current = [stick, stickTilt]
+        Promise.all([stick.finished, stickTilt.finished])
+          .then(() => {
+            if (phaseRef.current !== 'returning') return
+            setPhase('attached') // resting sticker shows (pixel-identical)
+            opacity.set(0) // hide clone same frame → invisible swap
+            // If the user scrolled back down during the return, hand straight off to the peel.
+            if (window.scrollY / window.innerHeight >= PEEL_END) startFall()
+          })
+          .catch(() => {})
       })
       .catch(() => {})
   }
@@ -205,7 +230,7 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
     scale.jump(1)
     opacity.set(1) // show the (identical) fixed clone
     measureSlot()
-    if (p >= FALL_TRIGGER) {
+    if (p >= PEEL_END) {
       startFall()
     } else {
       setPhase('peeling')
@@ -245,8 +270,8 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
       case 'peeling': {
         if (p <= RESET_AT) {
           resetAttached() // reversed back to top → rest cleanly (offY stayed 0)
-        } else if (p >= FALL_TRIGGER) {
-          startFall() // commit — from here the fall is autonomous
+        } else if (p >= PEEL_END) {
+          startFall() // fully peeled → commit; from here the hang + fall are autonomous
         } else {
           measureSlot() // keep the clone glued to the slot while scrubbing
           drivePeel(p) // reversible: scrubs both ways until we commit
@@ -358,7 +383,7 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
                 width={width}
                 rotate={0}
                 peelDirection={0}
-                peelBackActivePct={46}
+                peelBackActivePct={80}
                 shadowIntensity={0.5}
                 disableDrag
                 varPeel
