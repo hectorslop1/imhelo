@@ -14,6 +14,8 @@ export type Project = {
    * Projects without a cover fall back to a refined CSS visual.
    */
   cover?: string
+  /** Images that cross-fade like a carousel while the card is hovered. */
+  gallery?: string[]
 }
 
 // ── Project list — ordered by display priority ─────────────────────────────
@@ -31,6 +33,12 @@ export const projects: Project[] = [
     featured:    true,
     tags:        ['branding', 'graphic design', 'identity', 'digital product'],
     cover:       '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
+    gallery: [
+      '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
+      '/assetshelo/Nascar/ZaneSmith/2313CO1085.jpg',
+      '/assetshelo/Nascar/ZaneSmith/2313DG2120.jpg',
+      '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',
+    ],
   },
   {
     id:          'graphic-design',
@@ -42,6 +50,12 @@ export const projects: Project[] = [
     featured:    true,
     tags:        ['illustration', 'typography', 'visual design'],
     cover:       '/assetshelo/GraphicDesign/Gba26qPbwAAEM7t.jpeg',
+    gallery: [
+      '/assetshelo/GraphicDesign/Gba26qPbwAAEM7t.jpeg',
+      '/assetshelo/GraphicDesign/F2phz5FaUAAH4fv.jpeg',
+      '/assetshelo/GraphicDesign/GMXy_CvaMAA8j3A.png',
+      '/assetshelo/GraphicDesign/GUpyHAeboAALOvW.jpeg',
+    ],
   },
   {
     id:          'apparel-graphics',
@@ -53,6 +67,12 @@ export const projects: Project[] = [
     featured:    true,
     tags:        ['graphic design', 'print', 'apparel'],
     cover:       '/assetshelo/ApparelDesign/MarioTshirt.png',
+    gallery: [
+      '/assetshelo/ApparelDesign/MarioTshirt.png',
+      '/assetshelo/ApparelDesign/AcuraTshirt.png',
+      '/assetshelo/ApparelDesign/PeachTshirt.png',
+      '/assetshelo/ApparelDesign/CharizardHoodie.jpeg',
+    ],
   },
   {
     id:          'mobile-app-showcase',

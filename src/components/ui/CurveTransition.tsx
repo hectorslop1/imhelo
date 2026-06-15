@@ -63,6 +63,15 @@ export default function CurveTransition({
       >
         {/* Upper region (the section being left) with a curved bottom edge */}
         <motion.path d={reduced ? 'M0 0 H1200 V200 Q600 120 0 200 Z' : regionPath} fill={from} />
+        {/* Soft accent glow under the edge — a luminous, cinematic seam */}
+        <motion.path
+          d={reduced ? 'M0 200 Q600 120 1200 200' : strokePath}
+          fill="none"
+          stroke={accent}
+          strokeWidth={6}
+          strokeOpacity={0.28}
+          style={{ filter: 'blur(5px)' }}
+        />
         {/* Yellow accent stroke riding the curve edge */}
         <motion.path
           d={reduced ? 'M0 200 Q600 120 1200 200' : strokePath}

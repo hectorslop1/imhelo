@@ -39,15 +39,19 @@ export default function ImageReveal({
   const ref     = useRef<HTMLDivElement>(null)
   const inView  = useInView(ref, viewport.once)
 
+  // Default to a soft radius so no image reads as a hard square. A usage can opt
+  // out with `rounded-none` or set its own `rounded-*` (both respected).
+  const cls = `${className ?? ''}${className?.includes('rounded') ? '' : ' rounded-2xl'}`.trim()
+
   if (reduced) {
-    return <div ref={ref} className={className} style={style}>{children}</div>
+    return <div ref={ref} className={cls} style={{ overflow: 'hidden', ...style }}>{children}</div>
   }
 
   const hiddenClip  = direction === 'up' ? 'inset(100% 0% 0% 0%)' : 'inset(0% 100% 0% 0%)'
   const visibleClip = 'inset(0% 0% 0% 0%)'
 
   return (
-    <div ref={ref} className={className} style={{ overflow: 'hidden', position: 'relative', ...style }}>
+    <div ref={ref} className={cls} style={{ overflow: 'hidden', position: 'relative', ...style }}>
       {/* Clip-path wipe layer — must fill the parent fully for aspect-ratio to work */}
       <motion.div
         initial={{ clipPath: hiddenClip }}

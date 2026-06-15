@@ -246,64 +246,12 @@ export default function GraphicDesignPage() {
       <main style={{ background: '#1a1815' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO — LIGHT header (coherent with the site) + animated cover banner
+            HERO — full-bleed animated cover with the title + meta overlaid (editorial)
         ══════════════════════════════════════════════════════════════════════ */}
-        <section style={{ background: 'var(--surface)' }} className="pt-36 lg:pt-44 pb-14">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
-            <motion.p
-              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'var(--accent-deep)' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
-            >
-              Visual Design · Illustration
-            </motion.p>
-            <motion.h1
-              className="font-extrabold tracking-[-0.04em]"
-              style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(54px, 9vw, 124px)', lineHeight: 0.9, color: 'var(--ink)' }}
-              initial={reduced ? {} : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.18 }}
-            >
-              Graphic
-              <br />
-              Design
-            </motion.h1>
-            <motion.p
-              className="mt-5 text-[14px] leading-relaxed"
-              style={{ color: 'var(--ink-2)', maxWidth: '460px' }}
-              initial={reduced ? {} : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.26 }}
-            >
-              A curated archive of illustrations, typographic works, badge designs,
-              and visual experiments — exploring character, composition, and
-              graphic storytelling beyond client work.
-            </motion.p>
-            <div className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7" style={{ borderTop: '1px solid var(--line)' }}>
-              {[
-                { label: 'Year',       value: 'Ongoing' },
-                { label: 'Discipline', value: 'Illustration · Typography · Visual Design' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(22,21,15,0.42)' }}>{label}</p>
-                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(22,21,15,0.7)' }}>{value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Animated cover banner — Ken Burns crossfade leading into the dark gallery */}
-        <section
-          className="relative w-full overflow-hidden"
-          style={{ aspectRatio: '16 / 9', maxHeight: '76vh' }}
-        >
-          {/* ── Image layer ── */}
+        <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+          {/* ── Cycling image layer (Ken Burns crossfade) ── */}
           <div className="absolute inset-0">
             {reduced ? (
-              /* Static fallback on reduced-motion: first hero image, no cycling */
               <Image
                 src={HERO_SRCS[0]}
                 alt="Graphic Design"
@@ -314,11 +262,6 @@ export default function GraphicDesignPage() {
                 className="object-cover"
               />
             ) : (
-              /*
-               * AnimatePresence initial={false} skips the mount animation for
-               * the first image (it just appears), then crossfades on each change.
-               * mode default ("sync") means exit + enter run simultaneously — true crossfade.
-               */
               <AnimatePresence initial={false}>
                 <motion.div
                   key={heroIndex}
@@ -345,36 +288,78 @@ export default function GraphicDesignPage() {
             )}
           </div>
 
-          {/* ── Gradient overlays — text readability ── */}
+          {/* ── Legibility gradient — top darken (under the header) + strong bottom into the dark gallery ── */}
           <div
+            aria-hidden
             className="absolute inset-0 pointer-events-none z-[2]"
             style={{
               background:
-                'linear-gradient(to top, #1a1815 0%, rgba(26,24,21,0.7) 12%, rgba(26,24,21,0.12) 45%, transparent 78%)',
-            }}
-          />
-          <div
-            className="absolute inset-0 pointer-events-none z-[2]"
-            style={{
-              background:
-                'linear-gradient(to bottom, rgba(26,24,21,0.14) 0%, transparent 28%)',
+                'linear-gradient(to bottom, rgba(26,24,21,0.5) 0%, rgba(26,24,21,0.06) 26%, rgba(26,24,21,0.28) 52%, rgba(26,24,21,0.82) 84%, #1a1815 100%)',
             }}
           />
 
-          {/* Text now lives in the light header above — banner is image-only */}
+          {/* ── Overlaid content — bottom-left, editorial ── */}
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-16 pb-16 lg:pb-24">
+            <motion.p
+              className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
+              style={{ color: '#f2d832' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+            >
+              Visual Design · Illustration
+            </motion.p>
+            <motion.h1
+              className="font-extrabold tracking-[-0.04em]"
+              style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(54px, 9vw, 124px)', lineHeight: 0.9, color: 'var(--on-dark)' }}
+              initial={reduced ? {} : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
+            >
+              Graphic
+              <br />
+              Design
+            </motion.h1>
+            <motion.p
+              className="mt-5 text-[14px] leading-relaxed"
+              style={{ color: 'rgba(236,233,226,0.78)', maxWidth: '460px' }}
+              initial={reduced ? {} : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.36 }}
+            >
+              A curated archive of illustrations, typographic works, badge designs,
+              and visual experiments — exploring character, composition, and
+              graphic storytelling beyond client work.
+            </motion.p>
+            <motion.div
+              className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7 max-w-3xl"
+              style={{ borderTop: '1px solid rgba(236,233,226,0.18)' }}
+              initial={reduced ? {} : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: EASE, delay: 0.46 }}
+            >
+              {[
+                { label: 'Year',       value: 'Ongoing' },
+                { label: 'Discipline', value: 'Illustration · Typography · Visual Design' },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(236,233,226,0.5)' }}>{label}</p>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(236,233,226,0.82)' }}>{value}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
 
-          {/* ── Navigation dots — subtle progress indicator ── */}
+          {/* ── Navigation dots ── */}
           {!reduced && (
-            <div className="absolute bottom-5 right-6 lg:right-16 z-[10] flex items-center gap-1.5">
+            <div className="absolute bottom-6 right-6 lg:right-16 z-[10] flex items-center gap-1.5">
               {HERO_SRCS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setHeroIndex(i)}
                   className="w-1.5 h-1.5 rounded-full transition-all duration-500 focus:outline-none"
                   style={{
-                    background: i === heroIndex
-                      ? 'rgba(242,216,50,0.9)'
-                      : 'rgba(255,255,255,0.22)',
+                    background: i === heroIndex ? 'rgba(242,216,50,0.9)' : 'rgba(255,255,255,0.22)',
                     transform: i === heroIndex ? 'scale(1.4)' : 'scale(1)',
                   }}
                   aria-label={`Image ${i + 1}`}

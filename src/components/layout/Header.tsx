@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import MagneticLink from '@/components/ui/MagneticLink'
+import LanguageToggle from '@/components/ui/LanguageToggle'
+import { useI18n } from '@/lib/i18n'
 
 const SOCIALS = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
@@ -15,117 +18,76 @@ const SOCIALS = [
 ]
 
 const NAV_LINKS = [
-  { label: 'Work',    href: '/work'    },
-  { label: 'About',   href: '/about'   },
-  { label: 'Contact', href: '/contact' },
+  { key: 'nav.home',    href: '/'        },
+  { key: 'nav.work',    href: '/work'    },
+  { key: 'nav.about',   href: '/about'   },
+  { key: 'nav.contact', href: '/contact' },
 ]
 
-const EASE     = [0.16, 1, 0.3, 1] as const
-const NAV_EASE = 'cubic-bezier(0.16,1,0.3,1)'
+const EASE = [0.16, 1, 0.3, 1] as const
 
-// ─── SplitNavLink ─────────────────────────────────────────────────────────────
-//
-// Each character of the label lives in its own <span>.
-// On hover, the visible layer slides up and a white clone slides in from below.
-// Stagger delay per character gives a subtle wave effect.
-//
-// Accessibility: `aria-label` on the <Link> holds the real text;
-// both character layers are `aria-hidden` so screen readers see only one copy.
-
-function SplitNavLink({ href, label }: { href: string; label: string }) {
+// ─── MenuLink — large overlay link: index + label, slides + accent on hover ─────
+function MenuLink({ href, label, index, onNavigate }: { href: string; label: string; index: number; onNavigate: () => void }) {
   const [hovered, setHovered] = useState(false)
-  const chars = label.split('')
-
   return (
     <Link
       href={href}
-      aria-label={label}
+      onClick={onNavigate}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative inline-flex overflow-hidden py-1 text-[13px] tracking-wide"
+      className="group flex items-baseline gap-5 sm:gap-7 py-1.5 sm:py-2 w-fit"
     >
-      {/* Yellow underline — grows on hover */}
       <span
-        aria-hidden
-        className="absolute bottom-0 left-0 h-px bg-[#f2d832] transition-all duration-300 ease-out"
-        style={{ width: hovered ? '100%' : '0' }}
-      />
-
-      {/* Layer 1 — muted text, slides up on hover */}
-      <span aria-hidden className="flex">
-        {chars.map((char, i) => (
-          <span
-            key={i}
-            style={{
-              display:    'inline-block',
-              color:      'var(--ink-3)',
-              transform:  hovered ? 'translateY(-100%)' : 'translateY(0%)',
-              transition: `transform 380ms ${NAV_EASE} ${i * 20}ms`,
-            }}
-          >
-            {char === ' ' ? ' ' : char}
-          </span>
-        ))}
+        className="font-mono text-[12px] sm:text-[13px] tracking-widest transition-colors duration-300"
+        style={{ color: hovered ? '#f2d832' : 'rgba(236,233,226,0.35)' }}
+      >
+        0{index + 1}
       </span>
-
-      {/* Layer 2 — white clone, slides up from below */}
-      <span aria-hidden className="absolute inset-0 flex">
-        {chars.map((char, i) => (
-          <span
-            key={i}
-            style={{
-              display:    'inline-block',
-              color:      'var(--ink)',
-              transform:  hovered ? 'translateY(0%)' : 'translateY(100%)',
-              transition: `transform 380ms ${NAV_EASE} ${i * 20}ms`,
-            }}
-          >
-            {char === ' ' ? ' ' : char}
-          </span>
-        ))}
+      <span
+        className="font-bold tracking-[-0.03em] leading-[0.95] transition-[transform,color] duration-300 ease-out"
+        style={{
+          fontFamily: 'var(--font-cabinet)',
+          fontSize: 'clamp(44px, 9vw, 92px)',
+          color: hovered ? '#f2d832' : 'var(--on-dark)',
+          transform: hovered ? 'translateX(14px)' : 'translateX(0)',
+        }}
+      >
+        {label}
       </span>
     </Link>
   )
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
-//
-// MONUMENT interaction:
-//   When scrollY < 120  → logo is invisible (the hero HELO wordmark is visible)
-//   When scrollY ≥ 120  → logo crossfades in, visually completing the transition
-//
-// The nav links and "Say HELO" CTA are always present for navigation.
-// Only the wordmark fades in — the user always knows where they are.
-
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { t } = useI18n()
 
-  // Close the mobile menu on route change.
-  useEffect(() => { setMenuOpen(false) }, [pathname])
-
-  // Lock body scroll while the mobile menu is open.
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
-
-  // Only the homepage has the light hero behind a transparent header.
-  // On every other route the header carries its light backdrop immediately,
-  // so the dark ink logo + nav stay readable regardless of page background.
   const isHome = pathname === '/'
   const solid  = scrolled || !isHome
 
+  // Close on route change.
+  useEffect(() => { setMenuOpen(false) }, [pathname])
+
+  // Lock body scroll + Escape-to-close while the menu is open.
   useEffect(() => {
-    const handler = () => {
-      setScrolled(window.scrollY > 60)
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
+    if (menuOpen) window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
+  }, [menuOpen])
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 60)
+    handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // On homepage: scroll to top smoothly instead of navigating
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === '/') {
       e.preventDefault()
@@ -141,171 +103,162 @@ export default function Header() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-[padding,background,border-color] duration-700',
         solid
-          ? 'py-4 bg-[#e9e7e1]/85 backdrop-blur-2xl border-b border-[rgba(20,19,15,0.10)]'
-          : 'py-6 bg-transparent',
+          ? 'py-3 bg-[#e9e7e1]/85 backdrop-blur-2xl border-b border-[rgba(20,19,15,0.10)]'
+          : 'py-5 bg-transparent',
       )}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex items-center justify-between">
 
-        {/* ── Wordmark — always present; dims to 28% while hero is visible ── */}
-        {/*    Transitions to full opacity once the hero HELO scrolls away.   */}
-        {/*    On the homepage, clicking scrolls smoothly to the top.          */}
+        {/* ── Logo — full HELO lockup (bigger, premium presence) ── */}
         <Link
           href="/"
           aria-label="HELO — Go to homepage"
           onClick={handleLogoClick}
-          className={cn(
-            'group flex items-center gap-[7px]',
-            // Elegant focus ring — visible but not garish
-            'rounded-[2px] outline-none',
-            'focus-visible:ring-1 focus-visible:ring-[#f2d832]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent',
-          )}
-          style={{
-            // The hero no longer carries a giant HELO wordmark, so the header
-            // logo is always fully present (dark ink on the light field).
-            opacity:    1,
-            transition: 'opacity 0.5s ease',
-          }}
+          className="group flex items-center rounded-[2px] outline-none focus-visible:ring-1 focus-visible:ring-[#f2d832]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
         >
-          <span
-            className="font-normal leading-none text-[#16150f] group-hover:text-[#a8821a] transition-colors duration-300"
-            style={{
-              fontFamily:    'var(--font-singapore-sling)',
-              fontSize:      '17px',
-              letterSpacing: '0.1em',
-            }}
-          >
-            HELO
-          </span>
-          {/* Brand dot — steady, no scale jump */}
-          <span className="w-[4px] h-[4px] rounded-full bg-[#f2d832] shrink-0 -mb-[3px] opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
+          <Image
+            src="/assetshelo/imhelologo/Logo.png"
+            alt="HELO"
+            width={363}
+            height={100}
+            priority
+            className="h-7 lg:h-8 w-auto transition-opacity duration-300 group-hover:opacity-80"
+          />
         </Link>
 
-        {/* ── Navigation — inline at the top, collapses to the menu on scroll (azizkhaldi.com) ── */}
-        <nav
-          className={cn('items-center gap-10', solid ? 'hidden' : 'hidden md:flex')}
-          aria-label="Main navigation"
-        >
-          {NAV_LINKS.map(({ label, href }, i) => (
-            <motion.div
-              key={href}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.2 + i * 0.08 }}
+        {/* ── Right cluster: CTA + always-visible menu toggle ──
+            Rendered as plain (non-animated) elements so they are NEVER hidden by an
+            unfinished/paused entrance animation — the menu button must be present and
+            visible at all times, including the very top of the homepage. ── */}
+        <div className="flex items-center gap-3 lg:gap-4">
+          <div className="hidden md:block">
+            <LanguageToggle tone="light" />
+          </div>
+          <div className="hidden md:block">
+            <MagneticLink
+              href="mailto:hello@imhelo.com"
+              strength={0.5}
+              className="group relative overflow-hidden inline-flex items-center text-[13px] font-bold px-6 py-2.5 rounded-full bg-[#14130f]"
             >
-              <SplitNavLink href={href} label={label} />
-            </motion.div>
-          ))}
-        </nav>
+              <span className="relative z-10 tracking-[-0.01em] text-[#ebe9e1] group-hover:text-[#14130f] transition-colors duration-300">
+                {t('nav.sayHelo')}
+              </span>
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-[#f2d832] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full"
+              />
+            </MagneticLink>
+          </div>
 
-        {/* ── Right cluster: CTA + menu toggle (kept together on the right) ── */}
-        <div className="flex items-center gap-4 lg:gap-5">
-
-        {/* ── CTA ── */}
-        <motion.div
-          className={cn(solid ? 'hidden lg:block' : 'hidden md:block')}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: EASE, delay: 0.45 }}
-        >
-          <MagneticLink
-            href="mailto:hello@imhelo.com"
-            strength={0.5}
-            className="group relative overflow-hidden inline-flex items-center text-[13px] font-bold px-6 py-2.5 rounded-full bg-[#14130f]"
+          {/* Menu toggle — ALWAYS visible (every breakpoint + scroll state) */}
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(true)}
+            className="group flex flex-col items-end justify-center gap-[6px] w-10 h-10 -mr-1"
           >
-            <span className="relative z-10 tracking-[-0.01em] text-[#ebe9e1] group-hover:text-[#14130f] transition-colors duration-300">
-              Say HELO
-            </span>
-            <span
-              aria-hidden
-              className="absolute inset-0 bg-[#f2d832] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full"
-            />
-          </MagneticLink>
-        </motion.div>
-
-        {/* ── Menu toggle — always on mobile, on desktop once scrolled (azizkhaldi.com) ── */}
-        <button
-          type="button"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(o => !o)}
-          className={cn(
-            'flex flex-col items-end justify-center gap-[5px] w-9 h-9 -mr-1',
-            solid ? 'md:flex' : 'md:hidden',
-          )}
-        >
-          <span
-            className="block h-px bg-[#16150f] transition-all duration-300 ease-out"
-            style={{ width: 22, transform: menuOpen ? 'translateY(3px) rotate(45deg)' : 'none' }}
-          />
-          <span
-            className="block h-px bg-[#16150f] transition-all duration-300 ease-out"
-            style={{ width: menuOpen ? 22 : 15, transform: menuOpen ? 'translateY(-3px) rotate(-45deg)' : 'none' }}
-          />
-        </button>
-
+            <span className="block h-[2px] w-6 bg-[#16150f] rounded-full transition-all duration-300 ease-out group-hover:w-7" />
+            <span className="block h-[2px] w-4 bg-[#16150f] rounded-full transition-all duration-300 ease-out group-hover:w-7" />
+          </button>
         </div>
-
       </div>
 
-      {/* ── Fullscreen menu (mobile + desktop-on-scroll) ── */}
+      {/* ── Full-screen menu takeover ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col"
-            style={{ background: 'var(--surface)' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.32, ease: EASE }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            className="fixed inset-0 z-[60] flex flex-col overflow-hidden"
+            style={{ background: '#141310' }}
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.6, ease: EASE }}
           >
-            <nav className="flex-1 flex flex-col justify-center px-8 gap-2">
-              {NAV_LINKS.map(({ label, href }, i) => (
+            {/* Ambient accent glow */}
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse 60% 50% at 80% 15%, rgba(242,216,50,0.07) 0%, transparent 70%)' }}
+            />
+
+            {/* Top bar — brand + clear close */}
+            <div className="relative max-w-[1400px] w-full mx-auto px-6 lg:px-16 py-5 flex items-center justify-between">
+              <Link href="/" onClick={() => setMenuOpen(false)} aria-label="HELO — Home" className="inline-flex group">
+                <Image
+                  src="/assetshelo/imhelologo/WhiteLogo.png"
+                  alt="HELO"
+                  width={363}
+                  height={100}
+                  className="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                autoFocus
+                className="group flex items-center gap-3 text-[#ece9e2]"
+              >
+                <span className="font-mono text-[12px] tracking-widest uppercase text-[rgba(236,233,226,0.6)] group-hover:text-[#f2d832] transition-colors duration-300">
+                  {t('nav.close')}
+                </span>
+                <span className="relative w-9 h-9 rounded-full border border-white/20 flex items-center justify-center transition-colors duration-300 group-hover:border-[#f2d832]">
+                  <span className="absolute block h-[2px] w-4 bg-current rotate-45 transition-colors duration-300 group-hover:bg-[#f2d832]" />
+                  <span className="absolute block h-[2px] w-4 bg-current -rotate-45 transition-colors duration-300 group-hover:bg-[#f2d832]" />
+                </span>
+              </button>
+            </div>
+
+            {/* Links */}
+            <nav className="relative flex-1 flex flex-col justify-center max-w-[1400px] w-full mx-auto px-6 lg:px-16">
+              {NAV_LINKS.map(({ key, href }, i) => (
                 <motion.div
                   key={href}
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: 28 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: EASE, delay: 0.08 + i * 0.06 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.5, ease: EASE, delay: 0.18 + i * 0.06 }}
                 >
-                  <Link
-                    href={href}
-                    className="block font-extrabold tracking-[-0.03em] py-1"
-                    style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(40px, 13vw, 72px)', color: 'var(--ink)' }}
-                  >
-                    {label}
-                  </Link>
+                  <MenuLink href={href} label={t(key)} index={i} onNavigate={() => setMenuOpen(false)} />
                 </motion.div>
               ))}
-              <motion.a
-                href="mailto:hello@imhelo.com"
-                className="block font-extrabold tracking-[-0.03em] py-1"
-                style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(40px, 13vw, 72px)', color: 'var(--accent-deep)' }}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: EASE, delay: 0.08 + NAV_LINKS.length * 0.06 }}
-              >
-                Say HELO
-              </motion.a>
             </nav>
 
+            {/* Footer row — contact + socials */}
             <motion.div
-              className="px-8 pb-12 flex flex-wrap gap-x-6 gap-y-2"
+              className="relative max-w-[1400px] w-full mx-auto px-6 lg:px-16 pb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: EASE, delay: 0.35 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: EASE, delay: 0.4 }}
             >
-              {SOCIALS.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[11px] tracking-[0.18em] uppercase"
-                  style={{ color: 'var(--ink-3)' }}
-                >
-                  {label}
-                </a>
-              ))}
+              <a
+                href="mailto:hello@imhelo.com"
+                className="group inline-flex items-center gap-3 text-[#ece9e2] w-fit"
+              >
+                <span className="font-mono text-[11px] tracking-widest uppercase text-[rgba(236,233,226,0.5)]">{t('nav.email')}</span>
+                <span className="text-[16px] sm:text-[18px] group-hover:text-[#f2d832] transition-colors duration-300">
+                  hello@imhelo.com
+                </span>
+              </a>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                {SOCIALS.map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[11px] tracking-[0.18em] uppercase text-[rgba(236,233,226,0.45)] hover:text-[#f2d832] transition-colors duration-300"
+                  >
+                    {label}
+                  </a>
+                ))}
+                <LanguageToggle tone="dark" />
+              </div>
             </motion.div>
           </motion.div>
         )}

@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import Mascot from '@/components/ui/Mascot'
+import { useI18n } from '@/lib/i18n'
+import { BRAND_ICONS } from '@/components/ui/BrandIcons'
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Work', href: '/work' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { key: 'nav.home', href: '/' },
+  { key: 'nav.work', href: '/work' },
+  { key: 'nav.about', href: '/about' },
+  { key: 'nav.contact', href: '/contact' },
 ]
 
 const SOCIAL_LINKS = [
@@ -57,6 +59,7 @@ function Underline() {
 // azizkhaldi.com footer: LINKS / SOCIALS / LOCAL TIME / VERSION columns, contact
 // pills top-right, and a viewport-wide name wordmark with the mascot perched on it.
 export default function ContactFooter() {
+  const { t } = useI18n()
   return (
     <footer className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: '#1a1815' }}>
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28">
@@ -66,12 +69,12 @@ export default function ContactFooter() {
           {/* Columns */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10">
             <nav className="flex flex-col">
-              <p className={COL_HEAD}>Links</p>
+              <p className={COL_HEAD}>{t('footer.links')}</p>
               <ul className="space-y-3">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <li key={label}>
+                {NAV_LINKS.map(({ key, href }) => (
+                  <li key={key}>
                     <Link href={href} className={COL_LINK}>
-                      {label}
+                      {t(key)}
                       <Underline />
                     </Link>
                   </li>
@@ -80,21 +83,25 @@ export default function ContactFooter() {
             </nav>
 
             <div className="flex flex-col">
-              <p className={COL_HEAD}>Socials</p>
+              <p className={COL_HEAD}>{t('footer.socials')}</p>
               <ul className="space-y-3">
-                {SOCIAL_LINKS.map(({ label, href }) => (
-                  <li key={label}>
-                    <a href={href} target="_blank" rel="noopener noreferrer" className={COL_LINK}>
-                      {label}
-                      <Underline />
-                    </a>
-                  </li>
-                ))}
+                {SOCIAL_LINKS.map(({ label, href }) => {
+                  const Icon = BRAND_ICONS[label]
+                  return (
+                    <li key={label}>
+                      <a href={href} target="_blank" rel="noopener noreferrer" className={`${COL_LINK} inline-flex items-center gap-2.5`}>
+                        {Icon && <Icon size={15} className="shrink-0 opacity-80 group-hover:opacity-100 transition-opacity" />}
+                        {label}
+                        <Underline />
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
 
             <div className="flex flex-col">
-              <p className={COL_HEAD}>Local time</p>
+              <p className={COL_HEAD}>{t('footer.localTime')}</p>
               <p className="text-[15px] text-[#b8b4a8] font-mono tracking-wide">
                 <LocalTime />
               </p>
@@ -102,9 +109,9 @@ export default function ContactFooter() {
             </div>
 
             <div className="flex flex-col">
-              <p className={COL_HEAD}>Version</p>
+              <p className={COL_HEAD}>{t('footer.version')}</p>
               <p className="text-[15px] text-[#b8b4a8] font-mono tracking-wide">© 2026</p>
-              <p className="text-[13px] text-[#605d54] mt-1">Portfolio v1.0</p>
+              <p className="text-[13px] text-[#605d54] mt-1">{t('footer.portfolio')}</p>
             </div>
           </div>
 
@@ -121,7 +128,7 @@ export default function ContactFooter() {
               href="/contact"
               className="group inline-flex items-center justify-between gap-4 rounded-full border border-white/25 bg-[#1a1815] pl-6 pr-5 py-3 text-[14px] text-[var(--on-dark)] hover:border-[#f2d832] hover:text-[#f2d832] transition-colors duration-300"
             >
-              Start a project
+              {t('footer.startProject')}
               <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
@@ -154,8 +161,8 @@ export default function ContactFooter() {
 
       {/* Credit strip */}
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 border-t border-white/[0.04] mt-8 py-5 flex flex-col sm:flex-row justify-between gap-3 text-[11px] font-mono text-[#3a3a34] tracking-widest">
-        <span>HELO — Designed &amp; Developed by Hector Lopez</span>
-        <span>© 2026 All rights reserved</span>
+        <span>{t('footer.credit')}</span>
+        <span>{t('footer.rights')}</span>
       </div>
     </footer>
   )

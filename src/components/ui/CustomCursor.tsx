@@ -1,134 +1,199 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'motion/react'
 
-// ─── Custom Cursor ─────────────────────────────────────────────────────────────
+// ─── Custom Cursor — HELO Happy Face (custom SVG, fully interactive) ─────────────
 //
-// Desktop-only (30px ring + 3px yellow dot).
-// Position is driven by a rAF lerp loop — direct DOM mutation, no React state,
-// so 60fps with zero re-renders.
+// Desktop / fine-pointer only. One rAF loop, direct DOM writes (60fps, no re-renders).
 //
-// The ring uses mix-blend-mode:difference with a white border, so it inverts
-// against whatever is behind it — always visible on both the light surface and
-// the dark bands. No JS background detection needed.
-//
-// Grow state is triggered via event delegation (mouseover/mouseout on document)
-// so newly added interactive elements are covered automatically.
-//
-// To mark any element as interactive: add data-cursor="grow".
-// globals.css hides the native cursor on lg+ screens.
+//   • Rest    → a hand-drawn smiley (the HELO isotype language: "H" eye + "Ξ" eye +
+//               smile) follows the pointer with a snappy lerp and a slow idle spin.
+//   • Motion  → it leans into travel; shake it fast and it GROWS (macOS-style) and
+//               swaps to a dizzy face (spiral eyes + wavy mouth), then settles.
+//   • Hover   → over a / button / [data-cursor] it "hugs" the element: a rounded box
+//               springs to wrap its bounds. The hug is re-evaluated on scroll so it
+//               never stays stuck on an element you've scrolled away from.
 
 const LERP = (a: number, b: number, t: number) => a + (b - a) * t
-const RING_SIZE   = 30       // slightly smaller — feels more precise
-const DOT_SIZE    = 3
-const LERP_FACTOR = 0.10    // 0.10 = smooth but responsive (0.115 was slightly over-smooth)
+const clamp = (v: number, min: number, max: number) => (v < min ? min : v > max ? max : v)
+
+const BASE = 30
+const FACE_LERP = 0.24
+const HUG_LERP = 0.2
+const HUG_PAD = 8
+const INTERACTIVE = 'a, button, [data-cursor="grow"], input, textarea, [role="button"]'
 
 export default function CustomCursor() {
   const reduced = useReducedMotion()
+  const [enabled, setEnabled] = useState(false)
 
-  const ringRef = useRef<HTMLDivElement>(null)
-  const dotRef  = useRef<HTMLDivElement>(null)
+  const faceRef = useRef<HTMLDivElement>(null)
+  const happyRef = useRef<SVGGElement>(null)
+  const dizzyRef = useRef<SVGGElement>(null)
+  const hugRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | undefined>(undefined)
 
-  const mouseRef   = useRef({ x: -200, y: -200 })
-  const smoothRef  = useRef({ x: -200, y: -200 })
-  const scaleRef   = useRef(1)
-  const targetScaleRef = useRef(1)
-  const rafRef     = useRef<number | undefined>(undefined)
+  const mouse = useRef({ x: -200, y: -200 })
+  const face = useRef({ x: -200, y: -200 })
+  const prev = useRef({ x: -200, y: -200 })
+  const rot = useRef(0)
+  const spin = useRef(0)
+  const dizzy = useRef(0)
+  const scale = useRef(1)
+  const visible = useRef(0)
+
+  const hug = useRef<{ x: number; y: number; w: number; h: number; r: number } | null>(null)
+  const hugBox = useRef({ x: -200, y: -200, w: 0, h: 0, r: 16, o: 0 })
 
   useEffect(() => {
     if (reduced) return
+    const mq = window.matchMedia('(pointer: fine)')
+    const update = () => setEnabled(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [reduced])
 
-    const ring = ringRef.current
-    const dot  = dotRef.current
-    if (!ring || !dot) return
+  useEffect(() => {
+    if (!enabled) return
+    const faceEl = faceRef.current
+    const hugEl = hugRef.current
+    const happyEl = happyRef.current
+    const dizzyEl = dizzyRef.current
+    if (!faceEl || !hugEl) return
 
-    const RING_HALF = RING_SIZE / 2
-    const DOT_HALF  = DOT_SIZE  / 2
-
-    // ── Mouse position ─────────────────────────────────────────────────────────
-    const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
-
-    // ── Grow / shrink via event delegation ────────────────────────────────────
-    // Border stays white; mix-blend-mode:difference (set in JSX) keeps it
-    // visible on any background, so no color mutation is needed here.
-    const onMouseOver = (e: MouseEvent) => {
-      if ((e.target as Element | null)?.closest('a, button, [data-cursor="grow"]')) {
-        targetScaleRef.current = 1.55
+    const elementToHug = (el: Element | null) => {
+      const t = el?.closest(INTERACTIVE) as HTMLElement | null
+      if (!t) return null
+      const r = t.getBoundingClientRect()
+      const radius = parseFloat(getComputedStyle(t).borderRadius) || 12
+      return {
+        x: r.left - HUG_PAD,
+        y: r.top - HUG_PAD,
+        w: r.width + HUG_PAD * 2,
+        h: r.height + HUG_PAD * 2,
+        r: Math.min(radius + HUG_PAD, r.height / 2 + HUG_PAD),
       }
     }
-    const onMouseOut = (e: MouseEvent) => {
-      if ((e.target as Element | null)?.closest('a, button, [data-cursor="grow"]')) {
-        targetScaleRef.current = 1
-      }
+
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY }
+      visible.current = 1
+      hug.current = elementToHug(e.target as Element | null)
+    }
+    // Re-evaluate what's under the pointer on scroll → never a stuck hug, and the
+    // face reappears after programmatic scroll (e.g. back-to-top).
+    const onScroll = () => {
+      hug.current = elementToHug(document.elementFromPoint(mouse.current.x, mouse.current.y))
     }
 
-    // ── rAF lerp loop — single transform update per frame ─────────────────────
     const tick = () => {
-      smoothRef.current.x = LERP(smoothRef.current.x, mouseRef.current.x, LERP_FACTOR)
-      smoothRef.current.y = LERP(smoothRef.current.y, mouseRef.current.y, LERP_FACTOR)
-      scaleRef.current    = LERP(scaleRef.current, targetScaleRef.current, 0.12)
+      face.current.x = LERP(face.current.x, mouse.current.x, FACE_LERP)
+      face.current.y = LERP(face.current.y, mouse.current.y, FACE_LERP)
 
-      const rx = smoothRef.current.x - RING_HALF
-      const ry = smoothRef.current.y - RING_HALF
-      const dx = mouseRef.current.x  - DOT_HALF
-      const dy = mouseRef.current.y  - DOT_HALF
-      const s  = scaleRef.current.toFixed(3)
+      const vx = mouse.current.x - prev.current.x
+      const vy = mouse.current.y - prev.current.y
+      prev.current = { x: mouse.current.x, y: mouse.current.y }
+      const speed = Math.hypot(vx, vy)
 
-      ring.style.transform = `translate(${rx}px,${ry}px) scale(${s})`
-      dot.style.transform  = `translate(${dx}px,${dy}px)`
+      rot.current = LERP(rot.current, clamp(vx * 0.5, -22, 22), 0.18)
+      spin.current = (spin.current + 0.32) % 360
+      // Agitation builds fast with speed, eases off when calm (macOS shake feel).
+      dizzy.current = clamp(dizzy.current + (speed > 36 ? 0.11 : -0.045), 0, 1)
+      const wobble = dizzy.current > 0.45 ? Math.sin(performance.now() / 42) * 18 * dizzy.current : 0
+
+      const hovering = hug.current !== null
+      // Grow on shake (macOS), shrink while hugging.
+      const targetScale = (hovering ? 0.4 : 1) * (1 + dizzy.current * 0.85)
+      scale.current = LERP(scale.current, targetScale, 0.2)
+      const faceOpacity = visible.current * (hovering ? 0 : 1)
+
+      faceEl.style.opacity = faceOpacity.toFixed(2)
+      faceEl.style.transform = `translate3d(${(face.current.x - BASE / 2).toFixed(2)}px, ${(face.current.y - BASE / 2).toFixed(2)}px, 0) rotate(${(spin.current + rot.current + wobble).toFixed(2)}deg) scale(${scale.current.toFixed(3)})`
+
+      // Expression crossfade
+      if (happyEl) happyEl.style.opacity = (1 - dizzy.current).toFixed(2)
+      if (dizzyEl) dizzyEl.style.opacity = dizzy.current.toFixed(2)
+
+      // Hug box
+      const b = hugBox.current
+      if (hug.current) {
+        const t = hug.current
+        b.x = LERP(b.x, t.x, HUG_LERP); b.y = LERP(b.y, t.y, HUG_LERP)
+        b.w = LERP(b.w, t.w, HUG_LERP); b.h = LERP(b.h, t.h, HUG_LERP)
+        b.r = LERP(b.r, t.r, HUG_LERP); b.o = LERP(b.o, 1, 0.2)
+      } else {
+        b.x = LERP(b.x, mouse.current.x - 4, 0.3); b.y = LERP(b.y, mouse.current.y - 4, 0.3)
+        b.w = LERP(b.w, 8, 0.3); b.h = LERP(b.h, 8, 0.3)
+        b.r = LERP(b.r, 8, 0.3); b.o = LERP(b.o, 0, 0.25)
+      }
+      hugEl.style.opacity = (b.o * visible.current).toFixed(2)
+      hugEl.style.transform = `translate3d(${b.x.toFixed(2)}px, ${b.y.toFixed(2)}px, 0)`
+      hugEl.style.width = `${b.w.toFixed(1)}px`
+      hugEl.style.height = `${b.h.toFixed(1)}px`
+      hugEl.style.borderRadius = `${b.r.toFixed(1)}px`
 
       rafRef.current = requestAnimationFrame(tick)
     }
 
     rafRef.current = requestAnimationFrame(tick)
-    window.addEventListener('mousemove', onMouseMove, { passive: true })
-    document.addEventListener('mouseover', onMouseOver)
-    document.addEventListener('mouseout',  onMouseOut)
+    window.addEventListener('mousemove', onMove, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
-      window.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseover', onMouseOver)
-      document.removeEventListener('mouseout',  onMouseOut)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('scroll', onScroll)
       if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current)
     }
-  }, [reduced])
+  }, [enabled])
 
-  // No output on reduced motion or SSR
-  if (reduced) return null
+  if (reduced || !enabled) return null
 
   return (
     <>
-      {/* Outer ring — lerp-smoothed, grows on interactive elements.
-          mix-blend-difference inverts the white border against any background. */}
+      {/* Magnetic hug box */}
       <div
-        ref={ringRef}
+        ref={hugRef}
         aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden lg:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9998]"
         style={{
-          width:        `${RING_SIZE}px`,
-          height:       `${RING_SIZE}px`,
-          borderRadius: '50%',
-          border:       '1px solid rgba(255,255,255,0.8)',
-          mixBlendMode: 'difference',
-          willChange:   'transform',
+          width: 8, height: 8, opacity: 0,
+          border: '1.5px solid rgba(242,216,50,0.9)',
+          background: 'rgba(242,216,50,0.06)',
+          willChange: 'transform, width, height, opacity',
         }}
       />
-      {/* Center dot — snaps to exact mouse position */}
+      {/* Happy Face — custom SVG, expression morphs */}
       <div
-        ref={dotRef}
+        ref={faceRef}
         aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden lg:block"
-        style={{
-          width:        `${DOT_SIZE}px`,
-          height:       `${DOT_SIZE}px`,
-          borderRadius: '50%',
-          background:   'rgba(242,216,50,0.75)',
-          willChange:   'transform',
-        }}
-      />
+        className="pointer-events-none fixed top-0 left-0 z-[9999]"
+        style={{ width: BASE, height: BASE, opacity: 0, willChange: 'transform, opacity' }}
+      >
+        <svg viewBox="0 0 100 100" width={BASE} height={BASE} style={{ overflow: 'visible', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' }}>
+          <circle cx="50" cy="50" r="45" fill="#f2d832" stroke="#16150f" strokeWidth="5" />
+          {/* Happy expression — "H" eye + "Ξ" eye + smile */}
+          <g ref={happyRef} fill="#16150f" stroke="#16150f">
+            {/* H eye */}
+            <rect x="27" y="33" width="5" height="17" rx="1" stroke="none" />
+            <rect x="40" y="33" width="5" height="17" rx="1" stroke="none" />
+            <rect x="27" y="39" width="18" height="5" rx="1" stroke="none" />
+            {/* Ξ eye */}
+            <rect x="55" y="33" width="17" height="4.5" rx="1" stroke="none" />
+            <rect x="55" y="40.5" width="17" height="4.5" rx="1" stroke="none" />
+            <rect x="55" y="48" width="17" height="4.5" rx="1" stroke="none" />
+            {/* smile */}
+            <path d="M30 62 Q50 80 70 62" fill="none" strokeWidth="5" strokeLinecap="round" />
+          </g>
+          {/* Dizzy expression — spiral eyes + wavy mouth */}
+          <g ref={dizzyRef} fill="none" stroke="#16150f" strokeWidth="4" strokeLinecap="round" style={{ opacity: 0 }}>
+            <path d="M36 42 m-7 0 a7 7 0 1 1 7 7 a4 4 0 1 1 -4 -4" />
+            <path d="M64 42 m-7 0 a7 7 0 1 1 7 7 a4 4 0 1 1 -4 -4" />
+            <path d="M32 66 q6 -7 12 0 t12 0" strokeWidth="4.5" />
+          </g>
+        </svg>
+      </div>
     </>
   )
 }

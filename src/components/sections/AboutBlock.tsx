@@ -74,7 +74,7 @@ export default function AboutBlock() {
       {/* ── Large B&W portrait ── */}
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex justify-center">
         <motion.div
-          className="relative w-full max-w-[540px] overflow-hidden"
+          className="relative w-full max-w-[540px] overflow-hidden rounded-2xl"
           style={{ aspectRatio: '4 / 5' }}
           initial={reduced ? {} : { opacity: 0, scale: 0.94 }}
           whileInView={{ opacity: 1, scale: 1 }}

@@ -100,8 +100,10 @@ hr {
   color: #16150f;
 }
 
-/* ─── Custom cursor — hide native on desktop ─────────────────────────────────*/
-@media (min-width: 1024px) {
+/* ─── Custom cursor — hide native only where the Happy Face renders ───────────*/
+/* Matches CustomCursor's render condition exactly: fine pointers (real mouse),    */
+/* never on touch — so there's never a double cursor or a missing one.             */
+@media (pointer: fine) {
   *, *::before, *::after {
     cursor: none !important;
   }

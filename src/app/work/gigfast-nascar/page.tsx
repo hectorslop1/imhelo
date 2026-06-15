@@ -306,17 +306,37 @@ export default function GigfastNascarPage() {
       <main style={{ background: '#1a1815' }}>
 
         {/* ══════════════════════════════════════════════════════════════════════
-            HERO — LIGHT header (coherent with the site), photo banner below
+            HERO — full-bleed poster with the title + meta overlaid (editorial case study)
         ══════════════════════════════════════════════════════════════════════ */}
-        <section style={{ background: 'var(--surface)' }} className="pt-36 lg:pt-44 pb-14">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+        <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+          {/* Poster — the image IS the hero (full protagonism, never cut by an info box) */}
+          <Image
+            src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
+            alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Legibility gradient — settles into the dark case study below */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(26,24,21,0.55) 0%, rgba(26,24,21,0.08) 30%, rgba(26,24,21,0.25) 52%, rgba(26,24,21,0.78) 84%, #1a1815 100%)',
+            }}
+          />
 
+          {/* Overlaid content — bottom-left, editorial */}
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-16 pb-16 lg:pb-24">
             <motion.p
               className="font-mono text-[11px] tracking-[0.22em] uppercase mb-5"
-              style={{ color: 'var(--accent-deep)' }}
+              style={{ color: '#f2d832' }}
               initial={reduced ? {} : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.9, ease: EASE }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
             >
               Graphic Design · Branding · Digital Product
             </motion.p>
@@ -327,11 +347,11 @@ export default function GigfastNascarPage() {
                 fontFamily: 'var(--font-cabinet)',
                 fontSize: 'clamp(54px, 9vw, 124px)',
                 lineHeight: 0.9,
-                color: 'var(--ink)',
+                color: 'var(--on-dark)',
               }}
               initial={reduced ? {} : { opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
             >
               gigFAST
               <br />
@@ -339,11 +359,11 @@ export default function GigfastNascarPage() {
             </motion.h1>
 
             <motion.div
-              className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8"
-              style={{ borderTop: '1px solid var(--line)' }}
+              className="flex flex-wrap items-start gap-x-12 gap-y-5 mt-10 pt-8 max-w-4xl"
+              style={{ borderTop: '1px solid rgba(236,233,226,0.18)' }}
               initial={reduced ? {} : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: EASE, delay: 0.28 }}
+              transition={{ duration: 0.75, ease: EASE, delay: 0.42 }}
             >
               {[
                 { label: 'Year',   value: '2023' },
@@ -353,11 +373,11 @@ export default function GigfastNascarPage() {
                 <div key={label}>
                   <p
                     className="font-mono text-[10px] tracking-[0.2em] uppercase mb-1.5"
-                    style={{ color: 'rgba(22,21,15,0.42)' }}
+                    style={{ color: 'rgba(236,233,226,0.5)' }}
                   >
                     {label}
                   </p>
-                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(22,21,15,0.72)', maxWidth: '340px' }}>
+                  <p className="text-[13px] leading-snug" style={{ color: 'rgba(236,233,226,0.82)', maxWidth: '340px' }}>
                     {value}
                   </p>
                 </div>
@@ -365,26 +385,6 @@ export default function GigfastNascarPage() {
             </motion.div>
           </div>
         </section>
-
-        {/* Photo banner — dramatic full-bleed image leading into the dark case study */}
-        <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16 / 9', maxHeight: '84vh' }}>
-          <Image
-            src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
-            alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
-            fill
-            priority
-            quality={88}
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to bottom, rgba(26,24,21,0.10) 0%, transparent 30%, rgba(26,24,21,0.55) 82%, #1a1815 100%)',
-            }}
-          />
-        </div>
 
         {/* ══════════════════════════════════════════════════════════════════════
             01 OVERVIEW

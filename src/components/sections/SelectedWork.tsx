@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
@@ -65,7 +65,16 @@ function CardTitle({ title, hovered }: { title: string; hovered: boolean }) {
 // ─── Project card — 2-col grid item ─────────────────────────────────────────────
 function ProjectCard({ project, index, reduced }: { project: Project; index: number; reduced: boolean }) {
   const [hovered, setHovered] = useState(false)
-  const cover = project.cover
+  const [idx, setIdx] = useState(0)
+  const gallery = project.gallery?.length ? project.gallery : project.cover ? [project.cover] : []
+
+  // Carousel: cross-fade through the gallery while hovered; reset on leave.
+  useEffect(() => {
+    if (reduced || !hovered || gallery.length < 2) return
+    const id = setInterval(() => setIdx((i) => (i + 1) % gallery.length), 850)
+    return () => clearInterval(id)
+  }, [hovered, reduced, gallery.length])
+  useEffect(() => { if (!hovered) setIdx(0) }, [hovered])
 
   return (
     <motion.div
@@ -81,17 +90,18 @@ function ProjectCard({ project, index, reduced }: { project: Project; index: num
         onMouseLeave={() => setHovered(false)}
       >
         {/* Card — near-black mockup field; the project image reveals on hover (Aziz) */}
-        <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3', background: '#100f0c' }}>
-          {cover && (
+        <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: '16 / 11', background: '#100f0c' }}>
+          {gallery.map((src, i) => (
             <Image
-              src={cover}
+              key={src}
+              src={src}
               alt={project.title}
               fill
-              sizes="(max-width: 768px) 92vw, 46vw"
-              className="object-cover transition-all duration-[800ms] ease-out"
-              style={{ opacity: hovered ? 0.7 : 0, transform: hovered ? 'scale(1.05)' : 'scale(1)' }}
+              sizes="(max-width: 768px) 92vw, 42vw"
+              className="object-cover transition-[opacity,transform] duration-700 ease-out"
+              style={{ opacity: hovered && i === idx ? 0.72 : 0, transform: hovered ? 'scale(1.05)' : 'scale(1)' }}
             />
-          )}
+          ))}
           {/* constant gradient veil — keeps the accent title legible over the revealed image */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -194,8 +204,8 @@ export default function SelectedWork() {
           </Link>
         </div>
 
-        {/* Project cards — 2-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 pb-24">
+        {/* Project cards — 2-column grid (slightly narrower → cards a touch smaller) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 pb-24 max-w-[1180px] mx-auto">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} reduced={reduced} />
           ))}

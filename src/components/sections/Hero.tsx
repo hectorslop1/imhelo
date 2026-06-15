@@ -120,7 +120,7 @@ export default function Hero() {
 
       {/* ── Social links — bottom-left vertical stack ── */}
       <motion.div
-        className="absolute left-8 lg:left-10 bottom-10 hidden lg:flex flex-col items-start gap-3 z-10"
+        className="absolute left-8 lg:left-10 bottom-10 hidden lg:flex flex-col items-start gap-3.5 z-10"
         initial={reduced ? false : { opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: ease.out, delay: 1.0 }}
@@ -132,7 +132,7 @@ export default function Hero() {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[10px] font-mono tracking-[0.18em] uppercase transition-colors duration-300"
+            className="text-[13px] font-mono tracking-[0.18em] uppercase transition-colors duration-300"
             style={{ color: 'var(--ink-4)' }}
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--ink)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--ink-4)')}
