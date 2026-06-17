@@ -158,7 +158,7 @@ export default function ApparelGraphicsPage() {
             HERO — LIGHT header (coherent with the site) + cover banner
         ══════════════════════════════════════════════════════════════════════ */}
         {/* HERO — full-bleed cover with title + meta overlaid (editorial case study) */}
-        <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+        <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
           {/* ── Cycling image layer (Ken Burns crossfade) ── */}
           <div className="absolute inset-0">
             {reduced ? (

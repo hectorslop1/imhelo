@@ -29,8 +29,8 @@ export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false)
 
   const faceRef = useRef<HTMLDivElement>(null)
-  const happyRef = useRef<SVGGElement>(null)
-  const dizzyRef = useRef<SVGGElement>(null)
+  const happyRef = useRef<HTMLImageElement>(null)
+  const dizzyRef = useRef<SVGSVGElement>(null)
   const hugRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number | undefined>(undefined)
 
@@ -99,13 +99,14 @@ export default function CustomCursor() {
 
       rot.current = LERP(rot.current, clamp(vx * 0.5, -22, 22), 0.18)
       spin.current = (spin.current + 0.32) % 360
-      // Agitation builds fast with speed, eases off when calm (macOS shake feel).
-      dizzy.current = clamp(dizzy.current + (speed > 36 ? 0.11 : -0.045), 0, 1)
-      const wobble = dizzy.current > 0.45 ? Math.sin(performance.now() / 42) * 18 * dizzy.current : 0
+      // Agitation builds fast with speed, then eases off SLOWLY so the dizzy face
+      // lingers and is clearly perceptible (macOS shake feel).
+      dizzy.current = clamp(dizzy.current + (speed > 34 ? 0.13 : -0.016), 0, 1)
+      const wobble = dizzy.current > 0.4 ? Math.sin(performance.now() / 42) * 20 * dizzy.current : 0
 
       const hovering = hug.current !== null
-      // Grow on shake (macOS), shrink while hugging.
-      const targetScale = (hovering ? 0.4 : 1) * (1 + dizzy.current * 0.85)
+      // Grow noticeably on shake (macOS), shrink while hugging.
+      const targetScale = (hovering ? 0.4 : 1) * (1 + dizzy.current * 1.25)
       scale.current = LERP(scale.current, targetScale, 0.2)
       const faceOpacity = visible.current * (hovering ? 0 : 1)
 
@@ -164,33 +165,33 @@ export default function CustomCursor() {
           willChange: 'transform, width, height, opacity',
         }}
       />
-      {/* Happy Face — custom SVG, expression morphs */}
+      {/* Happy Face — exact isotype at rest, crossfades to a dizzy face on shake */}
       <div
         ref={faceRef}
         aria-hidden
         className="pointer-events-none fixed top-0 left-0 z-[9999]"
         style={{ width: BASE, height: BASE, opacity: 0, willChange: 'transform, opacity' }}
       >
-        <svg viewBox="0 0 100 100" width={BASE} height={BASE} style={{ overflow: 'visible', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.25))' }}>
+        {/* Rest — the real HELO isotype (pixel-exact smile + color) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={happyRef}
+          src="/assetshelo/imhelologo/HappyFace.png"
+          alt=""
+          draggable={false}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.28))' }}
+        />
+        {/* Shake — dizzy face (spiral eyes + wavy mouth) */}
+        <svg
+          ref={dizzyRef}
+          viewBox="0 0 100 100"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0, overflow: 'visible', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.28))' }}
+        >
           <circle cx="50" cy="50" r="45" fill="#f2d832" stroke="#16150f" strokeWidth="5" />
-          {/* Happy expression — "H" eye + "Ξ" eye + smile */}
-          <g ref={happyRef} fill="#16150f" stroke="#16150f">
-            {/* H eye */}
-            <rect x="27" y="33" width="5" height="17" rx="1" stroke="none" />
-            <rect x="40" y="33" width="5" height="17" rx="1" stroke="none" />
-            <rect x="27" y="39" width="18" height="5" rx="1" stroke="none" />
-            {/* Ξ eye */}
-            <rect x="55" y="33" width="17" height="4.5" rx="1" stroke="none" />
-            <rect x="55" y="40.5" width="17" height="4.5" rx="1" stroke="none" />
-            <rect x="55" y="48" width="17" height="4.5" rx="1" stroke="none" />
-            {/* smile */}
-            <path d="M30 62 Q50 80 70 62" fill="none" strokeWidth="5" strokeLinecap="round" />
-          </g>
-          {/* Dizzy expression — spiral eyes + wavy mouth */}
-          <g ref={dizzyRef} fill="none" stroke="#16150f" strokeWidth="4" strokeLinecap="round" style={{ opacity: 0 }}>
+          <g fill="none" stroke="#16150f" strokeWidth="4.5" strokeLinecap="round">
             <path d="M36 42 m-7 0 a7 7 0 1 1 7 7 a4 4 0 1 1 -4 -4" />
             <path d="M64 42 m-7 0 a7 7 0 1 1 7 7 a4 4 0 1 1 -4 -4" />
-            <path d="M32 66 q6 -7 12 0 t12 0" strokeWidth="4.5" />
+            <path d="M32 66 q6 -7 12 0 t12 0" />
           </g>
         </svg>
       </div>

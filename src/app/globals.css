@@ -45,8 +45,10 @@
   --accent-deep:  #a8821a;   /* deepened amber — accent TEXT readable on light  */
   --accent-dim:   rgba(242, 216, 50, 0.16);
 
-  /* Type — Cabinet Grotesk everywhere (azizkhaldi.com), Singapore Sling = logo */
-  --font-cabinet: 'Cabinet Grotesk', ui-sans-serif, system-ui, sans-serif;
+  /* Type — Hanken Grotesk (hosted substitute for Cabinet Grotesk, which was never
+     bundled), Singapore Sling = logo. Hanken first so every visitor sees the same
+     face; system fallbacks only if the webfont fails. */
+  --font-cabinet: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {

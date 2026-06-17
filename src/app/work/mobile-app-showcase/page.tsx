@@ -2,7 +2,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
 
-export const metadata = { title: 'Mobile App Showcase — HELO' }
+export const metadata = { title: 'Mobile App Showcase' }
 
 export default function MobileAppShowcasePage() {
   return (

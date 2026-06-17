@@ -248,7 +248,7 @@ export default function GraphicDesignPage() {
         {/* ══════════════════════════════════════════════════════════════════════
             HERO — full-bleed animated cover with the title + meta overlaid (editorial)
         ══════════════════════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+        <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
           {/* ── Cycling image layer (Ken Burns crossfade) ── */}
           <div className="absolute inset-0">
             {reduced ? (

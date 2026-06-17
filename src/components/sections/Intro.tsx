@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import ScrollWordReveal from '@/components/ui/ScrollWordReveal'
 import CountUp from '@/components/ui/CountUp'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -22,6 +23,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function Intro() {
   const reduced = useReducedMotion() ?? false
+  const { t, lang } = useI18n()
 
   return (
     <section
@@ -72,20 +74,21 @@ export default function Intro() {
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
           >
-            About
+            {t('home.intro.label')}
           </motion.span>
         </motion.div>
 
         {/* Statement — word-by-word scroll illumination (azizkhaldi.com intro signature) */}
         <ScrollWordReveal
+          key={lang}
           as="h2"
           className="font-bold leading-[1.12] tracking-[-0.04em] max-w-4xl"
           style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontFamily: 'var(--font-cabinet)' }}
           baseColor="var(--on-dark)"
           segments={[
-            { text: 'I blend visual design and frontend development to create work that feels' },
-            { text: 'sharp, useful,', color: 'rgba(236,233,226,0.45)' },
-            { text: 'and memorable.', color: '#f2d832' },
+            { text: t('home.intro.stmt1') },
+            { text: t('home.intro.stmt2'), color: 'rgba(236,233,226,0.45)' },
+            { text: t('home.intro.stmt3'), color: '#f2d832' },
           ]}
         />
 
@@ -101,7 +104,7 @@ export default function Intro() {
             href="/about"
             className="group inline-flex items-center gap-3 rounded-full pl-7 pr-2 py-2 bg-[#f2d832] text-[#16150f] transition-transform duration-300 hover:scale-[1.03]"
           >
-            <span className="text-[14px] font-medium tracking-[-0.01em]">About Me</span>
+            <span className="text-[14px] font-medium tracking-[-0.01em]">{t('home.intro.cta')}</span>
             <span className="flex items-center justify-center w-9 h-9 rounded-full bg-[#16150f] text-[#f2d832] transition-transform duration-300 group-hover:rotate-45">
               <ArrowUpRight size={16} />
             </span>
@@ -119,20 +122,19 @@ export default function Intro() {
           {/* Bio + discipline tag */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <p className="text-[14px] text-[#7a7a72] leading-relaxed max-w-sm">
-              Hector Lopez — designer and developer based in San Diego, CA.
-              Building digital products with intention and craft.
+              {t('home.intro.bio')}
             </p>
             <p className="text-[12px] font-mono text-[#606058] tracking-[0.16em] uppercase">
-              Development<span className="text-[#f2d832]">{' ✦ '}</span>Graphic Design
+              {t('disc.development')}<span className="text-[#f2d832]">{' ✦ '}</span>{t('disc.design')}
             </p>
           </div>
 
           {/* Stats row — figures count up when scrolled into view */}
           <div className="flex gap-12 pt-8 border-t border-white/[0.04]">
             {[
-              { num: 9,  suffix: '+', label: 'Years of experience' },
-              { num: 50, suffix: '+', label: 'Projects completed'  },
-              { num: 2,  suffix: '',  label: 'Core disciplines'    },
+              { num: 9,  suffix: '+', label: t('home.intro.stat1') },
+              { num: 50, suffix: '+', label: t('home.intro.stat2') },
+              { num: 2,  suffix: '',  label: t('home.intro.stat3') },
             ].map(({ num, suffix, label }) => (
               <div key={label}>
                 <CountUp

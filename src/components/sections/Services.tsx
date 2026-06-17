@@ -2,13 +2,14 @@
 
 import { motion, useReducedMotion } from 'motion/react'
 import { Code2, Palette, type LucideIcon } from 'lucide-react'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 type Pillar = {
   index: string
-  title: string
-  description: string
+  titleKey: string
+  descKey: string
   tools: string
   Icon: LucideIcon
 }
@@ -16,17 +17,15 @@ type Pillar = {
 const PILLARS: Pillar[] = [
   {
     index: '01',
-    title: 'Development',
-    description:
-      'Websites, app interfaces, interactive frontend experiences, and digital products built with care and precision.',
+    titleKey: 'disc.development',
+    descKey: 'services.dev.desc',
     tools: 'Next.js · React · TypeScript · GSAP · Motion',
     Icon: Code2,
   },
   {
     index: '02',
-    title: 'Graphic Design',
-    description:
-      'Brand systems, campaign visuals, social graphics, logos, and visual assets with strong creative direction.',
+    titleKey: 'disc.design',
+    descKey: 'services.design.desc',
     tools: 'Figma · Illustrator · Branding · Typography',
     Icon: Palette,
   },
@@ -41,6 +40,7 @@ const PILLARS: Pillar[] = [
 
 function PillarCard({ pillar, reduced, index }: { pillar: Pillar; reduced: boolean; index: number }) {
   const { Icon } = pillar
+  const { t } = useI18n()
   return (
     <motion.div
       className="group relative flex flex-col p-8 lg:p-12 transition-colors duration-500 hover:bg-black/[0.015]"
@@ -70,7 +70,7 @@ function PillarCard({ pillar, reduced, index }: { pillar: Pillar; reduced: boole
         className="font-bold tracking-[-0.03em] leading-[1.05]"
         style={{ fontSize: 'clamp(26px, 2.6vw, 36px)', fontFamily: 'var(--font-cabinet)', color: 'var(--ink)' }}
       >
-        {pillar.title}
+        {t(pillar.titleKey)}
       </h3>
 
       {/* Divider */}
@@ -78,7 +78,7 @@ function PillarCard({ pillar, reduced, index }: { pillar: Pillar; reduced: boole
 
       {/* Description + tools */}
       <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink-2)' }}>
-        {pillar.description}
+        {t(pillar.descKey)}
       </p>
       <p className="mt-5 text-[11px] font-mono tracking-wide" style={{ color: 'var(--ink-3)' }}>
         {pillar.tools}
@@ -89,6 +89,7 @@ function PillarCard({ pillar, reduced, index }: { pillar: Pillar; reduced: boole
 
 export default function Services() {
   const reduced = useReducedMotion() ?? false
+  const { t } = useI18n()
 
   return (
     <section className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
@@ -120,7 +121,7 @@ export default function Services() {
             viewport={{ once: true, margin: '-20px' }}
             transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
           >
-            What I Do
+            {t('home.services.label')}
           </motion.span>
         </div>
 

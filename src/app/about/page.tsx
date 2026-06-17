@@ -2,7 +2,11 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AboutContent from '@/components/sections/AboutContent'
 
-export const metadata = { title: 'About — HELO' }
+export const metadata = {
+  title: 'About',
+  description:
+    'About Hector Lopez (HELO) — a designer and developer in San Diego building digital products with intention and craft.',
+}
 
 // ─── About page ───────────────────────────────────────────────────────────────
 //

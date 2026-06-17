@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -61,8 +62,11 @@ function MenuLink({ href, label, index, onNavigate }: { href: string; label: str
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const { t } = useI18n()
+
+  useEffect(() => setMounted(true), [])
 
   const isHome = pathname === '/'
   const solid  = scrolled || !isHome
@@ -164,9 +168,12 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ── Full-screen menu takeover ── */}
-      <AnimatePresence>
-        {menuOpen && (
+      {/* ── Full-screen menu takeover — portaled to <body> so the header's
+          backdrop-blur (which becomes a containing block for fixed children when
+          scrolled) never traps this overlay. Fixes "menu won't open once scrolled". ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {menuOpen && (
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -191,9 +198,9 @@ export default function Header() {
                 <Image
                   src="/assetshelo/imhelologo/WhiteLogo.png"
                   alt="HELO"
-                  width={363}
-                  height={100}
-                  className="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                  width={593}
+                  height={167}
+                  className="h-7 lg:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </Link>
               <button
@@ -261,8 +268,10 @@ export default function Header() {
               </div>
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </motion.header>
   )
 }

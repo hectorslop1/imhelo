@@ -29,7 +29,59 @@ const DICT: Record<string, Entry> = {
 
   // ── Hero ──
   'hero.greeting': { en: "Hi! I'm Hector", es: '¡Hola! Soy Hector' },
+  'hero.role1':    { en: 'Designer &',     es: 'Diseñador &' },
+  'hero.role2':    { en: 'Developer.',     es: 'Desarrollador.' },
   'hero.scroll':   { en: 'scroll down',    es: 'desliza' },
+
+  // ── Shared discipline labels ──
+  'disc.development': { en: 'Development',    es: 'Desarrollo' },
+  'disc.design':      { en: 'Graphic Design', es: 'Diseño Gráfico' },
+
+  // ── Home · Intro (01) ──
+  'home.intro.label': { en: 'About', es: 'Sobre mí' },
+  'home.intro.stmt1': {
+    en: 'I blend visual design and frontend development to create work that feels',
+    es: 'Combino diseño visual y desarrollo frontend para crear trabajo que se siente',
+  },
+  'home.intro.stmt2': { en: 'sharp, useful,', es: 'preciso, útil' },
+  'home.intro.stmt3': { en: 'and memorable.', es: 'y memorable.' },
+  'home.intro.cta':   { en: 'About Me', es: 'Sobre mí' },
+  'home.intro.bio': {
+    en: 'Hector Lopez — designer and developer based in San Diego, CA. Building digital products with intention and craft.',
+    es: 'Hector Lopez — diseñador y desarrollador en San Diego, CA. Construyo productos digitales con intención y oficio.',
+  },
+  'home.intro.stat1': { en: 'Years of experience', es: 'Años de experiencia' },
+  'home.intro.stat2': { en: 'Projects completed',  es: 'Proyectos completados' },
+  'home.intro.stat3': { en: 'Core disciplines',    es: 'Disciplinas principales' },
+
+  // ── Home · Services (02) ──
+  'home.services.label': { en: 'What I Do', es: 'Lo que hago' },
+  'services.dev.desc': {
+    en: 'Websites, app interfaces, interactive frontend experiences, and digital products built with care and precision.',
+    es: 'Sitios web, interfaces de apps, experiencias frontend interactivas y productos digitales construidos con cuidado y precisión.',
+  },
+  'services.design.desc': {
+    en: 'Brand systems, campaign visuals, social graphics, logos, and visual assets with strong creative direction.',
+    es: 'Sistemas de marca, visuales de campaña, gráficos para redes, logos y assets visuales con dirección creativa sólida.',
+  },
+
+  // ── Home · Selected Work (03) ──
+  'home.work.label': { en: 'Selected Work', es: 'Trabajo seleccionado' },
+  'home.work.title': { en: 'Projects',      es: 'Proyectos' },
+  'home.work.all':   { en: 'All work',      es: 'Ver todo' },
+  'home.work.view':  { en: 'View',          es: 'Ver' },
+
+  // ── Home · About block ──
+  'home.about.scroll':   { en: 'Scroll to Explore', es: 'Desliza para explorar' },
+  'home.about.story':    { en: 'My Short Story',     es: 'Mi historia' },
+  'marquee.designer':    { en: 'DESIGNER',  es: 'DISEÑADOR' },
+  'marquee.developer':   { en: 'DEVELOPER', es: 'DESARROLLADOR' },
+
+  // ── Home · Experience ──
+  'home.exp.heading': {
+    en: 'Explore my journey and the craft that shapes how I design and build.',
+    es: 'Explora mi recorrido y el oficio que da forma a cómo diseño y construyo.',
+  },
 
   // ── Footer ──
   'footer.links':       { en: 'Links',       es: 'Enlaces' },

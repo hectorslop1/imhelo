@@ -308,7 +308,7 @@ export default function GigfastNascarPage() {
         {/* ══════════════════════════════════════════════════════════════════════
             HERO — full-bleed poster with the title + meta overlaid (editorial case study)
         ══════════════════════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+        <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
           {/* Poster — the image IS the hero (full protagonism, never cut by an info box) */}
           <Image
             src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"

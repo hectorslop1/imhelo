@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Syne, Lora } from "next/font/google";
+import { Geist, Geist_Mono, Syne, Lora, Hanken_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
@@ -16,6 +16,16 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Hanken Grotesk — self-hosted substitute for Cabinet Grotesk (which was never
+// bundled; it only rendered for visitors who had it installed locally). A neutral
+// grotesk with a full weight range that reads well at both body and display sizes.
+// Powers --font-cabinet site-wide via globals.css. display:swap for fast first paint.
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const syne = Syne({
@@ -43,10 +53,46 @@ const singaporeSling = localFont({
   weight: "400",
 });
 
+// Canonical production origin — inferred from the contact address (hello@imhelo.com).
+// Change here if the site ships on a different domain; sitemap/robots/OG all read it.
+const SITE_URL = "https://imhelo.com";
+const DESCRIPTION =
+  "Hector Lopez (HELO) — designer and developer creating polished interfaces, visual systems, and digital experiences with purpose.";
+
 export const metadata: Metadata = {
-  title: "HELO — Design & Development",
-  description:
-    "Hector Lopez — designer and developer creating polished interfaces, visual systems, and digital experiences with purpose.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "HELO — Hector Lopez · Design & Development",
+    template: "%s · HELO",
+  },
+  description: DESCRIPTION,
+  applicationName: "HELO",
+  authors: [{ name: "Hector Lopez", url: SITE_URL }],
+  creator: "Hector Lopez",
+  keywords: [
+    "Hector Lopez", "HELO", "designer", "developer", "frontend developer",
+    "graphic design", "brand design", "UI", "UX", "portfolio", "San Diego", "Next.js",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "HELO",
+    title: "HELO — Hector Lopez · Design & Development",
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HELO — Hector Lopez · Design & Development",
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
@@ -57,7 +103,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${lora.variable} ${singaporeSling.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${lora.variable} ${singaporeSling.variable} ${hankenGrotesk.variable} antialiased`}
     >
       <body className="bg-[#e9e7e1] text-[#16150f] min-h-screen overflow-x-hidden">
         <I18nProvider>

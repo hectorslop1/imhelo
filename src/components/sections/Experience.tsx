@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, useInView } from 'motion/react'
 import SplitReveal from '@/components/ui/SplitReveal'
 import { experiences, type Experience } from '@/data/experience'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const BG = '#1a1815'
@@ -157,6 +158,7 @@ function ExperienceEntry({ exp, index, reduced }: EntryProps) {
 // ─── Section ────────────────────────────────────────────────────────────────────
 export default function Experience() {
   const reduced = useReducedMotion() ?? false
+  const { t, lang } = useI18n()
   const trackRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -165,7 +167,8 @@ export default function Experience() {
         {/* Intro heading — centred, word-rise reveal (Aziz experience intro) */}
         <div className="text-center pt-28 md:pt-44 pb-24 md:pb-40 max-w-3xl mx-auto">
           <SplitReveal
-            text="Explore my journey and the craft that shapes how I design and build."
+            key={lang}
+            text={t('home.exp.heading')}
             as="h2"
             by="word"
             className="block font-medium tracking-[-0.02em]"

@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import HeroSticker from '@/components/ui/HeroSticker'
 import SplitReveal from '@/components/ui/SplitReveal'
 import { duration, ease } from '@/lib/motion-tokens'
+import { useI18n } from '@/lib/i18n'
 
 // Social links — bottom-left vertical stack, same position language as azizkhaldi.com.
 const HERO_SOCIALS = [
@@ -24,6 +25,7 @@ const HERO_SOCIALS = [
 
 export default function Hero() {
   const reduced = useReducedMotion() ?? false
+  const { t } = useI18n()
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -35,7 +37,7 @@ export default function Hero() {
   const contentY         = useTransform(scrollYProgress, [0, 0.5], [0, -36])
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0])
 
-  const roleLines = ['Designer &', 'Developer.']
+  const roleLines = [t('hero.role1'), t('hero.role2')]
 
   return (
     <section
@@ -58,11 +60,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: duration.medium, ease: ease.out, delay: 0.2 }}
           >
-            Hi! I&rsquo;m Hector
+            {t('hero.greeting')}
           </motion.p>
 
           {/* role lines — per-character mask-rise cascade (azizkhaldi.com heading signature) */}
-          <h1 className="mb-2" aria-label="Hector Lopez — Designer & Developer">
+          <h1 className="mb-2" aria-label={`Hector Lopez — ${t('hero.role1')} ${t('hero.role2')}`}>
             {roleLines.map((line, i) => (
               <SplitReveal
                 key={line}
@@ -152,7 +154,7 @@ export default function Hero() {
         aria-hidden
       >
         <span className="text-[12px] font-mono tracking-[0.12em]" style={{ color: 'var(--ink-3)' }}>
-          scroll down
+          {t('hero.scroll')}
         </span>
         <div className="w-px relative overflow-hidden" style={{ height: 40, background: 'var(--line)' }}>
           <motion.div

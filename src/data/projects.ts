@@ -34,10 +34,10 @@ export const projects: Project[] = [
     tags:        ['branding', 'graphic design', 'identity', 'digital product'],
     cover:       '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
     gallery: [
-      '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',
-      '/assetshelo/Nascar/ZaneSmith/2313CO1085.jpg',
-      '/assetshelo/Nascar/ZaneSmith/2313DG2120.jpg',
-      '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',
+      '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',   // dusk hero — driver walking, logos on the back
+      '/assetshelo/Nascar/ZaneSmith/2328JN1808.jpg',   // #38 truck at night past SPEEDWAY signage, cinematic low-angle
+      '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',   // cockpit interior, helmet + roll cage
+      '/assetshelo/Nascar/ZaneSmith/2328JN1547.jpg',   // dramatic overhead of the truck at the night race
     ],
   },
   {

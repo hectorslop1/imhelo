@@ -3,7 +3,7 @@ import Footer from '@/components/layout/Footer'
 import ContactContent from './ContactContent'
 
 export const metadata = {
-  title: 'Contact — HELO',
+  title: 'Contact',
   description: 'Start a project with Hector Lopez (HELO) — design, frontend, and brand work. hello@imhelo.com',
 }
 

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
 import SplitReveal from '@/components/ui/SplitReveal'
 import { projects, type Project } from '@/data/projects'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const NAV_EASE = 'cubic-bezier(0.16,1,0.3,1)'
@@ -64,6 +65,7 @@ function CardTitle({ title, hovered }: { title: string; hovered: boolean }) {
 
 // ─── Project card — 2-col grid item ─────────────────────────────────────────────
 function ProjectCard({ project, index, reduced }: { project: Project; index: number; reduced: boolean }) {
+  const { t } = useI18n()
   const [hovered, setHovered] = useState(false)
   const [idx, setIdx] = useState(0)
   const gallery = project.gallery?.length ? project.gallery : project.cover ? [project.cover] : []
@@ -129,7 +131,7 @@ function ProjectCard({ project, index, reduced }: { project: Project; index: num
               transform: hovered ? 'translateY(0)' : 'translateY(6px)',
             }}
           >
-            View →
+            {t('home.work.view')} →
           </span>
         </div>
 
@@ -150,6 +152,7 @@ function ProjectCard({ project, index, reduced }: { project: Project; index: num
 // ─── Section ──────────────────────────────────────────────────────────────────
 export default function SelectedWork() {
   const reduced = useReducedMotion() ?? false
+  const { t, lang } = useI18n()
 
   return (
     <section className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
@@ -181,13 +184,14 @@ export default function SelectedWork() {
             viewport={{ once: true, margin: '-20px' }}
             transition={{ duration: 0.5, ease: EASE, delay: 0.12 }}
           >
-            Selected Work
+            {t('home.work.label')}
           </motion.span>
         </div>
 
         <div className="flex items-baseline justify-between mb-12">
           <SplitReveal
-            text="Projects"
+            key={lang}
+            text={t('home.work.title')}
             as="h2"
             by="char"
             className="font-extrabold tracking-[-0.05em]"
@@ -199,7 +203,7 @@ export default function SelectedWork() {
             href="/work"
             className="group inline-flex items-center gap-1.5 text-[12px] font-mono text-[#686868] hover:text-[var(--ink)] transition-colors duration-300 tracking-widest uppercase"
           >
-            All work
+            {t('home.work.all')}
             <span className="group-hover:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
           </Link>
         </div>

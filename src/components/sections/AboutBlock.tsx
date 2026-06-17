@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
+import { useI18n } from '@/lib/i18n'
 
 // ─── AboutBlock ───────────────────────────────────────────────────────────────
 //
@@ -14,11 +15,12 @@ import { motion, useReducedMotion } from 'motion/react'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-const MARQUEE_ITEMS = ['DESIGNER', 'DEVELOPER']
-const track = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS]
-
 export default function AboutBlock() {
   const reduced = useReducedMotion() ?? false
+  const { t } = useI18n()
+
+  const marqueeItems = [t('marquee.designer'), t('marquee.developer')]
+  const track = Array.from({ length: 6 }, () => marqueeItems).flat()
 
   return (
     <section
@@ -35,7 +37,7 @@ export default function AboutBlock() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <span aria-hidden>↓</span> Scroll to Explore
+          <span aria-hidden>↓</span> {t('home.about.scroll')}
         </motion.span>
         <motion.span
           className="text-[11px] font-mono uppercase tracking-[0.22em]"
@@ -45,7 +47,7 @@ export default function AboutBlock() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
         >
-          My Short Story
+          {t('home.about.story')}
         </motion.span>
       </div>
 
