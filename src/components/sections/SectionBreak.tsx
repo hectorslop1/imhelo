@@ -42,6 +42,7 @@ export default function SectionBreak() {
   return (
     <section
       ref={sectionRef}
+      data-section-theme="dark"
       className="relative border-t border-white/[0.04] overflow-hidden"
       style={{ background: '#1a1815' }}
     >

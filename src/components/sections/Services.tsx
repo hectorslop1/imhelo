@@ -92,7 +92,7 @@ export default function Services() {
   const { t } = useI18n()
 
   return (
-    <section className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
+    <section data-section-theme="light" className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header — draw-line animation */}

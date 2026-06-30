@@ -3,20 +3,22 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, useInView } from 'motion/react'
 import SplitReveal from '@/components/ui/SplitReveal'
-import { experiences, type Experience } from '@/data/experience'
+import { getExperiences, type Experience } from '@/data/experience'
 import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const BG = '#1a1815'
 
-// ─── Period renderer — "Present" picks up the accent ───────────────────────────
+// ─── Period renderer — the active word ("Present"/"Presente") picks up the accent ─
 function Period({ text }: { text: string }) {
-  const idx = text.indexOf('Present')
-  if (idx === -1) return <>{text}</>
+  const m = text.match(/(Presente|Present)\s*$/)
+  if (!m) return <>{text}</>
+  const word = m[1]
+  const idx = text.lastIndexOf(word)
   return (
     <>
       {text.slice(0, idx)}
-      <span style={{ color: 'var(--accent)' }}>Present</span>
+      <span style={{ color: 'var(--accent)' }}>{word}</span>
     </>
   )
 }
@@ -160,9 +162,10 @@ export default function Experience() {
   const reduced = useReducedMotion() ?? false
   const { t, lang } = useI18n()
   const trackRef = useRef<HTMLDivElement>(null)
+  const experiences = getExperiences(lang)
 
   return (
-    <section className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: BG }}>
+    <section data-section-theme="dark" className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: BG }}>
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
         {/* Intro heading — centred, word-rise reveal (Aziz experience intro) */}
         <div className="text-center pt-28 md:pt-44 pb-24 md:pb-40 max-w-3xl mx-auto">

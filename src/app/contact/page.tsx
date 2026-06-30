@@ -1,4 +1,5 @@
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
 import ContactContent from './ContactContent'
 
@@ -10,6 +11,7 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
+      <ActiveTheme theme="light" />
       <Header />
       <ContactContent />
       <Footer />

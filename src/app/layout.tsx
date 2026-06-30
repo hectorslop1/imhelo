@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Syne, Lora, Hanken_Grotesk } from "next/font/google";
+import { Geist_Mono, Lora, Hanken_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
 import SideBadge from "@/components/ui/SideBadge";
 import BackToTop from "@/components/ui/BackToTop";
 import { I18nProvider } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
+import Preloader from "@/components/ui/Preloader";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -26,12 +23,6 @@ const hankenGrotesk = Hanken_Grotesk({
   variable: "--font-hanken",
   subsets: ["latin"],
   display: "swap",
-});
-
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
 });
 
 // Lora — editorial serif, used very sparingly for typographic contrast moments.
@@ -103,14 +94,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${lora.variable} ${singaporeSling.variable} ${hankenGrotesk.variable} antialiased`}
+      className={`${geistMono.variable} ${lora.variable} ${singaporeSling.variable} ${hankenGrotesk.variable} antialiased`}
     >
       <body className="bg-[#e9e7e1] text-[#16150f] min-h-screen overflow-x-hidden">
+        <Preloader />
         <I18nProvider>
-          <CustomCursor />
-          <SideBadge />
-          <BackToTop />
-          <SmoothScroll>{children}</SmoothScroll>
+          <ThemeProvider>
+            <CustomCursor />
+            <SideBadge />
+            <BackToTop />
+            <SmoothScroll>{children}</SmoothScroll>
+          </ThemeProvider>
         </I18nProvider>
       </body>
     </html>

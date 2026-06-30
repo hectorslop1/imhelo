@@ -7,33 +7,32 @@ import SelectedWork from '@/components/sections/SelectedWork'
 import SectionBreak from '@/components/sections/SectionBreak'
 import DeviceShowcase from '@/components/sections/DeviceShowcase'
 import Experience from '@/components/sections/Experience'
+import SelectedFrames from '@/components/sections/SelectedFrames'
 import ContactFooter from '@/components/sections/ContactFooter'
-import CurveTransition from '@/components/ui/CurveTransition'
+import ThemeBackground from '@/components/ui/ThemeBackground'
 
-// Section rhythm — LIGHT-dominant (azizkhaldi.com cadence). ◻ light · ◼ dark:
-//   Hero ◻ · Intro ◼ · About ◻ · Services ◻ · Work ◻ ·〔curve ◻→◼〕
-//   · Break ◼ · Showcase ◼ · Experience ◼ · Footer ◼
-// The home now closes on one continuous dark run (Break → Showcase → Experience →
-// Footer), entered by the single ◻→◼ curve after Work — no light interruption near
-// the end. CurveTransition bridges the one remaining light↔dark handoff.
-
-const LIGHT = '#e9e7e1'
-const DARK = '#1a1815'
+// Section rhythm (◻ light · ◼ dark): Hero ◻ · Intro ◼ · About ◻ · Services ◻ ·
+// Work ◻ · Break ◼ · Showcase ◼ · Experience ◼ · Frames ◼ · Footer ◼.
+// A single fixed <ThemeBackground> floods the whole screen between light/dark as
+// each section crosses the scroll activation band — replacing the old per-boundary
+// CurveTransition with one continuous, coherent theme transition. Each section
+// declares its theme via `data-section-theme` and is transparent (globals.css).
 
 export default function Home() {
   return (
     <>
+      <ThemeBackground />
       <Header />
-      <main>
+      <main className="theme-flood">
         <Hero />
         <Intro />
         <AboutBlock />
         <Services />
         <SelectedWork />
-        <CurveTransition from={LIGHT} to={DARK} />
         <SectionBreak />
         <DeviceShowcase />
         <Experience />
+        <SelectedFrames />
         <ContactFooter />
       </main>
     </>

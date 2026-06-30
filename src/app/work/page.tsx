@@ -5,17 +5,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
-import { projects } from '@/data/projects'
+import { getProjects } from '@/data/projects'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function WorkPage() {
   const reduced = useReducedMotion() ?? false
+  const { t, lang } = useI18n()
+  const projects = getProjects(lang)
   const [hovered, setHovered] = useState<number | null>(null)
 
   return (
     <>
+      <ActiveTheme theme="light" />
       <Header />
       <main style={{ background: 'var(--surface)', minHeight: '100dvh' }}>
 
@@ -30,7 +35,7 @@ export default function WorkPage() {
               className="font-mono text-[11px] tracking-[0.22em] uppercase mb-6"
               style={{ color: 'var(--accent-deep)' }}
             >
-              Selected Work
+              {t('home.work.label')}
             </p>
             <h1
               className="font-extrabold tracking-[-0.05em]"
@@ -41,7 +46,7 @@ export default function WorkPage() {
                 color: 'var(--ink)',
               }}
             >
-              Projects
+              {t('home.work.title')}
             </h1>
           </motion.div>
         </div>

@@ -75,7 +75,9 @@ html {
 }
 
 body {
-  background: var(--surface);
+  /* transparent so the fixed <ThemeBackground> layer is the page background;
+     html keeps --surface as the pre-hydration / ultimate fallback. */
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -88,6 +90,30 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cabinet);
   letter-spacing: -0.03em;
   line-height: 1;
+  text-wrap: balance; /* avoid orphan words / ragged display headings */
+}
+
+/* ─── Keyboard focus — visible accent ring for keyboard users only ───────────*/
+/* Mouse/touch interactions don't show it (:focus-visible); keyboard nav does.
+   Accent yellow reads on both the light surface and the dark sections. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Utility: hide scrollbar (for native horizontal-scroll fallbacks) ────────*/
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─── Scroll theme flood ─────────────────────────────────────────────────────*/
+/* Inside the flood root (home), themed sections are transparent so the single fixed
+   <ThemeBackground> layer is the page background — it tweens light↔dark as sections
+   cross the activation band. Scoped to .theme-flood so other pages keep their own
+   opaque section backgrounds (their footer etc. stay correct). */
+.theme-flood [data-section-theme] { background: transparent !important; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-bg { transition: none !important; }
 }
 
 /* ─── Horizontal rule ────────────────────────────────────────────────────────*/
@@ -146,7 +172,20 @@ hr {
   justify-content: center;
   background: #1a1815;
   pointer-events: none;
-  animation: page-loader-out 0.62s 0.06s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  will-change: transform;
+  /* Curtain holds briefly, then lifts off the top — revealing the page beneath. */
+  animation: page-loader-out 0.8s 0.22s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+/* Luminous accent leading edge of the curtain (CurveTransition brand language). */
+.page-loader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 26px 2px rgba(242, 216, 50, 0.55);
 }
 .page-loader__mark {
   font-family: var(--font-singapore-sling);
@@ -155,20 +194,21 @@ hr {
   line-height: 1;
   color: var(--accent);
   user-select: none;
-  animation: page-mark-out 0.42s ease-in forwards;
+  animation: page-mark-in 0.5s ease backwards;
 }
 .page-enter {
-  animation: page-enter 0.62s 0.26s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation: page-enter 0.7s 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
 @keyframes page-loader-out {
-  to { opacity: 0; transform: translateY(-16px); visibility: hidden; }
+  to { transform: translateY(-100%); visibility: hidden; }
 }
-@keyframes page-mark-out {
-  to { opacity: 0; transform: scale(0.88); }
+@keyframes page-mark-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes page-enter {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: none; }
 }
 

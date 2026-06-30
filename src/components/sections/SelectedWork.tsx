@@ -5,7 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
 import SplitReveal from '@/components/ui/SplitReveal'
-import { projects, type Project } from '@/data/projects'
+import VelocitySkew from '@/components/ui/VelocitySkew'
+import { getProjects, type Project } from '@/data/projects'
 import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -92,7 +93,7 @@ function ProjectCard({ project, index, reduced }: { project: Project; index: num
         onMouseLeave={() => setHovered(false)}
       >
         {/* Card — near-black mockup field; the project image reveals on hover (Aziz) */}
-        <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: '16 / 11', background: '#100f0c' }}>
+        <div className="relative overflow-hidden rounded-2xl transition-transform duration-[500ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:-translate-y-1.5" style={{ aspectRatio: '16 / 11', background: '#100f0c' }}>
           {gallery.map((src, i) => (
             <Image
               key={src}
@@ -153,9 +154,10 @@ function ProjectCard({ project, index, reduced }: { project: Project; index: num
 export default function SelectedWork() {
   const reduced = useReducedMotion() ?? false
   const { t, lang } = useI18n()
+  const projects = getProjects(lang)
 
   return (
-    <section className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
+    <section data-section-theme="light" className="border-t border-[var(--line)]" style={{ background: 'var(--surface)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header */}
@@ -209,11 +211,13 @@ export default function SelectedWork() {
         </div>
 
         {/* Project cards — 2-column grid (slightly narrower → cards a touch smaller) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 pb-24 max-w-[1180px] mx-auto">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} reduced={reduced} />
-          ))}
-        </div>
+        <VelocitySkew>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 pb-24 max-w-[1180px] mx-auto">
+            {projects.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} reduced={reduced} />
+            ))}
+          </div>
+        </VelocitySkew>
 
       </div>
     </section>

@@ -714,7 +714,7 @@ export default function DeviceShowcase() {
   const [overlayOpen, setOverlayOpen] = useState(false)
 
   return (
-    <section className="border-t border-white/[0.06] overflow-hidden" style={{ background: '#1a1815' }}>
+    <section data-section-theme="dark" className="border-t border-white/[0.06] overflow-hidden" style={{ background: '#1a1815' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
 
         {/* Section header strip */}

@@ -1,4 +1,5 @@
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
 
@@ -7,6 +8,7 @@ export const metadata = { title: 'Mobile App Showcase' }
 export default function MobileAppShowcasePage() {
   return (
     <>
+      <ActiveTheme theme="light" />
       <Header />
       <main className="min-h-screen flex flex-col justify-between" style={{ background: 'var(--surface)' }}>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-16 pt-48 pb-40 flex-1">

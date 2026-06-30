@@ -5,11 +5,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
 import ImageReveal from '@/components/ui/ImageReveal'
+import ShaderImage from '@/components/ui/ShaderImage'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
+
+// Hero cycle — the most cinematic ZaneSmith shots, morphed via the WebGL ShaderImage.
+const HERO_SRCS = [
+  '/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg',  // dusk hero — driver walking, logos on the back
+  '/assetshelo/Nascar/ZaneSmith/2328JN1808.jpg',  // #38 truck at night past SPEEDWAY signage
+  '/assetshelo/Nascar/ZaneSmith/2328JN1547.jpg',  // dramatic overhead of the truck at the night race
+  '/assetshelo/Nascar/ZaneSmith/2328TP1474.jpg',  // cockpit interior, helmet + roll cage
+]
 
 // ─── Gallery ─────────────────────────────────────────────────────────────────
 // To reorder images: change the array order below.
@@ -273,11 +284,12 @@ function SectionLabel({ index, label, reduced }: { index: string; label: string;
 // The invisible button captures clicks; the overlay shows on group-hover.
 
 function ViewOverlay({ onClick, label }: { onClick: () => void; label: string }) {
+  const { t } = useI18n()
   return (
     <>
       <div className="absolute inset-0 z-[5] pointer-events-none bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center">
         <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          View
+          {t('home.work.view')}
         </span>
       </div>
       <button
@@ -291,8 +303,72 @@ function ViewOverlay({ onClick, label }: { onClick: () => void; label: string })
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// Page-local bilingual copy for this flagship case study (resolve with COPY[lang]).
+const COPY = {
+  en: {
+    eyebrow: 'Graphic Design · Branding · Digital Product',
+    yearLabel: 'Year', clientLabel: 'Client', roleLabel: 'Role',
+    roleValue: 'Visual Design · Logo Application · Brand Graphics · Digital Product Design',
+    s1: 'Overview',
+    h1: 'A brand built for the track.',
+    p1a: 'Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship. The gigFAST Internet and RTA brands were applied across the #38 Ford F-150 truck, driver racing suit, branded event tent, and team hauler graphics — creating a consistent visual presence across the entire race-day environment.',
+    p1b: 'The central creative concept — the Gigometer — turned an internet speed test into a racing-inspired visual system, connecting speed, connectivity, and motorsport across physical graphics and a branded digital interface.',
+    s2: 'Brand System',
+    h2: 'Identity built for speed.',
+    p2: 'The gigFAST Internet and RTATEL.COM logos were designed as the visual foundation of the sponsorship campaign — built in a bold Americana style to match the energy of motorsport while staying legible at speed across truck liveries, signage, and apparel.',
+    logoCaption: 'Logos designed as part of the campaign visual identity for RTA and gigFAST Internet.',
+    s3: 'Race Application',
+    h3: 'Graphics at speed.',
+    p3: "The gigFAST and RTA visual identity was applied across three NASCAR truck versions throughout the season, as well as Zane Smith's driver racing suit. The branding remained legible and bold across every track condition and distance.",
+    s4: 'The Gigometer',
+    h4a: 'Speed,', h4b: 're-scaled.',
+    p4: 'The Gigometer re-imagined a car speedometer as an internet speed dial — measuring connectivity from 2G to 1000G instead of MPH. Applied across two truck versions, the race-day hauler signage, and a live branded web app at gigometer.net, where fans could test their own connection speed through the gigFAST brand experience.',
+    s5: 'Campaign Presence',
+    h5a: 'From suit', h5b: 'to signage.',
+    p5: 'The visual system extended beyond the truck into the full race-day environment — driver suit, event tent, pit-lane signage, and the team hauler. Every surface carried the same bold Americana palette and brand presence.',
+    s6: 'Gallery',
+    galleryCaption: 'Photography from NASCAR Craftsman Truck Series events.',
+    s7: 'Race Footage',
+    footageCaption: 'Short clips from NASCAR events.',
+    nextProject: 'Next Project',
+    nextTitle: 'Graphic Design',
+    allWork: 'All work →',
+  },
+  es: {
+    eyebrow: 'Diseño Gráfico · Branding · Producto Digital',
+    yearLabel: 'Año', clientLabel: 'Cliente', roleLabel: 'Rol',
+    roleValue: 'Diseño Visual · Aplicación de Logo · Gráfica de Marca · Diseño de Producto Digital',
+    s1: 'Resumen',
+    h1: 'Una marca hecha para la pista.',
+    p1a: 'Identidad visual y diseño gráfico para un patrocinio de la NASCAR Craftsman Truck Series. Las marcas gigFAST Internet y RTA se aplicaron en el camión Ford F-150 #38, el traje del piloto, la carpa del evento y la gráfica del tráiler del equipo — creando una presencia visual consistente en todo el entorno del día de carrera.',
+    p1b: 'El concepto creativo central — el Gigometer — convirtió una prueba de velocidad de internet en un sistema visual inspirado en las carreras, conectando velocidad, conectividad y automovilismo entre la gráfica física y una interfaz digital de marca.',
+    s2: 'Sistema de Marca',
+    h2: 'Identidad hecha para la velocidad.',
+    p2: 'Los logos de gigFAST Internet y RTATEL.COM se diseñaron como la base visual de la campaña de patrocinio — con un estilo Americana audaz a la altura de la energía del automovilismo, manteniéndose legibles a alta velocidad en las gráficas del camión, la señalización y la ropa.',
+    logoCaption: 'Logos diseñados como parte de la identidad visual de la campaña para RTA y gigFAST Internet.',
+    s3: 'Aplicación en Pista',
+    h3: 'Gráfica a toda velocidad.',
+    p3: 'La identidad visual de gigFAST y RTA se aplicó en tres versiones del camión NASCAR a lo largo de la temporada, así como en el traje de piloto de Zane Smith. La marca se mantuvo legible y contundente en cada condición y distancia de la pista.',
+    s4: 'El Gigometer',
+    h4a: 'Velocidad,', h4b: 'reescalada.',
+    p4: 'El Gigometer reimaginó el velocímetro de un auto como un medidor de velocidad de internet — midiendo la conectividad de 2G a 1000G en lugar de MPH. Aplicado en dos versiones del camión, la señalización del tráiler en el día de carrera y una web app de marca en vivo en gigometer.net, donde los fans podían medir su propia velocidad de conexión a través de la experiencia de marca gigFAST.',
+    s5: 'Presencia de Campaña',
+    h5a: 'Del traje', h5b: 'a la señalización.',
+    p5: 'El sistema visual se extendió más allá del camión a todo el entorno del día de carrera — traje del piloto, carpa del evento, señalización del pit-lane y el tráiler del equipo. Cada superficie llevaba la misma paleta Americana audaz y presencia de marca.',
+    s6: 'Galería',
+    galleryCaption: 'Fotografía de los eventos de la NASCAR Craftsman Truck Series.',
+    s7: 'Metraje de Carrera',
+    footageCaption: 'Clips cortos de eventos de NASCAR.',
+    nextProject: 'Siguiente Proyecto',
+    nextTitle: 'Diseño Gráfico',
+    allWork: 'Ver todo →',
+  },
+} as const
+
 export default function GigfastNascarPage() {
   const reduced = useReducedMotion() ?? false
+  const { lang } = useI18n()
+  const c = COPY[lang]
   const [lightbox, setLightbox] = useState<number | null>(null)
 
   const openAt = useCallback((src: string) => {
@@ -302,6 +378,7 @@ export default function GigfastNascarPage() {
 
   return (
     <>
+      <ActiveTheme theme="dark" />
       <Header />
       <main style={{ background: '#1a1815' }}>
 
@@ -309,15 +386,11 @@ export default function GigfastNascarPage() {
             HERO — full-bleed poster with the title + meta overlaid (editorial case study)
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
-          {/* Poster — the image IS the hero (full protagonism, never cut by an info box) */}
-          <Image
-            src="/assetshelo/Nascar/ZaneSmith/TL_01108-2.jpg"
+          {/* Poster cycle — WebGL displacement morph through the most cinematic shots (poster <img> fallback) */}
+          <ShaderImage
+            srcs={HERO_SRCS}
             alt="Zane Smith walking at the racetrack at dusk, gigFAST Internet and RTA logos visible on the back of his racing suit"
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="object-cover object-center"
+            className="absolute inset-0"
           />
           {/* Legibility gradient — settles into the dark case study below */}
           <div
@@ -338,7 +411,7 @@ export default function GigfastNascarPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
             >
-              Graphic Design · Branding · Digital Product
+              {c.eyebrow}
             </motion.p>
 
             <motion.h1
@@ -366,9 +439,9 @@ export default function GigfastNascarPage() {
               transition={{ duration: 0.75, ease: EASE, delay: 0.42 }}
             >
               {[
-                { label: 'Year',   value: '2023' },
-                { label: 'Client', value: 'RTA / gigFAST Internet' },
-                { label: 'Role',   value: 'Visual Design · Logo Application · Brand Graphics · Digital Product Design' },
+                { label: c.yearLabel,   value: '2023' },
+                { label: c.clientLabel, value: 'RTA / gigFAST Internet' },
+                { label: c.roleLabel,   value: c.roleValue },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p
@@ -392,7 +465,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="01" label="Overview" reduced={reduced} />
+            <SectionLabel index="01" label={c.s1} reduced={reduced} />
 
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14">
 
@@ -406,7 +479,7 @@ export default function GigfastNascarPage() {
                   className="font-extrabold tracking-[-0.04em] text-white leading-[0.95]"
                   style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(28px, 3vw, 44px)' }}
                 >
-                  A brand built for the track.
+                  {c.h1}
                 </h2>
               </motion.div>
 
@@ -421,18 +494,13 @@ export default function GigfastNascarPage() {
                   className="leading-relaxed"
                   style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', color: 'rgba(255,255,255,0.7)', maxWidth: '640px' }}
                 >
-                  Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship.
-                  The gigFAST Internet and RTA brands were applied across the #38 Ford F-150 truck, driver
-                  racing suit, branded event tent, and team hauler graphics — creating a consistent visual
-                  presence across the entire race-day environment.
+                  {c.p1a}
                 </p>
                 <p
                   className="text-[14px] leading-relaxed"
                   style={{ color: 'rgba(255,255,255,0.42)', maxWidth: '560px' }}
                 >
-                  The central creative concept — the Gigometer — turned an internet speed test into a
-                  racing-inspired visual system, connecting speed, connectivity, and motorsport across
-                  physical graphics and a branded digital interface.
+                  {c.p1b}
                 </p>
               </motion.div>
             </div>
@@ -445,7 +513,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="02" label="Brand System" reduced={reduced} />
+            <SectionLabel index="02" label={c.s2} reduced={reduced} />
 
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-14">
               <motion.h2
@@ -456,7 +524,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, ease: EASE }}
               >
-                Identity built for speed.
+                {c.h2}
               </motion.h2>
               <motion.p
                 className="text-[14px] leading-relaxed"
@@ -466,9 +534,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
               >
-                The gigFAST Internet and RTATEL.COM logos were designed as the visual foundation of the
-                sponsorship campaign — built in a bold Americana style to match the energy of motorsport
-                while staying legible at speed across truck liveries, signage, and apparel.
+                {c.p2}
               </motion.p>
             </div>
 
@@ -517,7 +583,7 @@ export default function GigfastNascarPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE, delay: 0.32 }}
             >
-              Logos designed as part of the campaign visual identity for RTA and gigFAST Internet.
+              {c.logoCaption}
             </motion.p>
           </div>
         </section>
@@ -528,7 +594,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="03" label="Race Application" reduced={reduced} />
+            <SectionLabel index="03" label={c.s3} reduced={reduced} />
 
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
@@ -539,7 +605,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, ease: EASE }}
               >
-                Graphics at speed.
+                {c.h3}
               </motion.h2>
               <motion.p
                 className="text-[14px] leading-relaxed"
@@ -549,9 +615,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
               >
-                The gigFAST and RTA visual identity was applied across three NASCAR truck versions
-                throughout the season, as well as Zane Smith&apos;s driver racing suit. The branding
-                remained legible and bold across every track condition and distance.
+                {c.p3}
               </motion.p>
             </div>
 
@@ -608,7 +672,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="04" label="The Gigometer" reduced={reduced} />
+            <SectionLabel index="04" label={c.s4} reduced={reduced} />
 
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
@@ -619,9 +683,9 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, ease: EASE }}
               >
-                Speed,
+                {c.h4a}
                 <br />
-                re-scaled.
+                {c.h4b}
               </motion.h2>
               <motion.p
                 className="text-[14px] leading-relaxed"
@@ -631,10 +695,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
               >
-                The Gigometer re-imagined a car speedometer as an internet speed dial — measuring
-                connectivity from 2G to 1000G instead of MPH. Applied across two truck versions, the
-                race-day hauler signage, and a live branded web app at gigometer.net, where fans could
-                test their own connection speed through the gigFAST brand experience.
+                {c.p4}
               </motion.p>
             </div>
 
@@ -697,7 +758,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="05" label="Campaign Presence" reduced={reduced} />
+            <SectionLabel index="05" label={c.s5} reduced={reduced} />
 
             <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-16 lg:gap-28 mt-14 mb-16">
               <motion.h2
@@ -708,9 +769,9 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, ease: EASE }}
               >
-                From suit
+                {c.h5a}
                 <br />
-                to signage.
+                {c.h5b}
               </motion.h2>
               <motion.p
                 className="text-[14px] leading-relaxed"
@@ -720,9 +781,7 @@ export default function GigfastNascarPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
               >
-                The visual system extended beyond the truck into the full race-day environment —
-                driver suit, event tent, pit-lane signage, and the team hauler. Every surface
-                carried the same bold Americana palette and brand presence.
+                {c.p5}
               </motion.p>
             </div>
 
@@ -762,7 +821,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="06" label="Gallery" reduced={reduced} />
+            <SectionLabel index="06" label={c.s6} reduced={reduced} />
 
             <motion.p
               className="mt-6 mb-14 font-mono text-[12px]"
@@ -772,7 +831,7 @@ export default function GigfastNascarPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              Photography from NASCAR Craftsman Truck Series events.
+              {c.galleryCaption}
             </motion.p>
 
             {/* Gallery grid — all 3/2, consistent across all cells */}
@@ -813,7 +872,7 @@ export default function GigfastNascarPage() {
         <section className="border-t border-white/[0.06]">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 py-28 lg:py-40">
 
-            <SectionLabel index="07" label="Race Footage" reduced={reduced} />
+            <SectionLabel index="07" label={c.s7} reduced={reduced} />
 
             <motion.p
               className="mt-6 mb-14 font-mono text-[12px]"
@@ -823,7 +882,7 @@ export default function GigfastNascarPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              Short clips from NASCAR events.
+              {c.footageCaption}
             </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -906,14 +965,14 @@ export default function GigfastNascarPage() {
                 className="font-mono text-[10px] tracking-[0.22em] uppercase mb-4"
                 style={{ color: 'rgba(255,255,255,0.28)' }}
               >
-                Next Project
+                {c.nextProject}
               </p>
               <Link href="/work/graphic-design" className="group flex items-center gap-4">
                 <span
                   className="font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[#f2d832]"
                   style={{ fontFamily: 'var(--font-cabinet)', fontSize: 'clamp(26px, 3.5vw, 48px)' }}
                 >
-                  Graphic Design
+                  {c.nextTitle}
                 </span>
                 <span
                   className="text-[22px] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
@@ -929,7 +988,7 @@ export default function GigfastNascarPage() {
               className="font-mono text-[11px] tracking-[0.18em] uppercase transition-colors duration-300"
               style={{ color: 'rgba(255,255,255,0.3)' }}
             >
-              All work →
+              {c.allWork}
             </Link>
           </div>
         </section>

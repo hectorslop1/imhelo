@@ -1,13 +1,16 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
 import ImageReveal from '@/components/ui/ImageReveal'
+import ShaderImage from '@/components/ui/ShaderImage'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const BASE = '/assetshelo/ApparelDesign'
@@ -17,12 +20,12 @@ const BASE = '/assetshelo/ApparelDesign'
 // To reorder or add images to the cycle: edit this array only.
 
 const HERO_SRCS: string[] = [
-  `${BASE}/MarioTshirt.png`,
-  `${BASE}/JackHoodie.jpeg`,
-  `${BASE}/PeachTshirt.png`,
-  `${BASE}/CharizardHoodie.jpeg`,
-  `${BASE}/PrincessHoodie.JPG`,
-  `${BASE}/AcuraTshirt.png`,
+  `${BASE}/CharizardHoodie.jpeg`,  // bold yellow flat-lay + big type
+  `${BASE}/EclipseTshirt.jpg`,     // Fast & Furious green, blueprint back
+  `${BASE}/MetalGearTshirt.jpg`,   // moody concrete, Snake artwork
+  `${BASE}/MarioTshirt.png`,       // red neon, worn — presentation variety
+  `${BASE}/JackHoodie.jpeg`,       // Pumpkin King, worn back view
+  `${BASE}/PeachTshirt.png`,       // pink neon, worn — color variety
 ]
 
 // ─── Gallery ─────────────────────────────────────────────────────────────────
@@ -111,11 +114,12 @@ const ALL_MEDIA: MediaItem[] = GALLERY.map(item => ({
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function HoverOverlay({ onClick, label }: { onClick: () => void; label: string }) {
+  const { t } = useI18n()
   return (
     <>
       <div className="absolute inset-0 z-[5] pointer-events-none bg-black/0 group-hover:bg-black/28 transition-colors duration-300 flex items-center justify-center">
         <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          View
+          {t('home.work.view')}
         </span>
       </div>
       <button
@@ -129,20 +133,36 @@ function HoverOverlay({ onClick, label }: { onClick: () => void; label: string }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// Page-local bilingual copy (resolve with COPY[lang]).
+const COPY = {
+  en: {
+    eyebrow: 'Graphic Design · Print',
+    title1: 'Apparel', title2: 'Graphics',
+    desc: 'Personal apparel graphic concepts for hoodies and t-shirts — exploring how visual identity, illustration, and pop culture-inspired graphics can live beyond screens.',
+    yearLabel: 'Year', yearValue: 'Ongoing',
+    roleLabel: 'Role', roleValue: 'Graphic Design · Art Direction · Apparel Mockups',
+    worksMarker: '01 — Works',
+    pieces: (n: number) => `${n} pieces`,
+    disclaimer: 'Personal fan concepts. Not affiliated with or endorsed by the original IP owners.',
+  },
+  es: {
+    eyebrow: 'Diseño Gráfico · Impresión',
+    title1: 'Gráficos', title2: 'para Ropa',
+    desc: 'Conceptos personales de gráfica para ropa — hoodies y camisetas — explorando cómo la identidad visual, la ilustración y los gráficos inspirados en la cultura pop pueden vivir más allá de la pantalla.',
+    yearLabel: 'Año', yearValue: 'En curso',
+    roleLabel: 'Rol', roleValue: 'Diseño Gráfico · Dirección de Arte · Mockups de Ropa',
+    worksMarker: '01 — Trabajos',
+    pieces: (n: number) => `${n} piezas`,
+    disclaimer: 'Conceptos personales de fan. Sin afiliación ni respaldo de los dueños originales de la IP.',
+  },
+} as const
+
 export default function ApparelGraphicsPage() {
   const reduced                    = useReducedMotion() ?? false
+  const { t, lang } = useI18n()
+  const c = COPY[lang]
   const [heroIndex, setHeroIndex]  = useState(0)
   const [lightbox,  setLightbox]   = useState<number | null>(null)
-
-  // Cycle hero images every 4 s
-  useEffect(() => {
-    if (reduced) return
-    const id = setInterval(
-      () => setHeroIndex(i => (i + 1) % HERO_SRCS.length),
-      4000,
-    )
-    return () => clearInterval(id)
-  }, [reduced])
 
   const openAt = useCallback((src: string) => {
     const idx = ALL_MEDIA.findIndex(m => m.src === src)
@@ -151,6 +171,7 @@ export default function ApparelGraphicsPage() {
 
   return (
     <>
+      <ActiveTheme theme="dark" />
       <Header />
       <main style={{ background: '#1a1815' }}>
 
@@ -159,44 +180,13 @@ export default function ApparelGraphicsPage() {
         ══════════════════════════════════════════════════════════════════════ */}
         {/* HERO — full-bleed cover with title + meta overlaid (editorial case study) */}
         <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
-          {/* ── Cycling image layer (Ken Burns crossfade) ── */}
-          <div className="absolute inset-0">
-            {reduced ? (
-              <Image
-                src={HERO_SRCS[0]}
-                alt="Apparel graphic concept mockup"
-                fill
-                priority
-                quality={90}
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-            ) : (
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={heroIndex}
-                  className="absolute inset-0"
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1.09 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    opacity: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
-                    scale:   { duration: 8,   ease: 'linear' },
-                  }}
-                >
-                  <Image
-                    src={HERO_SRCS[heroIndex]}
-                    alt="Apparel graphic concept mockup"
-                    fill
-                    priority={heroIndex === 0}
-                    quality={90}
-                    sizes="100vw"
-                    className="object-cover object-center"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
+          {/* ── Cycling image layer — WebGL displacement morph (poster <img> fallback) ── */}
+          <ShaderImage
+            srcs={HERO_SRCS}
+            alt="Apparel graphic concept mockup"
+            onIndexChange={setHeroIndex}
+            className="absolute inset-0"
+          />
 
           {/* ── Legibility gradient ── */}
           <div
@@ -217,7 +207,7 @@ export default function ApparelGraphicsPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
             >
-              Graphic Design · Print
+              {c.eyebrow}
             </motion.p>
             <motion.h1
               className="font-extrabold tracking-[-0.04em]"
@@ -226,9 +216,9 @@ export default function ApparelGraphicsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
             >
-              Apparel
+              {c.title1}
               <br />
-              Graphics
+              {c.title2}
             </motion.h1>
             <motion.p
               className="mt-5 text-[14px] leading-relaxed"
@@ -237,9 +227,7 @@ export default function ApparelGraphicsPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.36 }}
             >
-              Personal apparel graphic concepts for hoodies and t-shirts —
-              exploring how visual identity, illustration, and pop
-              culture-inspired graphics can live beyond screens.
+              {c.desc}
             </motion.p>
             <motion.div
               className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7 max-w-3xl"
@@ -249,8 +237,8 @@ export default function ApparelGraphicsPage() {
               transition={{ duration: 0.75, ease: EASE, delay: 0.46 }}
             >
               {[
-                { label: 'Year', value: 'Ongoing' },
-                { label: 'Role', value: 'Graphic Design · Art Direction · Apparel Mockups' },
+                { label: c.yearLabel, value: c.yearValue },
+                { label: c.roleLabel, value: c.roleValue },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(236,233,226,0.5)' }}>{label}</p>
@@ -297,13 +285,13 @@ export default function ApparelGraphicsPage() {
                 className="font-mono text-[11px] tracking-[0.2em] uppercase"
                 style={{ color: 'rgba(242,216,50,0.5)' }}
               >
-                01 — Works
+                {c.worksMarker}
               </span>
               <span
                 className="font-mono text-[10px] tracking-[0.12em]"
                 style={{ color: 'rgba(255,255,255,0.18)' }}
               >
-                {GALLERY.length} pieces
+                {c.pieces(GALLERY.length)}
               </span>
             </motion.div>
 
@@ -331,7 +319,7 @@ export default function ApparelGraphicsPage() {
                       />
                       <HoverOverlay
                         onClick={() => openAt(item.src)}
-                        label={`View: ${item.label}`}
+                        label={`${t('home.work.view')}: ${item.label}`}
                       />
                     </div>
                   </ImageReveal>
@@ -355,8 +343,7 @@ export default function ApparelGraphicsPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              Personal fan concepts. Not affiliated with or endorsed by the
-              original IP owners.
+              {c.disclaimer}
             </motion.p>
 
           </div>

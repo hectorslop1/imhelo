@@ -24,6 +24,7 @@ export default function AboutBlock() {
 
   return (
     <section
+      data-section-theme="light"
       className="relative overflow-hidden border-t border-[var(--line)] py-16 lg:py-24"
       style={{ background: 'var(--surface)' }}
     >

@@ -42,6 +42,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
+      data-section-theme="light"
       className="relative min-h-screen flex flex-col overflow-hidden"
       style={{ background: 'var(--surface)' }}
     >

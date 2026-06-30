@@ -11,15 +11,12 @@ const EASE = [0.16, 1, 0.3, 1] as const
 
 // ─── Intro ────────────────────────────────────────────────────────────────────
 //
-// Background: #0d0c0a — a barely-perceptible warm shift from the pure #080808
-// of the Hero. The difference is felt more than seen: the eye registers a new
-// "room" without the brain labeling it a different section.
+// The first dark "room" (#1a1815). It's `min-h-screen` so the light↔dark flood
+// holds a full viewport here — the dark mood registers and the word-reveal
+// statement has room to read before the screen returns to light at AboutBlock.
 //
-// A radial glow at the left-center (where the heading lives) adds depth without
-// being visible at first glance.
-//
-// Typography: Syne 700 (font-bold), not 800 (font-extrabold). At 80px, the
-// lighter weight is more refined — thick strokes at that scale become clunky.
+// A faint warm radial glow at left-center (under the heading) adds depth without
+// being visible at first glance. Type is Hanken Grotesk (--font-cabinet) bold.
 
 export default function Intro() {
   const reduced = useReducedMotion() ?? false
@@ -27,7 +24,8 @@ export default function Intro() {
 
   return (
     <section
-      className="border-t border-white/[0.06] relative overflow-hidden"
+      data-section-theme="dark"
+      className="border-t border-white/[0.06] relative overflow-hidden min-h-screen flex items-center"
       style={{ background: '#1a1815' }}
     >
       {/* Subtle ambient warm glow — barely visible, creates sense of depth */}

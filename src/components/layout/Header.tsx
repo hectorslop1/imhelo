@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import MagneticLink from '@/components/ui/MagneticLink'
 import LanguageToggle from '@/components/ui/LanguageToggle'
 import { useI18n } from '@/lib/i18n'
+import { useTheme } from '@/lib/theme'
 
 const SOCIALS = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/hector-lopez-6243a8305/' },
@@ -68,8 +69,12 @@ export default function Header() {
 
   useEffect(() => setMounted(true), [])
 
-  const isHome = pathname === '/'
-  const solid  = scrolled || !isHome
+  const theme  = useTheme()
+  const isDark = theme === 'dark'
+  // Transparent at the very top of any page; solid glass once scrolled. The glass
+  // tone follows the active section theme (light/dark flood), so on dark pages /
+  // dark home sections the header turns dark instead of staying light.
+  const solid  = scrolled
 
   // Close on route change.
   useEffect(() => { setMenuOpen(false) }, [pathname])
@@ -106,9 +111,9 @@ export default function Header() {
       transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-[padding,background,border-color] duration-700',
-        solid
-          ? 'py-3 bg-[#e9e7e1]/85 backdrop-blur-2xl border-b border-[rgba(20,19,15,0.10)]'
-          : 'py-5 bg-transparent',
+        !solid && 'py-5 bg-transparent',
+        solid && !isDark && 'py-3 bg-[#e9e7e1]/85 backdrop-blur-2xl border-b border-[rgba(20,19,15,0.10)]',
+        solid && isDark && 'py-3 bg-[#1a1815]/85 backdrop-blur-2xl border-b border-[rgba(236,233,226,0.12)]',
       )}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-16 flex items-center justify-between">
@@ -121,7 +126,7 @@ export default function Header() {
           className="group flex items-center rounded-[2px] outline-none focus-visible:ring-1 focus-visible:ring-[#f2d832]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
         >
           <Image
-            src="/assetshelo/imhelologo/Logo.png"
+            src={isDark ? '/assetshelo/imhelologo/WhiteLogo.png' : '/assetshelo/imhelologo/Logo.png'}
             alt="HELO"
             width={363}
             height={100}
@@ -136,15 +141,21 @@ export default function Header() {
             visible at all times, including the very top of the homepage. ── */}
         <div className="flex items-center gap-3 lg:gap-4">
           <div className="hidden md:block">
-            <LanguageToggle tone="light" />
+            <LanguageToggle tone={isDark ? 'dark' : 'light'} />
           </div>
           <div className="hidden md:block">
             <MagneticLink
               href="mailto:hello@imhelo.com"
               strength={0.5}
-              className="group relative overflow-hidden inline-flex items-center text-[13px] font-bold px-6 py-2.5 rounded-full bg-[#14130f]"
+              className={cn(
+                'group relative overflow-hidden inline-flex items-center text-[13px] font-bold px-6 py-2.5 rounded-full transition-colors duration-500',
+                isDark ? 'bg-[#ece9e2]' : 'bg-[#14130f]',
+              )}
             >
-              <span className="relative z-10 tracking-[-0.01em] text-[#ebe9e1] group-hover:text-[#14130f] transition-colors duration-300">
+              <span className={cn(
+                'relative z-10 tracking-[-0.01em] group-hover:text-[#14130f] transition-colors duration-300',
+                isDark ? 'text-[#14130f]' : 'text-[#ebe9e1]',
+              )}>
                 {t('nav.sayHelo')}
               </span>
               <span
@@ -162,8 +173,8 @@ export default function Header() {
             onClick={() => setMenuOpen(true)}
             className="group flex flex-col items-end justify-center gap-[6px] w-10 h-10 -mr-1"
           >
-            <span className="block h-[2px] w-6 bg-[#16150f] rounded-full transition-all duration-300 ease-out group-hover:w-7" />
-            <span className="block h-[2px] w-4 bg-[#16150f] rounded-full transition-all duration-300 ease-out group-hover:w-7" />
+            <span className={cn('block h-[2px] w-6 rounded-full transition-all duration-300 ease-out group-hover:w-7', isDark ? 'bg-[#ece9e2]' : 'bg-[#16150f]')} />
+            <span className={cn('block h-[2px] w-4 rounded-full transition-all duration-300 ease-out group-hover:w-7', isDark ? 'bg-[#ece9e2]' : 'bg-[#16150f]')} />
           </button>
         </div>
       </div>

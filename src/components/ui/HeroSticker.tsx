@@ -41,6 +41,9 @@ import StickerPeel from '@/components/ui/StickerPeel'
 // (no flash, no reload). Reduced motion → a plain static sticker.
 
 const SRC = '/assetshelo/helomascot/Helo.png'
+// Serve the 1.16 MB mascot PNG through Next's optimizer (resized webp, alpha kept)
+// — it's the home-hero LCP element. w=828 covers retina at the rendered size.
+const SRC_OPT = `/_next/image?url=${encodeURIComponent(SRC)}&w=828&q=75`
 const ASPECT = 1122 / 1402
 
 // Scroll thresholds — fraction of one viewport scrolled from the Hero top.
@@ -318,7 +321,7 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
   // Resting / flying both render this flat, stable sticker — keeps the swap invisible.
   const resting = (
     <StickerPeel
-      imageSrc={SRC}
+      imageSrc={SRC_OPT}
       width={width}
       rotate={0}
       peelDirection={0}
@@ -379,7 +382,7 @@ export default function HeroSticker({ height = 340, className = '' }: HeroSticke
               }}
             >
               <StickerPeel
-                imageSrc={SRC}
+                imageSrc={SRC_OPT}
                 width={width}
                 rotate={0}
                 peelDirection={0}

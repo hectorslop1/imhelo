@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
 import ClipReveal from '@/components/ui/ClipReveal'
 import ImageReveal from '@/components/ui/ImageReveal'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -16,6 +17,7 @@ const SOCIAL_LINKS = [
 
 export default function AboutContent() {
   const reduced = useReducedMotion() ?? false
+  const { t } = useI18n()
 
   return (
     <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
@@ -42,7 +44,7 @@ export default function AboutContent() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: EASE, delay: 0.32 }}
         >
-          About
+          {t('home.intro.label')}
         </motion.span>
       </div>
 
@@ -73,7 +75,7 @@ export default function AboutContent() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
           >
-            Designer &amp; Developer · San Diego, CA
+            {t('about.role')}
           </motion.p>
 
           {/* Horizontal rule */}
@@ -97,8 +99,7 @@ export default function AboutContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
           >
-            I&apos;m Hector Lopez, a designer and developer creating visual systems,
-            interfaces, and digital experiences with a focus on clarity, motion, and craft.
+            {t('about.bio')}
           </motion.p>
 
           {/* Stats row */}
@@ -109,9 +110,9 @@ export default function AboutContent() {
             transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
           >
             {[
-              { label: 'Focus',    value: 'Development\nGraphic Design' },
-              { label: 'Based in', value: 'San Diego, CA'               },
-              { label: 'Since',    value: '2017'                         },
+              { label: t('about.focus'),     value: t('about.focusValue') },
+              { label: t('contact.basedIn'), value: 'San Diego, CA'       },
+              { label: t('about.since'),     value: '2017'                },
             ].map(({ label, value }, i) => (
               <div key={label} className="flex items-start gap-8">
                 {i > 0 && (
@@ -137,7 +138,7 @@ export default function AboutContent() {
             transition={{ duration: 0.6, ease: EASE, delay: 0.65 }}
           >
             <span className="text-[11px] font-mono text-[#686868] tracking-[0.18em] uppercase shrink-0">
-              Connect
+              {t('contact.connect')}
             </span>
             <div
               className="hidden sm:block flex-1 h-px"

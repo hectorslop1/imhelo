@@ -50,8 +50,10 @@ export default function MagneticLink({
 
   const x  = useMotionValue(0)
   const y  = useMotionValue(0)
+  const s  = useMotionValue(1)
   const sx = useSpring(x, SPRING)
   const sy = useSpring(y, SPRING)
+  const ss = useSpring(s, SPRING)
 
   const handleMove = (e: React.MouseEvent) => {
     if (reduced || !wrapRef.current) return
@@ -62,9 +64,12 @@ export default function MagneticLink({
     y.set((e.clientY - cy) * strength)
   }
 
+  const handleEnter = () => { if (!reduced) s.set(1.06) }
+
   const handleLeave = () => {
     x.set(0)
     y.set(0)
+    s.set(1)
   }
 
   const linkProps = external
@@ -75,10 +80,11 @@ export default function MagneticLink({
     <div
       ref={wrapRef}
       onMouseMove={handleMove}
+      onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       style={{ display: 'inline-block' }}
     >
-      <motion.span style={{ x: sx, y: sy, display: 'inline-block' }}>
+      <motion.span style={{ x: sx, y: sy, scale: ss, display: 'inline-block' }}>
         <Link
           href={href}
           onClick={onClick}

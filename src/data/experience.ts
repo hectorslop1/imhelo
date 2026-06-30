@@ -1,23 +1,35 @@
+export type Lang = 'en' | 'es'
+type L = { en: string; es: string }
+
+// Public shape — string fields (resolved for a language).
 export type Experience = {
-  company: string
-  role: string
-  period: string
+  company:     string
+  role:        string
+  period:      string
   description: string
   highlights?: string[]
-  tags?: string[]
+  tags?:       string[]
+}
+
+// Bilingual source — role / period / description carry { en, es }. company is a
+// proper noun (kept as-is); highlights/tags aren't rendered in the timeline.
+type ExperienceSource = Omit<Experience, 'role' | 'period' | 'description'> & {
+  role:        L
+  period:      L
+  description: L
 }
 
 // ── Most recent first ──────────────────────────────────────────────────────────
-// To add or edit a role: update this array.
-// A period containing "Present" marks the role as active (yellow accent, pulsing dot).
-// Array order = display order: index 0 is the primary / current role.
-export const experiences: Experience[] = [
+// A period containing "Present"/"Presente" marks the role as active (yellow accent).
+const data: ExperienceSource[] = [
   {
     company: 'Padres Con Poder Foundation.',
-    role: 'Web Developer',
-    period: 'Jun 2026 — Present',
-    description:
-      'Leading web development for Padres Con Poder Foundation, focusing on interface implementation, usability, and responsive performance.',
+    role:    { en: 'Web Developer', es: 'Desarrollador Web' },
+    period:  { en: 'Jun 2026 — Present', es: 'Jun 2026 — Presente' },
+    description: {
+      en: 'Leading web development for Padres Con Poder Foundation, focusing on interface implementation, usability, and responsive performance.',
+      es: 'Lidero el desarrollo web de Padres Con Poder Foundation, enfocado en la implementación de interfaces, la usabilidad y el rendimiento responsive.',
+    },
     highlights: [
       'Web app development',
       'UI implementation',
@@ -29,10 +41,12 @@ export const experiences: Experience[] = [
   },
   {
     company: 'CBLUNA',
-    role: 'UI/UX Designer · Cross-platform Developer · Graphic Designer',
-    period: '2020 — 2026',
-    description:
-      'Designed user-friendly interfaces, built web and native mobile applications using low-code tools, and created visual assets for client-facing digital and social media experiences.',
+    role:    { en: 'UI/UX Designer · Cross-platform Developer · Graphic Designer', es: 'Diseñador UI/UX · Desarrollador Multiplataforma · Diseñador Gráfico' },
+    period:  { en: '2020 — 2026', es: '2020 — 2026' },
+    description: {
+      en: 'Designed user-friendly interfaces, built web and native mobile applications using low-code tools, and created visual assets for client-facing digital and social media experiences.',
+      es: 'Diseñé interfaces fáciles de usar, construí aplicaciones web y móviles nativas con herramientas low-code, y creé recursos visuales para experiencias digitales y de redes sociales de clientes.',
+    },
     highlights: [
       'UI/UX design',
       'Cross-platform app development',
@@ -45,10 +59,12 @@ export const experiences: Experience[] = [
   },
   {
     company: 'Project One Inc.',
-    role: 'Lead of Medical Records Team',
-    period: '2017 — 2019',
-    description:
-      'Led medical records operations by organizing tasks, creating patient profiles, assigning doctors and medical studies, and ensuring accuracy in critical patient information.',
+    role:    { en: 'Lead of Medical Records Team', es: 'Líder del Equipo de Expedientes Médicos' },
+    period:  { en: '2017 — 2019', es: '2017 — 2019' },
+    description: {
+      en: 'Led medical records operations by organizing tasks, creating patient profiles, assigning doctors and medical studies, and ensuring accuracy in critical patient information.',
+      es: 'Dirigí las operaciones de expedientes médicos: organicé tareas, creé perfiles de pacientes, asigné médicos y estudios, y aseguré la exactitud de información crítica de los pacientes.',
+    },
     highlights: [
       'Team leadership',
       'Medical records organization',
@@ -59,3 +75,16 @@ export const experiences: Experience[] = [
     tags: ['Leadership', 'Operations', 'Data Management'],
   },
 ]
+
+// Resolve bilingual fields for a language (call with the active lang from useI18n).
+export function getExperiences(lang: Lang): Experience[] {
+  return data.map(({ role, period, description, ...rest }) => ({
+    ...rest,
+    role: role[lang],
+    period: period[lang],
+    description: description[lang],
+  }))
+}
+
+// Backwards-compatible English export.
+export const experiences: Experience[] = getExperiences('en')

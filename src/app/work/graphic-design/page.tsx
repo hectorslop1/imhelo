@@ -1,15 +1,43 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import Header from '@/components/layout/Header'
+import ActiveTheme from '@/components/ui/ActiveTheme'
 import Footer from '@/components/layout/Footer'
 import { Lightbox, type MediaItem } from '@/components/ui/MediaViewer'
 import ImageReveal from '@/components/ui/ImageReveal'
+import ShaderImage from '@/components/ui/ShaderImage'
+import { useI18n } from '@/lib/i18n'
 
 const EASE = [0.16, 1, 0.3, 1] as const
+
+// Page-local bilingual copy (long-form case-study prose lives with the page, not
+// the global DICT). Resolve with COPY[lang].
+const COPY = {
+  en: {
+    eyebrow: 'Visual Design · Illustration',
+    title1: 'Graphic', title2: 'Design',
+    desc: 'A curated archive of illustrations, typographic works, badge designs, and visual experiments — exploring character, composition, and graphic storytelling beyond client work.',
+    yearLabel: 'Year', yearValue: 'Ongoing',
+    discLabel: 'Discipline', discValue: 'Illustration · Typography · Visual Design',
+    worksMarker: '01 — Works',
+    pieces: (n: number) => `${n} pieces`,
+    disclaimer: 'Personal creative explorations. Not affiliated with or endorsed by the original IP owners.',
+  },
+  es: {
+    eyebrow: 'Diseño Visual · Ilustración',
+    title1: 'Diseño', title2: 'Gráfico',
+    desc: 'Un archivo curado de ilustraciones, trabajos tipográficos, diseños de insignias y experimentos visuales — explorando carácter, composición y narrativa gráfica más allá del trabajo de cliente.',
+    yearLabel: 'Año', yearValue: 'En curso',
+    discLabel: 'Disciplina', discValue: 'Ilustración · Tipografía · Diseño Visual',
+    worksMarker: '01 — Trabajos',
+    pieces: (n: number) => `${n} piezas`,
+    disclaimer: 'Exploraciones creativas personales. Sin afiliación ni respaldo de los dueños originales de la IP.',
+  },
+} as const
 const BASE = '/assetshelo/GraphicDesign'
 
 // ─── Hero cycling images ──────────────────────────────────────────────────────
@@ -17,12 +45,12 @@ const BASE = '/assetshelo/GraphicDesign'
 // To reorder or replace: update this array only.
 
 const HERO_SRCS: string[] = [
-  `${BASE}/Gba26qPbwAAEM7t.jpeg`,
-  `${BASE}/GZGP05WbYAAfZ4V.jpeg`,
-  `${BASE}/GRv1j5sb0AAOT25.jpeg`,
-  `${BASE}/GRMHLmrbQAAVK9x.jpeg`,
-  `${BASE}/GWRnPcvbQAE2by8.jpeg`,
-  `${BASE}/F2phz5FaUAAH4fv.jpeg`,
+  `${BASE}/Gba26qPbwAAEM7t.jpeg`,  // Coco-style marigold illustration
+  `${BASE}/GXiuqEoaIAA96EQ.jpeg`,  // LA LUCHA! poster — vibrant pink/green
+  `${BASE}/GWvPwwdacAAElRs.jpeg`,  // Beetlejuice "Say My Name!" — green/purple
+  `${BASE}/GRMHLmrbQAAVK9x.jpeg`,  // "Friday" retro gradient typography
+  `${BASE}/GZGP05WbYAAfZ4V.jpeg`,  // Pumpkin King badge — dark/orange
+  `${BASE}/GRv1j5sb0AAOT25.jpeg`,  // "Friday" vortex op-art typography
 ]
 
 // ─── Gallery ─────────────────────────────────────────────────────────────────
@@ -222,18 +250,10 @@ function GalleryTile({
 
 export default function GraphicDesignPage() {
   const reduced    = useReducedMotion() ?? false
+  const { lang } = useI18n()
+  const c = COPY[lang]
   const [heroIndex, setHeroIndex] = useState(0)
   const [lightbox,  setLightbox]  = useState<number | null>(null)
-
-  // Cycle hero images every 4 s. Cleanup on unmount or when reduced-motion changes.
-  useEffect(() => {
-    if (reduced) return
-    const id = setInterval(
-      () => setHeroIndex(i => (i + 1) % HERO_SRCS.length),
-      4000,
-    )
-    return () => clearInterval(id)
-  }, [reduced])
 
   const openAt = useCallback((src: string) => {
     const idx = ALL_MEDIA.findIndex(m => m.src === src)
@@ -242,6 +262,7 @@ export default function GraphicDesignPage() {
 
   return (
     <>
+      <ActiveTheme theme="dark" />
       <Header />
       <main style={{ background: '#1a1815' }}>
 
@@ -249,44 +270,13 @@ export default function GraphicDesignPage() {
             HERO — full-bleed animated cover with the title + meta overlaid (editorial)
         ══════════════════════════════════════════════════════════════════════ */}
         <section className="relative min-h-[70vh] sm:min-h-[92vh] flex items-end overflow-hidden">
-          {/* ── Cycling image layer (Ken Burns crossfade) ── */}
-          <div className="absolute inset-0">
-            {reduced ? (
-              <Image
-                src={HERO_SRCS[0]}
-                alt="Graphic Design"
-                fill
-                priority
-                quality={88}
-                sizes="100vw"
-                className="object-cover"
-              />
-            ) : (
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={heroIndex}
-                  className="absolute inset-0"
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1.09 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    opacity: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
-                    scale:   { duration: 8,   ease: 'linear' },
-                  }}
-                >
-                  <Image
-                    src={HERO_SRCS[heroIndex]}
-                    alt="Graphic Design"
-                    fill
-                    priority={heroIndex === 0}
-                    quality={88}
-                    sizes="100vw"
-                    className="object-cover"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
+          {/* ── Cycling image layer — WebGL displacement morph (poster <img> fallback) ── */}
+          <ShaderImage
+            srcs={HERO_SRCS}
+            alt="Graphic Design"
+            onIndexChange={setHeroIndex}
+            className="absolute inset-0"
+          />
 
           {/* ── Legibility gradient — top darken (under the header) + strong bottom into the dark gallery ── */}
           <div
@@ -307,7 +297,7 @@ export default function GraphicDesignPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
             >
-              Visual Design · Illustration
+              {c.eyebrow}
             </motion.p>
             <motion.h1
               className="font-extrabold tracking-[-0.04em]"
@@ -316,9 +306,9 @@ export default function GraphicDesignPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
             >
-              Graphic
+              {c.title1}
               <br />
-              Design
+              {c.title2}
             </motion.h1>
             <motion.p
               className="mt-5 text-[14px] leading-relaxed"
@@ -327,9 +317,7 @@ export default function GraphicDesignPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.36 }}
             >
-              A curated archive of illustrations, typographic works, badge designs,
-              and visual experiments — exploring character, composition, and
-              graphic storytelling beyond client work.
+              {c.desc}
             </motion.p>
             <motion.div
               className="flex flex-wrap items-start gap-x-10 gap-y-4 mt-9 pt-7 max-w-3xl"
@@ -339,8 +327,8 @@ export default function GraphicDesignPage() {
               transition={{ duration: 0.75, ease: EASE, delay: 0.46 }}
             >
               {[
-                { label: 'Year',       value: 'Ongoing' },
-                { label: 'Discipline', value: 'Illustration · Typography · Visual Design' },
+                { label: c.yearLabel, value: c.yearValue },
+                { label: c.discLabel, value: c.discValue },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5" style={{ color: 'rgba(236,233,226,0.5)' }}>{label}</p>
@@ -387,13 +375,13 @@ export default function GraphicDesignPage() {
                 className="font-mono text-[11px] tracking-[0.2em] uppercase"
                 style={{ color: 'rgba(242,216,50,0.5)' }}
               >
-                01 — Works
+                {c.worksMarker}
               </span>
               <span
                 className="font-mono text-[10px] tracking-[0.12em]"
                 style={{ color: 'rgba(255,255,255,0.18)' }}
               >
-                {GALLERY.length} pieces
+                {c.pieces(GALLERY.length)}
               </span>
             </motion.div>
 
@@ -424,8 +412,7 @@ export default function GraphicDesignPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              Personal creative explorations. Not affiliated with or endorsed
-              by the original IP owners.
+              {c.disclaimer}
             </motion.p>
 
           </div>

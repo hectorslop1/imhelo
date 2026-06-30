@@ -1,3 +1,7 @@
+export type Lang = 'en' | 'es'
+type L = { en: string; es: string }
+
+// Public shape — string fields (resolved for a language). Consumers stay simple.
 export type Project = {
   id:          string
   title:       string
@@ -10,23 +14,23 @@ export type Project = {
   /**
    * Public path for the project cover image.
    * Used in the homepage hover thumbnail and the /work index row.
-   * To update: change the path; drop the new asset in /public.
-   * Projects without a cover fall back to a refined CSS visual.
    */
   cover?: string
   /** Images that cross-fade like a carousel while the card is hovered. */
   gallery?: string[]
 }
 
+// Bilingual source. `title` + `category` are the fields rendered on the home +
+// /work index, so they carry { en, es }. Resolve with getProjects(lang).
+type ProjectSource = Omit<Project, 'title' | 'category'> & { title: L; category: L }
+
 // ── Project list — ordered by display priority ─────────────────────────────
 // id is the URL slug: /work/${id}
-// To add a project: append here and create src/app/work/${id}/page.tsx
-
-export const projects: Project[] = [
+const data: ProjectSource[] = [
   {
     id:          'gigfast-nascar',
-    title:       'gigFAST NASCAR',
-    category:    'Graphic Design · Branding · Digital Product',
+    title:       { en: 'gigFAST NASCAR', es: 'gigFAST NASCAR' },
+    category:    { en: 'Graphic Design · Branding · Digital Product', es: 'Diseño Gráfico · Branding · Producto Digital' },
     description: 'Visual identity and graphic design work for a NASCAR Craftsman Truck Series sponsorship, applied across the #38 Ford F-150 truck, driver suit, event tent, team hauler, and the Gigometer digital experience.',
     role:        'Visual Design · Logo Application · Brand Graphics · Digital Product Design',
     year:        '2023',
@@ -42,8 +46,8 @@ export const projects: Project[] = [
   },
   {
     id:          'graphic-design',
-    title:       'Graphic Design',
-    category:    'Visual Design · Illustration',
+    title:       { en: 'Graphic Design', es: 'Diseño Gráfico' },
+    category:    { en: 'Visual Design · Illustration', es: 'Diseño Visual · Ilustración' },
     description: 'A curated archive of illustrations, typographic works, badge designs, and visual experiments.',
     role:        'Illustration, Typography, Art Direction',
     year:        'Ongoing',
@@ -51,33 +55,33 @@ export const projects: Project[] = [
     tags:        ['illustration', 'typography', 'visual design'],
     cover:       '/assetshelo/GraphicDesign/Gba26qPbwAAEM7t.jpeg',
     gallery: [
-      '/assetshelo/GraphicDesign/Gba26qPbwAAEM7t.jpeg',
-      '/assetshelo/GraphicDesign/F2phz5FaUAAH4fv.jpeg',
-      '/assetshelo/GraphicDesign/GMXy_CvaMAA8j3A.png',
-      '/assetshelo/GraphicDesign/GUpyHAeboAALOvW.jpeg',
+      '/assetshelo/GraphicDesign/Gba26qPbwAAEM7t.jpeg',  // Coco-style marigold-bridge illustration — painterly, narrative
+      '/assetshelo/GraphicDesign/GXiuqEoaIAA96EQ.jpeg',  // LA LUCHA! lucha-libre poster — bold pink/green, papel picado
+      '/assetshelo/GraphicDesign/GWvPwwdacAAElRs.jpeg',  // Beetlejuice "Say My Name!" — cinematic green/purple
+      '/assetshelo/GraphicDesign/GRMHLmrbQAAVK9x.jpeg',  // "Friday" retro gradient typography
     ],
   },
   {
     id:          'apparel-graphics',
-    title:       'Apparel Graphics',
-    category:    'Graphic Design · Print',
+    title:       { en: 'Apparel Graphics', es: 'Gráficos para Ropa' },
+    category:    { en: 'Graphic Design · Print', es: 'Diseño Gráfico · Impresión' },
     description: 'Personal apparel graphic concepts for hoodies and t-shirts, exploring how visual identity can live beyond screens.',
     role:        'Graphic Design, Art Direction',
     year:        'Ongoing',
     featured:    true,
     tags:        ['graphic design', 'print', 'apparel'],
-    cover:       '/assetshelo/ApparelDesign/MarioTshirt.png',
+    cover:       '/assetshelo/ApparelDesign/CharizardHoodie.jpeg',
     gallery: [
-      '/assetshelo/ApparelDesign/MarioTshirt.png',
-      '/assetshelo/ApparelDesign/AcuraTshirt.png',
-      '/assetshelo/ApparelDesign/PeachTshirt.png',
-      '/assetshelo/ApparelDesign/CharizardHoodie.jpeg',
+      '/assetshelo/ApparelDesign/CharizardHoodie.jpeg',  // bold yellow flat-lay + big CHARIZARD type + HELO mark
+      '/assetshelo/ApparelDesign/EclipseTshirt.jpg',     // Fast & Furious green, blueprint back — art-directed
+      '/assetshelo/ApparelDesign/MetalGearTshirt.jpg',   // moody concrete, Snake artwork, branded
+      '/assetshelo/ApparelDesign/MarioTshirt.png',       // red neon worn tee — color + presentation variety
     ],
   },
   {
     id:          'mobile-app-showcase',
-    title:       'Mobile App Showcase',
-    category:    'Development · UI',
+    title:       { en: 'Mobile App Showcase', es: 'Apps Móviles' },
+    category:    { en: 'Development · UI', es: 'Desarrollo · UI' },
     description: 'App interface design and implementation presented through interactive device frames.',
     role:        'Frontend Development, UI Implementation, Motion',
     year:        '2025',
@@ -87,8 +91,8 @@ export const projects: Project[] = [
   },
   {
     id:          'interactive-elements',
-    title:       'Interactive Elements',
-    category:    'Frontend · Creative Coding',
+    title:       { en: 'Interactive Elements', es: 'Elementos Interactivos' },
+    category:    { en: 'Frontend · Creative Coding', es: 'Frontend · Código Creativo' },
     description: 'Interactive UI experiments built with motion, frontend tools, and polished microinteractions.',
     role:        'Frontend Development, Interaction Design',
     year:        '2025',
@@ -97,3 +101,16 @@ export const projects: Project[] = [
     // No cover yet — CSS visual fallback used
   },
 ]
+
+// Resolve the bilingual fields for a language. Components call this (with the
+// active lang from useI18n) instead of importing the raw array.
+export function getProjects(lang: Lang): Project[] {
+  return data.map(({ title, category, ...rest }) => ({
+    ...rest,
+    title: title[lang],
+    category: category[lang],
+  }))
+}
+
+// Backwards-compatible English export for any non-localized consumer.
+export const projects: Project[] = getProjects('en')

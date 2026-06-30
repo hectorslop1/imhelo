@@ -107,6 +107,16 @@ const DICT: Record<string, Entry> = {
   'contact.replyValue':   { en: 'Usually within 48h', es: 'Normalmente en 48h' },
   'contact.connect':      { en: 'Connect', es: 'Sígueme' },
 
+  // ── About page ──
+  'about.role': { en: 'Designer & Developer · San Diego, CA', es: 'Diseñador & Desarrollador · San Diego, CA' },
+  'about.bio': {
+    en: "I'm Hector Lopez, a designer and developer creating visual systems, interfaces, and digital experiences with a focus on clarity, motion, and craft.",
+    es: 'Soy Hector Lopez, diseñador y desarrollador. Creo sistemas visuales, interfaces y experiencias digitales con foco en la claridad, el movimiento y el oficio.',
+  },
+  'about.focus':      { en: 'Focus', es: 'Enfoque' },
+  'about.focusValue': { en: 'Development\nGraphic Design', es: 'Desarrollo\nDiseño Gráfico' },
+  'about.since':      { en: 'Since', es: 'Desde' },
+
   // ── 404 ──
   '404.label':   { en: 'Error 404', es: 'Error 404' },
   '404.title':   { en: 'This page took a wrong turn.', es: 'Esta página se perdió en el camino.' },

@@ -61,7 +61,7 @@ function Underline() {
 export default function ContactFooter() {
   const { t } = useI18n()
   return (
-    <footer className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: '#1a1815' }}>
+    <footer data-section-theme="dark" className="relative overflow-hidden border-t border-white/[0.06]" style={{ background: '#1a1815' }}>
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28">
 
         {/* Top: columns + contact pills */}
@@ -119,17 +119,19 @@ export default function ContactFooter() {
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
             <a
               href="mailto:hello@imhelo.com"
-              className="group inline-flex items-center justify-between gap-4 rounded-full border border-white/25 bg-[#1a1815] pl-6 pr-5 py-3 text-[14px] text-[var(--on-dark)] hover:border-[#f2d832] hover:text-[#f2d832] transition-colors duration-300"
+              className="group relative overflow-hidden inline-flex items-center justify-between gap-4 rounded-full border border-white/25 pl-6 pr-5 py-3 text-[14px] text-[var(--on-dark)] transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-[#f2d832]"
             >
-              hello@imhelo.com
-              <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-[#16150f]">hello@imhelo.com</span>
+              <ArrowUpRight size={16} className="relative z-10 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#16150f]" />
+              <span aria-hidden className="absolute inset-0 rounded-full bg-[#f2d832] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[450ms] ease-[cubic-bezier(0.4,0,0.2,1)]" />
             </a>
             <Link
               href="/contact"
-              className="group inline-flex items-center justify-between gap-4 rounded-full border border-white/25 bg-[#1a1815] pl-6 pr-5 py-3 text-[14px] text-[var(--on-dark)] hover:border-[#f2d832] hover:text-[#f2d832] transition-colors duration-300"
+              className="group relative overflow-hidden inline-flex items-center justify-between gap-4 rounded-full border border-white/25 pl-6 pr-5 py-3 text-[14px] text-[var(--on-dark)] transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-[#f2d832]"
             >
-              {t('footer.startProject')}
-              <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-[#16150f]">{t('footer.startProject')}</span>
+              <ArrowUpRight size={16} className="relative z-10 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#16150f]" />
+              <span aria-hidden className="absolute inset-0 rounded-full bg-[#f2d832] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[450ms] ease-[cubic-bezier(0.4,0,0.2,1)]" />
             </Link>
           </div>
         </div>
